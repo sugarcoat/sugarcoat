@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <!-- <title>{{title}}</title> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../src/main.css" type="text/css">
+  
+</head>
+<body>
+  <nav>
+    <img src="../src/logo-sapient.jpg"/>
+    <!-- <h1>Sapient + Company</h1> -->
+    <h2>A Styleguide</h2>
+    <ul class="sg-nav-category">
+    {{#each categories}}
+      <li><a href="#{{category}}">{{titleize category}}</a>
+        <ul class="sg-nav-subcategory">
+          {{#each pages}}
+            <li><a href="#{{basename}}">{{data.title}}</a></li>
+          {{/each}}
+        </ul>
+      </li>
+    {{/each}}
+    </ul>
+  </nav>
+  <div class="sg-content">
+    {{#each categories}}
+    <div class="sg-category" id="{{category}}">
+      <h1>{{titleize category}}</h1>
+      {{#each pages}}
+        <!--#include virtual="components/{{basename}}.html" -->
+      {{/each}}
+    </div>
+    {{/each}}
+      
+  </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "assemble-helper-component",
+  "version": "0.1.0",
+  "description": "Import components",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(none)"
+  },
+  "keywords": [
+    "assemble helpers"
+  ],
+  "author": "Ryan Fitzer",
+  "license": "MIT",
+  "dependencies": {
+    "js-beautify": "^1.5.5",
+    "ssi": "^0.1.5"
+  }
+}
