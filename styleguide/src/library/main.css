@@ -28,6 +28,12 @@ nav a {
     text-transform:uppercase;
     font-size:14px;
 }
+nav img {
+	width:100%;
+}
+nav h2 {
+	margin:10px;
+}
 .sg-nav-category a {
     display:block;
     width:100%;
