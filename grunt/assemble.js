@@ -17,7 +17,7 @@ module.exports = function ( grunt ) {
         
         docs: {
             files: {
-                'styleguide/build/index.html': ['styleguide/src/components/*.md']
+                'styleguide/build/index.html': ['styleguide/src/topics/**/*.md']
             }
         },
     });
