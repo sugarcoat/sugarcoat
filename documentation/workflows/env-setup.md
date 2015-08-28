@@ -1,4 +1,4 @@
-## Installation Dependencies ##
+## Environment Setup ##
 
 ### 1. Node.js ###
 

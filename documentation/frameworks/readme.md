@@ -30,7 +30,10 @@ This Preprocessor was chosen because
 
 ## Dependency Management: RequireJS ##
 
-[Documentation]()
+
+Our JS architecture is based on the Asynchronous Module Definition (https://github.com/amdjs/amdjs-api/wiki/AMD). RequireJS implements the AMD and provides for a robust loader and build tool. You won't necessarily be working within the js at this point, but it would be good to understand how we're wiring things up since html is being manipulated via js.
+
+[Documentation](http://requirejs.org/)
 
 ---
 
