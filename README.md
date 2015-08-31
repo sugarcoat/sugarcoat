@@ -195,5 +195,5 @@ Include a `research.md` file in the appropriate folder.
 
 **Compiler expectation**
 
-Add link to master documentation if the `reasearch.md` file is the only file inside its respective folder. Otherwise, ignore. 
+Add link to master documentation if the `reasearch.md` file is the only file inside its respective folder. Otherwise, ignore.
 
