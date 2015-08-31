@@ -23,11 +23,11 @@ The user expects to find any visual style represented in code (HTML/CSS/JS)
 
 **Developer expectation**
 
-Create documentation within the front-matter of an html component or css configuration source
+Create documentation at the top of a html component or css configuration source
 
 **Compiler expectation**
 
-Parses each html or css front-matter throughout the project into a template. (...)
+Parses each html or css documentation throughout the project into a template. (...)
 
 ### > Frameworks ###
 
@@ -71,7 +71,7 @@ Where the developer can find an overview of the semantic grid system being used 
 
 **Developer expectation**
 
-Configure the compiler to locate the viewport variables from its css file. Add front-matter to the file that contains viewport variables. (To be decided: How the developer is expected to document a home-grown grid framework)
+Configure the compiler to locate the viewport variables from its css file. Add documentation to the top of the file that contains viewport variables. (To be decided: How the developer is expected to document a home-grown grid framework)
 
 **Compiler expectation** 
 
@@ -173,11 +173,11 @@ The developer should be able to create a boilerplate for any given module. This 
 
 **Developer expectation**
 
-Create a boilerplate with front-matter documenting the proper usage of the module.
+Create a boilerplate with documentation at the top of its file, explaining the proper usage of the module.
 
 **Compiler expectation**
 
-Grabs boilerplate front-matter from throughout the project and generates a list of each boilerplate with their appropriate documentation, and locations. (Future feature: compiling the html and required css/js into example pages like in the pattern library)
+Grabs boilerplate the topmost documentation block from throughout the project and generates a list of each boilerplate with their appropriate documentation, and locations. (Future feature: compiling the html and required css/js into example pages like in the pattern library)
 
 ### + Research (optional) ###
 
