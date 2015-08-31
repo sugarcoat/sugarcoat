@@ -4,10 +4,10 @@ Just an in-progress, non-functioning assemble task to automate documentation cre
 
 ## Guidelines ##
 
-- **Frictionless**: A developer should find writing documentation to be as seamless and straight-forward as possible.
-- **No Duplication**: A developer should not have to repeat themselves.
-- **Always Useful**: A developer should not have to take extra steps to update their documentation.
-- **Evergreen**: A user should always find the documentation to be useful and readable from the start.
+- **Frictionless**: Is this the easiest way to document the feature/module/workflow/etc.? 
+- **DRY**: Does the approach cause a duplication of effort?
+- **Useful**: Is the information meant to be useful to the developer or the tool?
+- **Evergreen**: Does the approach require unrelated effort to just to stay up to date?
 
 ## Structure ##
 
