@@ -56,6 +56,7 @@ Where a developer can go to find all credential configurations.
 - Server information
 - Font foundry username/password
 - Third party vendor credentials
+- [Example readme](demo/documentation/account-info/readme.md)
 
 **Developer expectation**
 
@@ -83,7 +84,7 @@ Where the developer can find guidelines for syntax and coding conventions specif
 
 **Developer expectation**
 
-Create separate files (i.e. `html.md`, `js.md`) that depict the expected style to follow for that specific language.
+Create separate files (i.e. `html.md`, `js.md`) that depict the expected style to follow for that specific language. [Example Codestyle](demo/documentation/codestyle/css.md)
 
 **Compiler expectation**
 
@@ -95,8 +96,8 @@ Where the developer can find the agreed-apon approach to various topics.
 
 **Examples**
 
-- Project folder architecture
-- Framework-specific architecture (i.e. AngularJS approach)
+- Project folder architecture. [Example structure](demo/documentation/architecture/directory-structure.md)
+- Framework-specific architecture (i.e. AngularJS approach). [Example dependency architecture](demo/documentation/architecture/directory-structure.md)
 - Naming conventions (i.e. BEM-style)
 
 **Developer expectation**
@@ -113,7 +114,7 @@ Where the developer can find the expectations and requirements for a project.
 
 **Examples**
 
-- Browser Requirements
+- Browser Requirements. [Example requirements](demo/documentation/requirements/readme.md)
 - Accessibility level
 
 **Developer expectation**
@@ -130,10 +131,10 @@ Where the developer can see how specific tasks should be done. This includes fi
 
 **Examples**
 
-- Environment Setup
+- Environment Setup. [Example Environmental Setup](demo/documentation/workflows/env-setup.md)
 - JIRA workflow
 - Versioning process
-- Release process
+- Release process. [Example Release Process](demo/documentation/workflows/release-process.md)
 
 **Developer expectation**
 
@@ -154,11 +155,11 @@ The developer should be able to use these tools to test their environment.
 
 **Developer expectation**
 
-Each folder within will have its own enviornmental test with a `readme.md` as test-specific documentation
+Configure the compiler with breakpoints for the project.
 
 **Compiler expectation**
 
-Adds links to master documentation
+Generates a breakpoint test file based on the configured breakpoints.
 
 ## Extra Compiler Behaviors ##
 
