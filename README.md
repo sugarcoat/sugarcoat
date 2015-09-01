@@ -92,7 +92,7 @@ Adds links to master documentation
 
 ### > Architecture ###
 
-Where the developer can find the agreed-apon approach to various topics.
+Where the developer can find the agreed-apon approach to various topics.
 
 **Examples**
 

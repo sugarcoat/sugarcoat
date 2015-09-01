@@ -1,10 +1,9 @@
-/*
-
-Title: Module Boilerplate
-Description: Use this to define your module and its dependencies.
-
-*/
-
+/**
+ * 
+ * @module Module Boilerplate
+ * @desc Use this to define your module and its dependencies.
+ * 
+ */
 define(
 
     // Declare any dependencies

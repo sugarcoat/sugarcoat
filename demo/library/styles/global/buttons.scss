@@ -1,0 +1,31 @@
+/**
+ * 
+ * title: Primary CTA
+ * modifiers:
+    :hover: Hover state
+    :focus: Focus state
+ * tags:
+    - buttons
+ * html:
+    <div class="btn">.btn</div>
+    <div class="btn cta">.btn .cta</div>
+    <div clsas="btn-set">
+      <div class="btn cta">Hello World</div>
+      <div class="btn">Hello World</div>
+    </div>
+ *
+ */
+.btn {
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.cta {
+    border-color: green;
+}
+.btn-set {
+    overflow:hidden;
+}
+.btn-set .btn {
+    width:50%;
+    float:left;
+}

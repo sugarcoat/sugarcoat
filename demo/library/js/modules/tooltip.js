@@ -3,7 +3,7 @@
  * @module tooltip
  * @namespace .tooltip
  * @desc This module adds the '.active' class to a tooltip to open it, and listens for an outside click to close it. 
- * @example
+ * @example $('.tooltip').tooltip();
  * 
  */
 
