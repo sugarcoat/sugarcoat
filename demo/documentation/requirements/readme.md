@@ -2,22 +2,24 @@
 
 ### Windows 7 ###
 
-  - IE 9
-  - IE 10
-  - IE 11
+- IE 9
+- IE 10
+- IE 11
 
 ### OSX ###
 
-Firefox
+- Firefox 31
+- Firefox 32
+- Chrome 37
 
-  - 31
-  - 32
 
-Chrome
+### IOS ###
 
-  - 37
-
+- Safari
+- Chrome
 
 ## Accessibility ##
 
-Level AA. [Documentation](http://www.w3.org/TR/WCAG20/)
+Level: AA
+
+Documentation: <http://www.w3.org/TR/WCAG20/>

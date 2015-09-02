@@ -15,7 +15,7 @@ Takes front matter of css/html/js modules/components and outputs them in a reada
 - where to build library
 - where are breakpoints
 
-****
+***
 
 **Options**
 
@@ -57,7 +57,7 @@ Generates breakpoint test file with specific breakpoints
 Output readmes
 ---
 
-**Folders**
+**Topics**
 
 - frameworks
 - account info
