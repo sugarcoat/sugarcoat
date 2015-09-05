@@ -1,9 +1,18 @@
 {
-  "name": "Styleguide",
+  "name": "Documentation",
   "version": "0.1.0",
   "author": "Valerie Balcom",
   "dependencies": {
     "assemble": "^0.4.42",
     "grunt": "^0.4.5"
-  }
+  },
+  "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SapientNitroLA/assemble-documentation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SapientNitroLA/assemble-documentation/issues"
+  },
+  "homepage": "https://github.com/SapientNitroLA/assemble-documentation"
 }
