@@ -3,7 +3,9 @@ Feature List
 
 ### Configuration Structure: done
 
-Set up a structure that the developer needs to follow when setting up the project
+Set up a structure that the developer needs to follow when setting up the project.
+
+Please refer to the 'compiler-design.md' file, which is located in the 'notes' folder in the root of the project. 
 
 ### Parse Input
 
