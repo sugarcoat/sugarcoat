@@ -1,31 +1,37 @@
 Feature List
 ---
 
-1. Configuration Structure: done
-	- Set up a structure that the developer needs to follow when setting up the project
+### Configuration Structure: done
 
-2. Parse Input
-	- Find means to parse the data from our CSS, JS and HTML files
-	- Implement these parsers to get the data (ex. pull in comments from JS files)
+Set up a structure that the developer needs to follow when setting up the project
 
-3. Structure Data
-	- Gather all of our input data into one place so that it can easily be digested by the tool. This would include not only the parsed input, but also extraneous info from various readme files the developer created.
+### Parse Input
 
-4. Output Data
-	- Use Assemble to digest the data for final, readable outputs which we would then use to create: 
-		1. Pattern Library
-			- This would be broken down into: 
-				- UI Kit
-				- Typography
-				- Modules
-		2. Grid System*
-		3. Environment Information*
-		4. Requirements*
-		5. Frameworks*
-		6. Account Information*
-		7. Architecture*
-		8. Codestyle*
-		9. Workflows*
-		10. Research*
+Find means to parse the data from our CSS, JS and HTML files
 
-_BLERG_
+Implement these parsers to get the data (ex. pull in comments from JS files) and output them to JSON
+
+### Structure Data
+
+Gather all of our input data into one place so that it can easily be digested by the tool. This would include not only the parsed input, but also extraneous info from various readme files the developer created.
+
+### Output Data
+
+Configure tool to accomplish the following tasks:
+
+- Output readmes
+  - Grab markdown files and convert them to html
+- Environment Information
+  - Take the breakpoints from the options config to generate a breakpoint test page
+- Pattern Library
+  - Design a template for the pattern library
+  - Take HTML comments from components and parse them with 
+  - Take CSS comments from UI elements and parse them with
+  - Take JS comments from modules and parse them with comment-parse
+  - Compile all comments into template
+- Research
+  - Parse documentation for `research.md` files and output them as html if there are no other `.md` files in the folder.
+- Pattern Library Extras
+  - Create special template for typography css
+  - Create special template for colors swatches css
+- Grid System (tentative)
