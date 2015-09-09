@@ -11,6 +11,337 @@
   <nav>
     <img src="../../../library/images/logo-sapient.jpg"/>
     <h2>A Styleguide</h2>
+      <pre><code class="json">
+{}
+</code></pre>
+      <pre><code class="json">
+{
+  "_plugins": [
+    "node_modules/assemble/lib/plugins/*.js"
+  ],
+  "absolute": "demo/documentation/account-info/readme.html",
+  "assets": "../../../library",
+  "basename": "readme",
+  "categories": [],
+  "data": true,
+  "dirname": "demo/documentation/account-info",
+  "engine": "handlebars",
+  "ext": ".html",
+  "extname": ".html",
+  "filename": "readme.html",
+  "flatten": true,
+  "helpers": [
+    "grunt/assemble/helpers/assemble-helper-component/helper-component.js"
+  ],
+  "knownHelpers": {
+    "helperMissing": true,
+    "blockHelperMissing": true,
+    "each": true,
+    "if": true,
+    "unless": true,
+    "with": true,
+    "log": true
+  },
+  "layoutdir": "demo/documentation/pattern-library/sources/templates",
+  "layoutext": "",
+  "myData": "something",
+  "originalAssets": "library",
+  "originalLayout": "home.hbs",
+  "page": {
+    "_page": "all",
+    "dirname": "demo/documentation/account-info",
+    "filename": "readme.html",
+    "pageName": "readme.html",
+    "pagename": "readme.html",
+    "basename": "readme",
+    "src": "demo/documentation/account-info/readme.md",
+    "dest": "demo/documentation/account-info/readme.html",
+    "assets": "../../../library",
+    "ext": ".html",
+    "extname": ".html",
+    "page": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\n  <!-- <title>{{title}}</title> -->\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n  <link rel=\"stylesheet\" href=\"../src/library/main.css\" type=\"text/css\">\n  \n</head>\n<body>\n  <nav>\n    <img src=\"{{assets}}/images/logo-sapient.jpg\"/>\n    <h2>A Styleguide</h2>\n      {{inspect readme}}\n      {{inspect this}}\n    {{#each pages}}\n      \n      {{inspect this}}\n    \n      <!-- {{#each this}}\n        {{@key}} : {{this}}\n      {{/each}} -->\n    \n    {{/each }}\n    <ul class=\"sg-nav-category\">\n    {{#each categories}}\n      <li><a href=\"#{{category}}\">{{titleize category}}</a>\n        <ul class=\"sg-nav-subcategory\">\n          {{#each pages}}\n            <li><a href=\"#{{basename}}\">{{data.title}}</a></li>\n          {{/each}}\n        </ul>\n      </li>\n    {{/each}}\n    </ul>\n  </nav>\n  <div class=\"sg-content\">\n    {{#each categories}}\n    <div class=\"sg-category\" id=\"{{category}}\">\n      <h1>{{titleize category}}</h1>\n      {{#each pages}}\n        <!--#include virtual=\"components/{{basename}}.html\" -->\n      {{/each}}\n    </div>\n    {{/each}}\n      \n  </div>\n</body>\n</html>",
+    "data": {},
+    "filePair": {
+      "src": [
+        "demo/documentation/account-info/readme.md"
+      ],
+      "dest": "demo/documentation/account-info/",
+      "orig": {
+        "src": [
+          "demo/documentation/account-info/*.md"
+        ],
+        "dest": "demo/documentation/account-info/"
+      }
+    },
+    "index": 0,
+    "number": 1,
+    "first": true,
+    "middle": false,
+    "last": true
+  },
+  "pageName": "readme.html",
+  "pagename": "readme.html",
+  "pages": [
+    {
+      "_page": "all",
+      "dirname": "demo/documentation/account-info",
+      "filename": "readme.html",
+      "pageName": "readme.html",
+      "pagename": "readme.html",
+      "basename": "readme",
+      "src": "demo/documentation/account-info/readme.md",
+      "dest": "demo/documentation/account-info/readme.html",
+      "assets": "../../../library",
+      "ext": ".html",
+      "extname": ".html",
+      "page": "## Server ##\n\n  - <http://sapientla.public.sapient.com>\n  - Username: sapientla\n  - Password: happybaby\n\nSFTP Settings:\n\n  - Server: public.sapient.com\n  - Username:\n  - Password:\n  - Remote Path:\n  - Root URL:\n\n---\n\n## Fonts.com ##\n\n  - <http://www.fonts.com>\n  - Username:\n  - Password:\n\nCurrent Fonts:\n\n  - Calibre Pretty 42 Regular\n  - Calibre Ugly 45 Condensed",
+      "data": {},
+      "filePair": {
+        "src": [
+          "demo/documentation/account-info/readme.md"
+        ],
+        "dest": "demo/documentation/account-info/",
+        "orig": {
+          "src": [
+            "demo/documentation/account-info/*.md"
+          ],
+          "dest": "demo/documentation/account-info/"
+        }
+      },
+      "index": 0,
+      "number": 1,
+      "first": true,
+      "middle": false,
+      "last": true,
+      "isCurrentPage": true,
+      "relativeLink": "readme.html"
+    }
+  ],
+  "pagination": {
+    "prev": {
+      "_page": "all",
+      "dirname": "demo/documentation/account-info",
+      "filename": "readme.html",
+      "pageName": "readme.html",
+      "pagename": "readme.html",
+      "basename": "readme",
+      "src": "demo/documentation/account-info/readme.md",
+      "dest": "demo/documentation/account-info/readme.html",
+      "assets": "../../../library",
+      "ext": ".html",
+      "extname": ".html",
+      "page": "## Server ##\n\n  - <http://sapientla.public.sapient.com>\n  - Username: sapientla\n  - Password: happybaby\n\nSFTP Settings:\n\n  - Server: public.sapient.com\n  - Username:\n  - Password:\n  - Remote Path:\n  - Root URL:\n\n---\n\n## Fonts.com ##\n\n  - <http://www.fonts.com>\n  - Username:\n  - Password:\n\nCurrent Fonts:\n\n  - Calibre Pretty 42 Regular\n  - Calibre Ugly 45 Condensed",
+      "data": {},
+      "filePair": {
+        "src": [
+          "demo/documentation/account-info/readme.md"
+        ],
+        "dest": "demo/documentation/account-info/",
+        "orig": {
+          "src": [
+            "demo/documentation/account-info/*.md"
+          ],
+          "dest": "demo/documentation/account-info/"
+        }
+      },
+      "index": 0,
+      "number": 1,
+      "first": true,
+      "middle": false,
+      "last": true,
+      "isCurrentPage": true,
+      "relativeLink": "readme.html"
+    },
+    "next": {
+      "_page": "all",
+      "dirname": "demo/documentation/account-info",
+      "filename": "readme.html",
+      "pageName": "readme.html",
+      "pagename": "readme.html",
+      "basename": "readme",
+      "src": "demo/documentation/account-info/readme.md",
+      "dest": "demo/documentation/account-info/readme.html",
+      "assets": "../../../library",
+      "ext": ".html",
+      "extname": ".html",
+      "page": "## Server ##\n\n  - <http://sapientla.public.sapient.com>\n  - Username: sapientla\n  - Password: happybaby\n\nSFTP Settings:\n\n  - Server: public.sapient.com\n  - Username:\n  - Password:\n  - Remote Path:\n  - Root URL:\n\n---\n\n## Fonts.com ##\n\n  - <http://www.fonts.com>\n  - Username:\n  - Password:\n\nCurrent Fonts:\n\n  - Calibre Pretty 42 Regular\n  - Calibre Ugly 45 Condensed",
+      "data": {},
+      "filePair": {
+        "src": [
+          "demo/documentation/account-info/readme.md"
+        ],
+        "dest": "demo/documentation/account-info/",
+        "orig": {
+          "src": [
+            "demo/documentation/account-info/*.md"
+          ],
+          "dest": "demo/documentation/account-info/"
+        }
+      },
+      "index": 0,
+      "number": 1,
+      "first": true,
+      "middle": false,
+      "last": true,
+      "isCurrentPage": true,
+      "relativeLink": "readme.html"
+    },
+    "index": {
+      "_page": "all",
+      "dirname": "demo/documentation/account-info",
+      "filename": "readme.html",
+      "pageName": "readme.html",
+      "pagename": "readme.html",
+      "basename": "readme",
+      "src": "demo/documentation/account-info/readme.md",
+      "dest": "demo/documentation/account-info/readme.html",
+      "assets": "../../../library",
+      "ext": ".html",
+      "extname": ".html",
+      "page": "## Server ##\n\n  - <http://sapientla.public.sapient.com>\n  - Username: sapientla\n  - Password: happybaby\n\nSFTP Settings:\n\n  - Server: public.sapient.com\n  - Username:\n  - Password:\n  - Remote Path:\n  - Root URL:\n\n---\n\n## Fonts.com ##\n\n  - <http://www.fonts.com>\n  - Username:\n  - Password:\n\nCurrent Fonts:\n\n  - Calibre Pretty 42 Regular\n  - Calibre Ugly 45 Condensed",
+      "data": {},
+      "filePair": {
+        "src": [
+          "demo/documentation/account-info/readme.md"
+        ],
+        "dest": "demo/documentation/account-info/",
+        "orig": {
+          "src": [
+            "demo/documentation/account-info/*.md"
+          ],
+          "dest": "demo/documentation/account-info/"
+        }
+      },
+      "index": 0,
+      "number": 1,
+      "first": true,
+      "middle": false,
+      "last": true,
+      "isCurrentPage": true,
+      "relativeLink": "readme.html"
+    },
+    "number": 1,
+    "currentPage": 1,
+    "totalPages": 1
+  },
+  "partials": [],
+  "plugins": [
+    null,
+    null,
+    null
+  ],
+  "tags": []
+}
+</code></pre>
+    
+      
+      <pre><code class="json">
+{
+  "_page": "all",
+  "assets": "../../../library",
+  "basename": "readme",
+  "data": {},
+  "dest": "demo/documentation/account-info/readme.html",
+  "dirname": "demo/documentation/account-info",
+  "ext": ".html",
+  "extname": ".html",
+  "filePair": {
+    "src": [
+      "demo/documentation/account-info/readme.md"
+    ],
+    "dest": "demo/documentation/account-info/",
+    "orig": {
+      "src": [
+        "demo/documentation/account-info/*.md"
+      ],
+      "dest": "demo/documentation/account-info/"
+    }
+  },
+  "filename": "readme.html",
+  "first": true,
+  "index": 0,
+  "isCurrentPage": true,
+  "last": true,
+  "middle": false,
+  "number": 1,
+  "page": "## Server ##\n\n  - <http://sapientla.public.sapient.com>\n  - Username: sapientla\n  - Password: happybaby\n\nSFTP Settings:\n\n  - Server: public.sapient.com\n  - Username:\n  - Password:\n  - Remote Path:\n  - Root URL:\n\n---\n\n## Fonts.com ##\n\n  - <http://www.fonts.com>\n  - Username:\n  - Password:\n\nCurrent Fonts:\n\n  - Calibre Pretty 42 Regular\n  - Calibre Ugly 45 Condensed",
+  "pageName": "readme.html",
+  "pagename": "readme.html",
+  "relativeLink": "readme.html",
+  "src": "demo/documentation/account-info/readme.md"
+}
+</code></pre>
+    
+      <!-- 
+        _page : all
+      
+        dirname : demo/documentation/account-info
+      
+        filename : readme.html
+      
+        pageName : readme.html
+      
+        pagename : readme.html
+      
+        basename : readme
+      
+        src : demo/documentation/account-info/readme.md
+      
+        dest : demo/documentation/account-info/readme.html
+      
+        assets : ../../../library
+      
+        ext : .html
+      
+        extname : .html
+      
+        page : ## Server ##
+
+  - &lt;http://sapientla.public.sapient.com&gt;
+  - Username: sapientla
+  - Password: happybaby
+
+SFTP Settings:
+
+  - Server: public.sapient.com
+  - Username:
+  - Password:
+  - Remote Path:
+  - Root URL:
+
+---
+
+## Fonts.com ##
+
+  - &lt;http://www.fonts.com&gt;
+  - Username:
+  - Password:
+
+Current Fonts:
+
+  - Calibre Pretty 42 Regular
+  - Calibre Ugly 45 Condensed
+      
+        data : [object Object]
+      
+        filePair : [object Object]
+      
+        index : 0
+      
+        number : 1
+      
+        first : true
+      
+        middle : 
+      
+        last : true
+      
+        isCurrentPage : true
+      
+        relativeLink : readme.html
+       -->
+    
+    
     <ul class="sg-nav-category">
     
     </ul>

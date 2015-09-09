@@ -1,7 +1,7 @@
 JS Comment Parsers
 ---
 
-1. comment-parser
+1. **comment-parser**
 	- NPM module
 	- only supports /** */ comments
 	- single or multi line commments supported
@@ -11,7 +11,8 @@ JS Comment Parsers
 	- only supports /** */ comments
 	- single or multi line comments supported
 	- comes with a means of displaying the comments
-	- seems like it only generates a website rather than a JSON file
+  - option to output source into templates
+  - option to output source into JSON via Haruki:<https://github.com/jsdoc3/jsdoc/tree/master/templates/haruki>
 
 3. YUI Doc
 	- bundled with a theme to show comments on a webpage

@@ -8,6 +8,7 @@ module.exports = function ( grunt ) {
         options: {
             flatten: true,
             assets: 'library',
+            // data: 'demo/documentation/account-info/readme.json',
             layoutdir: 'demo/documentation/pattern-library/sources/templates',
             layout: 'home.hbs',
             helpers: [
@@ -15,6 +16,9 @@ module.exports = function ( grunt ) {
             ]
         },
         accountInfo: {
+            options: {
+                myData: 'something'
+            },
             files: {
                 'demo/documentation/account-info/': ['demo/documentation/account-info/*.md']
             }

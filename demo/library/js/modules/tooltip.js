@@ -22,6 +22,7 @@ define(
         // Add methods to constructor's prototype
         Tooltip.prototype = {
             
+            /** init function */
             init: function() {
                 
                 // jQuery DOMContentReady

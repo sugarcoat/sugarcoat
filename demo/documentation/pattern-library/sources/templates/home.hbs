@@ -11,6 +11,12 @@
   <nav>
     <img src="{{assets}}/images/logo-sapient.jpg"/>
     <h2>A Styleguide</h2>
+
+    {{#each pages}}
+      
+      {{inspect this}}
+    
+    {{/each }}
     <ul class="sg-nav-category">
     {{#each categories}}
       <li><a href="#{{category}}">{{titleize category}}</a>
