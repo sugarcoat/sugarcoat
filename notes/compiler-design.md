@@ -1,7 +1,41 @@
-Features
+Options
 ---
 
-- Compiles 
+    {	
+      patternLibrary: {
+    		breakpoint: 'demo/library/styles/global/breakpoints.scss'
+    		srcCSS: 'demo/library/styles/*.scss',
+    		colors: 'demo/library/styles/global/colors.scss',
+    		dest: 'demo/documentation/pattern-library'
+    		preprocessor: 'scss', // 'less'
+    		srcTemplates: 'demo/documentation/pattern-library/sources/templates'
+    		// what if its compiled?
+    		typography: 'demo/library/styles/global/typography.scss'
+    	}
+      
+    	envInfo: {
+    		breakpoints: 'demo/library/styles/global/breakpoints.scss'
+    		// if there is no breakpoint file, will accept an array
+    		breakpoints: [ '0', '435', '640', '1024', '1153' ]
+    	}
+      
+      readmes: {
+        // adds research readmes if they're the only document available within a folder
+      	research: true,
+        
+        // for one particular document
+      	frameworks: {
+      		dest: 'demo/documentation/build/frameworks',
+      		src: 'demo/documentation/frameworks/readme.md',
+      	}
+	
+      	// for multiple documents in a folder
+      	codestyle: {
+      		dest: 'demo/documentation/build/codestyle',
+      		src: 'demo/documentation/codestyle/*.md'
+      	}
+      }
+    }
 
 Pattern Library
 ---
@@ -35,7 +69,6 @@ Takes front matter of css/html/js modules/components and outputs them in a reada
 		preprocessor: 'scss', // 'less'
 		srcTemplates: 'demo/documentation/pattern-library/sources/templates'
 		// what if its compiled?
-		style: 'demo/documentation/pattern-library/sources/library/main.css',
 		typography: 'demo/library/styles/global/typography.scss'
 	}
 
@@ -95,15 +128,18 @@ Output readmes
 **Options**
 	
 	// for single document in folder
-	frameworks: {
-		dest: 'demo/documentation/frameworks,
-	}
+  readmes: {
+  	frameworks: {
+  		dest: 'demo/documentation/frameworks',
+  		src: 'demo/documentation/frameworks',
+  	}
 	
-	// for multiple documents in a folder
-	codestyle: {
-		dest: 'demo/documentation/codestyle,
-		src: 'demo/documentation/codestyle
-	}
+  	// for multiple documents in a folder
+  	codestyle: {
+  		dest: 'demo/documentation/codestyle',
+  		src: 'demo/documentation/codestyle/'
+  	}
+  }
 
 
 Research
@@ -113,11 +149,12 @@ Research
 
 - do we look for these?
 - name of file (research.md default)
+- default false
 
 **Options**
 
-	research: {
-		replace: true // populates 
-	}
+    readmes: {
+      research: true,
+    }
 
 
