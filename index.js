@@ -13,6 +13,7 @@ module.exports = {
         // TODO: where should our test options really live? How are they consumed outside of this file when implemented as a node module? Need to research 
         options = options || testOptions;
         
+        // TODO: read in all source files, not just srcCSS. we should be able to give a function the source given by the options object, and output an array of file names.
         var srcCSS = options.srcCSS
             , sourceStats = fs.statSync( srcCSS ) // gets stats objects that tells us the file type
             , sourceType = sourceStats.isFile() ? 'file' : 'directory'
