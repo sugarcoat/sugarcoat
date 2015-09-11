@@ -11,6 +11,8 @@ Find means to parse the data from our CSS, JS and HTML files
 
 Implement these parsers to get the data (ex. pull in comments from JS files) and output them to JSON
 
+- Design module that consumes either a file or directory and outputs all of its contents into an array of files
+
 ### Structure Data
 
 Gather all of our input data into one place so that it can easily be digested by the tool. This would include not only the parsed input, but also extraneous info from various readme files the developer created.

@@ -26,22 +26,4 @@ module.exports = function ( grunt ) {
     });
     
     grunt.loadNpmTasks( 'assemble' );
-    
-    // grunt.registerTask( 'assemble', function() {
-    //     var done = this.async();
-    //     var assemble = require( 'assemble' );
-    //     assemble = assemble.init( this );
-    //
-    //     assemble.step( function( assemble, next ) {
-    //
-    //         grunt.log.writeln( 'this is step 1');
-    //         next( assemble );
-    //     });
-    //
-    //     assemble.build( function( err, results ) {
-    //         grunt.log.writeln( 'build finished' );
-    //         done();
-    //     });
-    //     grunt.log.write( this );
-    // });
 };

@@ -9,7 +9,4 @@ module.exports = function ( grunt ) {
     grunt.loadTasks( 'grunt' );
 
     /* Task aliases */
-    grunt.registerTask( 'default', 'build.', [
-        'assemble'
-    ]);
 };

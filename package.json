@@ -4,6 +4,7 @@
   "author": "Valerie Balcom",
   "dependencies": {
     "assemble": "^0.4.42",
+    "css": "^2.2.1",
     "grunt": "^0.4.5"
   },
   "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
