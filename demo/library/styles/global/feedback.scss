@@ -1,19 +1,20 @@
 /**
- * 
-    title: Flash Block
-    description: A block of info that persists for ~2 seconds on the page
-    modifiers:
-      .sticky: JS added class that disables the block disappearing
-    category:
-      - flashblock
-    html:
-        <div class="flash-block flash-block-success">
-          <div class="flash-block-content">
-            Success Message
-          </div>
-        </div>
+ * A block of info that persists for ~2 seconds on the page
+ *
+ * @module Flashblock
+ * @category Feedback
+ * @example
+ * <div class="flash-block flash-block-success">
+ *      <div class="flash-block-content">
+ *          Success Message
+ *      </div>
+ * </div>
+ * @modifier .sticky JS added class that disables the block disappearing
+ * @modifier :focus Special animated hover focus state
+ * @modifier :hover Special animated hover focus state
  *
  */
+ 
 .flash-block {
     border:1px solid grey;
     margin:20px;
@@ -27,20 +28,17 @@
 }
 
 /**
- * 
-    title: Tooltip
-    description: Shows up in small viewport only
-    modifiers: 
-      .active: JS enabled class on .tooltip
-    tags:
-      - feedback
-      - uikit
-    html:
-        <div class="tooltip">
+ * A tooltip appearing in small viewport only
+ *
+ * @module Tooltip
+ * @example <div class="flash-block flash-block-success">
+ * <div class="tooltip">
           <span class="tooltip-content">This is a tooltip</span>
         </div>
+ * @modifier .active enabled class on .tooltip
  *
  */
+
 .tooltip {
     position:relative;
 }

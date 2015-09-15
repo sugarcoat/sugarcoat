@@ -2,6 +2,7 @@
  * Assemble Configuration
  * Documentation: http://assemble.io/docs
  */
+
 module.exports = function ( grunt ) {
 
     grunt.config( 'assemble', {

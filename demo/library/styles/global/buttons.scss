@@ -1,20 +1,19 @@
 /**
+ * A button
  * 
- * title: Primary CTA
- * modifiers:
-    :hover: Hover state
-    :focus: Focus state
- * tags:
-    - buttons
- * html:
-    <div class="btn">.btn</div>
-    <div class="btn cta">.btn .cta</div>
-    <div clsas="btn-set">
-      <div class="btn cta">Hello World</div>
-      <div class="btn">Hello World</div>
-    </div>
- *
- */
+ * @module Button
+ * @category UIElement
+ * @modifier .cta primary coloring
+ * @modifier :hover transition animation on hover
+ * @example
+ * <a class="btn">a.btn</a>
+ * <button class="btn">button.btn</button>
+ * <button class="btn cta">button.btn.cta</button>
+ * <div class="btn-set">
+ *  <button class="btn cta">button.btn.cta</button>
+ *  <button class="btn">button.btn</button>
+ * 
+ */ 
 
 .btn {
     border: 1px solid grey;
