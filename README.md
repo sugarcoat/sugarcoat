@@ -49,7 +49,7 @@ Adds link to master documentation
 
 ### > Account Info ###
 
-Where a developer can go to find all credential configurations.
+Where a developer can go to find all credential configurations.
 
 **Examples**
 
