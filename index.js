@@ -1,7 +1,8 @@
 var fs = require( 'fs' )
+    , util = require( 'util' ) 
     , css = require( 'css' )
     , testOptions = {
-        srcCSS: 'demo/library/styles',
+        srcCSS: 'demo/library/styles/**/*',
         srcJS: 'demo/library/js/modules'
     };
 
@@ -15,23 +16,30 @@ module.exports = {
         
         // TODO: read in all source files, not just srcCSS. we should be able to give a function the source given by the options object, and output an array of file names.
         var srcCSS = options.srcCSS
-            , sourceStats = fs.statSync( srcCSS ) // gets stats objects that tells us the file type
-            , sourceType = sourceStats.isFile() ? 'file' : 'directory'
+            // , sourceStats = fs.statSync( srcCSS ) // gets stats objects that tells us the file type
+            // , sourceType = sourceStats.isFile() ? 'file' : 'directory'
             , files
             ;
         
-        if ( sourceType === 'file' ) {
+        // if ( sourceType === 'file' ) {
             
-            files = fs.readFileSync( srcCSS, { encoding: 'utf-8' });
-        }
-        else {
+        //     files = fs.readFileSync( srcCSS, { encoding: 'utf-8' });
+        // }
+        // else {
             
             // TODO: need to create recursive function to get all internal folders
             // can probably use Glob <https://www.npmjs.com/package/glob>
-            files = fs.readdirSync( srcCSS );
-        }
+            var glob = require("glob");
+            console.log(srcCSS);
+            console.log(util.inspect(process.cwd(), { depth:5, colors: true }));
+
+
+            files = glob.sync( srcCSS, { nodir: true } );
+            console.log(util.inspect(files, { depth:5, colors: true }));
+            
+        // }
         
-        console.log( files );
+        // console.log( files );
     }
 };
 

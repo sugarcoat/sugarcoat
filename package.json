@@ -5,6 +5,7 @@
   "dependencies": {
     "assemble": "^0.4.42",
     "css": "^2.2.1",
+    "glob": "^5.0.15",
     "grunt": "^0.4.5"
   },
   "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
