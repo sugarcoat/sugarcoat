@@ -1,11 +1,3 @@
-/*
- * This is the configuration file that is needed to create the real 
- * documentation such as the pattern library. 
- *
- * When a new project is created this file will need to be updated with the
- * correct paths from your project.
- *
- */
 ({
     //The pattern library will be created and include documentation for colors,
     //typography, UI elements and more complex components. This option is required.
