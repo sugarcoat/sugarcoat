@@ -6,56 +6,54 @@
  * correct paths from your project.
  *
  */
-({
+var config = {
     //The pattern library will be created and include documentation for colors,
-    //typography, UI elements and more complex components. This option is required.
-    sources: {
-        //include path to a CSS/SCSS/LESS file that only includes all of the breakpoints
+    //typography, UI elements and more complex components.
+    patterns: {
         settings: {
-            breakpoints: [
-                [ '0', '435' ],
-                [ '640', '1024' ],
-                [ '1153' ]
-            ]
-        },
-        sourceCode: {
-            //include path to JS files
-            modules: 'demo/library/js/modules/*.js',
-            //include path to component files
-            components: 'demo/components/*.html',
-            //include path to CSS/SCSS/LESS file that only includes all of the colors
-            colors: 'demo/library/styles/global/colors.scss',
-            //include path to CSS/SCSS/LESS file that only includes all typography
-            typography: 'demo/library/styles/global/typography.scss'
-        },
-        //ReadMes is an option that will allow you to choose if you want any of the 
-        //project's readme files to be available within the documentation. 
-        readmes: {
-            // adds research readmes if they're the only document available within a folder
-          	//research: true,        
-            // for one particular document
-            frameworks: 'demo/documentation/build/frameworks',
-            workflows: {
-                jira: 'demo/documentation/workflows/release-process.md',
-                releaseProcess: 'demo/documentation/workflows/release-process.md'
-            },
-            // for multiple documents in a folder
-          	codestyleguide: {
-          		css: 'demo/documentation/codestyle/css.md',
-          		html: 'demo/documentation/codestyle/html.md',
-                javascript: 'demo/documentation/codestyle/javascript.md'
-           	}
-        }
-    },
-    generators: {
-        //environment information will include breakpoints. This is required, but if
-        //do not have a file with all of the breakpoints you may give it an array.
-        envInfo: {},
-        patternLibrary: {
             dest: 'demo/documentation/pattern-library',
             //include path to where the templates will live for the pattern library
-            srcTemplates: 'demo/documentation/pattern-library/sources/templates'
-        }
+            template: 'demo/documentation/pattern-library/sources/templates'
+        },
+        sections: [
+            {
+                title: 'Colors',
+                files: 'demo/library/styles/global/colors.scss',
+                type: 'variables',
+                template: 'color'
+            },
+            {
+                title: 'Components',
+                files: 'demo/components/*.html'
+            },
+            // what about 'not' typography?
+            {
+                title: 'UI Kit',
+                files: 'demo/library/styles/global/*.scss'
+            },
+            {
+                title: 'Typography',
+                files: 'demo/library/styles/global/typography.scss',
+                type: 'variables',
+                template: 'typography'
+            }
+        ]
+    },
+    documentation: {
+        settings: {},
+        //ReadMes is an option that will allow you to choose if you want any of the 
+        //project's readme files to be available within the documentation.
+        sections: [
+            {
+                title: 'Frameworks',
+                files: 'demo/documentation/build/frameworks/'
+            },
+            {
+                title: 'Workflows',
+                files: 'demo/documentation/workflows/*'           
+            }
+        ]
     }
-    
-});
+};
+
+module.exports = config;
