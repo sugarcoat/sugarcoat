@@ -1,98 +1,131 @@
 ({
     //The pattern library will be created and include documentation for colors,
-    //typography, UI elements and more complex components. This option is required.
-    sources: {
-        //include path to a CSS/SCSS/LESS file that only includes all of the breakpoints
+    //typography, UI elements and more complex components.
+    patterns: {
         settings: {
-            breakpoints: [
-                [ '0', '435' ],
-                [ '640', '1024' ],
-                [ '1153' ]
-            ]
-        },
-        sourceCode: {
-            //include path to JS files
-            modules: [
-                'demo/library/js/modules/boilerplate.js',
-                'demo/library/js/modules/tooltip.js'
-            ],
-            //include path to component files
-            components: [
-                {
-                    path: 'demo/components/some-component.html',
-                    //AST
-                    data: [
-                        {
-                            type: 'title',
-                            content: 'Some Component'
-                        },
-                        {
-                            type: 'description',
-                            content: 'This componenet was created to add a certain type of functionality to cart pages. It was requested by the client.'
-                        },
-                        {
-                            type: 'usage',
-                            content: 'Mainly used on cart pages.'
-                        },
-                        {
-                            type: 'functionality',
-                            content: 'Once added to a cart page, this module will sit there until clicked on. Once clicked on the module will open a modal that includes information needed by the user about the cart.'
-                        },
-                        {
-                            type: 'dependencies',
-                            content: '/library/js/modules/some-component.js, /library/js/modules/other-component.js'
-                        },
-                        {
-                            type: 'content',
-                            content: '<ul class="some-component">\n  <li>Item One</li>\n  <li>Item Two</li>\n</ul>'
-                        }
-                    ]
-                }
-            ],
-            //include path to UI elements
-            elements: [
-                {
-                    path: 'demo/library/styles/global/buttons.scss',
-                    data: {}
-                },
-                'demo/library/styles/global/buttons.scss',
-                'demo/library/styles/global/feedback.scss',
-                'demo/library/styles/global/colors.scss',
-                'demo/library/styles/global/typography.scss'
-            ],
-            //include path to CSS/SCSS/LESS file that only includes all of the colors
-            colors: 'demo/library/styles/global/colors.scss',
-            //include path to CSS/SCSS/LESS file that only includes all typography
-            typography: 'demo/library/styles/global/typography.scss'
-        },
-        //ReadMes is an option that will allow you to choose if you want any of the 
-        //project's readme files to be available within the documentation. 
-        readmes: {
-            // adds research readmes if they're the only document available within a folder
-          	//research: true,        
-            // for one particular document
-            frameworks: 'demo/documentation/build/frameworks',
-            workflows: {
-                jira: 'demo/documentation/workflows/release-process.md',
-                releaseProcess: 'demo/documentation/workflows/release-process.md'
-            },
-            // for multiple documents in a folder
-          	codestyleguide: {
-          		css: 'demo/documentation/codestyle/css.md',
-          		html: 'demo/documentation/codestyle/html.md',
-                javascript: 'demo/documentation/codestyle/javascript.md'
-           	}
-        }
-    },
-    generators: {
-        //environment information will include breakpoints. This is required, but if
-        //do not have a file with all of the breakpoints you may give it an array.
-        envInfo: {},
-        patternLibrary: {
             dest: 'demo/documentation/pattern-library',
             //include path to where the templates will live for the pattern library
-            srcTemplates: 'demo/documentation/pattern-library/sources/templates'
-        }
+            template: 'demo/documentation/pattern-library/sources/templates'
+        },
+        sections: [
+            {
+                title: 'Colors',
+                files: [
+                    {
+                        path: 'demo/library/styles/global/colors.scss',
+                        data: {/*...*/}
+                    }
+                ],
+                type: 'variables',
+                template: 'color'
+            },
+            {
+                title: 'Components',
+                files: [
+                    {
+                        path: 'demo/components/*.html',
+                        data: {/*...*/}
+                    }
+                ]
+            },
+            {
+                title: 'UI Kit',
+                files: [
+                    {
+                        path: 'demo/library/styles/global/buttons.scss',
+                        data: {/*...*/}
+                    },
+                    {
+                        path: 'demo/library/styles/global/colors.scss',
+                        data: {/*...*/}
+                    },
+                    {
+                        path: 'demo/library/styles/global/feedback.scss',
+                        data: {
+                            tags: [
+                                {
+                                    tag: 'module',
+                                    description: ' tooltip',
+                                    name: '',
+                                    optional: false,
+                                    type: '',
+                                    line: 3,
+                                    source: '@module tooltip'
+                                }, {
+                                    tag: 'namespace',
+                                    description: ' .tooltip',
+                                    name: '',
+                                    optional: false,
+                                    type: '',
+                                    line: 4,
+                                    source: '@namespace .tooltip'
+                                }, {
+                                    tag: 'desc',
+                                    description: ' This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
+                                    name: '',
+                                    optional: false,
+                                    type: '',
+                                    line: 5,
+                                    source: '@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.'
+                                }
+                            ],
+                            line: 1,
+                            description: '',
+                            source: '@module tooltip\n@namespace .tooltip\n@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
+                            code: '\n \n.flash-block {\n    border:1px solid grey;\n    margin:20px;\n}\n/* hello */\n.flash-block-content {\n    padding:20px;\n}\n.flash-block-success {\n    background-color:green;\n    color:white;\n}\n\n'
+                        }
+                    },
+                    {
+                        path: 'demo/library/styles/global/typography.scss',
+                        data: {/*...*/}
+                    
+                    }
+                ]
+            },
+            {
+                title: 'Typography',
+                files: [
+                    {
+                        path: 'demo/library/styles/global/typography.scss',
+                        data: {/*...*/}
+                    }
+                ],
+                type: 'variables',
+                template: 'typography'
+            }
+        ]
+    },
+    documentation: {
+        settings: {},
+        //ReadMes is an option that will allow you to choose if you want any of the 
+        //project's readme files to be available within the documentation.
+        sections: [
+            {
+                title: 'Frameworks',
+                files: [
+                    {
+                        path: 'demo/documentation/build/frameworks/readme.md',
+                        data: {/*...*/}
+                    },
+                    {
+                        path: 'demo/documentation/build/frameworks/research.md',
+                        data: {/*...*/}
+                    }
+                ]
+            },
+            {
+                title: 'Workflows',
+                files: [
+                    {
+                        path: 'demo/documentation/workflows/env-setup.md',
+                        data: {/*...*/}
+                    },
+                    {
+                        path: 'demo/documentation/workflows/env-release-process.md',
+                        data: {/*...*/}
+                    }
+                ]
+            }
+        ]
     }
-    
 });
