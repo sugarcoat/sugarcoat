@@ -1,4 +1,4 @@
-({
+var config = {
     //The pattern library will be created and include documentation for colors,
     //typography, UI elements and more complex components.
     patterns: {
@@ -56,4 +56,6 @@
             }
         ]
     }
-});
+};
+
+module.exports = config;
