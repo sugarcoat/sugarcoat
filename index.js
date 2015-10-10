@@ -3,6 +3,7 @@ var fs = require( 'fs' )
     , css = require( 'css' )
     , example = require( './notes/example-config')
     , async = require( 'async' )
+    , commentParser = require( 'comment-parser' )
     ;
 // run in the terminal using `node index.js`
 module.exports = {
@@ -28,10 +29,9 @@ module.exports = {
     parseFiles: function() {
         
         var sections = this.config;
-        // console.log( 'before', sections);
         
         async.each( sections, this.parseFile, function() {
-            console.log( 'DONE!', util.inspect( sections, { depth:5, colors:true } ));
+            // console.log( 'DONE!', util.inspect( sections, { depth:5, colors:true } ));
         });
     },
     parseFile: function( section, callback) {
@@ -39,28 +39,47 @@ module.exports = {
         // only one file declared
         if ( typeof section.files === 'string' ) {
             
-            section.files = [{
-                path: section.files
-            }];
+            fs.readFile( section.files, { encoding: 'UTF8' }, function( err, data ) {
+                
+                section.files = [
+                    {
+                        path: section.files,
+                        data: data
+                    }
+                ];
+                
+                return callback( null );
+            });
+            //
+            // section.files = [{
+            //     path: section.files
+            // }];
 
+            // fs.readFile( section.files[ 0 ].path )
+        }
+        else {
+            
+            // array of files declared
+            var files = section.files;
+            section.files = [];
+        
+            for ( var i = 0; i < files.length; i++ ) {
+                
+                var currentFile = files[ i ]
+                
+                fs.readFile( currentFile, { encoding: 'UTF8' }, function( err, data ) {
+                    
+                    var push = {
+                        path: currentFile,
+                        data: data
+                    };
+                    
+                    section.files.push( push );
+                    
+                });
+            }
             return callback( null );
         }
-        
-        // array of files declared
-        var files = section.files;
-        section.files = [];
-        
-        for ( var i = 0; i < files.length; i++ ) {
-
-            var push = {
-                path: files[ i ]
-            };
-            
-            section.files.push( push );
-        }
-        
-        return callback( null );
-        // console.log(' parse !:', arguments);
     }
 };
 

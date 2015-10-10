@@ -16,7 +16,7 @@ var config = {
             },
             {
                 title: 'Components',
-                files: 'demo/components/*.html'
+                files: 'demo/components/some-component.html'
             },
             {
                 title: 'UI Kit',

@@ -5,6 +5,7 @@
   "dependencies": {
     "assemble": "^0.4.42",
     "async": "^1.4.2",
+    "comment-parser": "^0.3.0",
     "css": "^2.2.1",
     "glob": "^5.0.15",
     "grunt": "^0.4.5"
