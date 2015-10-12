@@ -31,31 +31,50 @@ module.exports = {
         var sections = this.config;
         
         async.each( sections, this.parseFile, function() {
-            // console.log( 'DONE!', util.inspect( sections, { depth:5, colors:true } ));
+            console.log( 'DONE!', util.inspect( sections, { depth:5, colors:true } ));
         });
     },
     parseFile: function( section, callback) {
+        
+        function parseThis( currentFile, data ) {
+            var comments = data.split( '/**' );
+            
+            for ( var i = 1; i < comments.length; i++ ) {
+                
+                var block = comments[ i ].split(/^\s*\*\//m)
+                    , toParse = '/**' + block[ 0 ] + ' */'
+                    ;
+                
+                comments[ i ] = {
+                    path: currentFile,
+                    data: commentParser( toParse ),                      
+                };
+                
+                comments[ i ].data.code = block[ 1 ];
+            }
+            
+            comments.shift();
+            
+            var push = {
+                path: currentFile,
+                data: comments
+            };
+            
+            return push;
+        }
 
         // only one file declared
         if ( typeof section.files === 'string' ) {
             
-            fs.readFile( section.files, { encoding: 'UTF8' }, function( err, data ) {
+            var currentFile = section.files;
+            
+            fs.readFile( currentFile, { encoding: 'UTF8' }, function( err, data ) {
                 
-                section.files = [
-                    {
-                        path: section.files,
-                        data: data
-                    }
-                ];
+                section.files = [];
+                section.files.push( parseThis( currentFile, data ));
                 
                 return callback( null );
             });
-            //
-            // section.files = [{
-            //     path: section.files
-            // }];
-
-            // fs.readFile( section.files[ 0 ].path )
         }
         else {
             
@@ -69,12 +88,7 @@ module.exports = {
                 
                 fs.readFile( currentFile, { encoding: 'UTF8' }, function( err, data ) {
                     
-                    var push = {
-                        path: currentFile,
-                        data: data
-                    };
-                    
-                    section.files.push( push );
+                    section.files.push( parseThis( currentFile, data ));
                     
                 });
             }
