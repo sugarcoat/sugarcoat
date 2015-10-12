@@ -22,7 +22,6 @@ module.exports = {
 
 
         files = glob.sync( example.patterns.sections[1].files, { nodir: true } );
-        // console.log(util.inspect(files, { depth:5, colors: true }));
         
         this.parseFiles();
     },
@@ -32,7 +31,7 @@ module.exports = {
         
         async.each( sections, this.parseFile, function() {
             
-            console.log( 'DONE!', util.inspect( sections, { depth:5, colors:true } ));
+            console.log( 'DONE!', util.inspect( sections, { depth:6, colors:true } ));
         });
     },
     parseFile: function( section, callback) {
@@ -46,6 +45,7 @@ module.exports = {
             // the first array item is always an empty string, so we shift
             comments.shift();
             
+            
             for ( var i = 0; i < comments.length; i++ ) {
                 
                 // split blocks into comment and code content
@@ -54,13 +54,10 @@ module.exports = {
                     ;
                 
                 // add comment section to array
-                comments[ i ] = {
-                    // path: currentFile,
-                    data: commentParser( toParse ),                      
-                };
+                comments[ i ] = commentParser( toParse )[ 0 ];
                 
                 // add code to data obj
-                comments[ i ].data.code = block[ 1 ];
+                comments[ i ].code = block[ 1 ];
             }
             
             // now include path
@@ -91,7 +88,7 @@ module.exports = {
             var files = section.files;
             section.files = [];
             
-            async.each( files, 
+            async.each( files,
                 function( item, callback ) {
                     
                     var currentFile = item;
