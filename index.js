@@ -37,7 +37,7 @@ module.exports = {
     parseFile: function( section, callback) {
         
         //internal function that parses using comment-parse on currentFile
-        function parseThis( currentFile, data ) {
+        function parseComment( currentFile, data ) {
             
             // grab each comment block
             var comments = data.split( '/**' );
@@ -77,7 +77,7 @@ module.exports = {
             fs.readFile( currentFile, { encoding: 'UTF8' }, function( err, data ) {
                 
                 section.files = [];
-                section.files.push( parseThis( currentFile, data ));
+                section.files.push( parseComment( currentFile, data ));
                 
                 return callback( null );
             });
@@ -96,7 +96,7 @@ module.exports = {
                     // read all files
                     fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
                         
-                        section.files.push( parseThis( currentFile, data ));
+                        section.files.push( parseComment( currentFile, data ));
                         
                         return callback( null );
                     });
