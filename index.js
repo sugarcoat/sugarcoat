@@ -31,30 +31,39 @@ module.exports = {
         var sections = this.config;
         
         async.each( sections, this.parseFile, function() {
+            
             console.log( 'DONE!', util.inspect( sections, { depth:5, colors:true } ));
         });
     },
     parseFile: function( section, callback) {
         
+        //internal function that parses using comment-parse on currentFile
         function parseThis( currentFile, data ) {
+            
+            // grab each comment block
             var comments = data.split( '/**' );
             
-            for ( var i = 1; i < comments.length; i++ ) {
+            // the first array item is always an empty string, so we shift
+            comments.shift();
+            
+            for ( var i = 0; i < comments.length; i++ ) {
                 
+                // split blocks into comment and code content
                 var block = comments[ i ].split(/^\s*\*\//m)
                     , toParse = '/**' + block[ 0 ] + ' */'
                     ;
                 
+                // add comment section to array
                 comments[ i ] = {
-                    path: currentFile,
+                    // path: currentFile,
                     data: commentParser( toParse ),                      
                 };
                 
+                // add code to data obj
                 comments[ i ].data.code = block[ 1 ];
             }
             
-            comments.shift();
-            
+            // now include path
             var push = {
                 path: currentFile,
                 data: comments
@@ -81,18 +90,25 @@ module.exports = {
             // array of files declared
             var files = section.files;
             section.files = [];
-        
-            for ( var i = 0; i < files.length; i++ ) {
-                
-                var currentFile = files[ i ]
-                
-                fs.readFile( currentFile, { encoding: 'UTF8' }, function( err, data ) {
+            
+            async.each( files, 
+                function( item, callback ) {
                     
-                    section.files.push( parseThis( currentFile, data ));
+                    var currentFile = item;
                     
-                });
-            }
-            return callback( null );
+                    // read all files
+                    fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
+                        
+                        section.files.push( parseThis( currentFile, data ));
+                        
+                        return callback( null );
+                    });
+                },
+                function( err ) {
+
+                    return callback( null );
+                }
+            );
         }
     }
 };
