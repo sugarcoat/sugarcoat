@@ -16,13 +16,11 @@ module.exports = {
     config: require( './notes/parseFiles/input' ).patterns.sections,
     
     init: function( options ) {
-
-        // var configData = this.configObj;
         
         this.readFile();
         
         this.getFiles(this.configObj);
-        //this.writeFile();
+        
     },
     getFiles: function( data ) {
 
@@ -31,39 +29,37 @@ module.exports = {
        
         var glob = require("glob");
 
-        // console.log(configData.config);
-        // var key = Object.keys( configData );
-        // // console.log(configFile[key].sections.length);
+        var key = Object.keys( configData );
 
-        // for ( var i = 0, l = data[key].sections.length; i < l; i++ ) {
-        //     var sectObjs = data[key].sections[i];
-        //     var ObjFiles = sectObjs.files;
-        //     console.log('file name ', ObjFiles);
+        for ( var i = 0, l = configData[key].sections.length; i < l; i++ ) {
+            var sectObjs = configData[key].sections[i];
+            var ObjFiles = sectObjs.files;
 
-        //     if ( ObjFiles.indexOf( '*' ) > -1 ) {
+            if ( ObjFiles.indexOf( '*' ) > -1 ) {
 
-        //         files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
-        //         console.log(util.inspect(files, { depth:5, colors: true }));
-        //     }
-        //     else {
-        //         var filesStat = fs.statSync( ObjFiles );
-        //         var filesTest = filesStat.isFile();
-        //         // console.log(filesTest);
-        //         if ( filesTest === false ) {
-        //             files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
-        //             console.log(util.inspect(files, { depth:5, colors: true }));
-        //         }
-        //     }
-        // }
+                files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
+                configData[key].sections[i].files = files;
+
+            }
+            else {
+                var filesStat = fs.statSync( ObjFiles );
+                var filesTest = filesStat.isFile();
+                if ( filesTest === false ) {
+                    files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
+                    configData[key].sections[i].files = files;
+                }
+            }
+        }
+
+        console.log(configData.patterns.sections);
     },
     readFile: function() {
         //get the data and throw it into a variable that we can use to edit
         this.configObj = configFile;
-        
-        console.log( this.configObj );
+
         // console.log(this.configObj);
         
-        // this.parseFiles();
+        this.parseFiles();
     },
     parseFiles: function() {
         
@@ -71,7 +67,7 @@ module.exports = {
         
         async.each( sections, this.parseFile, function() {
             
-            console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
+            // console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
 
         });
     },
