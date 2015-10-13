@@ -1,4 +1,4 @@
-var configLocation = './notes/example-patterns-config';
+var configLocation = './notes/example-documentation-config';
 
 var fs = require( 'fs' )
     , util = require( 'util' )
@@ -16,13 +16,11 @@ module.exports = {
     config: require( './notes/parseFiles/input' ),
     
     init: function( options ) {
-
-        // var configData = this.configObj;
         
         this.readFile();
         
         this.getFiles(this.configObj);
-        //this.writeFile();
+        
     },
     getFiles: function( data ) {
 
@@ -31,35 +29,56 @@ module.exports = {
        
         var glob = require("glob");
 
-        // console.log(configData.config);
-        // var key = Object.keys( configData );
-        // // console.log(configFile[key].sections.length);
+        var key = Object.keys( configData );
 
-        // for ( var i = 0, l = data[key].sections.length; i < l; i++ ) {
-        //     var sectObjs = data[key].sections[i];
-        //     var ObjFiles = sectObjs.files;
-        //     console.log('file name ', ObjFiles);
+        for ( var i = 0, l = configData[key].sections.length; i < l; i++ ) {
+            var sectObjs = configData[key].sections[i];
+            var ObjFiles = sectObjs.files;
+            // console.log(sectObjs);
 
-        //     if ( ObjFiles.indexOf( '*' ) > -1 ) {
+            if ( ObjFiles.indexOf( '*' ) > -1 ) {
 
-        //         files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
-        //         console.log(util.inspect(files, { depth:5, colors: true }));
-        //     }
-        //     else {
-        //         var filesStat = fs.statSync( ObjFiles );
-        //         var filesTest = filesStat.isFile();
-        //         // console.log(filesTest);
-        //         if ( filesTest === false ) {
-        //             files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
-        //             console.log(util.inspect(files, { depth:5, colors: true }));
-        //         }
-        //     }
-        // }
+                // files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
+                files = glob.sync( ObjFiles );
+                configData[key].sections[i].files = files;
+                // console.log('I have a star', ObjFiles);
+            }
+            else {
+                // var filesStat = fs.statSync( ObjFiles );
+                // var filesTest = filesStat.isFile();
+                // if ( filesTest === false ) {
+                //     files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
+                //     configData[key].sections[i].files = files;
+                // }
+
+                //test if files ends in a slash 
+                // console.log('obj', ObjFiles);
+                var suffix = '/';
+                var suffixLength = suffix.length;
+                var filesLength = ObjFiles.length;
+                // console.log('obj length', filesLength);
+                var slashEnd = ObjFiles.indexOf( suffix, ( filesLength - suffixLength ) );
+                // console.log('where the last slash is', slashEnd);
+                // console.log( ObjFiles.indexOf( suffix, objFiles.length - suffix.length ) !== -1 );
+                if( slashEnd === filesLength - 1) {
+                    // console.log('we have and end match!', ObjFiles);
+                    files = glob.sync( ObjFiles+'**/*' );
+                    configData[key].sections[i].files = files;
+                }
+                else {
+                    files = glob.sync( ObjFiles+'/**/*' );
+                    configData[key].sections[i].files = files;
+                    // console.log('i do not have an end slash', ObjFiles);
+                }
+            }
+        }
+
+        console.log(configData.documentation.sections);
     },
     readFile: function() {
         //get the data and throw it into a variable that we can use to edit
         this.configObj = configFile;
-        
+
         // console.log(this.configObj);
         
         this.parseFiles();
