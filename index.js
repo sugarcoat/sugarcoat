@@ -1,4 +1,4 @@
-var configLocation = './notes/example-documentation-config';
+var configLocation = './notes/example-patterns-config';
 
 var fs = require( 'fs' )
     , util = require( 'util' )
@@ -13,7 +13,7 @@ module.exports = {
 
     configObj: {},
 
-    config: require( './notes/parseFiles/input' ).documentation.sections,
+    config: require( './notes/parseFiles/input' ).patterns.sections,
     
     init: function( options ) {
         
@@ -73,7 +73,7 @@ module.exports = {
             }
         }
 
-        console.log(configData.documentation.sections);
+        console.log(configData.patterns.sections);
     },
     readFile: function() {
         //get the data and throw it into a variable that we can use to edit
@@ -81,7 +81,7 @@ module.exports = {
 
         // console.log(this.configObj);
         
-        this.parseFiles();
+        // this.parseFiles();
     },
     parseFiles: function() {
         
