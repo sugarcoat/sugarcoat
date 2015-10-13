@@ -12,18 +12,21 @@ var fs = require( 'fs' )
 module.exports = {
 
     configObj: {},
-
-
-    // config: require( './notes/parseFiles/input' ),
-
     
     init: function( options ) {
         
         this.readFile();
         
-        // this.getFiles(this.configObj);
-        
     },
+    
+    readFile: function() {
+        //get the data and throw it into a variable that we can use to edit
+        this.configObj = configFile;
+        
+        this.getFiles( this.configObj );
+        // console.log(this.configObj);
+    },
+    
     getFiles: function( data ) {
 
         var files;
@@ -57,17 +60,10 @@ module.exports = {
                 }
             }
         }
-
-        // console.log(data.patterns.sections);
-    },
-    readFile: function() {
-        //get the data and throw it into a variable that we can use to edit
-        this.configObj = configFile;
         
-        this.getFiles(this.configObj);
-        // console.log(this.configObj);
         this.parseFiles();
     },
+    
     parseFiles: function() {
         
         var sections = this.configObj.patterns.sections
@@ -80,7 +76,8 @@ module.exports = {
             self.configObj.patterns.sections = sections;
 
             self.renderFiles();
-            console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
+            
+            // console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
 
         });
     },
@@ -163,7 +160,7 @@ module.exports = {
     
     renderFiles: function() {
         
-        var config = this.config.patterns
+        var config = this.configObj.patterns
             , sections = config.sections
             ;
         
@@ -173,17 +170,8 @@ module.exports = {
             // special type variables needs to read in sass or less file, then spit out layout
             if ( sections[ i ].type === 'variables' ) {
                 
-                if ( sections[ i ].template === 'color' ) {
-                    
-                    this.renderColorTemplate();
-                }
-                else if ( sections[ i ].template === 'typography' ) {
-                    
-                    this.renderTypeTemplate();
-                }
-                else {
-                    console.log( 'Invalid template declared for section: ', sections[ i ].title );
-                }
+                this.renderVariablesTemplate();
+                
             }
             else if ( !sections[ i ].type ) {
                 
@@ -191,17 +179,18 @@ module.exports = {
                 this.renderTemplate();
             }
             else {
+                
                 console.log( 'Invalid Type declared for section: ', sections[ i ].title );
             }
         }
         
     },
     
-    renderColorTemplate: function() {
-        
+    renderVariablesTemplate: function() {
+        // look up which template type (color or typography)
     },
     
-    renderTypeTemplate: function() {
+    renderTemplate: function() {
         
     }
 };
