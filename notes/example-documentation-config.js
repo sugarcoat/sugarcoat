@@ -9,10 +9,6 @@ var config = {
                 files: 'demo/documentation/frameworks/'
             },
             {
-                title: 'Frameworks2',
-                files: 'demo/documentation/frameworks'
-            },
-            {
                 title: 'Frameworks3',
                 files: 'demo/documentation/frameworks/*'
             },
