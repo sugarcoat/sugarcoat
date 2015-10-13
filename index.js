@@ -20,7 +20,7 @@ module.exports = {
         // var configData = this.configObj;
         
         this.readFile();
-        console.log(this.configObj);
+        
         this.getFiles(this.configObj);
         //this.writeFile();
     },
@@ -31,7 +31,7 @@ module.exports = {
        
         var glob = require("glob");
 
-        console.log(configData.config);
+        // console.log(configData.config);
         // var key = Object.keys( configData );
         // // console.log(configFile[key].sections.length);
 
@@ -58,7 +58,9 @@ module.exports = {
     },
     readFile: function() {
         //get the data and throw it into a variable that we can use to edit
-        this.configObj = fs.readFileSync('./notes/example-patterns-config.js', 'utf-8');
+        this.configObj = configFile;
+        
+        console.log( this.configObj );
         // console.log(this.configObj);
         
         // this.parseFiles();
