@@ -46,7 +46,7 @@ var config = {
         sections: [
             {
                 title: 'Frameworks',
-                files: 'demo/documentation/build/frameworks/'
+                files: 'demo/documentation/frameworks/'
             },
             {
                 title: 'Workflows',
