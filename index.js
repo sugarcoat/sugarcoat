@@ -7,6 +7,8 @@ var fs = require( 'fs' )
     ;
 // run in the terminal using `node index.js`
 module.exports = {
+    
+    //TODO: remove temporary config files
     config: require( './notes/parseFiles/input' ).patterns.sections,
     
     init: function( options ) {
@@ -31,7 +33,7 @@ module.exports = {
         
         async.each( sections, this.parseFile, function() {
             
-            console.log( 'DONE!', util.inspect( sections, { depth:6, colors:true } ));
+            console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
         });
     },
     parseFile: function( section, callback) {
