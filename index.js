@@ -13,7 +13,9 @@ module.exports = {
 
     configObj: {},
 
-    config: require( './notes/parseFiles/input' ).patterns.sections,
+
+    config: require( './notes/parseFiles/input' ),
+
     
     init: function( options ) {
         
@@ -85,15 +87,21 @@ module.exports = {
     },
     parseFiles: function() {
         
-        var sections = this.config;
+        var sections = this.config.patterns.sections
+            , self = this
+            ;
         
         async.each( sections, this.parseFile, function() {
             
-            console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
+            
+            self.config.patterns.sections = sections;
+
+            self.renderFiles();
+            // console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
 
         });
     },
-    parseFile: function( section, callback) {
+    parseFile: function( section, callback ) {
         
         //internal function that parses using comment-parse on currentFile
         function parseComment( currentFile, data ) {
@@ -119,7 +127,7 @@ module.exports = {
                 comments[ i ].code = block[ 1 ];
             }
             
-            // now include path
+            // include original path
             var push = {
                 path: currentFile,
                 data: comments
@@ -157,15 +165,21 @@ module.exports = {
                         
                         section.files.push( parseComment( currentFile, data ));
                         
+                        // read file callback
                         return callback( null );
                     });
                 },
                 function( err ) {
-
+                    
+                    // parent callback
                     return callback( null );
                 }
             );
         }
+    },
+    
+    renderFiles: function( sections ) {
+        
     }
 };
 
