@@ -1,8 +1,8 @@
-var config = './notes/example-patterns-config';
+var configLocation = './notes/example-patterns-config';
 
 var fs = require( 'fs' )
     , util = require( 'util' )
-    , configFile = require( config)
+    , configFile = require( configLocation )
     , css = require( 'css' )
     , example = require( './notes/example-config')
     , async = require( 'async' )
@@ -16,49 +16,52 @@ module.exports = {
     config: require( './notes/parseFiles/input' ).patterns.sections,
     
     init: function( options ) {
-        var configData;
+
+        // var configData = this.configObj;
         
         this.readFile();
-        // console.log(configData);
-        // this.getFiles();
+        console.log(this.configObj);
+        this.getFiles(this.configObj);
         //this.writeFile();
     },
-    getFiles: function() {
-        var files;
+    getFiles: function( data ) {
+
+        var configData = data
+            , files;
        
         var glob = require("glob");
 
-        var key = Object.keys(configFile);
-        // console.log(configFile[key].sections.length);
+        console.log(configData.config);
+        // var key = Object.keys( configData );
+        // // console.log(configFile[key].sections.length);
 
-        for ( var i = 0, l = configFile[key].sections.length; i < l; i++ ) {
-            var sectObjs = configFile[key].sections[i];
-            var ObjFiles = sectObjs.files;
-            // console.log('file name ', ObjFiles);
+        // for ( var i = 0, l = data[key].sections.length; i < l; i++ ) {
+        //     var sectObjs = data[key].sections[i];
+        //     var ObjFiles = sectObjs.files;
+        //     console.log('file name ', ObjFiles);
 
-            if ( ObjFiles.indexOf( '*' ) > -1 ) {
+        //     if ( ObjFiles.indexOf( '*' ) > -1 ) {
 
-                files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
-                console.log(util.inspect(files, { depth:5, colors: true }));
-            }
-            else {
-                var filesStat = fs.statSync( ObjFiles );
-                var filesTest = filesStat.isFile();
-                // console.log(filesTest);
-                if ( filesTest === false ) {
-                    files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
-                    console.log(util.inspect(files, { depth:5, colors: true }));
-                }
-            }
-        }
+        //         files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
+        //         console.log(util.inspect(files, { depth:5, colors: true }));
+        //     }
+        //     else {
+        //         var filesStat = fs.statSync( ObjFiles );
+        //         var filesTest = filesStat.isFile();
+        //         // console.log(filesTest);
+        //         if ( filesTest === false ) {
+        //             files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
+        //             console.log(util.inspect(files, { depth:5, colors: true }));
+        //         }
+        //     }
+        // }
     },
     readFile: function() {
         //get the data and throw it into a variable that we can use to edit
         this.configObj = fs.readFileSync('./notes/example-patterns-config.js', 'utf-8');
-        console.log(this.configObj);
-        files = glob.sync( example.patterns.sections[1].files, { nodir: true } );
+        // console.log(this.configObj);
         
-        this.parseFiles();
+        // this.parseFiles();
     },
     parseFiles: function() {
         
@@ -66,7 +69,7 @@ module.exports = {
         
         async.each( sections, this.parseFile, function() {
             
-            console.log( 'DONE!', util.inspect( sections, { depth:6, colors:true } ));
+            // console.log( 'DONE!', util.inspect( sections, { depth:6, colors:true } ));
         });
     },
     parseFile: function( section, callback) {
