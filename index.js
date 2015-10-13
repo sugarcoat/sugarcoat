@@ -1,5 +1,8 @@
+var config = './notes/example-patterns-config';
+
 var fs = require( 'fs' )
-    , util = require( 'util' ) 
+    , util = require( 'util' )
+    , configFile = require( config)
     , css = require( 'css' )
     , example = require( './notes/example-config')
     , async = require( 'async' )
@@ -7,22 +10,52 @@ var fs = require( 'fs' )
     ;
 // run in the terminal using `node index.js`
 module.exports = {
-    
-    //TODO: remove temporary config files
+
+    configObj: {},
+
     config: require( './notes/parseFiles/input' ).patterns.sections,
     
     init: function( options ) {
+        var configData;
         
-        // TODO: where should our test options really live? How are they consumed outside of this file when implemented as a node module? Need to research 
-        
-        // TODO: read in all source files, not just srcCSS. we should be able to give a function the source given by the options object, and output an array of file names.
+        this.readFile();
+        // console.log(configData);
+        // this.getFiles();
+        //this.writeFile();
+    },
+    getFiles: function() {
         var files;
-        
-        // TODO: need to create recursive function to get all internal folders
-        // can probably use Glob <https://www.npmjs.com/package/glob>
+       
         var glob = require("glob");
 
+        var key = Object.keys(configFile);
+        // console.log(configFile[key].sections.length);
 
+        for ( var i = 0, l = configFile[key].sections.length; i < l; i++ ) {
+            var sectObjs = configFile[key].sections[i];
+            var ObjFiles = sectObjs.files;
+            // console.log('file name ', ObjFiles);
+
+            if ( ObjFiles.indexOf( '*' ) > -1 ) {
+
+                files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
+                console.log(util.inspect(files, { depth:5, colors: true }));
+            }
+            else {
+                var filesStat = fs.statSync( ObjFiles );
+                var filesTest = filesStat.isFile();
+                // console.log(filesTest);
+                if ( filesTest === false ) {
+                    files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
+                    console.log(util.inspect(files, { depth:5, colors: true }));
+                }
+            }
+        }
+    },
+    readFile: function() {
+        //get the data and throw it into a variable that we can use to edit
+        this.configObj = fs.readFileSync('./notes/example-patterns-config.js', 'utf-8');
+        console.log(this.configObj);
         files = glob.sync( example.patterns.sections[1].files, { nodir: true } );
         
         this.parseFiles();
