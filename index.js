@@ -1,6 +1,7 @@
 var config = './notes/example-patterns-config';
 
 var fs = require( 'fs' )
+<<<<<<< HEAD
     , util = require( 'util' )
     , configFile = require( config)
     ;
@@ -8,6 +9,18 @@ var fs = require( 'fs' )
 module.exports = {
 
     configObj: {},
+=======
+    , util = require( 'util' ) 
+    , css = require( 'css' )
+    , example = require( './notes/example-config')
+    , async = require( 'async' )
+    , commentParser = require( 'comment-parser' )
+    ;
+// run in the terminal using `node index.js`
+module.exports = {
+    config: require( './notes/parseFiles/input' ).patterns.sections,
+    
+>>>>>>> f768720fbd26d5bf16bdf7d80f1d543530ee6b00
     init: function( options ) {
         var configData;
         
@@ -18,6 +31,7 @@ module.exports = {
     },
     getFiles: function() {
         var files;
+<<<<<<< HEAD
        
         var glob = require("glob");
 
@@ -30,6 +44,12 @@ module.exports = {
             // console.log('file name ', ObjFiles);
 
             if ( ObjFiles.indexOf( '*' ) > -1 ) {
+=======
+        
+        // TODO: need to create recursive function to get all internal folders
+        // can probably use Glob <https://www.npmjs.com/package/glob>
+        var glob = require("glob");
+>>>>>>> f768720fbd26d5bf16bdf7d80f1d543530ee6b00
 
                 files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
                 console.log(util.inspect(files, { depth:5, colors: true }));
@@ -39,6 +59,7 @@ module.exports = {
                 var filesTest = filesStat.isFile();
                 // console.log(filesTest);
 
+<<<<<<< HEAD
                 if ( filesTest === false ) {
                     files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
                     console.log(util.inspect(files, { depth:5, colors: true }));
@@ -50,6 +71,94 @@ module.exports = {
         //get the data and throw it into a variable that we can use to edit
         this.configObj = fs.readFileSync('./notes/example-patterns-config.js', 'utf-8');
         console.log(this.configObj);
+=======
+        files = glob.sync( example.patterns.sections[1].files, { nodir: true } );
+        
+        this.parseFiles();
+    },
+    parseFiles: function() {
+        
+        var sections = this.config;
+        
+        async.each( sections, this.parseFile, function() {
+            
+            console.log( 'DONE!', util.inspect( sections, { depth:6, colors:true } ));
+        });
+    },
+    parseFile: function( section, callback) {
+        
+        //internal function that parses using comment-parse on currentFile
+        function parseComment( currentFile, data ) {
+            
+            // grab each comment block
+            var comments = data.split( '/**' );
+            
+            // the first array item is always an empty string, so we shift
+            comments.shift();
+            
+            
+            for ( var i = 0; i < comments.length; i++ ) {
+                
+                // split blocks into comment and code content
+                var block = comments[ i ].split(/^\s*\*\//m)
+                    , toParse = '/**' + block[ 0 ] + ' */'
+                    ;
+                
+                // add comment section to array
+                comments[ i ] = commentParser( toParse )[ 0 ];
+                
+                // add code to data obj
+                comments[ i ].code = block[ 1 ];
+            }
+            
+            // now include path
+            var push = {
+                path: currentFile,
+                data: comments
+            };
+            
+            return push;
+        }
+
+        // only one file declared
+        if ( typeof section.files === 'string' ) {
+            
+            var currentFile = section.files;
+            
+            fs.readFile( currentFile, { encoding: 'UTF8' }, function( err, data ) {
+                
+                section.files = [];
+                section.files.push( parseComment( currentFile, data ));
+                
+                return callback( null );
+            });
+        }
+        else {
+            
+            // array of files declared
+            var files = section.files;
+            section.files = [];
+            
+            async.each( files,
+                function( item, callback ) {
+                    
+                    var currentFile = item;
+                    
+                    // read all files
+                    fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
+                        
+                        section.files.push( parseComment( currentFile, data ));
+                        
+                        return callback( null );
+                    });
+                },
+                function( err ) {
+
+                    return callback( null );
+                }
+            );
+        }
+>>>>>>> f768720fbd26d5bf16bdf7d80f1d543530ee6b00
     }
 };
 
