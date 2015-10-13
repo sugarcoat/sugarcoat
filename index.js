@@ -69,7 +69,11 @@ module.exports = {
         
         async.each( sections, this.parseFile, function() {
             
+<<<<<<< HEAD
             // console.log( 'DONE!', util.inspect( sections, { depth:6, colors:true } ));
+=======
+            console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
+>>>>>>> 32ceb7dc407bda9e6faf94960ea86bb48d9a4640
         });
     },
     parseFile: function( section, callback) {

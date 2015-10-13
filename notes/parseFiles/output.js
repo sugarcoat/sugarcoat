@@ -41,39 +41,41 @@
                     },
                     {
                         path: 'demo/library/styles/global/feedback.scss',
-                        data: {
-                            tags: [
-                                {
-                                    tag: 'module',
-                                    description: ' tooltip',
-                                    name: '',
-                                    optional: false,
-                                    type: '',
-                                    line: 3,
-                                    source: '@module tooltip'
-                                }, {
-                                    tag: 'namespace',
-                                    description: ' .tooltip',
-                                    name: '',
-                                    optional: false,
-                                    type: '',
-                                    line: 4,
-                                    source: '@namespace .tooltip'
-                                }, {
-                                    tag: 'desc',
-                                    description: ' This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
-                                    name: '',
-                                    optional: false,
-                                    type: '',
-                                    line: 5,
-                                    source: '@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.'
-                                }
-                            ],
-                            line: 1,
-                            description: '',
-                            source: '@module tooltip\n@namespace .tooltip\n@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
-                            code: '\n \n.flash-block {\n    border:1px solid grey;\n    margin:20px;\n}\n/* hello */\n.flash-block-content {\n    padding:20px;\n}\n.flash-block-success {\n    background-color:green;\n    color:white;\n}\n\n'
-                        }
+                        data: [
+                            {
+                                tags: [
+                                    {
+                                        tag: 'module',
+                                        description: ' tooltip',
+                                        name: '',
+                                        optional: false,
+                                        type: '',
+                                        line: 3,
+                                        source: '@module tooltip'
+                                    }, {
+                                        tag: 'namespace',
+                                        description: ' .tooltip',
+                                        name: '',
+                                        optional: false,
+                                        type: '',
+                                        line: 4,
+                                        source: '@namespace .tooltip'
+                                    }, {
+                                        tag: 'desc',
+                                        description: ' This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
+                                        name: '',
+                                        optional: false,
+                                        type: '',
+                                        line: 5,
+                                        source: '@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.'
+                                    }
+                                ],
+                                line: 1,
+                                description: '',
+                                source: '@module tooltip\n@namespace .tooltip\n@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
+                                code: '\n \n.flash-block {\n    border:1px solid grey;\n    margin:20px;\n}\n/* hello */\n.flash-block-content {\n    padding:20px;\n}\n.flash-block-success {\n    background-color:green;\n    color:white;\n}\n\n'
+                            }
+                        ]
                     },
                     {
                         path: 'demo/library/styles/global/typography.scss',
