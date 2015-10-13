@@ -1,16 +1,8 @@
 var config = './notes/example-patterns-config';
 
 var fs = require( 'fs' )
-<<<<<<< HEAD
     , util = require( 'util' )
     , configFile = require( config)
-    ;
-// run in the terminal using `node index.js`
-module.exports = {
-
-    configObj: {},
-=======
-    , util = require( 'util' ) 
     , css = require( 'css' )
     , example = require( './notes/example-config')
     , async = require( 'async' )
@@ -18,9 +10,11 @@ module.exports = {
     ;
 // run in the terminal using `node index.js`
 module.exports = {
+
+    configObj: {},
+
     config: require( './notes/parseFiles/input' ).patterns.sections,
     
->>>>>>> f768720fbd26d5bf16bdf7d80f1d543530ee6b00
     init: function( options ) {
         var configData;
         
@@ -31,7 +25,6 @@ module.exports = {
     },
     getFiles: function() {
         var files;
-<<<<<<< HEAD
        
         var glob = require("glob");
 
@@ -44,12 +37,6 @@ module.exports = {
             // console.log('file name ', ObjFiles);
 
             if ( ObjFiles.indexOf( '*' ) > -1 ) {
-=======
-        
-        // TODO: need to create recursive function to get all internal folders
-        // can probably use Glob <https://www.npmjs.com/package/glob>
-        var glob = require("glob");
->>>>>>> f768720fbd26d5bf16bdf7d80f1d543530ee6b00
 
                 files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
                 console.log(util.inspect(files, { depth:5, colors: true }));
@@ -58,8 +45,6 @@ module.exports = {
                 var filesStat = fs.statSync( ObjFiles );
                 var filesTest = filesStat.isFile();
                 // console.log(filesTest);
-
-<<<<<<< HEAD
                 if ( filesTest === false ) {
                     files = glob.sync( ObjFiles+'*', { nodir: true, matchBase:true } );
                     console.log(util.inspect(files, { depth:5, colors: true }));
@@ -71,7 +56,6 @@ module.exports = {
         //get the data and throw it into a variable that we can use to edit
         this.configObj = fs.readFileSync('./notes/example-patterns-config.js', 'utf-8');
         console.log(this.configObj);
-=======
         files = glob.sync( example.patterns.sections[1].files, { nodir: true } );
         
         this.parseFiles();
@@ -158,7 +142,6 @@ module.exports = {
                 }
             );
         }
->>>>>>> f768720fbd26d5bf16bdf7d80f1d543530ee6b00
     }
 };
 
