@@ -178,7 +178,47 @@ module.exports = {
         }
     },
     
-    renderFiles: function( sections ) {
+    renderFiles: function() {
+        
+        var config = this.config.patterns
+            , sections = config.sections
+            ;
+        
+        //Check what type a section is, then route them accordingly
+        for ( var i = 0; i < sections.length; i++ ) {
+            
+            // special type variables needs to read in sass or less file, then spit out layout
+            if ( sections[ i ].type === 'variables' ) {
+                
+                if ( sections[ i ].template === 'color' ) {
+                    
+                    this.renderColorTemplate();
+                }
+                else if ( sections[ i ].template === 'typography' ) {
+                    
+                    this.renderTypeTemplate();
+                }
+                else {
+                    console.log( 'Invalid template declared for section: ', sections[ i ].title );
+                }
+            }
+            else if ( !sections[ i ].type ) {
+                
+                //do normal rendering on array of files
+                this.renderTemplate();
+            }
+            else {
+                console.log( 'Invalid Type declared for section: ', sections[ i ].title );
+            }
+        }
+        
+    },
+    
+    renderColorTemplate: function() {
+        
+    },
+    
+    renderTypeTemplate: function() {
         
     }
 };
