@@ -8,7 +8,8 @@
     "comment-parser": "^0.3.0",
     "css": "^2.2.1",
     "glob": "^5.0.15",
-    "grunt": "^0.4.5"
+    "grunt": "^0.4.5",
+    "handlebars": "^4.0.3"
   },
   "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
   "repository": {

@@ -212,6 +212,12 @@ module.exports = {
     
     renderTemplate: function() {
         
+        var templateSrc = this.configObj.patterns.settings.template;
+        
+        console.log( templateSrc );
+        // var template = fs.readFileSync( )
+        var Handlebars = require( 'handlebars' );
+        // var template = Handlebars.compile()
     }
 };
 
