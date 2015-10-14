@@ -3,7 +3,7 @@ var config = {
         settings: {
             dest: 'demo/documentation/pattern-library',
             //include path to where the templates will live for the pattern library
-            template: 'demo/documentation/templates'
+            template: 'demo/documentation/templates/main.hbs'
         },
         sections: [
             {
