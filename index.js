@@ -212,15 +212,22 @@ module.exports = {
     
     renderTemplate: function() {
         
-        var Handlebars = require( 'handlebars' );
-        var templateSrc = this.configObj.patterns.settings.template;
-        var sections = this.configObj.patterns;
-        
-        fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-            
-            var page = Handlebars.compile( data );
+        var assemble = require( 'assemble' );
+        // console.log( assemble );
+        assemble.task( 'default', function() {
+            assemble.src( this.configObj.patterns.settings.template )
+                .pipe( extname())
+                .pipe( assemble.dest( 'dist/'));
         });
         
+        // var Handlebars = require( 'handlebars' );
+        // var templateSrc = this.configObj.patterns.settings.template;
+        // var sections = this.configObj.patterns;
+        //
+        // fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+        //
+        //     var page = Handlebars.compile( data );
+        // });
     }
 };
 
