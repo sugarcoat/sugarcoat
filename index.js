@@ -399,19 +399,12 @@ module.exports = {
     },
     
     renderTemplate: function() {
-        console.log( 'renderTemplate' );
-        // var templateSrc = this.configObj.patterns.settings.template;
+
         var sections = this.configObj.patterns;
         
-        console.log( this.template( sections ));
-       
-        // fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-        //
-        //     var template = Handlebars.compile( data );
-        //     var page = template( sections );
-        //
-        //     // console.log( page );
-        // });
+        this.template( sections );
+        
+        //TODO: write files to dest directory
     }
 };
 
