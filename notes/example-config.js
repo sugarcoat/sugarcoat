@@ -13,7 +13,7 @@ var config = {
         settings: {
             dest: 'demo/documentation/pattern-library',
             //include path to where the templates will live for the pattern library
-            template: 'demo/documentation/pattern-library/sources/templates'
+            template: 'demo/documentation/templates'
         },
         sections: [
             {

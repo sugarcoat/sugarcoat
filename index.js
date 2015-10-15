@@ -83,37 +83,57 @@ module.exports = {
     },
     parseFile: function( section, callback ) {
         
+        var COMMENTSPLIT = /^\s*\*\//m;
+        // for html, include trailing comment
+        var HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m;
+        
         //internal function that parses using comment-parse on currentFile
         function parseComment( currentFile, data ) {
+            
+            var isHtmlComponent = false;
             
             // grab each comment block
             var comments = data.split( '/**' );
             
-            // the first array item is always an empty string, so we shift
-            comments.shift();
+            // the first array item is empty if not an html component
+            if ( comments[ 0 ].length !== 0 ) {
+                
+                isHtmlComponent = true;
+            }
             
+            comments.shift();
             
             for ( var i = 0; i < comments.length; i++ ) {
                 
                 // split blocks into comment and code content
-                var block = comments[ i ].split(/^\s*\*\//m)
+                var block = isHtmlComponent 
+                    ? comments[ i ].split( HTMLCOMMENTSPLIT )
+                    : comments[ i ].split( COMMENTSPLIT ) 
                     , toParse = '/**' + block[ 0 ] + ' */'
                     ;
                 
                 // add comment section to array
                 comments[ i ] = commentParser( toParse )[ 0 ];
                 
+                if ( isHtmlComponent ) {
+                    
+                    // if there's a following comment block, remove the starting html comment
+                    var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
+                        , isLastComment = block[ 1 ].length - lastCommentBlock === 5
+                        ;
+                    
+                    if ( isLastComment ) {
+                        block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
+                    }
+                }
                 // add code to data obj
                 comments[ i ].code = block[ 1 ];
             }
-            
-            // include original path
-            var push = {
+
+            return {
                 path: currentFile,
                 data: comments
             };
-            
-            return push;
         }
 
         // only one file declared
@@ -339,6 +359,22 @@ module.exports = {
     
     renderTemplate: function() {
         
+        var assemble = require( 'assemble' );
+        // console.log( assemble );
+        assemble.task( 'default', function() {
+            assemble.src( this.configObj.patterns.settings.template )
+                .pipe( extname())
+                .pipe( assemble.dest( 'dist/'));
+        });
+        
+        // var Handlebars = require( 'handlebars' );
+        // var templateSrc = this.configObj.patterns.settings.template;
+        // var sections = this.configObj.patterns;
+        //
+        // fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+        //
+        //     var page = Handlebars.compile( data );
+        // });
     }
 };
 
