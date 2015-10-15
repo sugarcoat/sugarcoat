@@ -170,7 +170,7 @@ module.exports = {
             // special type variables needs to read in sass or less file, then spit out layout
             if ( sections[ i ].type === 'variables' ) {
                 
-                this.renderVariablesTemplate();
+                this.renderVariablesTemplate(sections[ i ]);
                 
             }
             else if ( !sections[ i ].type ) {
@@ -186,8 +186,155 @@ module.exports = {
         
     },
     
-    renderVariablesTemplate: function() {
+    renderVariablesTemplate: function( section ) {
         // look up which template type (color or typography)
+        // get info about each 
+        var templateType = section.template
+            ;
+
+        if ( templateType === 'color' ) {
+            //get each color name, that variable, and if they have a usage
+            
+            var colorsInfo = [];
+            
+            //get the info needed for template
+            //take the code and create an obj with it's info 
+            for ( var i = 0; i < section.files.length; i++ ) {
+
+                for ( var j = 0; j < section.files[i].data.length; j++ ){
+
+                    var code = section.files[i].data[j].code;
+                    // console.log(code);
+                    var colorStrings = code.split( '\n' );
+                    // console.log(colorStrings);
+                    colorStrings = colorStrings.filter(Boolean);
+                    // console.log(colorStrings);
+                    
+                    for ( var k = 0; k < colorStrings.length; k++ ) {
+
+                        // console.log(colors[k]);
+
+                        var usageSplit = colorStrings[k].split('//');
+                        var statmentSplit = usageSplit[0].split(':');
+
+                        colorsInfo.push({
+                            'variable': statmentSplit[0],
+                            'color': statmentSplit[1],
+                            'usage': usageSplit[1]
+                        });
+                    }
+                }   
+            }
+
+            // console.log(colorsInfo); 
+
+            //take info and create a template for it
+            //  --------
+            // | #hex   |
+            // |        |
+            //  --------
+            // $variable name
+            // uses: ...
+            
+            var html = '';
+            var container = '<div class="color-swatches">';
+            var closingDiv = '</div>';
+
+            html += container;
+            
+            //put it into a template
+            for ( var i = 0; i < colorsInfo.length; i++ ) {
+
+                var colorVar = colorsInfo[i].variable;
+                var colorHex = colorsInfo[i].color;
+                var colorUsage = colorsInfo[i].usage;
+                
+                var indivSwatch = '<div class="color-swatch">';
+                var colorSwatch = '<div class="swatch" style="background-color:' + colorHex + '"><span>' + colorHex + '</span></div>';
+                var swatchVar = '<h1>' + colorVar + '</h1>';
+                var swatchUses = '<p>' + colorUsage + '</p>';
+
+                html += indivSwatch;
+                html += colorSwatch;
+                html += swatchVar;
+                if ( colorUsage ) { html += swatchUses; }
+                html += closingDiv;
+
+                // var indivSwatch = document.createElement( 'div' );
+                // indivSwatch.className( 'color-swatch' );
+
+                // var colorSwatch = document.createElement( 'div' );
+                // colorSwatch.className( 'swatch' );
+                // colorSwatch.setAttribute( 'style', 'background-color:'+colorHex );
+
+                // var colorSwatchSpan = createElement( 'span' );
+                // colorSwatchSpan.createTextNode( colorHex );
+
+                // var swatchVar = document.createElement( 'h1' );
+                // swatchVar.createTextNode( colorVar );
+
+                // var swatchUses = document.createElement( 'p' );
+                // swatchUses.createTextNode( colorUsage );
+
+                // colorSwatch.appendChild(colorSwatchSpan);
+                // indivSwatch.appendChild(colorSwatch);
+                // indivSwatch.appendChild(swatchVar);
+                // indivSwatch.appendChild(swatchUses);
+
+                // var swatchModule = indivSwatch.appendChild(indivSwatch);
+
+                // container.appendChild(swatchModule);
+            }
+
+            html += closingDiv;
+            //console.log(html);
+        }
+        if ( templateType === 'typography' ) {
+            //get info needed
+            for ( var i = 0; i < section.files.length; i++ ) {
+
+                for ( var j = 0; j < section.files[i].data.length; j++ ){
+
+                    var code = section.files[i].data[j].code;
+                    // console.log(code);
+                    // console.log('---');
+                    // var typeStrings = code.split( '\n' );
+                    // typeStrings = typeStrings.filter(Boolean);
+                    // console.log(typeStrings);
+                }
+            }
+
+            //font family: Arial
+            //variable: $Arial
+            //The quick brown fox jumps over the lazy dog. (reg)
+
+            // var html = '';
+            // var container = '<div class="container">';
+
+            // html += container;
+
+            // for ( var k = 0; k < something.length; k++ ) {
+
+            //     var fontFamily;
+            //     var fontVar;
+
+            //     var ffBlock = '<div class="font-block">';
+            //     var ffName = '<p class="font-name">Font Family: ' + fontFamily + '</p>';
+            //     var ffVar = '<p class="font-variable">Variable: ' + fontVar + '</p>';
+            //     var ffExample = '<p>The quick brown fox jumps over the lazy dog.</p>'
+            //     var closingDiv = '</div>';
+
+            //     html += ffBlock;
+            //     html += ffName;
+            //     html += ffVar;
+            //     html += ffExample;
+            //     html += closingDiv;
+            // }
+            
+            // html += closingDiv;
+        }
+        
+
     },
     
     renderTemplate: function() {
