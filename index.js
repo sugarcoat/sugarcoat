@@ -14,11 +14,13 @@ module.exports = {
 
     configObj: {},
     
+    template: null,
+    
     init: function( options ) {
         
         this.readFile();
         
-        this.setupHandlebars();
+        // this.setupHandlebars();
     },
     
     readFile: function() {
@@ -74,12 +76,9 @@ module.exports = {
         
         async.each( sections, this.parseFile, function() {
             
-            
             self.configObj.patterns.sections = sections;
 
-            self.renderFiles();
-            
-            // console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
+            self.setupHandlebars();
 
         });
     },
@@ -210,20 +209,42 @@ module.exports = {
     
     setupHandlebars: function() {
         
-        var partialsDir = 'demo/documentation/templates/partials';
-        
+        // TODO: make this default or based on options obj
+        var partialsDir = 'demo/documentation/templates/partials'
+            , templateSrc = this.configObj.patterns.settings.template
+            , self = this
+            ;
+       
         fs.readdir( partialsDir, function( err, files ) {
             
-            files.forEach( function( filename ) {
+            // register all partials
+            async.each( files, function( filename, callback ) {
+                
                 var matches = /^([^.]+).hbs$/.exec( filename );
                 if ( !matches ) {
                     return;
                 }
                 var name = matches[ 1 ];
-                var template = fs.readFileSync( partialsDir + '/' + filename, 'utf8');
-                Handlebars.registerPartial( name, template );
-            });
+                
+                // read file async and add to handlebars
+                fs.readFile( partialsDir + '/' + filename, 'utf8', function( err, partial ) {
+                    
+                    Handlebars.registerPartial( name, partial );
+                    return callback( null );
+                });
+                
+            }, function() {
+                
+                // read template file
+                fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+            
+                    self.template = Handlebars.compile( data );
+                    self.renderFiles();
+                });
+            });            
         });
+        
+        
     },
     
     renderVariablesTemplate: function( section ) {
@@ -378,17 +399,19 @@ module.exports = {
     },
     
     renderTemplate: function() {
-        
-        var templateSrc = this.configObj.patterns.settings.template;
+        console.log( 'renderTemplate' );
+        // var templateSrc = this.configObj.patterns.settings.template;
         var sections = this.configObj.patterns;
+        
+        console.log( this.template( sections ));
        
-        fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-       
-            var template = Handlebars.compile( data );
-            var page = template( sections );
-            
-            // console.log( page );
-        });
+        // fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+        //
+        //     var template = Handlebars.compile( data );
+        //     var page = template( sections );
+        //
+        //     // console.log( page );
+        // });
     }
 };
 
