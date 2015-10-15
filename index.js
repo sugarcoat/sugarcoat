@@ -7,6 +7,7 @@ var fs = require( 'fs' )
     , example = require( './notes/example-config')
     , async = require( 'async' )
     , commentParser = require( 'comment-parser' )
+    , Handlebars = require( 'handlebars' )
     ;
 // run in the terminal using `node index.js`
 module.exports = {
@@ -17,6 +18,7 @@ module.exports = {
         
         this.readFile();
         
+        this.setupHandlebars();
     },
     
     readFile: function() {
@@ -206,6 +208,24 @@ module.exports = {
         
     },
     
+    setupHandlebars: function() {
+        
+        var partialsDir = 'demo/documentation/templates/partials';
+        
+        fs.readdir( partialsDir, function( err, files ) {
+            
+            files.forEach( function( filename ) {
+                var matches = /^([^.]+).hbs$/.exec( filename );
+                if ( !matches ) {
+                    return;
+                }
+                var name = matches[ 1 ];
+                var template = fs.readFileSync( partialsDir + '/' + filename, 'utf8');
+                Handlebars.registerPartial( name, template );
+            });
+        });
+    },
+    
     renderVariablesTemplate: function( section ) {
         // look up which template type (color or typography)
         // get info about each 
@@ -359,22 +379,16 @@ module.exports = {
     
     renderTemplate: function() {
         
-        var assemble = require( 'assemble' );
-        // console.log( assemble );
-        assemble.task( 'default', function() {
-            assemble.src( this.configObj.patterns.settings.template )
-                .pipe( extname())
-                .pipe( assemble.dest( 'dist/'));
+        var templateSrc = this.configObj.patterns.settings.template;
+        var sections = this.configObj.patterns;
+       
+        fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+       
+            var template = Handlebars.compile( data );
+            var page = template( sections );
+            
+            // console.log( page );
         });
-        
-        // var Handlebars = require( 'handlebars' );
-        // var templateSrc = this.configObj.patterns.settings.template;
-        // var sections = this.configObj.patterns;
-        //
-        // fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-        //
-        //     var page = Handlebars.compile( data );
-        // });
     }
 };
 
