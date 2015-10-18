@@ -7,16 +7,20 @@ var fs = require( 'fs' )
     , example = require( './notes/example-config')
     , async = require( 'async' )
     , commentParser = require( 'comment-parser' )
+    , Handlebars = require( 'handlebars' )
     ;
 // run in the terminal using `node index.js`
 module.exports = {
 
     configObj: {},
     
+    template: null,
+    
     init: function( options ) {
         
         this.readFile();
         
+        // this.setupHandlebars();
     },
     
     readFile: function() {
@@ -72,12 +76,9 @@ module.exports = {
         
         async.each( sections, this.parseFile, function() {
             
-            
             self.configObj.patterns.sections = sections;
 
-            self.renderFiles();
-            
-            // console.log( 'DONE!', util.inspect( sections, { depth: 5, colors:true } ));
+            self.setupHandlebars();
 
         });
     },
@@ -206,6 +207,46 @@ module.exports = {
         
     },
     
+    setupHandlebars: function() {
+        
+        // TODO: make this default or based on options obj
+        var partialsDir = 'demo/documentation/templates/partials'
+            , templateSrc = this.configObj.patterns.settings.template
+            , self = this
+            ;
+       
+        fs.readdir( partialsDir, function( err, files ) {
+            
+            // register all partials
+            async.each( files, function( filename, callback ) {
+                
+                var matches = /^([^.]+).hbs$/.exec( filename );
+                if ( !matches ) {
+                    return;
+                }
+                var name = matches[ 1 ];
+                
+                // read file async and add to handlebars
+                fs.readFile( partialsDir + '/' + filename, 'utf8', function( err, partial ) {
+                    
+                    Handlebars.registerPartial( name, partial );
+                    return callback( null );
+                });
+                
+            }, function() {
+                
+                // read template file
+                fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+            
+                    self.template = Handlebars.compile( data );
+                    self.renderFiles();
+                });
+            });            
+        });
+        
+        
+    },
+    
     renderVariablesTemplate: function( section ) {
         // look up which template type (color or typography)
         // get info about each 
@@ -315,6 +356,8 @@ module.exports = {
     },
     
     renderTemplate: function() {
+
+        var sections = this.configObj.patterns;
         
         // var assemble = require( 'assemble' );
         // // console.log( assemble );
@@ -332,6 +375,11 @@ module.exports = {
         
         //     var page = Handlebars.compile( data );
         // });
+
+        this.template( sections );
+        
+        //TODO: write files to dest directory
+
     }
 };
 
