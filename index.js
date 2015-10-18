@@ -209,30 +209,45 @@ module.exports = {
     renderVariablesTemplate: function( section ) {
         // look up which template type (color or typography)
         // get info about each 
-        var templateType = section.template
-            ;
+        var templateType = section.template;
 
         if ( templateType === 'color' ) {
-            //get each color name, that variable, and if they have a usage
-            
+
             var colorsInfo = [];
+            var path;
             
             //get the info needed for template
-            //take the code and create an obj with it's info 
             for ( var i = 0; i < section.files.length; i++ ) {
 
-                for ( var j = 0; j < section.files[i].data.length; j++ ){
+                path = section.files[i].path;
+                
+                for ( var j = 0; j < section.files[i].data.length; j++ ) {
 
                     var code = section.files[i].data[j].code;
-                    // console.log(code);
-                    var colorStrings = code.split( '\n' );
-                    // console.log(colorStrings);
+                    //remove new line characters from code
+                    code = code.replace(/(\r\n|\n|\r)/gm,'');
+
+                    var colorStrings = [];
+
+                    //test the path to see what extension it is
+                    if ( path.indexOf( '.scss' ) != -1 || path.indexOf( '.sass' ) != -1 ) {
+                        //SASS = $
+                        colorStrings = code.split( '$' );
+                    }
+
+                    if ( path.indexOf( '.less' ) != -1 ) {
+                        //LESS = @
+                        colorStrings = code.split( '@' );
+                    }
+
+                    if ( path.indexOf( '.css' ) != -1 ) {
+                        //CSS = no variables
+                    }
+
+                    //clear out any empty stings
                     colorStrings = colorStrings.filter(Boolean);
-                    // console.log(colorStrings);
                     
                     for ( var k = 0; k < colorStrings.length; k++ ) {
-
-                        // console.log(colors[k]);
 
                         var usageSplit = colorStrings[k].split('//');
                         var statmentSplit = usageSplit[0].split(':');
@@ -245,134 +260,76 @@ module.exports = {
                     }
                 }   
             }
-
-            // console.log(colorsInfo); 
-
-            //take info and create a template for it
-            //  --------
-            // | #hex   |
-            // |        |
-            //  --------
-            // $variable name
-            // uses: ...
-            
-            var html = '';
-            var container = '<div class="color-swatches">';
-            var closingDiv = '</div>';
-
-            html += container;
-            
-            //put it into a template
-            for ( var i = 0; i < colorsInfo.length; i++ ) {
-
-                var colorVar = colorsInfo[i].variable;
-                var colorHex = colorsInfo[i].color;
-                var colorUsage = colorsInfo[i].usage;
-                
-                var indivSwatch = '<div class="color-swatch">';
-                var colorSwatch = '<div class="swatch" style="background-color:' + colorHex + '"><span>' + colorHex + '</span></div>';
-                var swatchVar = '<h1>' + colorVar + '</h1>';
-                var swatchUses = '<p>' + colorUsage + '</p>';
-
-                html += indivSwatch;
-                html += colorSwatch;
-                html += swatchVar;
-                if ( colorUsage ) { html += swatchUses; }
-                html += closingDiv;
-
-                // var indivSwatch = document.createElement( 'div' );
-                // indivSwatch.className( 'color-swatch' );
-
-                // var colorSwatch = document.createElement( 'div' );
-                // colorSwatch.className( 'swatch' );
-                // colorSwatch.setAttribute( 'style', 'background-color:'+colorHex );
-
-                // var colorSwatchSpan = createElement( 'span' );
-                // colorSwatchSpan.createTextNode( colorHex );
-
-                // var swatchVar = document.createElement( 'h1' );
-                // swatchVar.createTextNode( colorVar );
-
-                // var swatchUses = document.createElement( 'p' );
-                // swatchUses.createTextNode( colorUsage );
-
-                // colorSwatch.appendChild(colorSwatchSpan);
-                // indivSwatch.appendChild(colorSwatch);
-                // indivSwatch.appendChild(swatchVar);
-                // indivSwatch.appendChild(swatchUses);
-
-                // var swatchModule = indivSwatch.appendChild(indivSwatch);
-
-                // container.appendChild(swatchModule);
-            }
-
-            html += closingDiv;
-            //console.log(html);
+            console.log(colorsInfo);
         }
+
         if ( templateType === 'typography' ) {
             //get info needed
+            var typeInfo = [];
+            var path;
+
             for ( var i = 0; i < section.files.length; i++ ) {
 
-                for ( var j = 0; j < section.files[i].data.length; j++ ){
+                path = section.files[i].path;
 
+                for ( var j = 0; j < section.files[i].data.length; j++ ) {
+                    
                     var code = section.files[i].data[j].code;
-                    // console.log(code);
-                    // console.log('---');
-                    // var typeStrings = code.split( '\n' );
-                    // typeStrings = typeStrings.filter(Boolean);
-                    // console.log(typeStrings);
+                    
+                    var typeStrings = [];
+
+                    if ( path.indexOf( '.scss' ) != -1 || path.indexOf( '.sass' ) != -1 ) {
+                        //SASS = $
+                        typeStrings = code.match(/(\$.*:.*)/g);
+                    }
+
+                    if ( path.indexOf( '.less' ) != -1 ) {
+                        //LESS = @
+                        typeStrings = code.match(/(\@.*:.*)/g);
+                    }
+
+                    if ( path.indexOf( '.css' ) != -1 ) {
+                        //CSS = no variables
+                    }
+
+                    if ( typeStrings === null ) {
+                        
+                        typeStrings = [];
+                    }
+
+                    //now split the lines up to get each particular section (var, types)
+                    for ( var k = 0; k < typeStrings.length; k++ ) {
+
+                        var varSplit = typeStrings[k].split(':');
+                        var fontSplit = varSplit[1].split(',');
+
+                        typeInfo.push({
+                            'variable': varSplit[0],
+                            'font': fontSplit
+                        });
+                    }
                 }
             }
-
-            //font family: Arial
-            //variable: $Arial
-            //The quick brown fox jumps over the lazy dog. (reg)
-
-            // var html = '';
-            // var container = '<div class="container">';
-
-            // html += container;
-
-            // for ( var k = 0; k < something.length; k++ ) {
-
-            //     var fontFamily;
-            //     var fontVar;
-
-            //     var ffBlock = '<div class="font-block">';
-            //     var ffName = '<p class="font-name">Font Family: ' + fontFamily + '</p>';
-            //     var ffVar = '<p class="font-variable">Variable: ' + fontVar + '</p>';
-            //     var ffExample = '<p>The quick brown fox jumps over the lazy dog.</p>'
-            //     var closingDiv = '</div>';
-
-            //     html += ffBlock;
-            //     html += ffName;
-            //     html += ffVar;
-            //     html += ffExample;
-            //     html += closingDiv;
-            // }
-            
-            // html += closingDiv;
+            console.log(typeInfo);
         }
-        
-
     },
     
     renderTemplate: function() {
         
-        var assemble = require( 'assemble' );
-        // console.log( assemble );
-        assemble.task( 'default', function() {
-            assemble.src( this.configObj.patterns.settings.template )
-                .pipe( extname())
-                .pipe( assemble.dest( 'dist/'));
-        });
+        // var assemble = require( 'assemble' );
+        // // console.log( assemble );
+        // assemble.task( 'default', function() {
+        //     assemble.src( this.configObj.patterns.settings.template )
+        //         .pipe( extname())
+        //         .pipe( assemble.dest( 'dist/'));
+        // });
         
         // var Handlebars = require( 'handlebars' );
         // var templateSrc = this.configObj.patterns.settings.template;
         // var sections = this.configObj.patterns;
-        //
+        
         // fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-        //
+        
         //     var page = Handlebars.compile( data );
         // });
     }

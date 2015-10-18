@@ -1,0 +1,18 @@
+//  --------
+// | #hex   |
+// |        |
+//  --------
+// $variable name
+// uses: ...
+
+<div class="color-swatches">
+    {{#each }}
+        <div class="color-swatch">
+            <div class="swatch" style="background-color:{{color}};">
+                <span>{{color}}</span>
+            </div>
+            <h1>{{variable}}</h1>
+            <p>{{usage}}</p>
+        </div>
+    {{/each}}
+</div>
