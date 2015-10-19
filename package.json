@@ -9,7 +9,9 @@
     "css": "^2.2.1",
     "glob": "^5.0.15",
     "grunt": "^0.4.5",
-    "handlebars": "^4.0.3"
+    "handlebars": "^4.0.3",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7"
   },
   "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
   "repository": {

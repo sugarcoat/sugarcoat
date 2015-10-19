@@ -8,7 +8,33 @@ var fs = require( 'fs' )
     , async = require( 'async' )
     , commentParser = require( 'comment-parser' )
     , Handlebars = require( 'handlebars' )
+    , path = require( 'path' )
+    , mkdirp = require( 'mkdirp' )
+    , getDirName = require( 'path' ).dirname
     ;
+
+/**
+ * 
+ * Utility Functions
+ *
+ */
+// creates directories to path name provided if directory doesn't exist, otherwise is a noop.
+function writeFile( path, contents, cb ) {
+    mkdirp(getDirName(path), function (err) {
+        if (err) return cb(err)
+        fs.writeFile(path, contents, cb)
+  });
+}
+// replaces string to camelCase string
+function toCamelCase( str ) {
+    var str = str.replace( /\w\S*/g,
+        function( txt ){
+            
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }).replace( /\s+/g, '');
+
+    return str.charAt(0).toLowerCase() + str.slice(1);
+}
 // run in the terminal using `node index.js`
 module.exports = {
 
@@ -197,7 +223,7 @@ module.exports = {
             else if ( !sections[ i ].type ) {
                 
                 //do normal rendering on array of files
-                this.renderTemplate();
+                this.renderTemplate( sections[ i ]);
             }
             else {
                 
@@ -355,31 +381,31 @@ module.exports = {
         }
     },
     
-    renderTemplate: function() {
+    renderTemplate: function( section ) {
 
-        var sections = this.configObj.patterns;
-        
-        // var assemble = require( 'assemble' );
-        // // console.log( assemble );
-        // assemble.task( 'default', function() {
-        //     assemble.src( this.configObj.patterns.settings.template )
-        //         .pipe( extname())
-        //         .pipe( assemble.dest( 'dist/'));
-        // });
-        
-        // var Handlebars = require( 'handlebars' );
-        // var templateSrc = this.configObj.patterns.settings.template;
-        // var sections = this.configObj.patterns;
-        
-        // fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-        
-        //     var page = Handlebars.compile( data );
-        // });
+        var sections = this.configObj.patterns
+            , Handlebars = require( 'handlebars' )
+            , templateSrc = this.configObj.patterns.settings.template
+            , dest = this.configObj.patterns.settings.dest + '/'
+            , self = this
+            ;
 
-        this.template( sections );
-        
-        //TODO: write files to dest directory
+        fs.readFile( templateSrc, { encoding: 'utf-8' }, function( err, data ) {
 
+            var page = Handlebars.compile( data )
+                , data = self.template( sections )
+                , basename = toCamelCase( section.title )
+                , path = dest + basename + '.html'
+                ;
+
+            writeFile( path, data, function( err ) {
+            
+                if ( err ) {
+                    console.log( 'Error occurred: ', err );
+                }
+            });
+            
+        });
     }
 };
 
