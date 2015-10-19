@@ -19,7 +19,10 @@ var config = {
             // what about 'not' typography?
             {
                 title: 'UI Kit',
-                files: 'demo/library/styles/global/'
+                files: [ 
+                    'demo/library/styles/base/feedback.scss',
+                    'demo/library/styles/global/'
+                ]
             },
             {
                 title: 'Typography',
