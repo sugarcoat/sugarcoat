@@ -1,10 +1,9 @@
 var configLocation = './notes/example-config';
 
 var fs = require( 'fs' )
-    , util = require( 'util' )
     , configFile = require( configLocation )
-    , css = require( 'css' )
-    , example = require( './notes/example-config')
+    , util = require( 'util' )
+    , glob = require("glob")
     , async = require( 'async' )
     , commentParser = require( 'comment-parser' )
     , Handlebars = require( 'handlebars' )
@@ -20,6 +19,7 @@ var fs = require( 'fs' )
  */
 // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
 function writeFile( path, contents, cb ) {
+    
     mkdirp(getDirName(path), function (err) {
         if (err) return cb(err)
         fs.writeFile(path, contents, cb)
@@ -27,6 +27,7 @@ function writeFile( path, contents, cb ) {
 }
 // replaces string to camelCase string
 function toCamelCase( str ) {
+    
     var str = str.replace( /\w\S*/g,
         function( txt ){
             
@@ -35,8 +36,9 @@ function toCamelCase( str ) {
 
     return str.charAt(0).toLowerCase() + str.slice(1);
 }
+
 // run in the terminal using `node index.js`
-module.exports = {
+var Patterns = {
 
     configObj: {},
     
@@ -45,22 +47,22 @@ module.exports = {
     init: function( options ) {
         
         this.readFile();
-        
-        // this.setupHandlebars();
     },
     
     readFile: function() {
-        //get the data and throw it into a variable that we can use to edit
+        
+        //get the data and throw it into a variable we can edit
         this.configObj = configFile;
         
+        // TODO: need to execute get files on the parameter only, not through the whole obj
         this.getFiles( this.configObj );
-        // console.log(this.configObj);
+        
     },
     
     getFiles: function( data ) {
 
         var files;
-       
+
         var glob = require('glob');
 
         var key = Object.keys( data );
@@ -84,8 +86,7 @@ module.exports = {
                             files = glob.sync( objFiles[k] );
                             // data[key[i]].sections[j].files[k] = files;
                            for ( l = 0; l < files.length; l++ ) {
-                                //for each of those files within the array add them to the already existing files array
-                                // data[key[i]].sections[j].files.push(files[l]);
+
                                 tempFiles.push(files[l]);
                                 // console.log('file', files[l]);
                             }
@@ -102,14 +103,9 @@ module.exports = {
                                 files = glob.sync( objFiles[k]+'**/*', { nodir: true, matchBase:true } );
                                 
                                 for ( m = 0; m < files.length; m++ ) {
-                                    //for each of those files within the array add them to the already existing files array
-                                    // data[key[i]].sections[j].files.push(files[m]);
+                                    
                                     tempFiles.push(files[m]);
-
-                                    // console.log('file', files[m]);
                                 }
-                                // data[key[i]].sections[j].files[k] = files;
-                                // data[key[i]].sections[j].files.splice(objFiles[k]);
                             }
                             else {
                                 tempFiles.push(objFiles[k]);
@@ -152,97 +148,60 @@ module.exports = {
             , self = this
             ;
         
-        async.each( sections, this.parseFile, function() {
+        async.each( sections, this.parseSection.bind( Patterns ), function() {
             
             self.configObj.patterns.sections = sections;
-
+            
+            // console.log( util.inspect( sections, { depth:5, colors:true } ));
             self.setupHandlebars();
 
         });
     },
-    parseFile: function( section, callback ) {
+    
+    parseSection: function( section, callback ) {
         
-        var COMMENTSPLIT = /^\s*\*\//m;
-        // for html, include trailing comment
-        var HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m;
+        var self = this
+            , originalFiles = section.files
+            , hasVariables = section.variables
+            ;
         
-        //internal function that parses using comment-parse on currentFile
-        function parseComment( currentFile, data ) {
-            
-            var isHtmlComponent = false;
-            
-            // grab each comment block
-            var comments = data.split( '/**' );
-            
-            // the first array item is empty if not an html component
-            if ( comments[ 0 ].length !== 0 ) {
-                
-                isHtmlComponent = true;
-            }
-            
-            comments.shift();
-            
-            for ( var i = 0; i < comments.length; i++ ) {
-                
-                // split blocks into comment and code content
-                var block = isHtmlComponent 
-                    ? comments[ i ].split( HTMLCOMMENTSPLIT )
-                    : comments[ i ].split( COMMENTSPLIT ) 
-                    , toParse = '/**' + block[ 0 ] + ' */'
-                    ;
-                
-                // add comment section to array
-                comments[ i ] = commentParser( toParse )[ 0 ];
-                
-                if ( isHtmlComponent ) {
-                    
-                    // if there's a following comment block, remove the starting html comment
-                    var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
-                        , isLastComment = block[ 1 ].length - lastCommentBlock === 5
-                        ;
-                    
-                    if ( isLastComment ) {
-                        block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
-                    }
-                }
-                // add code to data obj
-                comments[ i ].code = block[ 1 ];
-            }
-
-            return {
-                path: currentFile,
-                data: comments
-            };
-        }
-
-        // only one file declared
-        if ( typeof section.files === 'string' ) {
+        section.files = [];
+        
+        // only one file 
+        if ( typeof originalFiles === 'string' ) {
             
             var currentFile = section.files;
             
-            fs.readFile( currentFile, { encoding: 'UTF8' }, function( err, data ) {
-                
-                section.files = [];
-                section.files.push( parseComment( currentFile, data ));
+            fs.readFile( currentFile, 'utf-8', function( err, data ) {
+                                
+                section.files.push( self.parseComment( currentFile, data ));
                 
                 return callback( null );
             });
         }
+        // array of files
         else {
-            
-            // array of files declared
-            var files = section.files;
-            section.files = [];
-            
-            async.each( files,
-                function( item, callback ) {
+        
+            async.each( originalFiles,
+                function( currentFile, callback ) {
                     
-                    var currentFile = item;
+                    var match;
+                    
+                    if ( hasVariables ) {
+                        
+                        for ( var i = 0; i < hasVariables.length ; i++ ) {
+                            
+                            if ( hasVariables[ i ].files === currentFile ) {
+                                
+                                match = hasVariables[ i ];
+                            }
+                        }
+                    }
                     
                     // read all files
                     fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
                         
-                        section.files.push( parseComment( currentFile, data ));
+                        section.files.push( self.parseComment( currentFile, data, match ));
                         
                         // read file callback
                         return callback( null );
@@ -255,6 +214,60 @@ module.exports = {
                 }
             );
         }
+    },
+    
+    parseComment: function( currentFile, data, type ) {
+        
+        console.log( type );
+        
+        var COMMENTSPLIT = /^\s*\*\//m
+            // for html, include trailing comment
+            , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
+            , isHtmlComponent = false
+            // grab each comment block
+            , comments = data.split( '/**' )
+            ;
+        
+        // the first array item is empty if not an html component
+        if ( comments[ 0 ].length !== 0 ) {
+            
+            isHtmlComponent = true;
+        }
+        
+        comments.shift();
+        
+        for ( var i = 0; i < comments.length; i++ ) {
+            
+            // split blocks into comment and code content
+            var block = isHtmlComponent 
+                ? comments[ i ].split( HTMLCOMMENTSPLIT )
+                : comments[ i ].split( COMMENTSPLIT ) 
+                , toParse = '/**' + block[ 0 ] + ' */'
+                ;
+            
+            // add comment section to array
+            comments[ i ] = commentParser( toParse )[ 0 ];
+            
+            if ( isHtmlComponent ) {
+                
+                // if there's a following comment block, remove the starting html comment
+                var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
+                    , isLastComment = block[ 1 ].length - lastCommentBlock === 5
+                    ;
+                
+                if ( isLastComment ) {
+                    block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
+                }
+            }
+            // add code to data obj
+            comments[ i ].code = block[ 1 ];
+        }
+
+        return {
+            path: currentFile,
+            data: comments
+        };
+        
     },
     
     renderFiles: function() {
@@ -456,9 +469,8 @@ module.exports = {
                     console.log( 'Error occurred: ', err );
                 }
             });
-            
         });
     }
 };
 
-module.exports.init();
+module.exports = Patterns.init();
