@@ -5,10 +5,10 @@ var fs = require( 'fs' )
     , util = require( 'util' )
     , glob = require("glob")
     , async = require( 'async' )
-    , commentParser = require( 'comment-parser' )
     , Handlebars = require( 'handlebars' )
     , path = require( 'path' )
-    , helpers = require( './generators/pattern-library/lib/utils')
+    , helpers = require( './generators/pattern-library/lib/utils' )
+    , parser = require( './generators/pattern-library/lib/parser' )
     ;
 
 // run in the terminal using `node index.js`
@@ -114,8 +114,13 @@ var Generators = {
             if( slashEnd === filesLength - 1) {
                 // console.log('we have and end match!', objFiles);
                 files = glob.sync( objFiles+'**/*' );
+                
                 return files;
             }
+            else {
+                return objFiles;
+            }
+            
         }
     },
     
@@ -125,7 +130,8 @@ var Generators = {
             , self = this
             ;
         
-        async.each( sections, this.parseSection.bind( Generators ), function() {
+        async.each( sections, parser.parseSection.bind( parser ), function() {
+            // console.log( 'sections', arguments );
             
             self.configObj.patterns.sections = sections;
             
@@ -134,104 +140,7 @@ var Generators = {
 
         });
     },
-    
-    parseSection: function( section, callback ) {
-        
-        var self = this
-            , originalFiles = section.files
-            // , hasVariables = section.variables
-            ;
-        
-        section.files = [];
-        
-        // only one file 
-        if ( typeof originalFiles === 'string' ) {
-            
-            var currentFile = originalFiles;
-            
-            fs.readFile( currentFile, 'utf-8', function( err, data ) {
-                                
-                section.files.push( self.parseComment( currentFile, data ));
-                
-                return callback( null );
-            });
-        }
-        // array of files
-        else {
-        
-            async.each( originalFiles,
-                function( currentFile, callback ) {
-                    
-                    // read all files
-                    fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
-                        
-                        section.files.push( self.parseComment( currentFile, data ));
-                        
-                        // read file callback
-                        return callback( null );
-                    });
-                },
-                function( err ) {
-                    
-                    // parent callback
-                    return callback( null );
-                }
-            );
-        }
-    },
-    
-    parseComment: function( currentFile, data, type ) {
-        
-        var COMMENTSPLIT = /^\s*\*\//m
-            // for html, include trailing comment
-            , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
-            , isHtmlComponent = false
-            // grab each comment block
-            , comments = data.split( '/**' )
-            ;
-        
-        // the first array item is empty if not an html component
-        if ( comments[ 0 ].length !== 0 ) {
-            
-            isHtmlComponent = true;
-        }
-        
-        comments.shift();
-        
-        for ( var i = 0; i < comments.length; i++ ) {
-            
-            // split blocks into comment and code content
-            var block = isHtmlComponent 
-                ? comments[ i ].split( HTMLCOMMENTSPLIT )
-                : comments[ i ].split( COMMENTSPLIT ) 
-                , toParse = '/**' + block[ 0 ] + ' */'
-                ;
-            
-            // add comment section to array
-            comments[ i ] = commentParser( toParse )[ 0 ];
-            
-            if ( isHtmlComponent ) {
-                
-                // if there's a following comment block, remove the starting html comment
-                var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
-                    , isLastComment = block[ 1 ].length - lastCommentBlock === 5
-                    ;
-                
-                if ( isLastComment ) {
-                    block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
-                }
-            }
-            // add code to data obj
-            comments[ i ].code = block[ 1 ];
-        }
 
-        return {
-            path: currentFile,
-            data: comments
-        };
-        
-    },
-    
     renderFiles: function() {
         
         var config = this.configObj.patterns
