@@ -152,7 +152,7 @@ var Patterns = {
             
             self.configObj.patterns.sections = sections;
             
-            console.log( util.inspect( sections, { depth:5, colors:true } ));
+            // console.log( util.inspect( sections, { depth:5, colors:true } ));
             self.setupHandlebars();
 
         });
@@ -334,8 +334,6 @@ var Patterns = {
                 });
             });            
         });
-        
-        
     },
     
     renderVariablesTemplate: function( section ) {
