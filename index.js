@@ -1,5 +1,4 @@
-//TODO: Config obj location
-var configLocation = './notes/example-patterns-config';
+var configLocation = './notes/example-config';
 
 var fs = require( 'fs' )
     , configFile = require( configLocation )
@@ -68,28 +67,74 @@ var Patterns = {
 
         var key = Object.keys( data );
 
-        for ( var i = 0, l = data[key].sections.length; i < l; i++ ) {
-            var sectObjs = data[key].sections[i];
-            var ObjFiles = sectObjs.files;
-            // console.log(sectObjs);
+        for ( var i = 0; i < key.length; i++ ){
 
-            if ( ObjFiles.indexOf( '*' ) > -1 ) {
+            for ( var j = 0; j < data[key[i]].sections.length; j++ ) {
+                
+                var sectObjs = data[key[i]].sections[j];
+                var objFiles = sectObjs.files;
+                // console.log(objFiles);
 
-                // files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
-                files = glob.sync( ObjFiles );
-                data[key].sections[i].files = files;
-                // console.log('I have a star', ObjFiles);
-            }
-            else {
-                var suffix = '/';
-                var suffixLength = suffix.length;
-                var filesLength = ObjFiles.length;
-                // console.log('obj length', filesLength);
-                var slashEnd = ObjFiles.indexOf( suffix, ( filesLength - suffixLength ) );
-                if( slashEnd === filesLength - 1) {
-                    // console.log('we have and end match!', ObjFiles);
-                    files = glob.sync( ObjFiles+'**/*' );
-                    data[key].sections[i].files = files;
+                if( objFiles instanceof Array ) {
+
+                    var tempFiles = [];
+
+                    for ( var k = 0; k < objFiles.length; k++ ) {
+                        
+                        if ( objFiles[k].indexOf( '*' ) > -1 ) {
+
+                            files = glob.sync( objFiles[k] );
+                            // data[key[i]].sections[j].files[k] = files;
+                           for ( l = 0; l < files.length; l++ ) {
+
+                                tempFiles.push(files[l]);
+                                // console.log('file', files[l]);
+                            }
+                        }
+
+                        else {
+                            var suffix = '/';
+                            var suffixLength = suffix.length;
+                            var filesLength = objFiles[k].length;
+                            var slashEnd = objFiles[k].indexOf( suffix, ( filesLength - suffixLength ) );
+                            
+                            if( slashEnd === filesLength - 1) {
+                                // console.log('we have and end match!', objFiles[k]);
+                                files = glob.sync( objFiles[k]+'**/*', { nodir: true, matchBase:true } );
+                                
+                                for ( m = 0; m < files.length; m++ ) {
+                                    
+                                    tempFiles.push(files[m]);
+                                }
+                            }
+                            else {
+                                tempFiles.push(objFiles[k]);
+                            }
+                        }
+                    } 
+                    // console.log(tempFiles);
+                    data[key[i]].sections[j].files = tempFiles;               
+                }
+
+                if ( objFiles.indexOf( '*' ) > -1 ) {
+
+                    // files = glob.sync( objFiles, { nodir: true, matchBase:true } );
+                    files = glob.sync( objFiles );
+                    data[key[i]].sections[j].files = files;
+                    // console.log('I have a star', objFiles);
+                }
+
+                else {
+                    var suffix = '/';
+                    var suffixLength = suffix.length;
+                    var filesLength = objFiles.length;
+                    var slashEnd = objFiles.indexOf( suffix, ( filesLength - suffixLength ) );
+                    
+                    if( slashEnd === filesLength - 1) {
+                        // console.log('we have and end match!', objFiles);
+                        files = glob.sync( objFiles+'**/*' );
+                        data[key[i]].sections[j].files = files;
+                    }
                 }
             }
         }
