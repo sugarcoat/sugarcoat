@@ -1,4 +1,4 @@
-var configLocation = './notes/example-patterns-config';
+var configLocation = './notes/example-config';
 
 var fs = require( 'fs' )
     , util = require( 'util' )
@@ -61,37 +61,89 @@ module.exports = {
 
         var files;
        
-        var glob = require("glob");
+        var glob = require('glob');
 
         var key = Object.keys( data );
 
-        for ( var i = 0, l = data[key].sections.length; i < l; i++ ) {
-            var sectObjs = data[key].sections[i];
-            var ObjFiles = sectObjs.files;
-            // console.log(sectObjs);
+        for ( var i = 0; i < key.length; i++ ){
 
-            if ( ObjFiles.indexOf( '*' ) > -1 ) {
+            for ( var j = 0; j < data[key[i]].sections.length; j++ ) {
+                
+                var sectObjs = data[key[i]].sections[j];
+                var objFiles = sectObjs.files;
+                // console.log(objFiles);
 
-                // files = glob.sync( ObjFiles, { nodir: true, matchBase:true } );
-                files = glob.sync( ObjFiles );
-                data[key].sections[i].files = files;
-                // console.log('I have a star', ObjFiles);
-            }
-            else {
-                var suffix = '/';
-                var suffixLength = suffix.length;
-                var filesLength = ObjFiles.length;
-                // console.log('obj length', filesLength);
-                var slashEnd = ObjFiles.indexOf( suffix, ( filesLength - suffixLength ) );
-                if( slashEnd === filesLength - 1) {
-                    // console.log('we have and end match!', ObjFiles);
-                    files = glob.sync( ObjFiles+'**/*' );
-                    data[key].sections[i].files = files;
+                if( objFiles instanceof Array ) {
+
+                    var tempFiles = [];
+
+                    for ( var k = 0; k < objFiles.length; k++ ) {
+                        
+                        if ( objFiles[k].indexOf( '*' ) > -1 ) {
+
+                            files = glob.sync( objFiles[k] );
+                            // data[key[i]].sections[j].files[k] = files;
+                           for ( l = 0; l < files.length; l++ ) {
+                                //for each of those files within the array add them to the already existing files array
+                                // data[key[i]].sections[j].files.push(files[l]);
+                                tempFiles.push(files[l]);
+                                // console.log('file', files[l]);
+                            }
+                        }
+
+                        else {
+                            var suffix = '/';
+                            var suffixLength = suffix.length;
+                            var filesLength = objFiles[k].length;
+                            var slashEnd = objFiles[k].indexOf( suffix, ( filesLength - suffixLength ) );
+                            
+                            if( slashEnd === filesLength - 1) {
+                                // console.log('we have and end match!', objFiles[k]);
+                                files = glob.sync( objFiles[k]+'**/*', { nodir: true, matchBase:true } );
+                                
+                                for ( m = 0; m < files.length; m++ ) {
+                                    //for each of those files within the array add them to the already existing files array
+                                    // data[key[i]].sections[j].files.push(files[m]);
+                                    tempFiles.push(files[m]);
+
+                                    // console.log('file', files[m]);
+                                }
+                                // data[key[i]].sections[j].files[k] = files;
+                                // data[key[i]].sections[j].files.splice(objFiles[k]);
+                            }
+                            else {
+                                tempFiles.push(objFiles[k]);
+                            }
+                        }
+                    } 
+                    // console.log(tempFiles);
+                    data[key[i]].sections[j].files = tempFiles;               
+                }
+
+                if ( objFiles.indexOf( '*' ) > -1 ) {
+
+                    // files = glob.sync( objFiles, { nodir: true, matchBase:true } );
+                    files = glob.sync( objFiles );
+                    data[key[i]].sections[j].files = files;
+                    // console.log('I have a star', objFiles);
+                }
+
+                else {
+                    var suffix = '/';
+                    var suffixLength = suffix.length;
+                    var filesLength = objFiles.length;
+                    var slashEnd = objFiles.indexOf( suffix, ( filesLength - suffixLength ) );
+                    
+                    if( slashEnd === filesLength - 1) {
+                        // console.log('we have and end match!', objFiles);
+                        files = glob.sync( objFiles+'**/*' );
+                        data[key[i]].sections[j].files = files;
+                    }
                 }
             }
         }
         
-        this.parseFiles();
+        // this.parseFiles();
     },
     
     parseFiles: function() {
@@ -327,7 +379,7 @@ module.exports = {
                     }
                 }   
             }
-            console.log(colorsInfo);
+            // console.log(colorsInfo);
         }
 
         if ( templateType === 'typography' ) {
@@ -377,7 +429,7 @@ module.exports = {
                     }
                 }
             }
-            console.log(typeInfo);
+            // console.log(typeInfo);
         }
     },
     

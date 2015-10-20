@@ -29,7 +29,11 @@ var config = {
             // what about 'not' typography?
             {
                 title: 'UI Kit',
-                files: 'demo/library/styles/global/*.scss'
+                files: [ 
+                    'demo/library/styles/base/feedback.scss',
+                    'demo/library/styles/global/*.scss',
+                    'demo/library/styles/global/'
+                ]
             },
             {
                 title: 'Typography',
@@ -50,7 +54,7 @@ var config = {
             },
             {
                 title: 'Workflows',
-                files: 'demo/documentation/workflows/*'           
+                files: 'demo/documentation/workflows/'           
             }
         ]
     }
