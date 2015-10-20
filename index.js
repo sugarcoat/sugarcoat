@@ -8,39 +8,11 @@ var fs = require( 'fs' )
     , commentParser = require( 'comment-parser' )
     , Handlebars = require( 'handlebars' )
     , path = require( 'path' )
-    , mkdirp = require( 'mkdirp' )
-    , getDirName = require( 'path' ).dirname
+    , helpers = require( './generators/pattern-library/lib/utils')
     ;
 
-/**
- * 
- * Utility Functions
- *
- */
-
-// creates directories to path name provided if directory doesn't exist, otherwise is a noop.
-function writeFile( path, contents, cb ) {
-    
-    mkdirp(getDirName(path), function (err) {
-        if (err) return cb(err)
-        fs.writeFile(path, contents, cb)
-  });
-}
-
-// replaces string to camelCase string
-function toCamelCase( str ) {
-    
-    var str = str.replace( /\w\S*/g,
-        function( txt ){
-            
-            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-        }).replace( /\s+/g, '');
-
-    return str.charAt(0).toLowerCase() + str.slice(1);
-}
-
 // run in the terminal using `node index.js`
-var Patterns = {
+var Generators = {
 
     configObj: {},
     
@@ -73,73 +45,78 @@ var Patterns = {
                 
                 var sectObjs = data[key[i]].sections[j];
                 var objFiles = sectObjs.files;
-                // console.log(objFiles);
+                
+                data[key[i]].sections[j].files = this.getGlob( objFiles );
+            }
+        }
+        
+        this.parseFiles();
+    },
+    
+    getGlob: function( objFiles ) {
+        
+        if( objFiles instanceof Array ) {
 
-                if( objFiles instanceof Array ) {
+            var tempFiles = [];
 
-                    var tempFiles = [];
+            for ( var k = 0; k < objFiles.length; k++ ) {
+                
+                if ( objFiles[k].indexOf( '*' ) > -1 ) {
 
-                    for ( var k = 0; k < objFiles.length; k++ ) {
-                        
-                        if ( objFiles[k].indexOf( '*' ) > -1 ) {
+                    files = glob.sync( objFiles[k] );
+                    // data[key[i]].sections[j].files[k] = files;
+                   for ( l = 0; l < files.length; l++ ) {
 
-                            files = glob.sync( objFiles[k] );
-                            // data[key[i]].sections[j].files[k] = files;
-                           for ( l = 0; l < files.length; l++ ) {
-
-                                tempFiles.push(files[l]);
-                                // console.log('file', files[l]);
-                            }
-                        }
-
-                        else {
-                            var suffix = '/';
-                            var suffixLength = suffix.length;
-                            var filesLength = objFiles[k].length;
-                            var slashEnd = objFiles[k].indexOf( suffix, ( filesLength - suffixLength ) );
-                            
-                            if( slashEnd === filesLength - 1) {
-                                // console.log('we have and end match!', objFiles[k]);
-                                files = glob.sync( objFiles[k]+'**/*', { nodir: true, matchBase:true } );
-                                
-                                for ( m = 0; m < files.length; m++ ) {
-                                    
-                                    tempFiles.push(files[m]);
-                                }
-                            }
-                            else {
-                                tempFiles.push(objFiles[k]);
-                            }
-                        }
-                    } 
-                    // console.log(tempFiles);
-                    data[key[i]].sections[j].files = tempFiles;               
-                }
-
-                if ( objFiles.indexOf( '*' ) > -1 ) {
-
-                    // files = glob.sync( objFiles, { nodir: true, matchBase:true } );
-                    files = glob.sync( objFiles );
-                    data[key[i]].sections[j].files = files;
-                    // console.log('I have a star', objFiles);
+                        tempFiles.push(files[l]);
+                        // console.log('file', files[l]);
+                    }
                 }
 
                 else {
                     var suffix = '/';
                     var suffixLength = suffix.length;
-                    var filesLength = objFiles.length;
-                    var slashEnd = objFiles.indexOf( suffix, ( filesLength - suffixLength ) );
+                    var filesLength = objFiles[k].length;
+                    var slashEnd = objFiles[k].indexOf( suffix, ( filesLength - suffixLength ) );
                     
                     if( slashEnd === filesLength - 1) {
-                        // console.log('we have and end match!', objFiles);
-                        files = glob.sync( objFiles+'**/*' );
-                        data[key[i]].sections[j].files = files;
+                        // console.log('we have and end match!', objFiles[k]);
+                        files = glob.sync( objFiles[k]+'**/*', { nodir: true, matchBase:true } );
+                        
+                        for ( m = 0; m < files.length; m++ ) {
+                            
+                            tempFiles.push(files[m]);
+                        }
+                    }
+                    else {
+                        tempFiles.push(objFiles[k]);
                     }
                 }
+            } 
+            return tempFiles;
+            // console.log(tempFiles);
+            // data[key[i]].sections[j].files = tempFiles;      
+        }
+
+        if ( objFiles.indexOf( '*' ) > -1 ) {
+
+            // files = glob.sync( objFiles, { nodir: true, matchBase:true } );
+            files = glob.sync( objFiles );
+            return files;
+            // console.log('I have a star', objFiles);
+        }
+
+        else {
+            var suffix = '/';
+            var suffixLength = suffix.length;
+            var filesLength = objFiles.length;
+            var slashEnd = objFiles.indexOf( suffix, ( filesLength - suffixLength ) );
+            
+            if( slashEnd === filesLength - 1) {
+                // console.log('we have and end match!', objFiles);
+                files = glob.sync( objFiles+'**/*' );
+                return files;
             }
         }
-        
-        this.parseFiles();
     },
     
     parseFiles: function() {
@@ -148,12 +125,12 @@ var Patterns = {
             , self = this
             ;
         
-        async.each( sections, this.parseSection.bind( Patterns ), function() {
+        async.each( sections, this.parseSection.bind( Generators ), function() {
             
             self.configObj.patterns.sections = sections;
             
             // console.log( util.inspect( sections, { depth:5, colors:true } ));
-            self.setupHandlebars();
+            // self.setupHandlebars();
 
         });
     },
@@ -172,8 +149,6 @@ var Patterns = {
             
             var currentFile = originalFiles;
             
-            console.log( originalFiles );
-            
             fs.readFile( currentFile, 'utf-8', function( err, data ) {
                                 
                 section.files.push( self.parseComment( currentFile, data ));
@@ -186,19 +161,6 @@ var Patterns = {
         
             async.each( originalFiles,
                 function( currentFile, callback ) {
-                    
-                    // var match;
-                    //
-                    // if ( hasVariables ) {
-                    //
-                    //     for ( var i = 0; i < hasVariables.length ; i++ ) {
-                    //
-                    //         if ( hasVariables[ i ].files === currentFile ) {
-                    //
-                    //             match = hasVariables[ i ];
-                    //         }
-                    //     }
-                    // }
                     
                     // read all files
                     fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
@@ -457,11 +419,11 @@ var Patterns = {
 
             var page = Handlebars.compile( data )
                 , data = self.template( sections )
-                , basename = toCamelCase( section.title )
+                , basename = helpers.toCamelCase( section.title )
                 , path = dest + basename + '.html'
                 ;
 
-            writeFile( path, data, function( err ) {
+            helpers.writeFile( path, data, function( err ) {
             
                 if ( err ) {
                     console.log( 'Error occurred: ', err );
@@ -471,4 +433,4 @@ var Patterns = {
     }
 };
 
-module.exports = Patterns.init();
+module.exports = Generators.init();
