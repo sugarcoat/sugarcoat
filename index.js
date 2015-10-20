@@ -1,5 +1,5 @@
 //TODO: Config obj location
-var configLocation = './notes/patterns-config';
+var configLocation = './notes/example-patterns-config';
 
 var fs = require( 'fs' )
     , configFile = require( configLocation )
@@ -18,6 +18,7 @@ var fs = require( 'fs' )
  * Utility Functions
  *
  */
+
 // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
 function writeFile( path, contents, cb ) {
     
@@ -26,6 +27,7 @@ function writeFile( path, contents, cb ) {
         fs.writeFile(path, contents, cb)
   });
 }
+
 // replaces string to camelCase string
 function toCamelCase( str ) {
     
@@ -105,7 +107,7 @@ var Patterns = {
             
             self.configObj.patterns.sections = sections;
             
-            // console.log( util.inspect( sections, { depth:5, colors:true } ));
+            console.log( util.inspect( sections, { depth:5, colors:true } ));
             self.setupHandlebars();
 
         });
@@ -115,7 +117,7 @@ var Patterns = {
         
         var self = this
             , originalFiles = section.files
-            , hasVariables = section.variables
+            // , hasVariables = section.variables
             ;
         
         section.files = [];
@@ -123,7 +125,9 @@ var Patterns = {
         // only one file 
         if ( typeof originalFiles === 'string' ) {
             
-            var currentFile = section.files;
+            var currentFile = originalFiles;
+            
+            console.log( originalFiles );
             
             fs.readFile( currentFile, 'utf-8', function( err, data ) {
                                 
@@ -138,23 +142,23 @@ var Patterns = {
             async.each( originalFiles,
                 function( currentFile, callback ) {
                     
-                    var match;
-                    
-                    if ( hasVariables ) {
-                        
-                        for ( var i = 0; i < hasVariables.length ; i++ ) {
-                            
-                            if ( hasVariables[ i ].files === currentFile ) {
-                                
-                                match = hasVariables[ i ];
-                            }
-                        }
-                    }
+                    // var match;
+                    //
+                    // if ( hasVariables ) {
+                    //
+                    //     for ( var i = 0; i < hasVariables.length ; i++ ) {
+                    //
+                    //         if ( hasVariables[ i ].files === currentFile ) {
+                    //
+                    //             match = hasVariables[ i ];
+                    //         }
+                    //     }
+                    // }
                     
                     // read all files
                     fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
                         
-                        section.files.push( self.parseComment( currentFile, data, match ));
+                        section.files.push( self.parseComment( currentFile, data ));
                         
                         // read file callback
                         return callback( null );
@@ -170,8 +174,6 @@ var Patterns = {
     },
     
     parseComment: function( currentFile, data, type ) {
-        
-        console.log( type );
         
         var COMMENTSPLIT = /^\s*\*\//m
             // for html, include trailing comment
@@ -345,7 +347,7 @@ var Patterns = {
                     }
                 }   
             }
-            console.log(colorsInfo);
+            // console.log(colorsInfo);
         }
 
         if ( templateType === 'typography' ) {
@@ -395,7 +397,7 @@ var Patterns = {
                     }
                 }
             }
-            console.log( typeInfo );
+            // console.log( typeInfo );
         }
     },
     
