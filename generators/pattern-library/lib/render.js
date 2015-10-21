@@ -7,6 +7,10 @@ var fs = require( 'fs' )
 function Render( config ) {
     
     this.config = config;
+    this.templateSrc = config.settings.template;
+    
+    
+    
     this.setupHandlebars();
 };
 
@@ -186,11 +190,11 @@ Render.prototype = {
 
         var sections = this.config
             , Handlebars = require( 'handlebars' )
-            , templateSrc = this.config.settings.template
+            , templateSrc = this.templateSrc
             , dest = this.config.settings.dest + '/'
             , self = this
             ;
-
+        
         fs.readFile( templateSrc, { encoding: 'utf-8' }, function( err, data ) {
 
             var page = Handlebars.compile( data )

@@ -8,6 +8,8 @@ var configFile = require( configLocation )
     , parser = require( './generators/pattern-library/lib/parser' )
     ;
 
+global.__base = __dirname + '/';
+
 // run in the terminal using `node index.js`
 var Generators = {
 
@@ -130,6 +132,7 @@ var Generators = {
         // must bind to parser to retain scope
         async.each( sections, parser.parseSection.bind( parser ), function() {
             
+            // set config obj to new state with added data
             self.configObj.patterns.sections = sections;
             
             render( self.configObj.patterns );
