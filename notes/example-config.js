@@ -29,10 +29,24 @@ var config = {
             // what about 'not' typography?
             {
                 title: 'UI Kit',
-                files: [ 
+                files: {
+                    src: [ 
+                        'demo/library/styles/base/feedback.scss',
+                        'demo/library/styles/global/*.scss',
+                        'demo/library/styles/global/*',
+                        '!demo/library/styles/global/typography.scss',
+                        '!demo/library/styles/global/colors.scss'
+                    ],
+                    options: {}
+                }
+            },
+            {
+                title: 'UI Kit2',
+                files: [
                     'demo/library/styles/base/feedback.scss',
-                    'demo/library/styles/global/*.scss',
-                    'demo/library/styles/global/'
+                    'demo/library/styles/global/*',
+                    '!demo/library/styles/global/typography.scss',
+                    '!demo/library/styles/global/colors.scss'
                 ]
             },
             {
@@ -50,11 +64,11 @@ var config = {
         sections: [
             {
                 title: 'Frameworks',
-                files: 'demo/documentation/frameworks/'
+                files: 'demo/documentation/frameworks/*'
             },
             {
                 title: 'Workflows',
-                files: 'demo/documentation/workflows/'           
+                files: 'demo/documentation/workflows/*'           
             }
         ]
     }
