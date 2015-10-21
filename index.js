@@ -3,7 +3,7 @@ var util = require( 'util' )
     , async = require( 'async' )
     , render = require( './generators/pattern-library/lib/render' )
     , parser = require( './generators/pattern-library/lib/parser' )
-    , _ = require( './node_modules/grunt/node_modules/lodash/lodash' )
+    , _ = require( 'lodash' )
     ;
 
 global.__base = __dirname + '/';
