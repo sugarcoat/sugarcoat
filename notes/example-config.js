@@ -31,8 +31,7 @@ var config = {
                 title: 'UI Kit',
                 files: [ 
                     'demo/library/styles/base/feedback.scss',
-                    'demo/library/styles/global/*.scss',
-                    'demo/library/styles/global/'
+                    'demo/library/styles/global/*.scss'
                 ]
             },
             {

@@ -1,7 +1,6 @@
 var configLocation = './notes/example-config';
 
-var fs = require( 'fs' )
-    , configFile = require( configLocation )
+var configFile = require( configLocation )
     , util = require( 'util' )
     , glob = require( 'glob' )
     , async = require( 'async' )
@@ -128,13 +127,11 @@ var Generators = {
             , self = this
             ;
         
+        // must bind to parser to retain scope
         async.each( sections, parser.parseSection.bind( parser ), function() {
-            // console.log( 'sections', arguments );
             
             self.configObj.patterns.sections = sections;
             
-            // console.log( util.inspect( sections, { depth:5, colors:true } ));
-            // self.setupHandlebars();
             render.init( self.configObj.patterns );
 
         });

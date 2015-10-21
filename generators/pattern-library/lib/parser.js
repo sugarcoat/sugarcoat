@@ -2,14 +2,17 @@ var async = require( 'async' )
     , fs = require( 'fs' )
     , commentParser = require( 'comment-parser' )
     ;
-
+/**
+ * 
+ * Takes a section object with title key and files string or array and returns the parsed comments
+ *
+ */
 var Parser = {
     
     parseSection: function( section, callback ) {
         
         var self = this
             , originalFiles = section.files
-            // , hasVariables = section.variables
             ;
         
         section.files = [];
@@ -99,7 +102,6 @@ var Parser = {
             path: currentFile,
             data: comments
         };
-        
     }
 };
 
