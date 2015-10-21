@@ -4,16 +4,13 @@ var fs = require( 'fs' )
     , helpers = require( './utils' )
     ;
 
-var Render = {
+function Render( config ) {
     
-    config: {},
-    
-    init: function( config ) {
-        
-        this.config = config;
-        
-        this.setupHandlebars();
-    },
+    this.config = config;
+    this.setupHandlebars();
+};
+
+Render.prototype = {
     
     setupHandlebars: function() {
         
@@ -212,4 +209,6 @@ var Render = {
     }
 };
 
-module.exports = Render;
+module.exports = function( options ) {
+    return new Render( options );
+}

@@ -132,7 +132,7 @@ var Generators = {
             
             self.configObj.patterns.sections = sections;
             
-            render.init( self.configObj.patterns );
+            render( self.configObj.patterns );
 
         });
     }

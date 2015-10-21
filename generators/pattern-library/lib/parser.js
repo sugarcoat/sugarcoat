@@ -7,7 +7,9 @@ var async = require( 'async' )
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
-var Parser = {
+function Parser() {};
+
+Parser.prototype = {
     
     parseSection: function( section, callback ) {
         
@@ -105,4 +107,4 @@ var Parser = {
     }
 };
 
-module.exports = Parser;
+module.exports = new Parser();
