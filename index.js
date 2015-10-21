@@ -1,4 +1,4 @@
-var configLocation = './notes/example-config';
+var configLocation = './generators/pattern-library/example/config.js';
 
 var configFile = require( configLocation )
     , util = require( 'util' )
