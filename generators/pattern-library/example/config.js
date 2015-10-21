@@ -11,9 +11,9 @@ var config = {
     //typography, UI elements and more complex components.
     patterns: {
         settings: {
-            dest: 'demo/documentation/pattern-library',
+            dest: 'demo/documentation/pattern-library'
             //include path to where the templates will live for the pattern library
-            template: 'demo/documentation/templates/main.hbs'
+            // template: 'demo/documentation/templates/main.hbs'
         },
         sections: [
             {

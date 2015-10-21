@@ -7,8 +7,16 @@ var fs = require( 'fs' )
 function Render( config ) {
     
     this.config = config;
-    this.templateSrc = config.settings.template;
-    this.dest = config.settings.dest + '/'
+    this.templateSrc = config.settings.template || 'demo/documentation/templates/main.hbs';
+    this.partialsDir = config.settings.partialsDir || 'demo/documentation/templates/partials';
+    
+    if ( !config.settings.dest ) {
+        
+        return console.log( 'Error: Please provide destination');
+    }
+    
+    // required config
+    this.dest = config.settings.dest + '/';
     
     this.setupHandlebars();
 };
@@ -18,11 +26,9 @@ Render.prototype = {
     setupHandlebars: function() {
         
         // TODO: make this default or based on options obj
-        var partialsDir = 'demo/documentation/templates/partials'
-            , self = this
-            ;
+        var self = this;
        
-        fs.readdir( partialsDir, function( err, files ) {
+        fs.readdir( self.partialsDir, function( err, files ) {
             
             // register all partials
             async.each( files, function( filename, callback ) {
@@ -34,7 +40,7 @@ Render.prototype = {
                 var name = matches[ 1 ];
                 
                 // read file async and add to handlebars
-                fs.readFile( partialsDir + '/' + filename, 'utf8', function( err, partial ) {
+                fs.readFile( self.partialsDir + '/' + filename, 'utf8', function( err, partial ) {
                     
                     Handlebars.registerPartial( name, partial );
                     return callback( null );
