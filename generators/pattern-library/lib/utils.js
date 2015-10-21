@@ -9,7 +9,9 @@ var mkdirp = require( 'mkdirp' )
     , fs = require( 'fs' )
     ;
 
-var Utils = {
+function Utils() {};
+
+Utils.prototype = {
 // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
     writeFile: function( path, contents, cb ) {
     
@@ -31,4 +33,5 @@ var Utils = {
     }
     
 };
-module.exports = Utils;
+
+module.exports = new Utils;
