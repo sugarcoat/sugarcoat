@@ -1,7 +1,4 @@
-var configLocation = './generators/pattern-library/example/config.js';
-
-var configFile = require( configLocation )
-    , util = require( 'util' )
+var util = require( 'util' )
     , glob = require( 'glob' )
     , async = require( 'async' )
     , render = require( './generators/pattern-library/lib/render' )
@@ -11,10 +8,14 @@ var configFile = require( configLocation )
 
 global.__base = __dirname + '/';
 
+function Generate( options ) {
+    
+    this.configObj = options || require( './generators/pattern-library/example/config.js' );
+    
+    this.init();
+};
 // run in the terminal using `node index.js`
-var Generators = {
-
-    configObj: {},
+Generate.prototype = {
     
     template: null,
     
@@ -24,9 +25,6 @@ var Generators = {
     },
     
     readFile: function() {
-        
-        //get the data and throw it into a variable we can edit
-        this.configObj = configFile;
         
         // TODO: need to execute get files on the parameter only, not through the whole obj
         this.getFiles( this.configObj );
@@ -135,4 +133,4 @@ var Generators = {
     }
 };
 
-module.exports = Generators.init();
+module.exports = new Generate();
