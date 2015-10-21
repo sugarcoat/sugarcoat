@@ -9,7 +9,6 @@
 var patterns = {
     //The pattern library will be created and include documentation for colors,
     //typography, UI elements and more complex components.
-<<<<<<< HEAD
     settings: {
         dest: 'demo/documentation/pattern-library',
         //include path to where the templates will live for the pattern library
@@ -25,13 +24,6 @@ var patterns = {
         {
             title: 'Components',
             files: 'demo/components/*.html'
-=======
-    patterns: {
-        settings: {
-            dest: 'demo/documentation/pattern-library',
-            //include path to where the templates will live for the pattern library
-            template: 'demo/documentation/templates/main.hbs'
->>>>>>> d43c7965db1c4ae2331c4e0c8d33bbbde51b4ccd
         },
         // what about 'not' typography?
         {
