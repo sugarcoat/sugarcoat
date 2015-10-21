@@ -8,8 +8,7 @@ function Render( config ) {
     
     this.config = config;
     this.templateSrc = config.settings.template;
-    
-    
+    this.dest = config.settings.dest + '/'
     
     this.setupHandlebars();
 };
@@ -20,7 +19,6 @@ Render.prototype = {
         
         // TODO: make this default or based on options obj
         var partialsDir = 'demo/documentation/templates/partials'
-            , templateSrc = this.config.settings.template
             , self = this
             ;
        
@@ -45,7 +43,7 @@ Render.prototype = {
             }, function() {
                 
                 // read template file
-                fs.readFile( templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+                fs.readFile( self.templateSrc, { encoding: 'utf-8'}, function( err, data ) {
             
                     self.template = Handlebars.compile( data );
                     self.renderFiles();
@@ -189,26 +187,19 @@ Render.prototype = {
     renderTemplate: function( section ) {
 
         var sections = this.config
-            , Handlebars = require( 'handlebars' )
-            , templateSrc = this.templateSrc
-            , dest = this.config.settings.dest + '/'
-            , self = this
+            , compiledData = this.template( sections )
+            , basename = helpers.toCamelCase( section.title )
+            , path = this.dest + basename + '.html'
             ;
+
+        helpers.writeFile( path, compiledData, function( err ) {
         
-        fs.readFile( templateSrc, { encoding: 'utf-8' }, function( err, data ) {
-
-            var page = Handlebars.compile( data )
-                , data = self.template( sections )
-                , basename = helpers.toCamelCase( section.title )
-                , path = dest + basename + '.html'
-                ;
-
-            helpers.writeFile( path, data, function( err ) {
-            
-                if ( err ) {
-                    console.log( 'Error occurred: ', err );
-                }
-            });
+            if ( err ) {
+                console.log( 'Error occurred: ', err );
+            }
+            else {
+                console.log( 'File Complete:', path);
+            }
         });
     }
 };
