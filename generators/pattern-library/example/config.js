@@ -40,15 +40,6 @@ var patterns = {
             }
         },
         {
-            title: 'UI Kit2',
-            files: [
-                'demo/library/styles/base/feedback.scss',
-                'demo/library/styles/global/*',
-                '!demo/library/styles/global/typography.scss',
-                '!demo/library/styles/global/colors.scss'
-            ]
-        },
-        {
             title: 'Typography',
             files: 'demo/library/styles/global/typography.scss',
             type: 'variables',

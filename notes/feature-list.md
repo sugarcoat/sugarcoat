@@ -7,7 +7,7 @@ Set up a structure that the developer needs to follow when setting up the projec
 
 Please refer to the 'compiler-design.md' file, which is located in the 'notes' folder in the root of the project. 
 
-### Parse Input
+### Parse Input: done
 
 Find means to parse the data from our CSS, JS and HTML files
 
@@ -15,11 +15,11 @@ Implement these parsers to get the data (ex. pull in comments from JS files) and
 
 - Design module that consumes either a file or directory and outputs all of its contents into an array of files
 
-### Structure Data
+### Structure Data: done
 
 Gather all of our input data into one place so that it can easily be digested by the tool. This would include not only the parsed input, but also extraneous info from various readme files the developer created.
 
-### Output Data
+### Output Data: done
 
 Configure tool to accomplish the following tasks:
 
