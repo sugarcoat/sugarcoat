@@ -28,7 +28,7 @@ Just an in-progress, non-functioning task to automate documentation creation.
 
 ### Config Options ###
 
-**settings: {}**
+**settings: {...}**
 
 dest - *(Required)* Folder in which Generate will out put all files. Will create one if it does not already exist. Accepts path with no trailing slash (`/`)
 
@@ -36,7 +36,7 @@ template - *(Optional)* Path of the Handlebars template used during render. Defa
 
 partialsDir - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. Default is `demo/documentation/templates/partials`
 
-**sections: []**
+**sections: [...]**
 
 title - *(Required)* Title of section. It will also become the basename for the rendered output in camelCase format. 
 

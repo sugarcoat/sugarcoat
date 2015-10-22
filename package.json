@@ -1,12 +1,11 @@
 {
   "name": "Documentation",
   "version": "0.1.0",
-  "author": "Valerie Balcom",
+  "author": "Valerie Balcom + Allison Groening",
   "dependencies": {
     "async": "^1.4.2",
     "comment-parser": "^0.3.0",
     "glob": "^5.0.15",
-    "grunt": "^0.4.5",
     "handlebars": "^4.0.3",
     "lodash": "^3.10.1",
     "mkdirp": "^0.5.1",
