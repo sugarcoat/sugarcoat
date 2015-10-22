@@ -35,6 +35,7 @@ Globber.prototype = {
             filesArray = this.negateFiles( filesArray, negationsArray );
 
             return filesArray;
+            
         }
 
         else if ( util.isObject( objFiles ) ) {
@@ -58,6 +59,7 @@ Globber.prototype = {
             filesArray = this.negateFiles( filesArray, negationsArray );
 
             return filesArray;
+            
         }
 
         else {
