@@ -1,13 +1,9 @@
 var util = require( 'util' )
-    // , glob = require( 'glob' )
     , async = require( 'async' )
     , render = require( './generators/pattern-library/lib/render' )
     , parser = require( './generators/pattern-library/lib/parser' )
     , globber = require( './generators/pattern-library/lib/globber' )
-    // , _ = require( 'lodash' )
     ;
-
-global.__base = __dirname + '/';
 
 function Generate( options ) {
     
@@ -17,32 +13,22 @@ function Generate( options ) {
 };
 // run in the terminal using `node index.js`
 Generate.prototype = {
-    
-    template: null,
-    
+        
     init: function( options ) {
         
-        this.readFile();
-    },
-    
-    readFile: function() {
-        
-        this.getFiles( this.configObj );
+        this.getFiles();
     },
 
-    getFiles: function( data ) {
+    getFiles: function() {
 
-        var sections = data.sections
-            , self = this;
+        var sections = this.configObj.sections;
 
-        sections.forEach( function( section, index ){
+        sections.forEach( function( section ){
 
             var newFiles = globber( section.files );
 
             section.files = newFiles;
         });
-
-        // console.log(data.sections);
         
         this.parseFiles();
     },
