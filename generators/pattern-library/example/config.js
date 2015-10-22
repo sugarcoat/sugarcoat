@@ -32,7 +32,6 @@ var patterns = {
                 src: [ 
                     'demo/library/styles/base/feedback.scss',
                     'demo/library/styles/global/*.scss',
-                    'demo/library/styles/global/*',
                     '!demo/library/styles/global/typography.scss',
                     '!demo/library/styles/global/colors.scss'
                 ],

@@ -1,9 +1,10 @@
 var util = require( 'util' )
-    , glob = require( 'glob' )
+    // , glob = require( 'glob' )
     , async = require( 'async' )
     , render = require( './generators/pattern-library/lib/render' )
     , parser = require( './generators/pattern-library/lib/parser' )
-    , _ = require( 'lodash' )
+    , globber = require( './generators/pattern-library/lib/globber' )
+    // , _ = require( 'lodash' )
     ;
 
 global.__base = __dirname + '/';
@@ -26,11 +27,9 @@ Generate.prototype = {
     
     readFile: function() {
         
-        // TODO: need to execute get files on the parameter only, not through the whole obj
         this.getFiles( this.configObj );
-        
     },
-    
+
     getFiles: function( data ) {
 
         var sections = data.sections
@@ -38,7 +37,7 @@ Generate.prototype = {
 
         sections.forEach( function( section, index ){
 
-            var newFiles = self.globFiles( section.files );
+            var newFiles = globber( section.files );
 
             section.files = newFiles;
         });
@@ -48,73 +47,6 @@ Generate.prototype = {
         this.parseFiles();
     },
     
-    globFiles: function( objFiles ) {
-
-        var filesArray = []
-            , negationsArray = []
-            , files
-            , self = this
-            ;
-
-        if ( util.isArray( objFiles ) ){
-
-            objFiles.forEach(function( file ){
-
-                files = glob.sync( file, {} );
-
-                filesArray = filesArray.concat(files);
-
-                if( file.indexOf('!') > -1 ){
-                    negationsArray = negationsArray.concat(file);
-                }
-            });
-
-            filesArray = self.negateFiles( filesArray, negationsArray );
-
-            return filesArray;
-        }
-
-        else if( util.isObject( objFiles ) ){
-
-            var objFilesSrc = objFiles.src,
-                objFilesOpts = objFiles.options;
-
-            objFilesSrc.forEach( function( file ){
-
-                files = glob.sync( file, {} );
-
-                filesArray = filesArray.concat(files);
-
-                if( file.indexOf('!') > -1 ){
-                    negationsArray = negationsArray.concat(file);
-                }
-            });
-
-            filesArray = self.negateFiles( filesArray, negationsArray );
-
-            return filesArray;
-        }
-
-        else {
-
-            files = glob.sync( objFiles, {} );
-
-            return files;
-        }        
-    },
-
-    negateFiles: function( filesArray, negationsArray ) {
-
-        negationsArray.forEach(function( negation, index, array ){
-
-            array[index] = negation.replace( '!','' );
-        });
-
-        filesArray = _.difference( filesArray, negationsArray );
-
-        return filesArray;
-    },
-
     parseFiles: function() {
         
         var sections = this.configObj.sections
