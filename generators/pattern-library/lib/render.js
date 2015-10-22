@@ -204,7 +204,7 @@ Render.prototype = {
                 throw new Error( 'Error occurred: ', err );
             }
             else {
-                throw new Error( 'File Complete:', path);
+                console.log( 'File Complete: ', path);
             }
         });
     }

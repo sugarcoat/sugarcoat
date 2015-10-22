@@ -5,9 +5,7 @@ var util = require( 'util' )
 
 function Globber( files ) {
 
-    var globbedFiles = this.globFiles( files );
-
-    return globbedFiles;
+    return this.globFiles( files );
 };
 
 Globber.prototype = {
@@ -17,46 +15,47 @@ Globber.prototype = {
         var filesArray = []
             , negationsArray = []
             , files
-            , self = this
             ;
 
-        if ( util.isArray( objFiles ) ){
+        if ( util.isArray( objFiles ) ) {
 
-            console.log('this is an array', objFiles);
+            //console.log('this is an array', objFiles);
 
-            objFiles.forEach(function( file ){
+            objFiles.forEach( function( file ) {
 
                 files = glob.sync( file, {} );
 
-                filesArray = filesArray.concat(files);
+                filesArray = filesArray.concat( files );
 
-                if( file.indexOf('!') > -1 ){
-                    negationsArray = negationsArray.concat(file);
+                if ( file.indexOf( '!' ) > -1 ) {
+                    negationsArray = negationsArray.concat( file );
                 }
             });
 
-            filesArray = self.negateFiles( filesArray, negationsArray );
+            filesArray = this.negateFiles( filesArray, negationsArray );
 
             return filesArray;
         }
 
-        else if( util.isObject( objFiles ) ){
+        else if ( util.isObject( objFiles ) ) {
 
-            var objFilesSrc = objFiles.src,
-                objFilesOpts = objFiles.options;
+            var objFilesSrc = objFiles.src
+                , objFilesOpts = objFiles.options
+                ;
 
-            objFilesSrc.forEach( function( file ){
+            objFilesSrc.forEach( function( file ) {
 
                 files = glob.sync( file, {} );
 
-                filesArray = filesArray.concat(files);
+                filesArray = filesArray.concat( files );
 
-                if( file.indexOf('!') > -1 ){
-                    negationsArray = negationsArray.concat(file);
+                if ( file.indexOf( '!' ) > -1 ) {
+                    
+                    negationsArray = negationsArray.concat( file );
                 }
             });
 
-            filesArray = self.negateFiles( filesArray, negationsArray );
+            filesArray = this.negateFiles( filesArray, negationsArray );
 
             return filesArray;
         }
@@ -71,7 +70,7 @@ Globber.prototype = {
 
     negateFiles: function( filesArray, negationsArray ) {
 
-        negationsArray.forEach(function( negation, index, array ){
+        negationsArray.forEach( function( negation, index, array ) {
 
             array[index] = negation.replace( '!','' );
         });
