@@ -25,18 +25,14 @@ var patterns = {
             title: 'Components',
             files: 'demo/components/*.html'
         },
-        // what about 'not' typography?
         {
             title: 'UI Kit',
-            files: {
-                src: [ 
-                    'demo/library/styles/base/feedback.scss',
-                    'demo/library/styles/global/*.scss',
-                    '!demo/library/styles/global/typography.scss',
-                    '!demo/library/styles/global/colors.scss'
-                ],
-                options: {}
-            }
+            files: [ 
+                'demo/library/styles/base/feedback.scss',
+                'demo/library/styles/global/*.scss',
+                '!demo/library/styles/global/typography.scss',
+                '!demo/library/styles/global/colors.scss'
+            ]
         },
         {
             title: 'Typography',

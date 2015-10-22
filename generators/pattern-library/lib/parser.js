@@ -31,9 +31,9 @@ Parser.prototype = {
                 return callback( null );
             });
         }
+        
         // array of files
         else {
-        
             async.each( originalFiles,
                 function( currentFile, callback ) {
                     
