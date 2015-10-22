@@ -4,11 +4,13 @@ var util = require( 'util' )
     , render = require( './generators/pattern-library/lib/render' )
     , parser = require( './generators/pattern-library/lib/parser' )
     , globber = require( './generators/pattern-library/lib/globber' )
+    , config = require( './generators/pattern-library/example/config.js' )
     ;
 
 function Generate( options ) {
     
-    this.configObj = options || require( './generators/pattern-library/example/config.js' );
+    this.configObj = options || config
+    this.parser = parser();
     
     this.init();
 };
@@ -39,17 +41,21 @@ Generate.prototype = {
         var sections = this.configObj.sections
             , self = this
             ;
-        
         // must bind to parser to retain scope
-        async.each( sections, parser.parseSection.bind( parser ), function() {
+        async.each( sections, this.parser.parseSection.bind( this.parser ), function() {
             
             // set config obj to new state with added data
             self.configObj.sections = sections;
             
             render( self.configObj );
-
+            
         });
     }
 };
 
-module.exports = new Generate();
+new Generate();
+
+// module.exports = function( options ) {
+//
+//     return new Generate( options );
+// };

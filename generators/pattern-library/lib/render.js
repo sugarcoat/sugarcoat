@@ -12,7 +12,7 @@ function Render( config ) {
     
     if ( !config.settings.dest ) {
         
-        return console.log( 'Error: Please provide destination');
+        throw new Error( 'Error: Please provide destination');
     }
     
     // required config
@@ -77,7 +77,7 @@ Render.prototype = {
             }
             else {
                 
-                console.log( 'Invalid Type declared for section: ', sections[ i ].title );
+                throw new Error( 'Invalid Type declared for section: ', sections[ i ].title );
             }
         }
         
@@ -201,10 +201,10 @@ Render.prototype = {
         helpers.writeFile( path, compiledData, function( err ) {
         
             if ( err ) {
-                console.log( 'Error occurred: ', err );
+                throw new Error( 'Error occurred: ', err );
             }
             else {
-                console.log( 'File Complete:', path);
+                console.log( 'File Complete: ', path);
             }
         });
     }

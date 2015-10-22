@@ -1,6 +1,52 @@
 # assemble-documentation #
 
-Just an in-progress, non-functioning assemble task to automate documentation creation.
+Just an in-progress, non-functioning task to automate documentation creation.
+
+## Install ##
+
+## Sample Config Object ##
+
+    {
+      settings: {
+        dest: 'demo/documentation/pattern-library'
+      },
+      sections: [
+        {
+          title: 'Components',
+          files: 'demo/components/*.html'
+        },
+        {
+          title: 'UI Kit',
+          files: [
+            'demo/library/styles/global/*.scss',
+            '!demo/library/styles/global/typography.scss',
+            'demo/library/styles/base/feedback.scss'
+          ]
+        }
+      ]
+    }
+
+### Config Options ###
+
+**settings: {...}**
+
+dest - *(Required)* Folder in which Generate will out put all files. Will create one if it does not already exist. Accepts path with no trailing slash (`/`)
+
+template - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
+
+partialsDir - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. Default is `demo/documentation/templates/partials`
+
+**sections: [...]**
+
+title - *(Required)* Title of section. It will also become the basename for the rendered output in camelCase format. 
+
+files - *(Required)* Target file(s) with comments to be parsed. Uses [glob]() and will take a String, Array, or Object (with `src` string or array of files, and an `options` obj)
+
+type - *(Optional)* Declared if variables are used in the file and need to be output to a special format and/or template. Default is `null`. 
+
+template - *(Optional)* To be used with `type`. Declares what type of rendering should occur on the variables in the code. Default options include `color` or `typography`. To specify a different template, use a path name.
+
+# Project Roadmap #
 
 ## Guidelines ##
 

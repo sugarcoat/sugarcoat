@@ -1,7 +1,7 @@
-var async = require( 'async' )
-    , fs = require( 'fs' )
-    , commentParser = require( 'comment-parser' )
-    ;
+var async = require( 'async' );
+var fs = require( 'fs' );
+var commentParser = require( 'comment-parser' );
+
 /**
  * 
  * Takes a section object with title key and files string or array and returns the parsed comments
@@ -31,9 +31,9 @@ Parser.prototype = {
                 return callback( null );
             });
         }
+        
         // array of files
         else {
-        
             async.each( originalFiles,
                 function( currentFile, callback ) {
                     
@@ -55,14 +55,14 @@ Parser.prototype = {
         }
     },
     
-    parseComment: function( currentFile, data, type ) {
+    parseComment: function( currentFile, data ) {
         
-        var COMMENTSPLIT = /^\s*\*\//m
-            // for html, include trailing comment
-            , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
-            , isHtmlComponent = false
+        var isHtmlComponent = false
             // grab each comment block
             , comments = data.split( '/**' )
+            , COMMENTSPLIT = /^\s*\*\//m
+            // for html, include trailing comment
+            , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
             ;
         
         // the first array item is empty if not an html component
@@ -107,4 +107,6 @@ Parser.prototype = {
     }
 };
 
-module.exports = new Parser();
+module.exports = function() {
+    return new Parser();
+}
