@@ -19,8 +19,6 @@ Globber.prototype = {
 
         if ( util.isArray( objFiles ) ) {
 
-            //console.log('this is an array', objFiles);
-
             objFiles.forEach( function( file ) {
 
                 files = glob.sync( file, {} );
