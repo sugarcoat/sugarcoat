@@ -145,6 +145,8 @@ Render.prototype = {
             });
             
             section.variableSrc = colorsInfo;
+            
+            console.log( util.inspect( section, { depth:5, colors:true } ));
 
             this.renderTemplate( section );
             //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
@@ -223,7 +225,6 @@ Render.prototype = {
             ;
 
         helpers.writeFile( path, compiledData, function( err ) {
-            console.log( util.inspect(  section.files[0].data[0].tags, { depth:5, colors:true } ));
         
             if ( err ) {
                 throw new Error( 'Error occurred: ', err );
