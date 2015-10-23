@@ -1,9 +1,8 @@
 var util = require( 'util' )
-    , fs = require( 'fs' )
     , async = require( 'async' )
     , render = require( './lib/render' )
     , parser = require( './lib/parser' )
-    , globber = require( './lib/globber' )
+    , globber = require( '../utils/globber' )
     , config = require( './example/config.js' )
     ;
 
