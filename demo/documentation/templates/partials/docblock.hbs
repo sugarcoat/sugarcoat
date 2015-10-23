@@ -7,12 +7,14 @@
     <div class="comment-block">
       <dl class="desc">
         {{#each tags}}
-        <dt>{{ tag }}</dt>
+        {{#notequal tag 'example'}}
+        <dt>{{ tag }} {{ name }}</dt>
         <dd>{{#if optional}}<i>(Optional)</i> {{/if}}{{ description }}</dd>
+        {{/notequal}}
         {{/each}}
       </dl>
 <pre class="code">
-{{ source }}
+{{ code }}
 </pre>
     </div>
     {{/each}}

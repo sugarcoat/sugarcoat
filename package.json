@@ -7,6 +7,7 @@
     "comment-parser": "^0.3.0",
     "glob": "^5.0.15",
     "handlebars": "^4.0.3",
+    "js-beautify": "^1.5.10",
     "lodash": "^3.10.1",
     "mkdirp": "^0.5.1",
     "path": "^0.12.7"

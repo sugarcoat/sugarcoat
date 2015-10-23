@@ -19,7 +19,7 @@ function Render( config ) {
     this.dest = config.settings.dest + '/';
     
     this.setupHandlebars();
-};
+}
 
 Render.prototype = {
     
@@ -29,6 +29,9 @@ Render.prototype = {
         var self = this;
        
         fs.readdir( self.partialsDir, function( err, files ) {
+            
+            Handlebars.registerHelper( 'isequal', self.isequalHelper );
+            Handlebars.registerHelper( 'notequal', self.notequalHelper );
             
             // register all partials
             async.each( files, function( filename, callback ) {
@@ -209,6 +212,34 @@ Render.prototype = {
                 console.log( 'File Complete: ', path);
             }
         });
+    },
+    
+    isequalHelper: function ( value1, value2, options ) {
+
+        if ( arguments.length < 3 ) {
+            throw new Error( 'Handlebars Helper EQUAL needs 2 parameters' );
+        }
+
+        if ( value1 !== value2 ) {
+            return options.inverse( this );
+        }
+        else {
+            return options.fn( this );
+        }
+    },
+    
+    notequalHelper: function ( value1, value2, options ) {
+
+        if ( arguments.length < 3 ) {
+            throw new Error( 'Handlebars Helper EQUAL needs 2 parameters' );
+        }
+
+        if ( value1 === value2 ) {
+            return options.inverse( this );
+        }
+        else {
+            return options.fn( this );
+        }
     }
 };
 

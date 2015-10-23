@@ -17,201 +17,51 @@
 <body>
 <nav>
   <ul>
-    <li>Colors</li>
-    <li>Components</li>
     <li>UI Kit</li>
-    <li>Typography</li>
   </ul>
 </nav><ul>
-  <div>
-    <h2>Colors</h2>
-    <div class="file-block">
-      <h3>demo/library/styles/global/colors.scss</h3>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>module</dt>
-          <dd></dd>
-        </dl>
-  <pre class="code">
-  @module Color
-  </pre>
-      </div>
+<div>
+  <h2>UI Kit</h2>
+  <div class="file-block">
+    <h3>demo/library/styles/base/feedback.scss</h3>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>module Flashblock</dt>
+        <dd></dd>
+        <dt>category Feedback</dt>
+        <dd></dd>
+        <dt>modifier .sticky</dt>
+        <dd>JS added class that disables the block disappearing</dd>
+        <dt>modifier :focus</dt>
+        <dd>Special animated hover focus state</dd>
+        <dt>modifier :hover</dt>
+        <dd>Special animated hover focus state</dd>
+      </dl>
+<pre class="code">
+&lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
+    &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
+        Success Message
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
     </div>
-  </div>  <div>
-    <h2>Components</h2>
-    <div class="file-block">
-      <h3>demo/components/some-component.html</h3>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>title</dt>
-          <dd>Component</dd>
-          <dt>description</dt>
-          <dd>component was created to add a certain type of functionality to cart pages. It was requested by the client.</dd>
-          <dt>usage</dt>
-          <dd>used on cart pages.</dd>
-          <dt>functionality</dt>
-          <dd>added to a cart page, this module will sit there until clicked on. Once clicked on the module will open a modal that includes information needed by the user about the cart.</dd>
-          <dt>dependencies</dt>
-          <dd>/library/js/modules/other-component.js</dd>
-        </dl>
-  <pre class="code">
-  @title Some Component
-  @description This component was created to add a certain type of functionality to cart pages. It was requested by the client. 
-  @usage Mainly used on cart pages. 
-  @functionality Once added to a cart page, this module will sit there until clicked on. Once clicked on the module will open a modal that includes information needed by the user about the cart.
-  @dependencies /library/js/modules/some-component.js, /library/js/modules/other-component.js
-  </pre>
-      </div>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>title</dt>
-          <dd>Component</dd>
-          <dt>description</dt>
-          <dd></dd>
-        </dl>
-  <pre class="code">
-  @title HELLO Component
-  @description HELLO
-  </pre>
-      </div>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>module Tooltip</dt>
+        <dd></dd>
+        <dt>modifier .active</dt>
+        <dd>enabled class on .tooltip</dd>
+      </dl>
+<pre class="code">
+&lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
+    &lt;div class&#x3D;&quot;tooltip&quot;&gt;
+        &lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
     </div>
-  </div>  <div>
-    <h2>UI Kit</h2>
-    <div class="file-block">
-      <h3>demo/library/styles/base/feedback.scss</h3>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>module</dt>
-          <dd></dd>
-          <dt>category</dt>
-          <dd></dd>
-          <dt>example</dt>
-          <dd>class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
-  &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
-  Success Message
-  &lt;/div&gt;
-  &lt;/div&gt;</dd>
-          <dt>modifier</dt>
-          <dd>JS added class that disables the block disappearing</dd>
-          <dt>modifier</dt>
-          <dd>Special animated hover focus state</dd>
-          <dt>modifier</dt>
-          <dd>Special animated hover focus state</dd>
-        </dl>
-  <pre class="code">
-  A block of info that persists for ~2 seconds on the page
-  
-  @module Flashblock
-  @category Feedback
-  @example
-  &lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
-       &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
-           Success Message
-       &lt;/div&gt;
-  &lt;/div&gt;
-  @modifier .sticky JS added class that disables the block disappearing
-  @modifier :focus Special animated hover focus state
-  @modifier :hover Special animated hover focus state
-  </pre>
-      </div>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>module</dt>
-          <dd></dd>
-          <dt>example</dt>
-          <dd>class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
-  &lt;div class&#x3D;&quot;tooltip&quot;&gt;
-  &lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
-  &lt;/div&gt;</dd>
-          <dt>modifier</dt>
-          <dd>enabled class on .tooltip</dd>
-        </dl>
-  <pre class="code">
-  A tooltip appearing in small viewport only
-  
-  @module Tooltip
-  @example &lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
-  &lt;div class&#x3D;&quot;tooltip&quot;&gt;
-  &lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
-  &lt;/div&gt;
-  @modifier .active enabled class on .tooltip
-  </pre>
-      </div>
-    </div>
-    <div class="file-block">
-      <h3>demo/library/styles/global/buttons.scss</h3>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>module</dt>
-          <dd></dd>
-          <dt>category</dt>
-          <dd></dd>
-          <dt>modifier</dt>
-          <dd>primary coloring</dd>
-          <dt>modifier</dt>
-          <dd>transition animation on hover</dd>
-          <dt>example</dt>
-          <dd>class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
-  &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-  &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-  &lt;div class&#x3D;&quot;btn-set&quot;&gt;
-  &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-  &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;</dd>
-        </dl>
-  <pre class="code">
-  A button
-  
-  @module Button
-  @category UIElement
-  @modifier .cta primary coloring
-  @modifier :hover transition animation on hover
-  @example
-  &lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
-  &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-  &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-  &lt;div class&#x3D;&quot;btn-set&quot;&gt;
-   &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-   &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-  </pre>
-      </div>
-    </div>
-  </div>  <div>
-    <h2>Typography</h2>
-    <div class="file-block">
-      <h3>demo/library/styles/global/typography.scss</h3>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>module</dt>
-          <dd>Families</dd>
-          <dt>modifier</dt>
-          <dd>enabled class on .tooltip</dd>
-        </dl>
-  <pre class="code">
-  @module Font Families
-  @modifier .active enabled class on .tooltip
-  </pre>
-      </div>
-      <div class="comment-block">
-        <dl class="desc">
-          <dt>module</dt>
-          <dd>Types</dd>
-          <dt>example</dt>
-          <dd>1&lt;/h1&gt;
-  &lt;h1 class&#x3D;&quot;bolder&quot;&gt;Heading 1 &#x27;.bolder&#x27;&lt;/h1&gt;
-  &lt;h2&gt;Heading 2&lt;/h2&gt;
-  &lt;h3&gt;Heading 2&lt;/h3&gt;</dd>
-        </dl>
-  <pre class="code">
-  @module Header Types
-  @example
-  &lt;h1&gt;Heading 1&lt;/h1&gt;
-  &lt;h1 class&#x3D;&quot;bolder&quot;&gt;Heading 1 &#x27;.bolder&#x27;&lt;/h1&gt;
-  &lt;h2&gt;Heading 2&lt;/h2&gt;
-  &lt;h3&gt;Heading 2&lt;/h3&gt;
-  </pre>
-      </div>
-    </div>
-  </div></ul>
+  </div>
+</div></ul>
 
 <!-- Begin Scripts -->
 <!-- <script src="../../library/js/config/require-config.js"></script> -->
