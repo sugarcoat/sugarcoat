@@ -87,6 +87,7 @@ Render.prototype = {
         // get info about each 
         var templateType = section.template;
 
+        //start to rework this!!!!
         if ( templateType === 'color' ) {
 
             var colorsInfo = [];
