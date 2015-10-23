@@ -40,6 +40,7 @@ Generate.prototype = {
             
             // set config obj to new state with added data
             self.configObj.sections = sections;
+        // console.log( util.inspect( sections[1], { depth:5, colors:true } ));
             
             render( self.configObj );
             
