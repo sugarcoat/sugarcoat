@@ -81,4 +81,4 @@ Globber.prototype = {
 
 module.exports = function( options ) {
     return new Globber( options );
-}
+};

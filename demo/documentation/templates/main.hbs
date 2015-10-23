@@ -4,14 +4,21 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <!-- Begin Styles -->
-  
+  <style type="text/css" media="screen">
+    .desc dt {
+      font-weight: bold;
+    }
+    .desc dd {
+      margin-bottom: 15px;
+    }
+  </style>
   <!-- End Styles -->
 </head>
 <body>
 {{> test}}
 <ul>
 {{#each sections}}
-  <li>{{ title }}</li>
+  {{> docblock}}
 {{/each}}
 </ul>
 

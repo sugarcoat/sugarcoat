@@ -7,7 +7,7 @@ var commentParser = require( 'comment-parser' );
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
-function Parser() {};
+function Parser() {}
 
 Parser.prototype = {
     
@@ -76,9 +76,9 @@ Parser.prototype = {
         for ( var i = 0; i < comments.length; i++ ) {
             
             // split blocks into comment and code content
-            var block = isHtmlComponent 
-                ? comments[ i ].split( HTMLCOMMENTSPLIT )
-                : comments[ i ].split( COMMENTSPLIT ) 
+            var block = isHtmlComponent ?
+                    comments[ i ].split( HTMLCOMMENTSPLIT ) :
+                    comments[ i ].split( COMMENTSPLIT ) 
                 , toParse = '/**' + block[ 0 ] + ' */'
                 ;
             
@@ -109,4 +109,4 @@ Parser.prototype = {
 
 module.exports = function() {
     return new Parser();
-}
+};
