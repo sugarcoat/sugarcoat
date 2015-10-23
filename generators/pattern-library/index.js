@@ -2,7 +2,7 @@ var util = require( 'util' )
     , async = require( 'async' )
     , render = require( './lib/render' )
     , parser = require( './lib/parser' )
-    , globber = require( './lib/globber' )
+    , globber = require( '../utils/globber' )
     , config = require( './example/config.js' )
     ;
 
