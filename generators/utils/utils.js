@@ -4,18 +4,20 @@
  *
  */
 
-var mkdirp = require( 'mkdirp' )
+var fs = require( 'fs' )
+    , mkdirp = require( 'mkdirp' )
     , getDirName = require( 'path' ).dirname
-    , fs = require( 'fs' )
     ;
 
 var Utils = {
 // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
-    writeFile: function( path, contents, cb ) {
+    writeFile: function( path, contents, callback ) {
     
-        mkdirp(getDirName(path), function (err) {
-            if (err) return cb(err)
-            fs.writeFile(path, contents, cb)
+        mkdirp( getDirName( path ), function ( err ) {
+            
+            if ( err ) { return callback( err ); }
+                
+            fs.writeFile( path, contents, callback )
       });
     },
 // replaces string to camelCase string
@@ -25,6 +27,7 @@ var Utils = {
             function( txt ){
             
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+
             }).replace( /\s+/g, '');
 
         return str.charAt(0).toLowerCase() + str.slice(1);
