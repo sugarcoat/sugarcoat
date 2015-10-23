@@ -1,7 +1,7 @@
 var fs = require( 'fs' )
     , async = require( 'async' )
     , Handlebars = require( 'Handlebars' )
-    , helpers = require( './utils' )
+    , helpers = require( '../../utils/utils.js' )
     ;
 
 function Render( config ) {
