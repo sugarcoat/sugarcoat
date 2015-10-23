@@ -1,6 +1,7 @@
 var async = require( 'async' );
 var fs = require( 'fs' );
 var commentParser = require( 'comment-parser' );
+var parserFunctions = commentParser.PARSERS;
 var beautify_html = require( 'js-beautify' ).html;
 
 /**
@@ -82,7 +83,14 @@ Parser.prototype = {
                 ;
             
             // add comment section to array
-            comments[ i ] = commentParser( toParse )[ 0 ];
+            comments[ i ] = commentParser( toParse, {
+                parsers: [
+                    parserFunctions.parse_tag,
+                    parserFunctions.parse_type,
+                    // parserFunctions.parse_name,
+                    parserFunctions.parse_description
+                ]
+            } )[ 0 ];
             
             if ( isHtmlComponent ) {
                 
@@ -109,10 +117,10 @@ Parser.prototype = {
                     if ( currentComment.tag === 'example' ) {
                         
                         // add name and descr together to make code
-                        var content = currentComment.name + ' ' + currentComment.description;
+                        // var content = currentComment.name + ' ' + currentComment.description;
                         
                         // beautify code
-                        block[ 1 ] = beautify_html( content );
+                        block[ 1 ] = beautify_html( currentComment.description );
                     }
                 }
             }

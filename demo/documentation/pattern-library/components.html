@@ -15,30 +15,28 @@
   <!-- End Styles -->
 </head>
 <body>
+  
 <nav>
   <ul>
-    <li>Components</li>
-    <li>UI Kit</li>
-    <li>Typography</li>
   </ul>
-</nav><ul>
+</nav>
 <div>
   <h2>Components</h2>
-  <div class="file-block">
-    <h3>demo/components/some-component.html</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>title</dt>
-        <dd>Component</dd>
-        <dt>description</dt>
-        <dd>component was created to add a certain type of functionality to cart pages. It was requested by the client.</dd>
-        <dt>usage</dt>
-        <dd>used on cart pages.</dd>
-        <dt>functionality</dt>
-        <dd>added to a cart page, this module will sit there until clicked on. Once clicked on the module will open a modal that includes information needed by the user about the cart.</dd>
-        <dt>dependencies</dt>
-        <dd>/library/js/modules/other-component.js</dd>
-      </dl>
+    <div class="file-block">
+      <h3>demo/components/some-component.html</h3>
+      <div class="comment-block">
+        <dl class="desc">
+          <dt>title  </dt>
+          <dd>Some Component</dd>
+          <dt>description  </dt>
+          <dd>This component was created to add a certain type of functionality to cart pages. It was requested by the client.</dd>
+          <dt>usage  </dt>
+          <dd>Mainly used on cart pages.</dd>
+          <dt>functionality  </dt>
+          <dd>Once added to a cart page, this module will sit there until clicked on. Once clicked on the module will open a modal that includes information needed by the user about the cart.</dd>
+          <dt>dependencies  </dt>
+          <dd>/library/js/modules/some-component.js, /library/js/modules/other-component.js</dd>
+        </dl>
 <pre class="code">
 
 &lt;ul class&#x3D;&quot;some-component&quot;&gt;
@@ -49,14 +47,14 @@
 
 
 </pre>
-    </div>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>title</dt>
-        <dd>Component</dd>
-        <dt>description</dt>
-        <dd></dd>
-      </dl>
+      </div>
+      <div class="comment-block">
+        <dl class="desc">
+          <dt>title  </dt>
+          <dd>HELLO Component</dd>
+          <dt>description  </dt>
+          <dd>HELLO</dd>
+        </dl>
 <pre class="code">
 
 &lt;ul class&#x3D;&quot;HELLO-component&quot;&gt;
@@ -64,177 +62,9 @@
   &lt;li&gt;HELLO Two&lt;/li&gt;
 &lt;/ul&gt;
 </pre>
+      </div>
     </div>
-  </div>
-</div><div>
-  <h2>UI Kit</h2>
-  <div class="file-block">
-    <h3>demo/library/styles/base/feedback.scss</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module</dt>
-        <dd></dd>
-        <dt>category</dt>
-        <dd></dd>
-        <dt>example</dt>
-        <dd>class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
-&lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
-Success Message
-&lt;/div&gt;
-&lt;/div&gt;</dd>
-        <dt>modifier</dt>
-        <dd>JS added class that disables the block disappearing</dd>
-        <dt>modifier</dt>
-        <dd>Special animated hover focus state</dd>
-        <dt>modifier</dt>
-        <dd>Special animated hover focus state</dd>
-      </dl>
-<pre class="code">
-
- 
-.flash-block {
-    border:1px solid grey;
-    margin:20px;
-}
-.flash-block-content {
-    padding:20px;
-}
-.flash-block-success {
-    background-color:green;
-    color:white;
-}
-
-
-</pre>
-    </div>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module</dt>
-        <dd></dd>
-        <dt>example</dt>
-        <dd>class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
-&lt;div class&#x3D;&quot;tooltip&quot;&gt;
-&lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
-&lt;/div&gt;</dd>
-        <dt>modifier</dt>
-        <dd>enabled class on .tooltip</dd>
-      </dl>
-<pre class="code">
-
-
-.tooltip {
-    position:relative;
-}
-.tooltip-content {
-    position:absolute;
-    top:0;
-    left:0;
-    background-color:rgba(255,255,255,0.5);
-    color:blue;
-}
-</pre>
-    </div>
-  </div>
-  <div class="file-block">
-    <h3>demo/library/styles/global/buttons.scss</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module</dt>
-        <dd></dd>
-        <dt>category</dt>
-        <dd></dd>
-        <dt>modifier</dt>
-        <dd>primary coloring</dd>
-        <dt>modifier</dt>
-        <dd>transition animation on hover</dd>
-        <dt>example</dt>
-        <dd>class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
-&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-&lt;div class&#x3D;&quot;btn-set&quot;&gt;
-&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;</dd>
-      </dl>
-<pre class="code">
- 
-
-.btn {
-    border: 1px solid grey;
-    border-radius: 5px;
-}
-.cta {
-    border-color: green;
-}
-.btn-set {
-    overflow:hidden;
-}
-.btn-set .btn {
-    width:50%;
-    float:left;
-}
-</pre>
-    </div>
-  </div>
-</div><div>
-  <h2>Typography</h2>
-  <div class="file-block">
-    <h3>demo/library/styles/global/typography.scss</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module</dt>
-        <dd>Families</dd>
-        <dt>modifier</dt>
-        <dd>enabled class on .tooltip</dd>
-      </dl>
-<pre class="code">
-
-
-$font-family: &#x27;Helvetica&#x27;, &#x27;Arial&#x27;;
-$font-family-mono: &#x27;Monospace&#x27;, &#x27;Courier&#x27;;
-
-
-html, body {
-  font-size: 100%;
-  font-family: $font-family;
-  color: $food-court-gray;
-}
-
-</pre>
-    </div>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module</dt>
-        <dd>Types</dd>
-        <dt>example</dt>
-        <dd>1&lt;/h1&gt;
-&lt;h1 class&#x3D;&quot;bolder&quot;&gt;Heading 1 &#x27;.bolder&#x27;&lt;/h1&gt;
-&lt;h2&gt;Heading 2&lt;/h2&gt;
-&lt;h3&gt;Heading 2&lt;/h3&gt;</dd>
-      </dl>
-<pre class="code">
-
-h1, h2, h3 {
-  font-family: $font-family;
-  font-weight: normal;
-  line-height: 1.5;
-}
-
-h4 {
-  font-family: $font-family-mono;
-  font-weight: normal;
-  line-height: 1.1;
-}
-
-.date {
-  font-family: $font-family;
-  color: $info-red;
-  font-size: 20px;
-}
-</pre>
-    </div>
-  </div>
-</div></ul>
-
+</div>
 <!-- Begin Scripts -->
 <!-- <script src="../../library/js/config/require-config.js"></script> -->
 <!-- End Scripts -->

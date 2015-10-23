@@ -19,7 +19,7 @@ var patterns = {
             title: 'Colors',
             files: 'demo/library/styles/global/colors.scss',
             type: 'variables',
-            template: 'demo/documentation/templates/test.hbs'
+            template: 'color'
         },
         {
             title: 'Components',

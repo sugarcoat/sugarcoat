@@ -1,23 +1,27 @@
 <div>
   <h2>{{ title }}</h2>
-  {{#each files}}
-  <div class="file-block">
-    <h3>{{ path }}</h3>
-    {{#each data}}
-    <div class="comment-block">
-      <dl class="desc">
-        {{#each tags}}
-        {{#notequal tag 'example'}}
-        <dt>{{ tag }} {{ name }}</dt>
-        <dd>{{#if optional}}<i>(Optional)</i> {{/if}}{{ description }}</dd>
-        {{/notequal}}
-        {{/each}}
-      </dl>
+  {{#if variableSrc}}
+    {{> color variableSrc}}
+  {{else}}
+    {{#each files}}
+    <div class="file-block">
+      <h3>{{ path }}</h3>
+      {{#each data}}
+      <div class="comment-block">
+        <dl class="desc">
+          {{#each tags}}
+          {{#notequal tag 'example'}}
+          <dt>{{ tag }} {{ type }} {{ name }}</dt>
+          <dd>{{#if optional}}<i>(Optional)</i> {{/if}}{{ description }}</dd>
+          {{/notequal}}
+          {{/each}}
+        </dl>
 <pre class="code">
 {{ code }}
 </pre>
+      </div>
+      {{/each}}
     </div>
     {{/each}}
-  </div>
-  {{/each}}
+  {{/if}}
 </div>

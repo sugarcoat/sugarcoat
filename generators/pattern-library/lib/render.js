@@ -2,6 +2,7 @@ var fs = require( 'fs' )
     , async = require( 'async' )
     , Handlebars = require( 'Handlebars' )
     , helpers = require( '../../utils/utils.js' )
+    , util = require( 'util' )
     ;
 
 function Render( config ) {
@@ -109,7 +110,7 @@ Render.prototype = {
                 dataObjs.forEach( function( data ) {
 
                     code = data.code;
-                    code = code.replace(/(\r\n|\n|\r)/gm,'')
+                    code = code.replace(/(\r\n|\n|\r)/gm,'');
                     // console.log(code);
 
                     var colorStrings = [];
@@ -142,7 +143,10 @@ Render.prototype = {
                     });
                 });
             });
-            // console.log(colorsInfo);
+            
+            section.variableSrc = colorsInfo;
+
+            this.renderTemplate( section );
             //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
         }
 
@@ -166,7 +170,7 @@ Render.prototype = {
                         typeStrings = code.match(/(\$.*:.*)/g);
                     }
 
-                    if ( path.indexOf( '.less' ) != -1 ) {
+                    if ( path.indexOf( '.less' ) !== -1 ) {
                         //LESS = @
                         typeStrings = code.match(/(\@.*:.*)/g);
                     }
@@ -205,20 +209,21 @@ Render.prototype = {
                     code = data.code;
                 });
             });
-            console.log(code);
+            // console.log(code);
             //send code to handlebars template: templateType (a path to a template the user creates)
         }
     },
     
     renderTemplate: function( section ) {
+        // console.log( section );
 
-        var sections = this.config
-            , compiledData = this.template( sections )
+        var compiledData = this.template( section )
             , basename = helpers.toCamelCase( section.title )
             , path = this.dest + basename + '.html'
             ;
 
         helpers.writeFile( path, compiledData, function( err ) {
+            console.log( util.inspect(  section.files[0].data[0].tags, { depth:5, colors:true } ));
         
             if ( err ) {
                 throw new Error( 'Error occurred: ', err );
@@ -259,5 +264,6 @@ Render.prototype = {
 };
 
 module.exports = function( options ) {
+    
     return new Render( options );
-}
+};
