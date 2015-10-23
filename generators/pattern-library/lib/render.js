@@ -57,6 +57,7 @@ Render.prototype = {
             });            
         });
     },
+    
     renderFiles: function() {
         
         var sections = this.config.sections;
@@ -82,7 +83,8 @@ Render.prototype = {
         }
         
     },
-    renderVariablesTemplate: function( section ) { 
+    
+    renderVariablesTemplate: function( section ) {
         // look up which template type (color or typography)
         // get info about each 
         var templateType = section.template;

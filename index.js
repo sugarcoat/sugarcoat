@@ -1,3 +1,5 @@
-var generate = require( './generators/pattern-library/' );
+var generate = require( './generators/pattern-library/' )
+    , config = require( './generators/pattern-library/example/config.js' )
+    ;
 
-generate();
+generate( config );
