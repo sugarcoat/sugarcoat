@@ -90,47 +90,48 @@ Render.prototype = {
     renderVariablesTemplate: function( section ) {
         // look up which template type (color or typography)
         // get info about each 
-        var templateType = section.template;
+        var templateType = section.template
+            , sectFiles = section.files
+            , path
+            , dataObjs
+            , code
+            ;
 
         if ( templateType === 'color' ) {
 
             var colorsInfo = [];
-            var path;
-            
-            //get the info needed for template
-            for ( var i = 0; i < section.files.length; i++ ) {
 
-                path = section.files[i].path;
-                
-                for ( var j = 0; j < section.files[i].data.length; j++ ) {
+            sectFiles.forEach( function( file ) {
 
-                    var code = section.files[i].data[j].code;
-                    //remove new line characters from code
-                    code = code.replace(/(\r\n|\n|\r)/gm,'');
+                path = file.path;
+                dataObjs = file.data;
+
+                dataObjs.forEach( function( data ) {
+
+                    code = data.code;
+                    code = code.replace(/(\r\n|\n|\r)/gm,'')
+                    // console.log(code);
 
                     var colorStrings = [];
 
-                    //test the path to see what extension it is
-                    if ( path.indexOf( '.scss' ) != -1 || path.indexOf( '.sass' ) != -1 ) {
-                        //SASS = $
+                    if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
+                        // SASS = $
                         colorStrings = code.split( '$' );
                     }
 
-                    if ( path.indexOf( '.less' ) != -1 ) {
+                    if ( path.indexOf( '.less' ) !== -1 ) {
                         //LESS = @
                         colorStrings = code.split( '@' );
                     }
 
-                    if ( path.indexOf( '.css' ) != -1 ) {
-                        //CSS = no variables
-                    }
-
                     //clear out any empty stings
                     colorStrings = colorStrings.filter(Boolean);
-                    
-                    for ( var k = 0; k < colorStrings.length; k++ ) {
 
-                        var usageSplit = colorStrings[k].split('//');
+                    colorStrings.forEach( function( colorLine ) {
+
+                        // console.log(colorLine);
+
+                        var usageSplit = colorLine.split('//');
                         var statmentSplit = usageSplit[0].split(':');
 
                         colorsInfo.push({
@@ -138,28 +139,29 @@ Render.prototype = {
                             'color': statmentSplit[1],
                             'usage': usageSplit[1]
                         });
-                    }
-                }   
-            }
+                    });
+                });
+            });
             // console.log(colorsInfo);
+            //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
         }
 
         if ( templateType === 'typography' ) {
             //get info needed
             var typeInfo = [];
-            var path;
 
-            for ( var i = 0; i < section.files.length; i++ ) {
+            sectFiles.forEach( function( file ) {
 
-                path = section.files[i].path;
+                path = file.path;
+                dataObjs = file.data;
 
-                for ( var j = 0; j < section.files[i].data.length; j++ ) {
-                    
-                    var code = section.files[i].data[j].code;
-                    
+                dataObjs.forEach( function( data ) {
+
+                    code = data.code;
+
                     var typeStrings = [];
 
-                    if ( path.indexOf( '.scss' ) != -1 || path.indexOf( '.sass' ) != -1 ) {
+                    if ( path.indexOf( '.scss' ) !== -1 || path.indexOf( '.sass' ) !== -1 ) {
                         //SASS = $
                         typeStrings = code.match(/(\$.*:.*)/g);
                     }
@@ -169,29 +171,42 @@ Render.prototype = {
                         typeStrings = code.match(/(\@.*:.*)/g);
                     }
 
-                    if ( path.indexOf( '.css' ) != -1 ) {
-                        //CSS = no variables
-                    }
-
                     if ( typeStrings === null ) {
                         
                         typeStrings = [];
                     }
 
-                    //now split the lines up to get each particular section (var, types)
-                    for ( var k = 0; k < typeStrings.length; k++ ) {
+                    typeStrings.forEach( function( typeLine ) {
 
-                        var varSplit = typeStrings[k].split(':');
+                        var varSplit = typeLine.split(':');
                         var fontSplit = varSplit[1].split(',');
 
                         typeInfo.push({
                             'variable': varSplit[0],
                             'font': fontSplit
                         });
-                    }
-                }
-            }
-            // console.log( typeInfo );
+                    });
+                });
+            });
+            // console.log(typeInfo);
+            //send typeInfo to handlebars template: demo/documentation/templates/partials/typography.hbs
+        }
+
+        else {
+
+            //if we have a type variable but its not color or type, then it must be given a path to a template
+            //get that path and send the data to the template
+            sectFiles.forEach( function( file ) {
+
+                dataObjs = file.data;
+
+                dataObjs.forEach( function( data ) {
+
+                    code = data.code;
+                });
+            });
+            console.log(code);
+            //send code to handlebars template: templateType (a path to a template the user creates)
         }
     },
     

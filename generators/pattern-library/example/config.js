@@ -15,31 +15,31 @@ var patterns = {
         template: 'demo/documentation/templates/main.hbs'
     },
     sections: [
-        // {
-        //     title: 'Colors',
-        //     files: 'demo/library/styles/global/colors.scss',
-        //     type: 'variables',
-        //     template: 'color'
-        // },
-        // {
-        //     title: 'Components',
-        //     files: 'demo/components/*.html'
-        // },
+        {
+            title: 'Colors',
+            files: 'demo/library/styles/global/colors.scss',
+            type: 'variables',
+            template: 'demo/documentation/templates/test.hbs'
+        },
+        {
+            title: 'Components',
+            files: 'demo/components/*.html'
+        },
         {
             title: 'UI Kit',
             files: [ 
-                'demo/library/styles/base/feedback.scss'
-                // 'demo/library/styles/global/*.scss',
-                // '!demo/library/styles/global/typography.scss',
-                // '!demo/library/styles/global/colors.scss'
+                'demo/library/styles/base/feedback.scss',
+                'demo/library/styles/global/*.scss',
+                '!demo/library/styles/global/typography.scss',
+                '!demo/library/styles/global/colors.scss'
             ]
+        },
+        {
+            title: 'Typography',
+            files: 'demo/library/styles/global/typography.scss',
+            type: 'variables',
+            template: 'typography'
         }
-        // {
-        //     title: 'Typography',
-        //     files: 'demo/library/styles/global/typography.scss',
-        //     type: 'variables',
-        //     template: 'typography'
-        // }
     ]
 };
 
