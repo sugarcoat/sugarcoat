@@ -5,34 +5,16 @@ var util = require( 'util' )
 
 function Globber( files ) {
 
-    return this.globFiles( files );
+    return this.passFiles( files );
 };
 
 Globber.prototype = {
     
-    globFiles: function( objFiles ) {
-
-        var filesArray = []
-            , negationsArray = []
-            , files
-            ;
+    passFiles: function( objFiles ) {
 
         if ( util.isArray( objFiles ) ) {
 
-            objFiles.forEach( function( file ) {
-
-                files = glob.sync( file, {} );
-
-                filesArray = filesArray.concat( files );
-
-                if ( file.indexOf( '!' ) > -1 ) {
-                    negationsArray = negationsArray.concat( file );
-                }
-            });
-
-            filesArray = this.negateFiles( filesArray, negationsArray );
-
-            return filesArray;
+            return this.globArray( objFiles );
             
         }
 
@@ -42,21 +24,7 @@ Globber.prototype = {
                 , objFilesOpts = objFiles.options
                 ;
 
-            objFilesSrc.forEach( function( file ) {
-
-                files = glob.sync( file, {} );
-
-                filesArray = filesArray.concat( files );
-
-                if ( file.indexOf( '!' ) > -1 ) {
-                    
-                    negationsArray = negationsArray.concat( file );
-                }
-            });
-
-            filesArray = this.negateFiles( filesArray, negationsArray );
-
-            return filesArray;
+            return this.globArray( objFilesSrc );
             
         }
 
@@ -66,6 +34,36 @@ Globber.prototype = {
 
             return files;
         }        
+    },
+
+    globArray: function( files ) {
+
+        var filesArray = []
+            , negationsArray = []
+            , globbedFiles
+            ;
+
+        files.forEach( function( file ) {
+
+            globbedFiles = glob.sync( file, {} );
+            // glob( file, {}, function( error ) {
+            //     console.log('err', error);
+            //     console.log('file', file);
+            //     // console.log('array of file names', globbedFiles);
+            // });
+
+            filesArray = filesArray.concat( globbedFiles );
+
+
+            if ( file.indexOf( '!' ) > -1 ) {
+                
+                negationsArray = negationsArray.concat( file );
+            }
+        });
+
+        filesArray = this.negateFiles( filesArray, negationsArray );
+
+        return filesArray;
     },
 
     negateFiles: function( filesArray, negationsArray ) {

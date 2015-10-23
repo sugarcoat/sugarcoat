@@ -1,5 +1,4 @@
 var util = require( 'util' )
-    , fs = require( 'fs' )
     , async = require( 'async' )
     , render = require( './generators/pattern-library/lib/render' )
     , parser = require( './generators/pattern-library/lib/parser' )
