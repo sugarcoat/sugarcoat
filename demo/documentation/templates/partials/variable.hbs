@@ -1,0 +1,11 @@
+<div class="variables">
+    {{ #each this }}
+        <div class="variable">
+            <p>{{ variable }}</p>
+            <p>{{ value }}</p>
+            {{ #if comment }}
+            	<p>{{ comment }}</p>
+            {{ /if }}
+        </div>
+    {{ /each }}
+</div>
