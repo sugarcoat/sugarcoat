@@ -1,23 +1,21 @@
 var async = require( 'async' );
 var fs = require( 'fs' );
 var commentParser = require( 'comment-parser' );
-var parserFunctions = commentParser.PARSERS;
-var beautify_html = require( 'js-beautify' ).html;
 
 /**
  * 
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
-function Parser() {}
+function Parser() {};
 
 Parser.prototype = {
     
     parseSection: function( section, callback ) {
         
         var self = this
-        , originalFiles = section.files
-        ;
+            , originalFiles = section.files
+            ;
         
         section.files = [];
         
@@ -60,37 +58,32 @@ Parser.prototype = {
     parseComment: function( currentFile, data ) {
         
         var isHtmlComponent = false
-            // grab each comment block 
+            // grab each comment block
             , comments = data.split( '/**' )
             , COMMENTSPLIT = /^\s*\*\//m
             // for html, include trailing comment
             , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
             ;
+        
         // the first array item is empty if not an html component
         if ( comments[ 0 ].length !== 0 ) {
             
             isHtmlComponent = true;
         }
+        
         comments.shift();
         
         for ( var i = 0; i < comments.length; i++ ) {
-                        
+            
             // split blocks into comment and code content
-            var block = isHtmlComponent ?
-                    comments[ i ].split( HTMLCOMMENTSPLIT ) :
-                    comments[ i ].split( COMMENTSPLIT ) 
+            var block = isHtmlComponent 
+                ? comments[ i ].split( HTMLCOMMENTSPLIT )
+                : comments[ i ].split( COMMENTSPLIT ) 
                 , toParse = '/**' + block[ 0 ] + ' */'
                 ;
             
             // add comment section to array
-            comments[ i ] = commentParser( toParse, {
-                parsers: [
-                    parserFunctions.parse_tag,
-                    parserFunctions.parse_type,
-                    // parserFunctions.parse_name,
-                    parserFunctions.parse_description
-                ]
-            } )[ 0 ];
+            comments[ i ] = commentParser( toParse )[ 0 ];
             
             if ( isHtmlComponent ) {
                 
@@ -101,27 +94,6 @@ Parser.prototype = {
                 
                 if ( isLastComment ) {
                     block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
-                }
-                
-            }
-            // check if tags has a example tag
-            else {
-                
-                var currentComments = comments[ i ].tags;
-                
-                for ( var j = 0; j < currentComments.length; j++ ) {
-                    
-                    var currentComment = currentComments[ j ];
-                    
-                    // tag has an example description with html markup
-                    if ( currentComment.tag === 'example' ) {
-                        
-                        // add name and descr together to make code
-                        // var content = currentComment.name + ' ' + currentComment.description;
-                        
-                        // beautify code
-                        block[ 1 ] = beautify_html( currentComment.description );
-                    }
                 }
             }
             // add code to data obj
@@ -137,4 +109,4 @@ Parser.prototype = {
 
 module.exports = function() {
     return new Parser();
-};
+}
