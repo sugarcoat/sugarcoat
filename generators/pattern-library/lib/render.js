@@ -104,7 +104,7 @@ Render.prototype = {
             colorsInfo = this.parseVarData( sectFiles );
             // section.variableSrc = colorsInfo;
             
-            console.log(colorsInfo);
+            // console.log(colorsInfo);
 
             // this.renderTemplate( section );
             //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
@@ -118,7 +118,7 @@ Render.prototype = {
 
             typeInfo = this.parseVarData( sectFiles );
 
-            console.log(typeInfo);
+            // console.log(typeInfo);
         }
 
         else {
