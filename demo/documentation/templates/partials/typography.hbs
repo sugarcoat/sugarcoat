@@ -3,12 +3,14 @@
 //The quick brown fox jumps over the lazy dog.
 
 <div class="container">
-      {{#each }}
-            <div class="font-block">
-                  <p class="font-name">Font Family: {{font.[0]}}</p>
-                  <p class="font-variable">Variable: {{variable}}</p>
-                  <p style="font-family: {{font.[0]}};">The quick brown fox jumps over the lazy dog.</p>
-            </div>
-      {{/each}}
-
+    {{#each this}}
+        <div class="font-block">
+			<p class="font-name">Font Family: {{value}}</p>
+			<p class="font-variable">Variable: {{variable}}</p>
+			<p style="font-family: {{value}};">The quick brown fox jumps over the lazy dog.</p>
+			{{ #if comment }}
+				<p class="font-comment">{{ comment }}</p>
+			{{ /if }}
+        </div>
+    {{/each}}
 </div>

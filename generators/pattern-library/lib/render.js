@@ -89,8 +89,7 @@ Render.prototype = {
     },
     
     renderVariablesTemplate: function( section ) {
-        // look up which template type (color or typography)
-        // get info about each 
+ 
         var templateType = section.template
             , sectFiles = section.files
             , path
@@ -102,53 +101,12 @@ Render.prototype = {
 
             var colorsInfo = [];
 
-            sectFiles.forEach( function( file ) {
-
-                path = file.path;
-                dataObjs = file.data;
-
-                dataObjs.forEach( function( data ) {
-
-                    code = data.code;
-                    code = code.replace(/(\r\n|\n|\r)/gm,'');
-                    // console.log(code);
-
-                    var colorStrings = [];
-
-                    if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
-                        // SASS = $
-                        colorStrings = code.split( '$' );
-                    }
-
-                    if ( path.indexOf( '.less' ) !== -1 ) {
-                        //LESS = @
-                        colorStrings = code.split( '@' );
-                    }
-
-                    //clear out any empty stings
-                    colorStrings = colorStrings.filter(Boolean);
-
-                    colorStrings.forEach( function( colorLine ) {
-
-                        // console.log(colorLine);
-
-                        var usageSplit = colorLine.split('//');
-                        var statmentSplit = usageSplit[0].split(':');
-
-                        colorsInfo.push({
-                            'variable': statmentSplit[0],
-                            'color': statmentSplit[1],
-                            'usage': usageSplit[1]
-                        });
-                    });
-                });
-            });
+            colorsInfo = this.parseVarData( sectFiles );
+            // section.variableSrc = colorsInfo;
             
-            section.variableSrc = colorsInfo;
-            
-            console.log( util.inspect( section, { depth:5, colors:true } ));
+            console.log(colorsInfo);
 
-            this.renderTemplate( section );
+            // this.renderTemplate( section );
             //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
         }
 
@@ -156,64 +114,87 @@ Render.prototype = {
             //get info needed
             var typeInfo = [];
 
-            sectFiles.forEach( function( file ) {
-
-                path = file.path;
-                dataObjs = file.data;
-
-                dataObjs.forEach( function( data ) {
-
-                    code = data.code;
-
-                    var typeStrings = [];
-
-                    if ( path.indexOf( '.scss' ) !== -1 || path.indexOf( '.sass' ) !== -1 ) {
-                        //SASS = $
-                        typeStrings = code.match(/(\$.*:.*)/g);
-                    }
-
-                    if ( path.indexOf( '.less' ) !== -1 ) {
-                        //LESS = @
-                        typeStrings = code.match(/(\@.*:.*)/g);
-                    }
-
-                    if ( typeStrings === null ) {
-                        
-                        typeStrings = [];
-                    }
-
-                    typeStrings.forEach( function( typeLine ) {
-
-                        var varSplit = typeLine.split(':');
-                        var fontSplit = varSplit[1].split(',');
-
-                        typeInfo.push({
-                            'variable': varSplit[0],
-                            'font': fontSplit
-                        });
-                    });
-                });
-            });
-            // console.log(typeInfo);
             //send typeInfo to handlebars template: demo/documentation/templates/partials/typography.hbs
+
+            typeInfo = this.parseVarData( sectFiles );
+
+            console.log(typeInfo);
         }
 
         else {
 
-            //if we have a type variable but its not color or type, then it must be given a path to a template
-            //get that path and send the data to the template
-            sectFiles.forEach( function( file ) {
+            var unknownInfo = [];
 
-                dataObjs = file.data;
+            unknownInfo = this.parseVarData( sectFiles );
 
-                dataObjs.forEach( function( data ) {
+            // console.log(unknownInfo);
+        }
+    },
 
-                    code = data.code;
+    parseVarData: function( sectionFiles ) {
+
+        var infoArray = []
+            , path 
+            , code
+            ;
+
+        sectionFiles.forEach( function( file ) {
+
+            path = file.path;
+            dataObjs = file.data;
+
+            dataObjs.forEach( function( data ) {
+
+                var infoStrings = [];
+
+                code = data.code;
+                // console.log(code);
+
+                if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
+                    // SASS = $
+                    // colorStrings = code.split( '$' );
+                    infoStrings = code.match(/(\$.*:.*)/g);
+                    // console.log(infoStrings);
+                }
+
+                if ( path.indexOf( '.less' ) !== -1 ) {
+                    //LESS = @
+                    infoStrings = code.match(/(\@.*:.*)/g);
+                }
+
+                if ( infoStrings === null ) {
+                        
+                    typeStrings = [];
+                }
+                
+                //clear out any empty stings
+                // infoStrings = infoStrings.filter( Boolean );
+
+                infoStrings.forEach( function( infoLine ) {
+
+                    var usageSplit = infoLine.split( '//' );
+                    var statmentSplit = usageSplit[0].split( ':' );
+
+                    if ( usageSplit[1] !== undefined ) {
+
+                        infoArray.push({
+                            'variable': statmentSplit[0],
+                            'value': statmentSplit[1],
+                            'comment': usageSplit[1]
+                        });
+                    }
+
+                    else {
+
+                        infoArray.push({
+                            'variable': statmentSplit[0],
+                            'value': statmentSplit[1]
+                        });
+                    }
                 });
             });
-            // console.log(code);
-            //send code to handlebars template: templateType (a path to a template the user creates)
-        }
+        });
+        return infoArray;
     },
     
     renderTemplate: function( section ) {

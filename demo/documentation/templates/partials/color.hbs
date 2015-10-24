@@ -1,11 +1,13 @@
 <div class="color-swatches">
     {{#each this}}
         <div class="color-swatch">
-            <div class="swatch" style="background-color:{{color}};">
-                <span>{{color}}</span>
+            <div class="swatch" style="background-color:{{value}};">
+                <span>{{value}}</span>
             </div>
             <h1>{{variable}}</h1>
-            <p>{{usage}}</p>
+            {{ #if comment }}
+            	<p>{{comment}}</p>
+            {{ /if }}
         </div>
     {{/each}}
 </div>
