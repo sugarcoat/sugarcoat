@@ -8,7 +8,7 @@ var fs = require( 'fs' )
 function Render( config ) {
     
     this.config = config;
-    this.templateSrc = config.settings.template || 'demo/documentation/templates/main.hbs';
+    this.templateSrc = config.settings.layout || 'demo/documentation/templates/main.hbs';
     this.partialsDir = config.settings.partialsDir || 'demo/documentation/templates/partials';
     
     if ( !config.settings.dest ) {
@@ -78,13 +78,14 @@ Render.prototype = {
             else if ( !sections[ i ].type ) {
                 
                 //do normal rendering on array of files
-                this.renderTemplate( sections[ i ]);
+                // this.renderTemplate( sections[ i ]);
             }
             else {
                 
                 throw new Error( 'Invalid Type declared for section: ', sections[ i ].title );
             }
         }
+        this.renderTemplate( sections );
         
     },
     
@@ -198,10 +199,10 @@ Render.prototype = {
     },
     
     renderTemplate: function( section ) {
-        // console.log( section );
 
         var compiledData = this.template( section )
-            , basename = helpers.toCamelCase( section.title )
+            , basename = 'documentation'
+            // , basename = helpers.toCamelCase( section.title )
             , path = this.dest + basename + '.html'
             ;
 
