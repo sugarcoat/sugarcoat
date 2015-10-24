@@ -1,6 +1,8 @@
 var async = require( 'async' );
 var fs = require( 'fs' );
 var commentParser = require( 'comment-parser' );
+var parserFunctions = commentParser.PARSERS;
+var beautify_html = require( 'js-beautify' ).html;
 
 /**
  * 
@@ -10,6 +12,41 @@ var commentParser = require( 'comment-parser' );
 function Parser() {};
 
 Parser.prototype = {
+    
+    customParsers: {
+        parsers: [
+            
+        parserFunctions.parse_tag,
+            
+            function( str, data ) {
+                
+                var string = str;     
+                str = '';
+                
+                if ( data.tag === 'modifier' ) {
+                    
+                    var modifier = /([:.#]\w+\s)/;
+                    var match = string.split( modifier );
+                    // console.log( str, match );
+                    
+                    if ( match.length > 1 ) {
+                        
+                        data.modifier = match[ 1 ];
+                        // console.log( match );
+                        str = match[ 1 ];
+                    }
+                }
+
+                return {
+                    source: str,
+                    data: data
+                };
+            },
+            // parserFunctions.parse_type,
+            // parserFunctions.parse_name,
+            parserFunctions.parse_description
+        ]
+    },
     
     parseSection: function( section, callback ) {
         
@@ -83,7 +120,8 @@ Parser.prototype = {
                 ;
             
             // add comment section to array
-            comments[ i ] = commentParser( toParse )[ 0 ];
+
+            comments[ i ] = commentParser( toParse, this.customParsers )[ 0 ];
             
             if ( isHtmlComponent ) {
                 
