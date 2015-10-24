@@ -72,7 +72,7 @@ Render.prototype = {
             // special type variables needs to read in sass or less file, then spit out layout
             if ( sections[ i ].type === 'variables' ) {
                 
-                this.renderVariablesTemplate(sections[ i ]);
+                // this.renderVariablesTemplate(sections[ i ]);
                 
             }
             else if ( !sections[ i ].type ) {
@@ -89,114 +89,114 @@ Render.prototype = {
         
     },
     
-    renderVariablesTemplate: function( section ) {
+    // renderVariablesTemplate: function( section ) {
  
-        var templateType = section.template
-            , sectFiles = section.files
-            , path
-            , dataObjs
-            , code
-            ;
+    //     var templateType = section.template
+    //         , sectFiles = section.files
+    //         , path
+    //         , dataObjs
+    //         , code
+    //         ;
 
-        if ( templateType === 'color' ) {
+    //     if ( templateType === 'color' ) {
 
-            var colorsInfo = [];
+    //         var colorsInfo = [];
 
-            colorsInfo = this.parseVarData( sectFiles );
-            // section.variableSrc = colorsInfo;
+    //         colorsInfo = this.parseVarData( sectFiles );
+    //         // section.variableSrc = colorsInfo;
             
-            // console.log(colorsInfo);
+    //         // console.log(colorsInfo);
 
-            // this.renderTemplate( section );
-            //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
-        }
+    //         // this.renderTemplate( section );
+    //         //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
+    //     }
 
-        if ( templateType === 'typography' ) {
-            //get info needed
-            var typeInfo = [];
+    //     if ( templateType === 'typography' ) {
+    //         //get info needed
+    //         var typeInfo = [];
 
-            //send typeInfo to handlebars template: demo/documentation/templates/partials/typography.hbs
+    //         //send typeInfo to handlebars template: demo/documentation/templates/partials/typography.hbs
 
-            typeInfo = this.parseVarData( sectFiles );
+    //         typeInfo = this.parseVarData( sectFiles );
 
-            // console.log(typeInfo);
-        }
+    //         // console.log(typeInfo);
+    //     }
 
-        else {
+    //     else {
 
-            var unknownInfo = [];
+    //         var unknownInfo = [];
 
-            unknownInfo = this.parseVarData( sectFiles );
+    //         unknownInfo = this.parseVarData( sectFiles );
 
-            // console.log(unknownInfo);
-        }
-    },
+    //         // console.log(unknownInfo);
+    //     }
+    // },
 
-    parseVarData: function( sectionFiles ) {
+    // parseVarData: function( sectionFiles ) {
 
-        var infoArray = []
-            , path 
-            , code
-            ;
+    //     var infoArray = []
+    //         , path 
+    //         , code
+    //         ;
 
-        sectionFiles.forEach( function( file ) {
+    //     sectionFiles.forEach( function( file ) {
 
-            path = file.path;
-            dataObjs = file.data;
+    //         path = file.path;
+    //         dataObjs = file.data;
 
-            dataObjs.forEach( function( data ) {
+    //         dataObjs.forEach( function( data ) {
 
-                var infoStrings = [];
+    //             var infoStrings = [];
 
-                code = data.code;
-                // console.log(code);
+    //             code = data.code;
+    //             // console.log(code);
 
-                if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
-                    // SASS = $
-                    // colorStrings = code.split( '$' );
-                    infoStrings = code.match(/(\$.*:.*)/g);
-                    // console.log(infoStrings);
-                }
+    //             if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
+    //                 // SASS = $
+    //                 // colorStrings = code.split( '$' );
+    //                 infoStrings = code.match(/(\$.*:.*)/g);
+    //                 // console.log(infoStrings);
+    //             }
 
-                if ( path.indexOf( '.less' ) !== -1 ) {
-                    //LESS = @
-                    infoStrings = code.match(/(\@.*:.*)/g);
-                }
+    //             if ( path.indexOf( '.less' ) !== -1 ) {
+    //                 //LESS = @
+    //                 infoStrings = code.match(/(\@.*:.*)/g);
+    //             }
 
-                if ( infoStrings === null ) {
+    //             if ( infoStrings === null ) {
                         
-                    typeStrings = [];
-                }
+    //                 typeStrings = [];
+    //             }
                 
-                //clear out any empty stings
-                // infoStrings = infoStrings.filter( Boolean );
+    //             //clear out any empty stings
+    //             // infoStrings = infoStrings.filter( Boolean );
 
-                infoStrings.forEach( function( infoLine ) {
+    //             infoStrings.forEach( function( infoLine ) {
 
-                    var usageSplit = infoLine.split( '//' );
-                    var statmentSplit = usageSplit[0].split( ':' );
+    //                 var usageSplit = infoLine.split( '//' );
+    //                 var statmentSplit = usageSplit[0].split( ':' );
 
-                    if ( usageSplit[1] !== undefined ) {
+    //                 if ( usageSplit[1] !== undefined ) {
 
-                        infoArray.push({
-                            'variable': statmentSplit[0],
-                            'value': statmentSplit[1],
-                            'comment': usageSplit[1]
-                        });
-                    }
+    //                     infoArray.push({
+    //                         'variable': statmentSplit[0],
+    //                         'value': statmentSplit[1],
+    //                         'comment': usageSplit[1]
+    //                     });
+    //                 }
 
-                    else {
+    //                 else {
 
-                        infoArray.push({
-                            'variable': statmentSplit[0],
-                            'value': statmentSplit[1]
-                        });
-                    }
-                });
-            });
-        });
-        return infoArray;
-    },
+    //                     infoArray.push({
+    //                         'variable': statmentSplit[0],
+    //                         'value': statmentSplit[1]
+    //                     });
+    //                 }
+    //             });
+    //         });
+    //     });
+    //     return infoArray;
+    // },
     
     renderTemplate: function( section ) {
 
