@@ -13,6 +13,41 @@ function Parser() {}
 
 Parser.prototype = {
     
+    customParsers: {
+        parsers: [
+            
+            parserFunctions.parse_tag,
+            
+            function( str, data ) {
+                
+                var string = str;     
+                str = '';
+                
+                if ( data.tag === 'modifier' ) {
+                    
+                    var modifier = /([:.#]\w+\s)/;
+                    var match = string.split( modifier );
+                    // console.log( str, match );
+                    
+                    if ( match.length > 1 ) {
+                        
+                        data.modifier = match[ 1 ];
+                        // console.log( match );
+                        str = match[ 1 ];
+                    }
+                }
+
+                return {
+                    source: str,
+                    data: data
+                };
+            },
+            // parserFunctions.parse_type,
+            // parserFunctions.parse_name,
+            parserFunctions.parse_description
+        ]
+    },
+    
     parseSection: function( section, callback ) {
         
         var self = this
@@ -83,14 +118,7 @@ Parser.prototype = {
                 ;
             
             // add comment section to array
-            comments[ i ] = commentParser( toParse, {
-                parsers: [
-                    parserFunctions.parse_tag,
-                    parserFunctions.parse_type,
-                    // parserFunctions.parse_name,
-                    parserFunctions.parse_description
-                ]
-            } )[ 0 ];
+            comments[ i ] = commentParser( toParse, this.customParsers )[ 0 ];
             
             if ( isHtmlComponent ) {
                 

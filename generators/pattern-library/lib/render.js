@@ -145,8 +145,6 @@ Render.prototype = {
             });
             
             section.variableSrc = colorsInfo;
-            
-            console.log( util.inspect( section, { depth:5, colors:true } ));
 
             this.renderTemplate( section );
             //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
