@@ -15,7 +15,7 @@
   <!-- End Styles -->
 </head>
 <body>
-<h1> Custom Partial / Test </h1>
+
 
     <div class="color-swatches">
             <div class="color-swatch">
@@ -63,7 +63,14 @@
         <dt>dependencies </dt>
         <dd>/library/js/modules/some-component.js, /library/js/modules/other-component.js</dd>
       </dl>
-      
+
+&lt;ul class&#x3D;&quot;some-component&quot;&gt;
+  &lt;li&gt;Item One&lt;/li&gt; &lt;!-- INLINE --&gt;
+  &lt;!-- OWN LINE --&gt;
+  &lt;li&gt;Item Two&lt;/li&gt;
+&lt;/ul&gt;
+
+
 <pre class="code">
 
 &lt;ul class&#x3D;&quot;some-component&quot;&gt;
@@ -83,7 +90,11 @@
         <dt>description </dt>
         <dd>HELLO</dd>
       </dl>
-      
+
+&lt;ul class&#x3D;&quot;HELLO-component&quot;&gt;
+  &lt;li&gt;HELLO One&lt;/li&gt;
+  &lt;li&gt;HELLO Two&lt;/li&gt;
+&lt;/ul&gt;
 <pre class="code">
 
 &lt;ul class&#x3D;&quot;HELLO-component&quot;&gt;
@@ -100,32 +111,6 @@
 <div>
   <h2>UI Kit</h2>
   <div class="file-block">
-    <h3>demo/library/styles/global/buttons.scss</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module </dt>
-        <dd>Button</dd>
-        <dt>category </dt>
-        <dd>UIElement</dd>
-        <dt>modifier .cta </dt>
-        <dd>primary coloring</dd>
-        <dt>modifier :hover </dt>
-        <dd>transition animation on hover</dd>
-      </dl>
-      
-<pre class="code">
-&lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
-&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-&lt;div class&#x3D;&quot;btn-set&quot;&gt;
-    &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-    &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-&lt;/div&gt;
-</pre>
-
-    </div>
-  </div>
-  <div class="file-block">
     <h3>demo/library/styles/base/feedback.scss</h3>
     <div class="comment-block">
       <dl class="desc">
@@ -140,7 +125,11 @@
         <dt>modifier :hover </dt>
         <dd>Special animated hover focus state</dd>
       </dl>
-      
+&lt;div class&#x3D;&quot;flash-block&quot;&gt;
+    &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
+        Success Message
+    &lt;/div&gt;
+&lt;/div&gt;
 <pre class="code">
 &lt;div class&#x3D;&quot;flash-block&quot;&gt;
     &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
@@ -157,12 +146,48 @@
         <dt>modifier .active </dt>
         <dd>enabled class on .tooltip</dd>
       </dl>
-      
+&lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
+    &lt;div class&#x3D;&quot;tooltip&quot;&gt;
+        &lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 <pre class="code">
 &lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
     &lt;div class&#x3D;&quot;tooltip&quot;&gt;
         &lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
     &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+    </div>
+  </div>
+  <div class="file-block">
+    <h3>demo/library/styles/global/buttons.scss</h3>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>module </dt>
+        <dd>Button</dd>
+        <dt>category </dt>
+        <dd>UIElement</dd>
+        <dt>modifier .cta </dt>
+        <dd>primary coloring</dd>
+        <dt>modifier :hover </dt>
+        <dd>transition animation on hover</dd>
+      </dl>
+&lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
+&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
+&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+&lt;div class&#x3D;&quot;btn-set&quot;&gt;
+    &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+    &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
+&lt;/div&gt;
+<pre class="code">
+&lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
+&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
+&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+&lt;div class&#x3D;&quot;btn-set&quot;&gt;
+    &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+    &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
 &lt;/div&gt;
 </pre>
 
