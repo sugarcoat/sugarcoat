@@ -15,9 +15,116 @@
   <!-- End Styles -->
 </head>
 <body>
+<h1> Custom Partial / Test </h1>
+
+    <div class="color-swatches">
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+    </div>
+
+
+
+<div>
+  <h2>Components</h2>
+  <div class="file-block">
+    <h3>demo/components/some-component.html</h3>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>title </dt>
+        <dd>Some Component</dd>
+        <dt>description </dt>
+        <dd>This component was created to add a certain type of functionality to cart pages. It was requested by the client.</dd>
+        <dt>usage </dt>
+        <dd>Mainly used on cart pages.</dd>
+        <dt>functionality </dt>
+        <dd>Once added to a cart page, this module will sit there until clicked on. Once clicked on the module will open a modal that includes information needed by the user about the cart.</dd>
+        <dt>dependencies </dt>
+        <dd>/library/js/modules/some-component.js, /library/js/modules/other-component.js</dd>
+      </dl>
+      
+<pre class="code">
+
+&lt;ul class&#x3D;&quot;some-component&quot;&gt;
+  &lt;li&gt;Item One&lt;/li&gt; &lt;!-- INLINE --&gt;
+  &lt;!-- OWN LINE --&gt;
+  &lt;li&gt;Item Two&lt;/li&gt;
+&lt;/ul&gt;
+
+
+</pre>
+
+    </div>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>title </dt>
+        <dd>HELLO Component</dd>
+        <dt>description </dt>
+        <dd>HELLO</dd>
+      </dl>
+      
+<pre class="code">
+
+&lt;ul class&#x3D;&quot;HELLO-component&quot;&gt;
+  &lt;li&gt;HELLO One&lt;/li&gt;
+  &lt;li&gt;HELLO Two&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+
+    </div>
+  </div>
+</div>
+
 
 <div>
   <h2>UI Kit</h2>
+  <div class="file-block">
+    <h3>demo/library/styles/global/buttons.scss</h3>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>module </dt>
+        <dd>Button</dd>
+        <dt>category </dt>
+        <dd>UIElement</dd>
+        <dt>modifier .cta </dt>
+        <dd>primary coloring</dd>
+        <dt>modifier :hover </dt>
+        <dd>transition animation on hover</dd>
+      </dl>
+      
+<pre class="code">
+&lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
+&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
+&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+&lt;div class&#x3D;&quot;btn-set&quot;&gt;
+    &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+    &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+
+    </div>
+  </div>
   <div class="file-block">
     <h3>demo/library/styles/base/feedback.scss</h3>
     <div class="comment-block">
@@ -33,6 +140,7 @@
         <dt>modifier :hover </dt>
         <dd>Special animated hover focus state</dd>
       </dl>
+      
 <pre class="code">
 &lt;div class&#x3D;&quot;flash-block&quot;&gt;
     &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
@@ -40,6 +148,7 @@
     &lt;/div&gt;
 &lt;/div&gt;
 </pre>
+
     </div>
     <div class="comment-block">
       <dl class="desc">
@@ -48,6 +157,7 @@
         <dt>modifier .active </dt>
         <dd>enabled class on .tooltip</dd>
       </dl>
+      
 <pre class="code">
 &lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
     &lt;div class&#x3D;&quot;tooltip&quot;&gt;
@@ -55,9 +165,39 @@
     &lt;/div&gt;
 &lt;/div&gt;
 </pre>
+
     </div>
   </div>
 </div>
+
+    //font family: Arial
+    //variable: $Arial
+    //The quick brown fox jumps over the lazy dog.
+    
+    <div class="container">
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+    </div>
+
+
 <!-- Begin Scripts -->
 <!-- <script src="../../library/js/config/require-config.js"></script> -->
 <!-- End Scripts -->

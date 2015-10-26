@@ -15,9 +15,23 @@
   <!-- End Styles -->
 </head>
 <body>
+{{> test}}
 
 {{#each this}}
+
+{{#isequal type 'variables'}}
+  {{#isequal template 'color'}}
+    {{> color}}
+  {{/isequal}}
+  {{#isequal template 'typography'}}
+    {{> typography}}
+  {{/isequal}}
+{{/isequal}}
+
+{{#notequal type 'variables'}}
 {{> default}}
+{{/notequal}}
+
 {{/each}}
 
 <!-- Begin Scripts -->

@@ -148,9 +148,6 @@ Parser.prototype = {
                      // tag has an example description with html markup
                     if ( currentComment.tag === 'example' ) {
 
-                    // add name and descr together to make code
-                    // var content = currentComment.name + ' ' + currentComment.description;
-
                         // beautify code
                         block[ 1 ] = beautify_html( currentComment.description );
                     }
