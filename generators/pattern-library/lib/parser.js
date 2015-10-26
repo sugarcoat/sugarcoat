@@ -21,12 +21,12 @@ Parser.prototype = {
             
             function( str, data ) {
                 
-                var string = str;     
+                var string = str;
                 str = '';
                 
                 if ( data.tag === 'modifier' ) {
                     
-                    var modifier = /([:.#]\w+\s)/;
+                    var modifier = /([:\.#][\w-]+\s)/;
                     var match = string.split( modifier );
                     // console.log( str, match );
                     
@@ -80,7 +80,7 @@ Parser.prototype = {
                         
                         section.files.push( self.parseComment( currentFile, data ) );
                         
-                        console.log( util.inspect( section, { depth:7, colors:true } ));
+                        // console.log( util.inspect( section, { depth:7, colors:true } ));
                         
                         // read file callback
                         return callback( null );
