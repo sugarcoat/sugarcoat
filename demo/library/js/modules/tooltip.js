@@ -32,7 +32,7 @@ define(
             initUI: function() {
                 
             }
-        }
+        };
         
         // Return a function that returns a new instance of the constructor
         return function( options ) {

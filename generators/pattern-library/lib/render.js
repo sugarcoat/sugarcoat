@@ -70,133 +70,15 @@ Render.prototype = {
         for ( var i = 0; i < sections.length; i++ ) {
             
             // special type variables needs to read in sass or less file, then spit out layout
-            if ( sections[ i ].type === 'variables' ) {
-                
-                // this.renderVariablesTemplate(sections[ i ]);
-                
-            }
-            else if ( !sections[ i ].type ) {
-                
-                //do normal rendering on array of files
-                // this.renderTemplate( sections[ i ]);
-            }
-            else {
+            if ( sections[ i ].type !== 'variables' && sections[ i ].type ) {
                 
                 throw new Error( 'Invalid Type declared for section: ', sections[ i ].title );
             }
         }
+        
         this.renderTemplate( sections );
         
     },
-    
-    // renderVariablesTemplate: function( section ) {
- 
-    //     var templateType = section.template
-    //         , sectFiles = section.files
-    //         , path
-    //         , dataObjs
-    //         , code
-    //         ;
-
-    //     if ( templateType === 'color' ) {
-
-    //         var colorsInfo = [];
-
-    //         colorsInfo = this.parseVarData( sectFiles );
-    //         // section.variableSrc = colorsInfo;
-            
-    //         // console.log(colorsInfo);
-
-    //         // this.renderTemplate( section );
-    //         //send typeInfo to handlebars template: demo/documentation/templates/partials/color.hbs
-    //     }
-
-    //     if ( templateType === 'typography' ) {
-    //         //get info needed
-    //         var typeInfo = [];
-
-    //         //send typeInfo to handlebars template: demo/documentation/templates/partials/typography.hbs
-
-    //         typeInfo = this.parseVarData( sectFiles );
-
-    //         // console.log(typeInfo);
-    //     }
-
-    //     else {
-
-    //         var unknownInfo = [];
-
-    //         unknownInfo = this.parseVarData( sectFiles );
-
-    //         // console.log(unknownInfo);
-    //     }
-    // },
-
-    // parseVarData: function( sectionFiles ) {
-
-    //     var infoArray = []
-    //         , path 
-    //         , code
-    //         ;
-
-    //     sectionFiles.forEach( function( file ) {
-
-    //         path = file.path;
-    //         dataObjs = file.data;
-
-    //         dataObjs.forEach( function( data ) {
-
-    //             var infoStrings = [];
-
-    //             code = data.code;
-    //             // console.log(code);
-
-    //             if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
-    //                 // SASS = $
-    //                 // colorStrings = code.split( '$' );
-    //                 infoStrings = code.match(/(\$.*:.*)/g);
-    //                 // console.log(infoStrings);
-    //             }
-
-    //             if ( path.indexOf( '.less' ) !== -1 ) {
-    //                 //LESS = @
-    //                 infoStrings = code.match(/(\@.*:.*)/g);
-    //             }
-
-    //             if ( infoStrings === null ) {
-                        
-    //                 typeStrings = [];
-    //             }
-                
-    //             //clear out any empty stings
-    //             // infoStrings = infoStrings.filter( Boolean );
-
-    //             infoStrings.forEach( function( infoLine ) {
-
-    //                 var usageSplit = infoLine.split( '//' );
-    //                 var statmentSplit = usageSplit[0].split( ':' );
-
-    //                 if ( usageSplit[1] !== undefined ) {
-
-    //                     infoArray.push({
-    //                         'variable': statmentSplit[0],
-    //                         'value': statmentSplit[1],
-    //                         'comment': usageSplit[1]
-    //                     });
-    //                 }
-
-    //                 else {
-
-    //                     infoArray.push({
-    //                         'variable': statmentSplit[0],
-    //                         'value': statmentSplit[1]
-    //                     });
-    //                 }
-    //             });
-    //         });
-    //     });
-    //     return infoArray;
-    // },
     
     renderTemplate: function( section ) {
 
