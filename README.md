@@ -34,17 +34,17 @@ dest - *(Required)* Folder in which Generate will out put all files. Will create
 
 template - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
 
-partialsDir - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. Default is `demo/documentation/templates/partials`
+partials - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
 
 **sections: [...]**
 
-title - *(Required)* Title of section. It will also become the basename for the rendered output in camelCase format. 
+title - *(Required)* Title of section.
 
-files - *(Required)* Target file(s) with comments to be parsed. Uses [glob]() and will take a String, Array, or Object (with `src` string or array of files, and an `options` obj)
+files - *(Required)* Target file(s) with comments to be parsed. Uses [glob](https://www.npmjs.com/package/glob) and will take a String, Array, or Object (with `src` string or array of files, and an `options` obj)
 
-type - *(Optional)* Declared if variables are used in the file and need to be output to a special format and/or template. Default is `null`. 
+type - *(Optional)* Declared if variables are used in the file and need to be output to a special format and/or template.
 
-template - *(Optional)* To be used with `type`. Declares what type of rendering should occur on the variables in the code. Default options include `color` or `typography`. To specify a different template, use a path name.
+template - *(Optional)* To be used with `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`
 
 # Project Roadmap #
 

@@ -8,14 +8,16 @@
       <dl class="desc">
         {{#each tags}}
         {{#notequal tag 'example'}}
-        <dt>{{ tag }} {{ modifier }}</dt>
+        <dt>{{ tag }} {{ name }}</dt>
         <dd>{{#if optional}}<i>(Optional)</i> {{/if}}{{ description }}</dd>
         {{/notequal}}
         {{/each}}
       </dl>
+      
 <pre class="code">
 {{ code }}
 </pre>
+
     </div>
     {{/each}}
   </div>

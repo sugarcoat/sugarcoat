@@ -7,7 +7,7 @@ var util = require( 'util' )
     ;
 
 function Generate( options ) {
-    
+        
     this.configObj = options || config;
     this.parser = parser();
     

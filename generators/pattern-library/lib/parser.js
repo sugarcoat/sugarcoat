@@ -21,12 +21,12 @@ Parser.prototype = {
             
             function( str, data ) {
                 
-                var string = str;     
+                var string = str;
                 str = '';
                 
                 if ( data.tag === 'modifier' ) {
                     
-                    var modifier = /([:.#]\w+\s)/;
+                    var modifier = /([:\.#][\w-]+\s)/;
                     var match = string.split( modifier );
                     // console.log( str, match );
                     
@@ -148,9 +148,6 @@ Parser.prototype = {
 
                      // tag has an example description with html markup
                     if ( currentComment.tag === 'example' ) {
-
-                    // add name and descr together to make code
-                    // var content = currentComment.name + ' ' + currentComment.description;
 
                         // beautify code
                         block[ 1 ] = beautify_html( currentComment.description );

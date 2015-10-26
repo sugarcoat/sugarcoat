@@ -15,29 +15,38 @@
   <!-- End Styles -->
 </head>
 <body>
+<h1> Custom Partial / Test </h1>
+
+    <div class="color-swatches">
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+            <div class="color-swatch">
+                <div class="swatch" style="background-color:;">
+                    <span></span>
+                </div>
+                <h1></h1>
+            </div>
+    </div>
+
+
 
 <div>
-  <h2>Colors</h2>
-  <div class="file-block">
-    <h3>demo/library/styles/global/colors.scss</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module </dt>
-        <dd>Color</dd>
-      </dl>
-<pre class="code">
-
-$light-black:#333333; // Usage: dark play button
-$dark-black: #191919; // Usage: even venue calendar tiles/entertainment page
-$off-black:#222222; // Usage: footer resorts background
-$info-red: #DD4B39;
-$info-green: #59b375;
-$info-yellow: #f2c94e;
-$food-court-gray:#E6E6E6;
-</pre>
-    </div>
-  </div>
-</div><div>
   <h2>Components</h2>
   <div class="file-block">
     <h3>demo/components/some-component.html</h3>
@@ -54,6 +63,7 @@ $food-court-gray:#E6E6E6;
         <dt>dependencies </dt>
         <dd>/library/js/modules/some-component.js, /library/js/modules/other-component.js</dd>
       </dl>
+      
 <pre class="code">
 
 &lt;ul class&#x3D;&quot;some-component&quot;&gt;
@@ -64,6 +74,7 @@ $food-court-gray:#E6E6E6;
 
 
 </pre>
+
     </div>
     <div class="comment-block">
       <dl class="desc">
@@ -72,6 +83,7 @@ $food-court-gray:#E6E6E6;
         <dt>description </dt>
         <dd>HELLO</dd>
       </dl>
+      
 <pre class="code">
 
 &lt;ul class&#x3D;&quot;HELLO-component&quot;&gt;
@@ -79,49 +91,14 @@ $food-court-gray:#E6E6E6;
   &lt;li&gt;HELLO Two&lt;/li&gt;
 &lt;/ul&gt;
 </pre>
+
     </div>
   </div>
-</div><div>
+</div>
+
+
+<div>
   <h2>UI Kit</h2>
-  <div class="file-block">
-    <h3>demo/library/styles/base/feedback.scss</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module </dt>
-        <dd>Flashblock</dd>
-        <dt>category </dt>
-        <dd>Feedback</dd>
-        <dt>modifier </dt>
-        <dd>.flash-block-success JS added class that disables the block disappearing</dd>
-        <dt>modifier </dt>
-        <dd>Special animated hover focus state</dd>
-        <dt>modifier </dt>
-        <dd>Special animated hover focus state</dd>
-      </dl>
-<pre class="code">
-&lt;div class&#x3D;&quot;flash-block&quot;&gt;
-    &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
-        Success Message
-    &lt;/div&gt;
-&lt;/div&gt;
-</pre>
-    </div>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module </dt>
-        <dd>Tooltip</dd>
-        <dt>modifier </dt>
-        <dd>enabled class on .tooltip</dd>
-      </dl>
-<pre class="code">
-&lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
-    &lt;div class&#x3D;&quot;tooltip&quot;&gt;
-        &lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</pre>
-    </div>
-  </div>
   <div class="file-block">
     <h3>demo/library/styles/global/buttons.scss</h3>
     <div class="comment-block">
@@ -130,11 +107,12 @@ $food-court-gray:#E6E6E6;
         <dd>Button</dd>
         <dt>category </dt>
         <dd>UIElement</dd>
-        <dt>modifier </dt>
+        <dt>modifier .cta </dt>
         <dd>primary coloring</dd>
-        <dt>modifier </dt>
+        <dt>modifier :hover </dt>
         <dd>transition animation on hover</dd>
       </dl>
+      
 <pre class="code">
 &lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
 &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
@@ -144,28 +122,82 @@ $food-court-gray:#E6E6E6;
     &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
 &lt;/div&gt;
 </pre>
+
     </div>
   </div>
-</div><div>
-  <h2>Typography</h2>
   <div class="file-block">
-    <h3>demo/library/styles/global/typography.scss</h3>
+    <h3>demo/library/styles/base/feedback.scss</h3>
     <div class="comment-block">
       <dl class="desc">
         <dt>module </dt>
-        <dd>Font Families</dd>
-        <dt>modifier </dt>
+        <dd>Flashblock</dd>
+        <dt>category </dt>
+        <dd>Feedback</dd>
+        <dt>modifier .flash-block-success </dt>
+        <dd>JS added class that disables the block disappearing</dd>
+        <dt>modifier :focus </dt>
+        <dd>Special animated hover focus state</dd>
+        <dt>modifier :hover </dt>
+        <dd>Special animated hover focus state</dd>
+      </dl>
+      
+<pre class="code">
+&lt;div class&#x3D;&quot;flash-block&quot;&gt;
+    &lt;div class&#x3D;&quot;flash-block-content&quot;&gt;
+        Success Message
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+    </div>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>module </dt>
+        <dd>Tooltip</dd>
+        <dt>modifier .active </dt>
         <dd>enabled class on .tooltip</dd>
       </dl>
+      
 <pre class="code">
-
-
-$font-family: &#x27;Helvetica&#x27;, &#x27;Arial&#x27;;
-$font-family-mono: &#x27;Monospace&#x27;, &#x27;Courier&#x27;;
+&lt;div class&#x3D;&quot;flash-block flash-block-success&quot;&gt;
+    &lt;div class&#x3D;&quot;tooltip&quot;&gt;
+        &lt;span class&#x3D;&quot;tooltip-content&quot;&gt;This is a tooltip&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 </pre>
+
     </div>
   </div>
 </div>
+
+    //font family: Arial
+    //variable: $Arial
+    //The quick brown fox jumps over the lazy dog.
+    
+    <div class="container">
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+            <div class="font-block">
+    			<p class="font-name">Font Family: </p>
+    			<p class="font-variable">Variable: </p>
+    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
+            </div>
+    </div>
+
+
 <!-- Begin Scripts -->
 <!-- <script src="../../library/js/config/require-config.js"></script> -->
 <!-- End Scripts -->

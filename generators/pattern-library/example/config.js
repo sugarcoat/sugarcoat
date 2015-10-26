@@ -10,7 +10,8 @@ var patterns = {
     settings: {
         dest: 'demo/documentation/pattern-library',
         //include path to where the layout will live for the pattern library
-        layout: 'demo/documentation/templates/main.hbs'
+        layout: 'demo/documentation/templates/main.hbs',
+        partials: 'demo/documentation/templates/customPartials'
     },
     sections: [
         {

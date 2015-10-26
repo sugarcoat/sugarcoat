@@ -42,45 +42,104 @@
                     {
                         path: 'demo/library/styles/global/feedback.scss',
                         data: [
-                            {
+                            { 
                                 tags: [
-                                    {
+                                    { 
                                         tag: 'module',
-                                        description: ' tooltip',
-                                        name: '',
+                                        description: 'Flashblock',
                                         optional: false,
                                         type: '',
+                                        name: '',
                                         line: 3,
-                                        source: '@module tooltip'
-                                    }, {
-                                        tag: 'namespace',
-                                        description: ' .tooltip',
-                                        name: '',
+                                        source: '@module Flashblock'
+                                    },
+                                    { 
+                                        tag: 'category',
+                                        description: 'Feedback',
                                         optional: false,
                                         type: '',
+                                        name: '',
                                         line: 4,
-                                        source: '@namespace .tooltip'
-                                    }, {
-                                        tag: 'desc',
-                                        description: ' This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
-                                        name: '',
+                                        source: '@category Feedback'
+                                    },
+                                    { 
+                                        tag: 'example',
+                                        description: '<div class="flash-block">\n<div class="flash-block-content">\nSuccess Message\n</div>\n</div>',
                                         optional: false,
                                         type: '',
+                                        name: '',
                                         line: 5,
-                                        source: '@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.'
+                                        source: '@example\n<div class="flash-block">\n<div class="flash-block-content">\nSuccess Message\n</div>\n</div>'
+                                    },
+                                    { 
+                                        tag: 'modifier',
+                                        name: '.flash-block-success',
+                                        description: 'JS added class that disables the block disappearing',
+                                        optional: false,
+                                        type: '',
+                                        line: 11,
+                                        source: '@modifier .flash-block-success JS added class that disables the block disappearing'
+                                    },
+                                    { 
+                                        tag: 'modifier',
+                                        name: ':focus ',
+                                        description: 'Special animated hover focus state',
+                                        optional: false,
+                                        type: '',
+                                        line: 12,
+                                        source: '@modifier :focus Special animated hover focus state'
+                                    },
+                                    { 
+                                        tag: 'modifier',
+                                        name: ':hover ',
+                                        description: 'Special animated hover focus state',
+                                        optional: false,
+                                        type: '',
+                                        line: 13,
+                                        source: '@modifier :hover Special animated hover focus state'
                                     }
                                 ],
-                                line: 1,
-                                description: '',
-                                source: '@module tooltip\n@namespace .tooltip\n@desc This module adds the \'.active\' class to a tooltip to open it, and listens for an outside click to close it.',
-                                code: '\n \n.flash-block {\n    border:1px solid grey;\n    margin:20px;\n}\n/* hello */\n.flash-block-content {\n    padding:20px;\n}\n.flash-block-success {\n    background-color:green;\n    color:white;\n}\n\n'
+                                line: 0,
+                                description: 'A block of info that persists for ~2 seconds on the page',
+                                source: 'A block of info that persists for ~2 seconds on the page\n\n@module Flashblock\n@category Feedback\n@example\n<div class="flash-block">\n     <div class="flash-block-content">\n         Success Message\n     </div>\n</div>\n@modifier .flash-block-success JS added class that disables the block disappearing\n@modifier :focus Special animated hover focus state\n@modifier :hover Special animated hover focus state',
+                                code: '<div class="flash-block">\n    <div class="flash-block-content">\n        Success Message\n    </div>\n</div>'
+                            },
+                            { 
+                                tags: [
+                                    { 
+                                        tag: 'module',
+                                        description: 'Tooltip',
+                                        optional: false,
+                                        type: '',
+                                        name: '',
+                                        line: 3,
+                                        source: '@module Tooltip'
+                                    },
+                                    { 
+                                        tag: 'example',
+                                        description: '<div class="flash-block flash-block-success">\n<div class="tooltip">\n<span class="tooltip-content">This is a tooltip</span>\n</div>\n</div>',
+                                        optional: false,
+                                        type: '',
+                                        name: '',
+                                        line: 4,
+                                        source: '@example\n<div class="flash-block flash-block-success">\n<div class="tooltip">\n<span class="tooltip-content">This is a tooltip</span>\n</div>\n</div>'
+                                    },
+                                    { 
+                                        tag: 'modifier',
+                                        name: '.active ',
+                                        description: 'enabled class on .tooltip',
+                                        optional: false,
+                                        type: '',
+                                        line: 10,
+                                        source: '@modifier .active enabled class on .tooltip'
+                                    }
+                                ],
+                                line: 0,
+                                description: 'A tooltip appearing in small viewport only',
+                                source: 'A tooltip appearing in small viewport only\n\n@module Tooltip\n@example\n <div class="flash-block flash-block-success">\n     <div class="tooltip">\n         <span class="tooltip-content">This is a tooltip</span>\n     </div>\n </div>\n@modifier .active enabled class on .tooltip',
+                                code: '<div class="flash-block flash-block-success">\n    <div class="tooltip">\n        <span class="tooltip-content">This is a tooltip</span>\n    </div>\n</div>'
                             }
                         ]
-                    },
-                    {
-                        path: 'demo/library/styles/global/typography.scss',
-                        data: {/*...*/}
-                    
                     }
                 ]
             },
