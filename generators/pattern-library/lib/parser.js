@@ -53,6 +53,7 @@ Parser.prototype = {
         
         var self = this
             , originalFiles = section.files
+            , templateType = section.template
             ;
         
         section.files = [];
@@ -64,7 +65,7 @@ Parser.prototype = {
             
             fs.readFile( currentFile, 'utf-8', function( err, data ) {
                                 
-                section.files.push( self.parseComment( currentFile, data ) );
+                section.files.push( self.parseComment( currentFile, data, templateType ) );
                 
                 return callback( null );
             });
@@ -78,9 +79,9 @@ Parser.prototype = {
                     // read all files
                     fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
                         
-                        section.files.push( self.parseComment( currentFile, data ) );
+                        section.files.push( self.parseComment( currentFile, data, templateType ) );
                         
-                        console.log( util.inspect( section, { depth:7, colors:true } ));
+                        // console.log( util.inspect( section, { depth:7, colors:true } ));
                         
                         // read file callback
                         return callback( null );
@@ -95,7 +96,7 @@ Parser.prototype = {
         }
     },
     
-    parseComment: function( currentFile, data ) {
+    parseComment: function( currentFile, data, templateType ) {
         
         var isHtmlComponent = false
             // grab each comment block
@@ -158,10 +159,34 @@ Parser.prototype = {
             }
             // add code to data obj
             comments[ i ].code = block[ 1 ];
-        }
 
-        // console.log(comments[0].code);
-        // console.log(currentFile);
+            if ( templateType === 'color' ) {
+
+                var colorsInfo = [];
+                
+                colorsInfo = this.parseVarCode( comments[i].code, currentFile );
+
+                comments[i].serializedCode = colorsInfo;
+                // console.log(comments[i]);
+            }
+
+            if ( templateType === 'typography' ) {
+
+                var typeInfo = [];
+
+                typeInfo = this.parseVarCode( comments[i].code, currentFile );
+
+                typeInfo.forEach( function( typeLine ){
+
+                    var fonts = typeLine.value;
+                    var values = fonts.match(/\'([\w\s]+)\'/g);
+                    typeLine.value = values;
+                });
+
+                comments[i].serializedCode = typeInfo;
+                // console.log(comments[i]);
+            }
+        }
 
         return {
             path: currentFile,
@@ -169,9 +194,48 @@ Parser.prototype = {
         };
     },
 
-    parseVarCode: function( code ) {
+    parseVarCode: function( code, path ) {
 
+        var infoArray = []
+            , infoStrings = []
+            ;
 
+        if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
+            // SASS = $        
+            infoStrings = code.match(/(\$.*:.*)/g);
+
+        }
+
+        if ( path.indexOf( '.less' ) !== -1 ) {
+            //LESS = @
+            infoStrings = code.match(/(\@.*:.*)/g);
+
+        }
+
+        infoStrings.forEach( function( infoLine ) {
+
+            var usageSplit = infoLine.split( '//' );
+            var statmentSplit = usageSplit[0].split( ':' );
+
+            if ( usageSplit[1] !== undefined ) {
+
+                infoArray.push({
+                    'variable': statmentSplit[0],
+                    'value': statmentSplit[1],
+                    'comment': usageSplit[1]
+                });
+            }
+
+            else {
+
+                infoArray.push({
+                    'variable': statmentSplit[0],
+                    'value': statmentSplit[1]
+                });
+            }
+        });
+        
+        return infoArray;
     }
 };
 
