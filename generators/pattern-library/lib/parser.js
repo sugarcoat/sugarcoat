@@ -160,10 +160,18 @@ Parser.prototype = {
             comments[ i ].code = block[ 1 ];
         }
 
+        // console.log(comments[0].code);
+        // console.log(currentFile);
+
         return {
             path: currentFile,
             data: comments
         };
+    },
+
+    parseVarCode: function( code ) {
+
+
     }
 };
 
