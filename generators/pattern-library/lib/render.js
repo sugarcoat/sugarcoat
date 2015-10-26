@@ -140,7 +140,10 @@ Render.prototype = {
 
     //     sectionFiles.forEach( function( file ) {
 
+    //         console.log(file);
+
     //         path = file.path;
+    //         console.log(path);
     //         dataObjs = file.data;
 
     //         dataObjs.forEach( function( data ) {
