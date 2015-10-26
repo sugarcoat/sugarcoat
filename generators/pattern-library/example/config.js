@@ -7,12 +7,10 @@
  *
  */
 var patterns = {
-    //The pattern library will be created and include documentation for colors,
-    //typography, UI elements and more complex components.
     settings: {
         dest: 'demo/documentation/pattern-library',
-        //include path to where the templates will live for the pattern library
-        template: 'demo/documentation/templates/main.hbs'
+        //include path to where the layout will live for the pattern library
+        layout: 'demo/documentation/templates/main.hbs'
     },
     sections: [
         {

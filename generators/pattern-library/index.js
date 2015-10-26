@@ -8,11 +8,11 @@ var util = require( 'util' )
 
 function Generate( options ) {
     
-    this.configObj = options || config
+    this.configObj = options || config;
     this.parser = parser();
     
     this.getFiles();
-};
+}
 // run in the terminal using `node index.js`
 Generate.prototype = {
 

@@ -1,5 +1,6 @@
 var async = require( 'async' );
 var fs = require( 'fs' );
+var util = require( 'util' );
 var commentParser = require( 'comment-parser' );
 var parserFunctions = commentParser.PARSERS;
 var beautify_html = require( 'js-beautify' ).html;
@@ -9,14 +10,14 @@ var beautify_html = require( 'js-beautify' ).html;
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
-function Parser() {};
+function Parser() {}
 
 Parser.prototype = {
     
     customParsers: {
         parsers: [
             
-        parserFunctions.parse_tag,
+            parserFunctions.parse_tag,
             
             function( str, data ) {
                 
@@ -31,7 +32,7 @@ Parser.prototype = {
                     
                     if ( match.length > 1 ) {
                         
-                        data.modifier = match[ 1 ];
+                        data.name = match[ 1 ];
                         // console.log( match );
                         str = match[ 1 ];
                     }
@@ -63,7 +64,7 @@ Parser.prototype = {
             
             fs.readFile( currentFile, 'utf-8', function( err, data ) {
                                 
-                section.files.push( self.parseComment( currentFile, data ));
+                section.files.push( self.parseComment( currentFile, data ) );
                 
                 return callback( null );
             });
@@ -77,7 +78,9 @@ Parser.prototype = {
                     // read all files
                     fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
                         
-                        section.files.push( self.parseComment( currentFile, data ));
+                        section.files.push( self.parseComment( currentFile, data ) );
+                        
+                        console.log( util.inspect( section, { depth:7, colors:true } ));
                         
                         // read file callback
                         return callback( null );
@@ -113,9 +116,8 @@ Parser.prototype = {
         for ( var i = 0; i < comments.length; i++ ) {
             
             // split blocks into comment and code content
-            var block = isHtmlComponent 
-                ? comments[ i ].split( HTMLCOMMENTSPLIT )
-                : comments[ i ].split( COMMENTSPLIT ) 
+            var block = isHtmlComponent ? 
+                    comments[ i ].split( HTMLCOMMENTSPLIT ) : comments[ i ].split( COMMENTSPLIT ) 
                 , toParse = '/**' + block[ 0 ] + ' */'
                 ;
             
@@ -124,14 +126,34 @@ Parser.prototype = {
             comments[ i ] = commentParser( toParse, this.customParsers )[ 0 ];
             
             if ( isHtmlComponent ) {
-                
+
                 // if there's a following comment block, remove the starting html comment
                 var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
                     , isLastComment = block[ 1 ].length - lastCommentBlock === 5
                     ;
-                
+
                 if ( isLastComment ) {
                     block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
+                }
+            }
+            // check if tags has a example tag
+            else {
+
+                var currentComments = comments[ i ].tags;
+
+                for ( var j = 0; j < currentComments.length; j++ ) {
+                    
+                    var currentComment = currentComments[ j ];
+
+                     // tag has an example description with html markup
+                    if ( currentComment.tag === 'example' ) {
+
+                    // add name and descr together to make code
+                    // var content = currentComment.name + ' ' + currentComment.description;
+
+                        // beautify code
+                        block[ 1 ] = beautify_html( currentComment.description );
+                    }
                 }
             }
             // add code to data obj
@@ -155,4 +177,4 @@ Parser.prototype = {
 
 module.exports = function() {
     return new Parser();
-}
+};

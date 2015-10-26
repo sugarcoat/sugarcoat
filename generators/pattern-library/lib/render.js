@@ -8,7 +8,7 @@ var fs = require( 'fs' )
 function Render( config ) {
     
     this.config = config;
-    this.templateSrc = config.settings.template || 'demo/documentation/templates/main.hbs';
+    this.templateSrc = config.settings.layout || 'demo/documentation/templates/main.hbs';
     this.partialsDir = config.settings.partialsDir || 'demo/documentation/templates/partials';
     
     if ( !config.settings.dest ) {
@@ -70,24 +70,16 @@ Render.prototype = {
         for ( var i = 0; i < sections.length; i++ ) {
             
             // special type variables needs to read in sass or less file, then spit out layout
-            if ( sections[ i ].type === 'variables' ) {
-                
-                // this.renderVariablesTemplate(sections[ i ]);
-                
-            }
-            else if ( !sections[ i ].type ) {
-                
-                //do normal rendering on array of files
-                this.renderTemplate( sections[ i ]);
-            }
-            else {
+            if ( sections[ i ].type !== 'variables' && sections[ i ].type ) {
                 
                 throw new Error( 'Invalid Type declared for section: ', sections[ i ].title );
             }
         }
         
+        this.renderTemplate( sections );
+        
     },
-    
+
     // renderVariablesTemplate: function( section ) {
  
     //     var templateType = section.template
@@ -201,10 +193,10 @@ Render.prototype = {
     // },
     
     renderTemplate: function( section ) {
-        // console.log( section );
 
         var compiledData = this.template( section )
-            , basename = helpers.toCamelCase( section.title )
+            , basename = 'documentation'
+            // , basename = helpers.toCamelCase( section.title )
             , path = this.dest + basename + '.html'
             ;
 
