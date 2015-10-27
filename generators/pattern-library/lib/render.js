@@ -125,7 +125,7 @@ Render.prototype = {
             , path = this.dest + basename + '.html'
             ;
         // console.log( data );
-        console.log( util.inspect( data, { depth:7, colors:true } ));
+        // console.log( util.inspect( data, { depth:7, colors:true } ));
 
         helpers.writeFile( path, compiledData, function( err ) {
         
