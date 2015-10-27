@@ -132,7 +132,6 @@ Parser.prototype = {
                 var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
                     , isLastComment = block[ 1 ].length - lastCommentBlock === 5
                     ;
-
                 if ( isLastComment ) {
                     block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
                 }

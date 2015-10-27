@@ -4,6 +4,7 @@
   <div class="file-block">
     <h3>{{ path }}</h3>
     {{#each data}}
+    
     <div class="comment-block">
       <dl class="desc">
         {{#each tags}}
@@ -13,7 +14,9 @@
         {{/notequal}}
         {{/each}}
       </dl>
-{{ code }}
+      
+      {{{ code }}}
+
 <pre class="code">
 {{ code }}
 </pre>
