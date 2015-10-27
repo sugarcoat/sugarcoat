@@ -1,8 +1,9 @@
 var fs = require( 'fs' )
     , async = require( 'async' )
     , Handlebars = require( 'Handlebars' )
-    , helpers = require( '../../utils/utils.js' )
     , util = require( 'util' )
+    , mkdirp = require( 'mkdirp' )
+    , getDirName = require( 'path' ).dirname
     ;
 
 function Render( config ) {
@@ -51,31 +52,7 @@ Render.prototype = {
                         });
                     });
                 });
-                
-                
-            });
-            
-            // register all partials
-            // async.each( files, function( filename, callback ) {
-            //
-            //     // var matches = /^([^.]+).hbs$/.exec( filename );
-            //     // if ( !matches ) {
-            //     //     return;
-            //     // }
-            //     // var name = matches[ 1 ];
-            //     //
-            //     // // read file async and add to handlebars
-            //     // fs.readFile( self.partialsDir + '/' + filename, 'utf8', function( err, partial ) {
-            //     //
-            //     //     Handlebars.registerPartial( name, partial );
-            //     //     return callback( null );
-            //     // });
-            //
-            // }, function() {
-            //
-            //     // read template file
-            //
-            // });          
+            });     
         });
     },
     
@@ -98,24 +75,6 @@ Render.prototype = {
         }, callback );
     },
     
-    renderFiles: function() {
-        
-        // var sections = this.config.sections;
-        //
-        // //Check what type a section is, then route them accordingly
-        // for ( var i = 0; i < sections.length; i++ ) {
-        //
-        //     // special type variables needs to read in sass or less file, then spit out layout
-        //     if ( sections[ i ].type !== 'variables' && sections[ i ].type ) {
-        //
-        //         throw new Error( 'Invalid Type declared for section: ', sections[ i ].title );
-        //     }
-        // }
-        //
-        // this.renderTemplate( sections );
-        
-    },
-    
     renderTemplate: function() {
 
         var data = this.config.sections
@@ -127,7 +86,7 @@ Render.prototype = {
         // console.log( data );
         // console.log( util.inspect( data, { depth:7, colors:true } ));
 
-        helpers.writeFile( path, compiledData, function( err ) {
+        this.writeFile( path, compiledData, function( err ) {
         
             if ( err ) {
                 throw new Error( 'Error occurred: ', err );
@@ -164,6 +123,17 @@ Render.prototype = {
         else {
             return options.fn( this );
         }
+    },
+    
+    // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
+    writeFile: function( path, contents, callback ) {
+
+        mkdirp( getDirName( path ), function ( err ) {
+        
+            if ( err ) { return callback( err ); }
+            
+            fs.writeFile( path, contents, callback )
+      });
     }
 };
 
