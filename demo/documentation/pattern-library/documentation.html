@@ -17,31 +17,55 @@
 <body>
 <h1> Custom Partial / Test </h1>
 
-    <div class="color-swatches">
-            <div class="color-swatch">
-                <div class="swatch" style="background-color:;">
-                    <span></span>
-                </div>
-                <h1></h1>
-            </div>
-            <div class="color-swatch">
-                <div class="swatch" style="background-color:;">
-                    <span></span>
-                </div>
-                <h1></h1>
-            </div>
-            <div class="color-swatch">
-                <div class="swatch" style="background-color:;">
-                    <span></span>
-                </div>
-                <h1></h1>
-            </div>
-            <div class="color-swatch">
-                <div class="swatch" style="background-color:;">
-                    <span></span>
-                </div>
-                <h1></h1>
-            </div>
+    <div>
+        <h2>Colors</h2>
+        <div class="color-swatches">
+                        <div class="color-swatch">
+                            <div class="swatch" style="background-color:#333333; ">
+                                <span>#333333; </span>
+                            </div>
+                            <h3>$light-black</h3>
+                            	<p> Usage: dark play button</p>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="swatch" style="background-color: #191919; ">
+                                <span> #191919; </span>
+                            </div>
+                            <h3>$dark-black</h3>
+                            	<p> Usage: even venue calendar tiles/entertainment page</p>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="swatch" style="background-color:#222222; ">
+                                <span>#222222; </span>
+                            </div>
+                            <h3>$off-black</h3>
+                            	<p> Usage: footer resorts background</p>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="swatch" style="background-color: #DD4B39;">
+                                <span> #DD4B39;</span>
+                            </div>
+                            <h3>$info-red</h3>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="swatch" style="background-color: #59b375;">
+                                <span> #59b375;</span>
+                            </div>
+                            <h3>$info-green</h3>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="swatch" style="background-color: #f2c94e;">
+                                <span> #f2c94e;</span>
+                            </div>
+                            <h3>$info-yellow</h3>
+                        </div>
+                        <div class="color-swatch">
+                            <div class="swatch" style="background-color:#E6E6E6;">
+                                <span>#E6E6E6;</span>
+                            </div>
+                            <h3>$food-court-gray</h3>
+                        </div>
+        </div>
     </div>
 
 
@@ -100,32 +124,6 @@
 <div>
   <h2>UI Kit</h2>
   <div class="file-block">
-    <h3>demo/library/styles/global/buttons.scss</h3>
-    <div class="comment-block">
-      <dl class="desc">
-        <dt>module </dt>
-        <dd>Button</dd>
-        <dt>category </dt>
-        <dd>UIElement</dd>
-        <dt>modifier .cta </dt>
-        <dd>primary coloring</dd>
-        <dt>modifier :hover </dt>
-        <dd>transition animation on hover</dd>
-      </dl>
-      
-<pre class="code">
-&lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
-&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-&lt;div class&#x3D;&quot;btn-set&quot;&gt;
-    &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
-    &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
-&lt;/div&gt;
-</pre>
-
-    </div>
-  </div>
-  <div class="file-block">
     <h3>demo/library/styles/base/feedback.scss</h3>
     <div class="comment-block">
       <dl class="desc">
@@ -168,33 +166,60 @@
 
     </div>
   </div>
+  <div class="file-block">
+    <h3>demo/library/styles/global/buttons.scss</h3>
+    <div class="comment-block">
+      <dl class="desc">
+        <dt>module </dt>
+        <dd>Button</dd>
+        <dt>category </dt>
+        <dd>UIElement</dd>
+        <dt>modifier .cta </dt>
+        <dd>primary coloring</dd>
+        <dt>modifier :hover </dt>
+        <dd>transition animation on hover</dd>
+      </dl>
+      
+<pre class="code">
+&lt;a class&#x3D;&quot;btn&quot;&gt;a.btn&lt;/a&gt;
+&lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
+&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+&lt;div class&#x3D;&quot;btn-set&quot;&gt;
+    &lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;
+    &lt;button class&#x3D;&quot;btn&quot;&gt;button.btn&lt;/button&gt;
+&lt;/div&gt;
+</pre>
+
+    </div>
+  </div>
 </div>
 
-    //font family: Arial
-    //variable: $Arial
-    //The quick brown fox jumps over the lazy dog.
-    
-    <div class="container">
-            <div class="font-block">
-    			<p class="font-name">Font Family: </p>
-    			<p class="font-variable">Variable: </p>
-    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
-            </div>
-            <div class="font-block">
-    			<p class="font-name">Font Family: </p>
-    			<p class="font-variable">Variable: </p>
-    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
-            </div>
-            <div class="font-block">
-    			<p class="font-name">Font Family: </p>
-    			<p class="font-variable">Variable: </p>
-    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
-            </div>
-            <div class="font-block">
-    			<p class="font-name">Font Family: </p>
-    			<p class="font-variable">Variable: </p>
-    			<p style="font-family: ;">The quick brown fox jumps over the lazy dog.</p>
-            </div>
+    <div>
+    	<h2>Typography</h2>
+    	<div class="container">
+    			        <div class="font-block">
+    						<p class="font-name">Font Family: </p>
+    							<ul>
+    								<li>&#x27;Helvetica&#x27;</li>
+    							</ul>
+    							<ul>
+    								<li>&#x27;Arial&#x27;</li>
+    							</ul>
+    						<p class="font-variable">Variable: $font-family</p>
+    						<p style="font-family: &#x27;Helvetica&#x27;,&#x27;Arial&#x27;;">The quick brown fox jumps over the lazy dog.</p>
+    			        </div>
+    			        <div class="font-block">
+    						<p class="font-name">Font Family: </p>
+    							<ul>
+    								<li>&#x27;Monospace&#x27;</li>
+    							</ul>
+    							<ul>
+    								<li>&#x27;Courier&#x27;</li>
+    							</ul>
+    						<p class="font-variable">Variable: $font-family-mono</p>
+    						<p style="font-family: &#x27;Monospace&#x27;,&#x27;Courier&#x27;;">The quick brown fox jumps over the lazy dog.</p>
+    			        </div>
+    	</div>
     </div>
 
 

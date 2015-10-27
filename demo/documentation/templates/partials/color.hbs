@@ -1,13 +1,20 @@
-<div class="color-swatches">
-    {{#each this}}
-        <div class="color-swatch">
-            <div class="swatch" style="background-color:{{value}};">
-                <span>{{value}}</span>
-            </div>
-            <h1>{{variable}}</h1>
-            {{#if comment}}
-            	<p>{{comment}}</p>
-            {{/if}}
-        </div>
-    {{/each}}
+<div>
+    <h2>Colors</h2>
+    <div class="color-swatches">
+        {{#each files }}
+            {{#each data }}
+                {{#each serializedCode }}
+                    <div class="color-swatch">
+                        <div class="swatch" style="background-color:{{ value }}">
+                            <span>{{ value }}</span>
+                        </div>
+                        <h3>{{ variable }}</h3>
+                        {{#if comment }}
+                        	<p>{{ comment }}</p>
+                        {{/if}}
+                    </div>
+                {{/each }}
+            {{/each }}
+        {{/each }}
+    </div>
 </div>
