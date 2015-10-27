@@ -83,7 +83,8 @@ Render.prototype = {
             // , basename = helpers.toCamelCase( section.title )
             , path = this.dest + basename + '.html'
             ;
-        console.log( data );
+        // console.log( data );
+        console.log( util.inspect( data, { depth:7, colors:true } ));
 
         this.writeFile( path, compiledData, function( err ) {
         
