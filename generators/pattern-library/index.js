@@ -3,12 +3,11 @@ var util = require( 'util' )
     , render = require( './lib/render' )
     , parser = require( './lib/parser' )
     , globber = require( '../utils/globber' )
-    , config = require( './example/config.js' )
     ;
 
 function Generate( options ) {
         
-    this.configObj = options || config;
+    this.configObj = options;
     this.parser = parser();
     
     this.getFiles();
