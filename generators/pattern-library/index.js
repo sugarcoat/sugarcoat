@@ -21,72 +21,46 @@ Generate.prototype = {
         var sections = this.configObj.sections
             , self = this
             ;
-
-        sections.forEach( function( section ){
-
-            var newFiles = globber( section.files );
-
-            section.files = newFiles;
+        
+        var sectionPromises = sections.map( function( section ) {
+            
+            section.files = globber( section.files );
+            
+            return self.readSection( section );
         });
         
-        // this.readFiles();
         Promise.all([
-            this.readFiles()
+            sectionPromises
         ])
-        // .then( this.parseFiles.bind( this ) )
         .then( this.renderFiles.bind( this ));
-        
-        // this.parseFiles();
     },
     
-    readFiles: function() {
-        
-        function maxCount () {
-            
-            var count = 0;
-            
-            sections.forEach( function( section ) {
-                count += section.files.length;
-            });
-            
-            return count;
-        }
-        
-        var sections = this.configObj.sections;
-        var max = maxCount();
+    readSection: function( section ) {
+
+        var files = section.files;
         var current = 0;
         var self = this;
         
         return new Promise( function( resolve, reject ) {
             
-            sections.forEach( function( currentSection, i ) {
+            files.forEach( function( currentFile, index ) {
                 
-                var currentFiles = currentSection.files;
-            
-                currentFiles.forEach( function( currentFile, j ) {
+                fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
                     
-                    fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
-                        
-                        current++;
-                        
-                        sections[ i ].files[ j ] = {
-                            currentFile: currentFile,
-                            data: self.parser.parseComment( currentFile, data, currentSection.template )
-                        };
-                        
-                        if ( current === max ) resolve( sections );
-                        
-                    });
+                    current++;
+                    
+                    section.files[ index ] = {
+                        currentFile: currentFile,
+                        data: self.parser.parseComment( currentFile, data, section.template )
+                    };
+                    
+                    if ( current === files.length ) resolve( section );
+                    
                 });
             });
         });
     },
-    
-    parseFiles: function( sections ) {
-        
-        // return this.parser.parseSections( sections[ 0 ] );
-    },
-    
+
     renderFiles: function() {
 
         render( this.configObj );
