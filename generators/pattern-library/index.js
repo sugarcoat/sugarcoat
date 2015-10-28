@@ -1,5 +1,4 @@
 var util = require( 'util' )
-    // , async = require( 'async' )
     , fs = require( 'fs' )
     // , winston = require( 'winston' )
     , log = require( 'npmlog' )
@@ -77,7 +76,7 @@ Generate.prototype = {
     
     composeData: function( values ) {
         
-        this.configObj.sections = values[ 0 ];
+        this.configObj.sections = values;
     },
 
     renderFiles: function() {

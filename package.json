@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "author": "Valerie Balcom + Allison Groening + Ryan Fitzer",
   "dependencies": {
-    "async": "^1.4.2",
     "comment-parser": "^0.3.0",
     "glob": "^5.0.15",
     "handlebars": "^4.0.3",

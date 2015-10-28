@@ -1,0 +1,19 @@
+<nav>
+  <ul>
+    {{#each this}}
+    <li><a href="#">{{ title }}</a>
+      <ul>
+        {{#each files}}
+          {{#each data}}
+            {{#each tags}}
+              {{#isequal tag 'module'}}
+                <li>{{description}}</li>
+              {{/isequal}}
+            {{/each}}
+          {{/each}}
+        {{/each}}
+      </ul>
+    </li>
+    {{/each}}
+  </ul>
+</nav>

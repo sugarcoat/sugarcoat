@@ -1,12 +1,12 @@
 var fs = require( 'fs' )
-    , async = require( 'async' )
     , Handlebars = require( 'Handlebars' )
     , util = require( 'util' )
     , mkdirp = require( 'mkdirp' )
-    , getDirName = require( 'path' ).dirname
+    , path = require( 'path' )
     ;
 
 function Render( config ) {
+
     this.config = config;
     this.templateSrc = config.settings.layout || 'demo/documentation/templates/main.hbs';
     this.customPartials = config.settings.partials || '';
@@ -29,51 +29,116 @@ Render.prototype = {
     setupHandlebars: function() {
         
         // TODO: make this default or based on options obj
-        var self = this;
-       
-        fs.readdir( self.partialsDir, function( err, files ) {
+        var self = this
+            , partials
+            ;
+        
+        Handlebars.registerHelper( 'isequal', this.isequalHelper );
+        Handlebars.registerHelper( 'notequal', this.notequalHelper );
+        
+        partials = this.readDir( this.partialsDir );
+        customPartials = this.readDir( this.customPartials );
+        
+        
+        Promise.all([
+            this.readDir( this.partialsDir ),
+            this.readDir( this.customPartials )
+        ])
+        .then(
+            this.assignValues.bind( this )
+        )
+        .then(
+            this.managePartials.bind( this )
+        );
+    },
+    
+    assignValues: function( values ) {
+
+        this.partials = values[ 0 ].concat( values[ 1 ]);
+    },
+    
+    readDir: function( directory ) {
+        
+        return new Promise( function( resolve, reject ) {
             
-            Handlebars.registerHelper( 'isequal', self.isequalHelper );
-            Handlebars.registerHelper( 'notequal', self.notequalHelper );
+            fs.readdir( directory, function( err, files ) {
             
-            console.log( 'files', files );
+                var partials = [];
             
-            self.registerPartials( self.partialsDir, files, function() {
+                for ( var i = 0 ; i < files.length ; i++ ) {
+                                
+                    var matches = /^([^.]+).hbs$/.exec( files[ i ] );
                 
-                // console.log( self.customPartials);
-                fs.readdir( self.customPartials, function( err, customFiles ) {
-                    
-                    self.registerPartials( self.customPartials, customFiles, function() {
-                        
-                        fs.readFile( self.templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-            
-                            self.template = Handlebars.compile( data );
-                            self.renderTemplate();
-                        });
-                    });
-                });
-            });     
+
+                    if ( matches ) partials.push( directory + '/' + files[ i ] );
+                
+                    if ( i === files.length - 1 ) resolve( partials );
+                
+                }
+            });
         });
     },
     
-    registerPartials: function( pathname, files, callback ) {
+    managePartials: function() {
         
-        async.each( files, function( filename ) {
+        var self = this;
+        
+        var partials = this.partials.map( function( partial ) {
             
-            var matches = /^([^.]+).hbs$/.exec( filename );
-            if ( !matches ) {
-                return;
-            }
-            var name = matches[ 1 ];
+            return self.getPartials( partial );
+        });
+        
+        Promise.all(
+            partials
+        )
+        .then(
+            this.registerPartials.bind( this )
+        )
+        .then(
+            this.readTemplate.bind( this )
+        );
+    },
+    
+    getPartials: function( filename ) {
+        
+        return new Promise( function( resolve, reject ) {
             
-            // read file async and add to handlebars
-            fs.readFile( pathname + '/' + filename, 'utf8', function( err, partial ) {
-                            
-                console.log('hi!', filename);
-                Handlebars.registerPartial( name, partial );
-                return callback( null );
+            fs.readFile( filename, 'utf8', function( err, partial ) {
+                
+                var obj = {
+                    file: filename,
+                    data: partial
+                };
+                
+                resolve( obj );
+                
             });
-        }, callback );
+            
+        });
+    },
+    
+    registerPartials: function() {
+        
+        var partials = arguments[ 0 ];
+        
+        partials.forEach( function( partial ) {
+            
+            var name = path.parse( partial.file ).name;
+            
+            Handlebars.registerPartial( name, partial.data );
+
+        });
+    }, 
+        
+    readTemplate: function() {
+        
+        var self = this;
+        
+        fs.readFile( this.templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+
+            self.template = Handlebars.compile( data );
+            self.renderTemplate();
+        });
     },
     
     renderTemplate: function() {
@@ -81,16 +146,16 @@ Render.prototype = {
         var data = this.config.sections
             , compiledData = this.template( data )
             , basename = 'documentation'
-            , path = this.dest + basename + '.html'
+            , file = this.dest + basename + '.html'
             ;
 
-        this.writeFile( path, compiledData, function( err ) {
+        this.writeFile( file, compiledData, function( err ) {
         
             if ( err ) {
                 throw new Error( 'Error occurred: ', err );
             }
             else {
-                console.log( 'File Complete: ', path);
+                console.log( 'File Complete: ', file);
             }
         });
     },
@@ -124,13 +189,13 @@ Render.prototype = {
     },
     
     // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
-    writeFile: function( path, contents, callback ) {
+    writeFile: function( file, contents, callback ) {
 
-        mkdirp( getDirName( path ), function ( err ) {
+        mkdirp( path.dirname( file ), function ( err ) {
         
             if ( err ) { return callback( err ); }
             
-            fs.writeFile( path, contents, callback );
+            fs.writeFile( file, contents, callback );
         });
     }
 };
