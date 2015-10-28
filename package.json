@@ -15,10 +15,10 @@
   "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SapientNitroLA/assemble-documentation.git"
+    "url": "https://github.com/SapientNitroLA/sugarcoat.git"
   },
   "bugs": {
-    "url": "https://github.com/SapientNitroLA/assemble-documentation/issues"
+    "url": "https://github.com/SapientNitroLA/sugarcoat/issues"
   },
-  "homepage": "https://github.com/SapientNitroLA/assemble-documentation"
+  "homepage": "https://github.com/SapientNitroLA/sugarcoat"
 }
