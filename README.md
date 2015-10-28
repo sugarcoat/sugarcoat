@@ -1,4 +1,4 @@
-# assemble-documentation #
+# sugarcoat #
 
 Just an in-progress, non-functioning task to automate documentation creation.
 
