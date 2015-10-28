@@ -1,5 +1,4 @@
 var util = require( 'util' )
-    // , async = require( 'async' )
     , fs = require( 'fs' )
     , render = require( './lib/render' )
     , parser = require( './lib/parser' )

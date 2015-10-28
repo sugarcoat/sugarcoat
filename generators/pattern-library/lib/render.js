@@ -1,5 +1,4 @@
 var fs = require( 'fs' )
-    , async = require( 'async' )
     , Handlebars = require( 'Handlebars' )
     , util = require( 'util' )
     , mkdirp = require( 'mkdirp' )
