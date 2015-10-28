@@ -7,7 +7,6 @@ var fs = require( 'fs' )
     ;
 
 function Render( config ) {
-    
     this.config = config;
     this.templateSrc = config.settings.layout || 'demo/documentation/templates/main.hbs';
     this.customPartials = config.settings.partials || '';
@@ -22,7 +21,6 @@ function Render( config ) {
     
     // required config
     this.dest = config.settings.dest + '/';
-    
     this.setupHandlebars();
 }
 
@@ -37,6 +35,8 @@ Render.prototype = {
             
             Handlebars.registerHelper( 'isequal', self.isequalHelper );
             Handlebars.registerHelper( 'notequal', self.notequalHelper );
+            
+            console.log( 'files', files );
             
             self.registerPartials( self.partialsDir, files, function() {
                 
@@ -58,7 +58,7 @@ Render.prototype = {
     
     registerPartials: function( pathname, files, callback ) {
         
-        async.each( files, function( filename, callback ) {
+        async.each( files, function( filename ) {
             
             var matches = /^([^.]+).hbs$/.exec( filename );
             if ( !matches ) {
@@ -68,7 +68,8 @@ Render.prototype = {
             
             // read file async and add to handlebars
             fs.readFile( pathname + '/' + filename, 'utf8', function( err, partial ) {
-                
+                            
+                console.log('hi!', filename);
                 Handlebars.registerPartial( name, partial );
                 return callback( null );
             });

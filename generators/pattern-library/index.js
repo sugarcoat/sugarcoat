@@ -22,16 +22,27 @@ Generate.prototype = {
             , self = this
             ;
         
-        var sectionPromises = sections.map( function( section ) {
+        sections.forEach( function( section ) {
             
             section.files = globber( section.files );
+        });
+        
+        this.promiseFiles();
+    },
+    
+    promiseFiles: function() {
+        
+        var self = this;
+        
+        this.configObj.sections = this.configObj.sections.map( function( section ) {
             
             return self.readSection( section );
         });
         
-        Promise.all([
-            sectionPromises
-        ])
+        Promise.all(
+            this.configObj.sections
+        )
+        .then( this.composeData.bind( this ))
         .then( this.renderFiles.bind( this ));
     },
     
@@ -59,6 +70,11 @@ Generate.prototype = {
                 });
             });
         });
+    },
+    
+    composeData: function( values ) {
+        
+        this.configObj.sections = values[ 0 ];
     },
 
     renderFiles: function() {
