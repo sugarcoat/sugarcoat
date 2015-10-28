@@ -49,53 +49,6 @@ Parser.prototype = {
         ]
     },
     
-    parseSection: function( section, callback ) {
-        
-        var self = this
-            , originalFiles = section.files
-            , templateType = section.template
-            ;
-        
-        section.files = [];
-        
-        // only one file 
-        if ( typeof originalFiles === 'string' ) {
-            
-            var currentFile = originalFiles;
-            
-            fs.readFile( currentFile, 'utf-8', function( err, data ) {
-                                
-                section.files.push( self.parseComment( currentFile, data, templateType ) );
-                
-                return callback( null );
-            });
-        }
-        
-        // array of files
-        else {
-            async.each( originalFiles,
-                function( currentFile, callback ) {
-                    
-                    // read all files
-                    fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
-                        
-                        section.files.push( self.parseComment( currentFile, data, templateType ) );
-                        
-                        // console.log( util.inspect( section, { depth:7, colors:true } ));
-                        
-                        // read file callback
-                        return callback( null );
-                    });
-                },
-                function( err ) {
-                    
-                    // parent callback
-                    return callback( null );
-                }
-            );
-        }
-    },
-    
     parseComment: function( currentFile, data, templateType ) {
         
         var isHtmlComponent = false
@@ -183,11 +136,7 @@ Parser.prototype = {
                 // console.log(comments[i]);
             }
         }
-
-        return {
-            path: currentFile,
-            data: comments
-        };
+        return comments;
     },
 
     parseVarCode: function( code, path ) {

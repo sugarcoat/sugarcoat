@@ -1,5 +1,6 @@
 var util = require( 'util' )
-    , async = require( 'async' )
+    // , async = require( 'async' )
+    , fs = require( 'fs' )
     , render = require( './lib/render' )
     , parser = require( './lib/parser' )
     , globber = require( '../utils/globber' )
@@ -17,7 +18,9 @@ Generate.prototype = {
 
     getFiles: function() {
 
-        var sections = this.configObj.sections;
+        var sections = this.configObj.sections
+            , self = this
+            ;
 
         sections.forEach( function( section ){
 
@@ -26,24 +29,67 @@ Generate.prototype = {
             section.files = newFiles;
         });
         
-        this.parseFiles();
+        // this.readFiles();
+        Promise.all([
+            this.readFiles()
+        ])
+        // .then( this.parseFiles.bind( this ) )
+        .then( this.renderFiles.bind( this ));
+        
+        // this.parseFiles();
     },
     
-    parseFiles: function() {
+    readFiles: function() {
         
-        var sections = this.configObj.sections
-            , self = this
-            ;
-        // must bind to parser to retain scope
-        async.each( sections, this.parser.parseSection.bind( this.parser ), function() {
+        function maxCount () {
             
-            // set config obj to new state with added data
-            self.configObj.sections = sections;
-        // console.log( util.inspect( sections[1], { depth:5, colors:true } ));
+            var count = 0;
             
-            render( self.configObj );
+            sections.forEach( function( section ) {
+                count += section.files.length;
+            });
             
+            return count;
+        }
+        
+        var sections = this.configObj.sections;
+        var max = maxCount();
+        var current = 0;
+        var self = this;
+        
+        return new Promise( function( resolve, reject ) {
+            
+            sections.forEach( function( currentSection, i ) {
+                
+                var currentFiles = currentSection.files;
+            
+                currentFiles.forEach( function( currentFile, j ) {
+                    
+                    fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
+                        
+                        current++;
+                        
+                        sections[ i ].files[ j ] = {
+                            currentFile: currentFile,
+                            data: self.parser.parseComment( currentFile, data, currentSection.template )
+                        };
+                        
+                        if ( current === max ) resolve( sections );
+                        
+                    });
+                });
+            });
         });
+    },
+    
+    parseFiles: function( sections ) {
+        
+        // return this.parser.parseSections( sections[ 0 ] );
+    },
+    
+    renderFiles: function() {
+
+        render( this.configObj );
     }
 };
 

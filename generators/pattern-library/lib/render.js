@@ -80,11 +80,8 @@ Render.prototype = {
         var data = this.config.sections
             , compiledData = this.template( data )
             , basename = 'documentation'
-            // , basename = helpers.toCamelCase( section.title )
             , path = this.dest + basename + '.html'
             ;
-        // console.log( data );
-        console.log( util.inspect( data, { depth:7, colors:true } ));
 
         this.writeFile( path, compiledData, function( err ) {
         
@@ -132,8 +129,8 @@ Render.prototype = {
         
             if ( err ) { return callback( err ); }
             
-            fs.writeFile( path, contents, callback )
-      });
+            fs.writeFile( path, contents, callback );
+        });
     }
 };
 
