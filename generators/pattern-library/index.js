@@ -1,6 +1,8 @@
 var util = require( 'util' )
     // , async = require( 'async' )
     , fs = require( 'fs' )
+    // , winston = require( 'winston' )
+    , log = require( 'npmlog' )
     , render = require( './lib/render' )
     , parser = require( './lib/parser' )
     , globber = require( '../utils/globber' )
@@ -25,6 +27,7 @@ Generate.prototype = {
         sections.forEach( function( section ) {
             
             section.files = globber( section.files );
+            log.info('Globbed files: ', section.files);
         });
         
         this.promiseFiles();
