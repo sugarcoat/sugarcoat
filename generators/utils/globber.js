@@ -1,6 +1,7 @@
 var util = require( 'util' )
     , glob = require( 'glob' )
     , _ = require( 'lodash' )
+    , log = require( 'npmlog' )
     ;
 
 function Globber( files ) {
@@ -30,7 +31,7 @@ Globber.prototype = {
 
         else {
 
-            files = glob.sync( objFiles, {} );
+            var files = glob.sync( objFiles, {} );
 
             return files;
         }        
@@ -46,11 +47,6 @@ Globber.prototype = {
         files.forEach( function( file ) {
 
             globbedFiles = glob.sync( file, {} );
-            // glob( file, {}, function( error ) {
-            //     console.log('err', error);
-            //     console.log('file', file);
-            //     // console.log('array of file names', globbedFiles);
-            // });
 
             filesArray = filesArray.concat( globbedFiles );
 
