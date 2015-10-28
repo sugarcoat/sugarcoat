@@ -74,7 +74,7 @@ Generate.prototype = {
     
     composeData: function( values ) {
         
-        this.configObj.sections = values[ 0 ];
+        this.configObj.sections = values;
     },
 
     renderFiles: function() {
