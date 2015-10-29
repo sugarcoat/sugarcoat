@@ -23,8 +23,7 @@ var Utils = {
 // replaces string to camelCase string
     toCamelCase: function( str ) {
     
-        var str = str.replace( /\w\S*/g,
-            function( txt ){
+        var str = str.replace( /\w\S*/g, function( txt ) {
             
                 return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
 

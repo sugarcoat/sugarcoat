@@ -10,13 +10,14 @@ function Render( config ) {
 
     this.config = config;
     this.templateSrc = config.settings.layout || 'generators/pattern-library/templates/main.hbs';
-    this.customPartials = config.settings.partials || '';
+    this.customPartials = config.settings.partials;
     
     // default partials
     this.partialsDir = 'generators/pattern-library/templates/partials';
     
     if ( !config.settings.dest ) {
         
+        log.error( 'No [dest] Destination provided' );
         throw new Error( 'Error: Please provide destination');
     }
     
@@ -29,22 +30,26 @@ Render.prototype = {
     
     setupHandlebars: function() {
         
-        // TODO: make this default or based on options obj
-        var self = this
-            , partials
-            ;
+        var self = this;
         
         Handlebars.registerHelper( 'isequal', this.isequalHelper );
         Handlebars.registerHelper( 'notequal', this.notequalHelper );
         
-        partials = this.readDir( this.partialsDir );
-        customPartials = this.readDir( this.customPartials );
+        var partialsDirectories = [ this.partialsDir ];
         
+        if ( this.customPartials ) {
+            
+            partialsDirectories.push( this.customPartials );
+        }
         
-        Promise.all([
-            this.readDir( this.partialsDir ),
-            this.readDir( this.customPartials )
-        ])
+        partialsDirectories = partialsDirectories.map( function( directory ) {
+            
+                return self.readDir( directory );
+            });
+        
+        Promise.all(
+            partialsDirectories            
+        )
         .then(
             this.assignValues.bind( this )
         )
@@ -55,14 +60,25 @@ Render.prototype = {
     
     assignValues: function( values ) {
 
-        this.partials = values[ 0 ].concat( values[ 1 ]);
+        this.partials = values[ 0 ];
+        
+        if ( values[ 1 ]) {
+            this.partials = this.partials.concat( values[ 1 ]);
+        }
     },
     
     readDir: function( directory ) {
         
         return new Promise( function( resolve, reject ) {
             
+            log.info( 'Registering Partials', 'from directory:', directory )
+            
             fs.readdir( directory, function( err, files ) {
+                
+                if ( err ) {
+                    
+                    log.error( 'Error reading directory', directory, err );
+                }
             
                 var partials = [];
             
@@ -70,7 +86,6 @@ Render.prototype = {
                                 
                     var matches = /^([^.]+).hbs$/.exec( files[ i ] );
                 
-
                     if ( matches ) partials.push( directory + '/' + files[ i ] );
                 
                     if ( i === files.length - 1 ) resolve( partials );
@@ -89,7 +104,7 @@ Render.prototype = {
             return self.getPartials( partial );
         });
         
-        Promise.all(
+        return Promise.all(
             partials
         )
         .then(

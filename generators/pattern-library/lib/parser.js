@@ -142,7 +142,7 @@ Parser.prototype = {
                 });
 
                 comments[i].serializedCode = typeInfo;
-                // console.log(comments[i]);
+
                 log.info( 'Serialized Code Created', infostr );
             }
         }
