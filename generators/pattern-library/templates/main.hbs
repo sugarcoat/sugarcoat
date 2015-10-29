@@ -21,15 +21,15 @@
 {{#each this}}
 
 {{#isequal type 'variables'}}
-  {{#isequal template 'color'}}
-    {{> color}}
-  {{/isequal}}
-  {{#isequal template 'typography'}}
-    {{> typography}}
-  {{/isequal}}
-  {{#isequal template 'variable'}}
-    {{> variable}}
-  {{/isequal}}
+  {{~#isequal template 'color'}}
+    {{~> color}}
+  {{~/isequal}}
+  {{~#isequal template 'typography'}}
+    {{~> typography}}
+  {{~/isequal}}
+  {{~#isequal template 'variable'}}
+    {{~> variable}}
+  {{~/isequal}}
 {{/isequal}}
 
 {{#notequal type 'variables'}}

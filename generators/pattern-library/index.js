@@ -7,85 +7,79 @@ var util = require( 'util' )
     , globber = require( '../utils/globber' )
     ;
 
+/**
+ *
+ */
 function Generate( options ) {
-        
-    this.configObj = options;
+
+    var self = this;
+
     this.parser = parser();
-    
-    this.getFiles();
+
+    // Glob files arrays
+    options.sections = getFiles( options.sections );
+
+    Promise.all( this.promiseFiles.call( this, options.sections ) )
+        .then( function ( values ) {
+
+            options.sections = values;
+
+            return options;
+        })
+        .then( render );
 }
+
+/**
+ *
+ */
+function getFiles( sections ) {
+
+    return sections.map( function( section ) {
+
+        section.files = globber( section.files );
+
+        return section;
+    });
+}
+
+
 // run in the terminal using `node index.js`
 Generate.prototype = {
 
-    getFiles: function() {
+    promiseFiles: function( sections ) {
 
-        var sections = this.configObj.sections
-            , self = this
-            , globbedFiles = []
-            ;
-        
-        sections.forEach( function( section ) {
-            
-            section.files = globber( section.files );
-            //push all of the files we globbed into an array so we can log it out to the user
-            globbedFiles = globbedFiles.concat( section.files );
-        });
-        
-        log.info( 'Files returned from Globber: ', globbedFiles );
-        
-        this.promiseFiles();
-    },
-    
-    promiseFiles: function() {
-        
         var self = this;
-        
-        this.configObj.sections = this.configObj.sections.map( function( section ) {
-            
+
+        return sections.map( function( section ) {
+
             return self.readSection( section );
         });
-        
-        Promise.all(
-            this.configObj.sections
-        )
-        .then( this.composeData.bind( this ))
-        .then( this.renderFiles.bind( this ));
     },
-    
+
     readSection: function( section ) {
 
         var files = section.files;
         var current = 0;
         var self = this;
-        
+
         return new Promise( function( resolve, reject ) {
-            
+
             files.forEach( function( currentFile, index ) {
-                
+
                 fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
-                    
+
                     current++;
-                    
+
                     section.files[ index ] = {
                         currentFile: currentFile,
                         data: self.parser.parseComment( currentFile, data, section.template )
                     };
-                    
+
                     if ( current === files.length ) resolve( section );
-                    
+
                 });
             });
         });
-    },
-    
-    composeData: function( values ) {
-        
-        this.configObj.sections = values;
-    },
-
-    renderFiles: function() {
-
-        render( this.configObj );
     }
 };
 

@@ -9,11 +9,11 @@ var fs = require( 'fs' )
 function Render( config ) {
 
     this.config = config;
-    this.templateSrc = config.settings.layout || 'demo/documentation/templates/main.hbs';
+    this.templateSrc = config.settings.layout || 'generators/pattern-library/templates/main.hbs';
     this.customPartials = config.settings.partials || '';
     
     // default partials
-    this.partialsDir = 'demo/documentation/templates/partials';
+    this.partialsDir = 'generators/pattern-library/templates/partials';
     
     if ( !config.settings.dest ) {
         

@@ -8,18 +8,18 @@
     <div class="comment-block">
       <dl class="desc">
         {{#each tags}}
-        {{#notequal tag 'example'}}
+          {{#notequal tag 'example'}}
         <dt>{{ tag }} {{ name }}</dt>
         <dd>{{#if optional}}<i>(Optional)</i> {{/if}}{{ description }}</dd>
-        {{/notequal}}
+          {{/notequal}}
         {{/each}}
       </dl>
       
       {{{ code }}}
 
-<pre class="code">
-{{ code }}
-</pre>
+      <pre class="code">
+      {{~ code }}
+      </pre>
 
     </div>
     {{/each}}

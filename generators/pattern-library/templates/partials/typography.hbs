@@ -1,0 +1,24 @@
+<div>
+	<h2>Typography</h2>
+	<div class="container">
+	    {{#each files }}
+	    	{{#each this.data }}
+	    		{{#each this.serializedCode}}
+		      <div class="font-block">
+					<p class="font-name">Font Family: </p>
+					{{#each this.value}}
+						<ul>
+							<li>{{ this }}</li>
+						</ul>
+					{{/each}}
+					<p class="font-variable">Variable: {{ variable }}</p>
+					<p style="font-family: {{ value }};">The quick brown fox jumps over the lazy dog.</p>
+					{{#if comment }}
+						<p class="font-comment">{{ comment }}</p>
+					{{/if }}
+		      </div>
+		        {{/each}}
+		    {{/each }}
+	    {{/each }}
+	</div>
+</div>
