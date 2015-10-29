@@ -6,35 +6,60 @@ Making documentation a bit sweeter.
 
 **Pattern Library Generator**
 
-- Takes comment blocks from designated files and parses them
-- Converts comment block content into an AST
-- Renders the AST into a Pattern Library
+- Takes your already-documented code and creates a readable, auto-generated website.
+- Promotes documentation best-practices for your project, beginning to end
+- Accepts comments from `.html` and `.css/.less/.scss` files
+
+1. Can I use my own template?
+
+  Yes, you can use your own template, and even your own partials. See the options `template` and `partials`
+
+2. Can you parse special variables?
+
+  Yes, we're able to grab `.less` and `.scss` variables when you use the option `type` in a `sections` object.
+
+3. Can I designate the order of the library?
+
+  Yes, sugarcoat renders each section object in the order in which they're declared
+
+4. What if I want to include an entire folder?
+
+  Sure, just use a globbing pattern in your `files` array
+
+5. What if I don't want to include a specific file?
+
+  Yup, just use a globbing pattern with the negation symbol `!` at the beginning of the pathname
+
 
 ## Install ##
 
-    npm install sugarcoat --save
+```bash
+npm install sugarcoat --save
+```
 
 ## Sample Config Object ##
 
+```js
+{
+  settings: {
+    dest: 'demo/documentation/pattern-library'
+  },
+  sections: [
     {
-      settings: {
-        dest: 'demo/documentation/pattern-library'
-      },
-      sections: [
-        {
-          title: 'Components',
-          files: 'demo/components/*.html'
-        },
-        {
-          title: 'UI Kit',
-          files: [
-            'demo/library/styles/global/*.scss',
-            '!demo/library/styles/global/typography.scss',
-            'demo/library/styles/base/feedback.scss'
-          ]
-        }
+      title: 'Components',
+      files: 'demo/components/*.html'
+    },
+    {
+      title: 'UI Kit',
+      files: [
+        'demo/library/styles/global/*.scss',
+        '!demo/library/styles/global/typography.scss',
+        'demo/library/styles/base/feedback.scss'
       ]
     }
+  ]
+}
+```
 
 ### Config Options ###
 
@@ -60,45 +85,49 @@ template - *(Optional)* To be used with `type`. Declares which partial to use wh
 
 #### `*.css`, `*.scss`, `*.less` ####
 
-    /**
-     * 
-     * @module Tooltip
-     * @category Feedback
-     * @example
-     *    <div class="tooltip">
-     *        <span class="tooltip-content">This is a tooltip</span>
-     *    </div>
-     * @modifier .active enabled class on .tooltip
-     * @modifier :hover transition animation
-     * 
-     */
-     
-     .tooltip {
-         position:relative;
-     }
-     .tooltip-content {
-         position:absolute;
-         top:0;
-         left:0;
-         background-color:rgba(255,255,255,0.5);
-         color:blue;
-     }
+```css
+/**
+ * 
+ * @module Tooltip
+ * @category Feedback
+ * @example
+ *    <div class="tooltip">
+ *        <span class="tooltip-content">This is a tooltip</span>
+ *    </div>
+ * @modifier .active enabled class on .tooltip
+ * @modifier :hover transition animation
+ * 
+ */
+ 
+ .tooltip {
+     position:relative;
+ }
+ .tooltip-content {
+     position:absolute;
+     top:0;
+     left:0;
+     background-color:rgba(255,255,255,0.5);
+     color:blue;
+ }
+```
 
 #### `*.html` ####
 
-    <!--
-    /**
-     *
-     * @title Some Component
-     * @description This component has a description
-     * @dependencies /library/js/modules/some-component.js, /library/js/modules/other-component.js
-     *
-     */
-    -->
-    
-    <div class="some-component">
-      <span>I'm a Component!</span>
-    </div>
+```html
+<!--
+/**
+ *
+ * @title Some Component
+ * @description This component has a description
+ * @dependencies /library/js/modules/some-component.js, /library/js/modules/other-component.js
+ *
+ */
+-->
+
+<div class="some-component">
+  <span>I'm a Component!</span>
+</div>
+```
 
 # Project Roadmap #
 

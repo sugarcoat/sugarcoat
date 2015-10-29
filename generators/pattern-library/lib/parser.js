@@ -150,13 +150,11 @@ Parser.prototype = {
         if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
             // SASS = $        
             infoStrings = code.match(/(\$.*:.*)/g);
-
         }
 
         if ( path.indexOf( '.less' ) !== -1 ) {
             //LESS = @
             infoStrings = code.match(/(\@.*:.*)/g);
-
         }
 
         infoStrings.forEach( function( infoLine ) {
