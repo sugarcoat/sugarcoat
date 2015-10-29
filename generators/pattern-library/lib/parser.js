@@ -111,40 +111,31 @@ Parser.prototype = {
             // add code to data obj
             comments[ i ].code = block[ 1 ];
             
-            // var logstr = i + ' parsed from [' + currentFile + ']';
-            //this goes through each comment block for a particular file
-            // log.info( 'Parsed comment block', logstr );
-            
             var infostr = '[' + templateType + '] for: ' + currentFile;
 
-            if ( templateType === 'color' ) {
+            if ( templateType === 'color' || templateType === 'typography' || templateType === 'variable' ) {
 
-                var colorsInfo = [];
-                
-                colorsInfo = this.parseVarCode( comments[i].code, currentFile );
+                var variableInfo = this.parseVarCode( comments[i].code, currentFile );
 
-                comments[i].serializedCode = colorsInfo;
-                // console.log(comments[i]);
+                if ( templateType === 'typography' ) {
+
+                    //break down fonts into an array
+                    variableInfo.forEach( function( variableLine ){
+
+                        var fonts = variableLine.value;
+                        var values = fonts.match(/\'([\w\s]+)\'/g);
+                        variableLine.value = values;
+                    });
+                }
+
+                //set template code that has been serialized to serializedCode
+                comments[i].serializedCode = variableInfo;
+
+                //log out info about serialized code
                 log.info( 'Serialized Code Created', infostr );
+
             }
 
-            if ( templateType === 'typography' ) {
-
-                var typeInfo = [];
-
-                typeInfo = this.parseVarCode( comments[i].code, currentFile );
-
-                typeInfo.forEach( function( typeLine ){
-
-                    var fonts = typeLine.value;
-                    var values = fonts.match(/\'([\w\s]+)\'/g);
-                    typeLine.value = values;
-                });
-
-                comments[i].serializedCode = typeInfo;
-
-                log.info( 'Serialized Code Created', infostr );
-            }
         }
         
         return comments;
