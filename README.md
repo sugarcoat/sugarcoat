@@ -58,7 +58,7 @@ template - *(Optional)* To be used with `type`. Declares which partial to use wh
 
 ### Sample Comments ###
 
-**`*.css`, `*.scss`, `*.less`**
+#### `*.css`, `*.scss`, `*.less` ####
 
     /**
      * 
@@ -84,7 +84,7 @@ template - *(Optional)* To be used with `type`. Declares which partial to use wh
          color:blue;
      }
 
-**`*.html`**
+#### `*.html` ####
 
     <!--
     /**
