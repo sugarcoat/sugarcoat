@@ -8,6 +8,7 @@ function Globber( files ) {
     
     this.toNegate = true;
     this.options = {};
+    this.negationsArray = [];
     
     var toGlob = [];
     
@@ -30,7 +31,7 @@ function Globber( files ) {
     
     return Promise.all( globArrays )
     
-        .then( function( values ){
+        .then( function( values ) {
             
             var results = [];
             
@@ -41,8 +42,6 @@ function Globber( files ) {
             
             return results;
         });
-
-    // return this.passFiles( files );
 }
 
 Globber.prototype = {
@@ -53,15 +52,14 @@ Globber.prototype = {
 
         return new Promise( function( resolve, reject ) {
 
-            var isNegation = globPath.indexOf( '!' ) > -1
-                , negationsArray = [];
+            var isNegation = globPath.indexOf( '!' ) > -1;
             
-            // console.log( isNegation );
-
-            if ( self.toNegate && isNegation ) {
-    
-                negationsArray = negationsArray.concat( globPath.replace( '!', '' ) );
-            }            
+            if ( self.toNegate && isNegation ) {   
+                
+                var negatedPath = globPath.replace( '!', '' );
+                
+                self.negationsArray = self.negationsArray.concat( negatedPath );
+            }
 
             glob( globPath, self.options, 
                 function( err, globbed ) {
@@ -76,7 +74,10 @@ Globber.prototype = {
                         log.warn( 'Empty glob from file:', globPath );
                     }
     
-                    var returnThis = _.difference( globbed, negationsArray );
+                    // var returnThis = globbed;
+                    var returnThis = _.difference( globbed, self.negationsArray );
+                    
+                    // console.log('returning', returnThis);
     
                     resolve( returnThis );
                 }
