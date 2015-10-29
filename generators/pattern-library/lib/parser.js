@@ -113,7 +113,7 @@ Parser.prototype = {
             
             var infostr = '[' + templateType + '] for: ' + currentFile;
 
-            if ( templateType === 'color' || templateType === 'typography' || templateType === 'variable' ) {
+            if ( templateType ) {
 
                 var variableInfo = this.parseVarCode( comments[i].code, currentFile );
 
