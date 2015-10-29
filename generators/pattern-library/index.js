@@ -21,13 +21,17 @@ Generate.prototype = {
 
         var sections = this.configObj.sections
             , self = this
+            , globbedFiles = []
             ;
         
         sections.forEach( function( section ) {
             
             section.files = globber( section.files );
-            log.info('Globbed files: ', section.files);
+            //push all of the files we globbed into an array so we can log it out to the user
+            globbedFiles = globbedFiles.concat( section.files );
         });
+        
+        log.info( 'Files returned from Globber: ', globbedFiles );
         
         this.promiseFiles();
     },

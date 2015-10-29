@@ -3,6 +3,7 @@ var fs = require( 'fs' )
     , util = require( 'util' )
     , mkdirp = require( 'mkdirp' )
     , path = require( 'path' )
+    , log = require( 'npmlog' )
     ;
 
 function Render( config ) {
@@ -153,9 +154,11 @@ Render.prototype = {
         
             if ( err ) {
                 throw new Error( 'Error occurred: ', err );
+                //log.error( 'An error occured:', err );
             }
             else {
-                console.log( 'File Complete: ', file);
+                // console.log( 'File Complete: ', file);
+                log.info( 'Template rendered:', file );
             }
         });
     },
@@ -164,6 +167,7 @@ Render.prototype = {
 
         if ( arguments.length < 3 ) {
             throw new Error( 'Handlebars Helper EQUAL needs 2 parameters' );
+            //log.error( 'Handlebars Helper EQUAL needs two parameters' );
         }
 
         if ( value1 !== value2 ) {
@@ -178,6 +182,7 @@ Render.prototype = {
 
         if ( arguments.length < 3 ) {
             throw new Error( 'Handlebars Helper EQUAL needs 2 parameters' );
+            //log.error( 'Handlebars Helper EQUAL needs two parameters' );
         }
 
         if ( value1 === value2 ) {

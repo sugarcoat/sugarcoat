@@ -1,5 +1,6 @@
 var fs = require( 'fs' );
 var util = require( 'util' );
+var log = require( 'npmlog' );
 var commentParser = require( 'comment-parser' );
 var parserFunctions = commentParser.PARSERS;
 var beautify_html = require( 'js-beautify' ).html;
@@ -107,6 +108,8 @@ Parser.prototype = {
             }
             // add code to data obj
             comments[ i ].code = block[ 1 ];
+            //this goes through each comment block for a particular file
+            // log.info( 'Code has been created for the following file:', currentFile );
 
             if ( templateType === 'color' ) {
 
@@ -116,6 +119,7 @@ Parser.prototype = {
 
                 comments[i].serializedCode = colorsInfo;
                 // console.log(comments[i]);
+                log.info( 'Serialized Code has been created for the following file:', currentFile );
             }
 
             if ( templateType === 'typography' ) {
@@ -133,8 +137,10 @@ Parser.prototype = {
 
                 comments[i].serializedCode = typeInfo;
                 // console.log(comments[i]);
+                log.info( 'Serialized Code has been created for the following file:', currentFile );
             }
         }
+        log.info( 'Code has been created for the following file:', currentFile );
         return comments;
     },
 

@@ -1,10 +1,10 @@
 <div>
 	<h2>Typography</h2>
 	<div class="container">
-	    {{#each files }}
-	    	{{#each this.data }}
-	    		{{#each this.serializedCode}}
-			        <div class="font-block">
+    {{#each files }}
+    	{{#each this.data }}
+    		{{#each this.serializedCode}}
+		      <div class="font-block">
 						<p class="font-name">Font Family: </p>
 						{{#each this.value}}
 							<ul>
@@ -16,9 +16,9 @@
 						{{#if comment }}
 							<p class="font-comment">{{ comment }}</p>
 						{{/if }}
-			        </div>
-		        {{/each}}
-		    {{/each }}
+		      </div>
+	      {{/each}}
 	    {{/each }}
+    {{/each }}
 	</div>
 </div>
