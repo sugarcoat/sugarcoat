@@ -17,9 +17,17 @@ function Generate( options ) {
     this.parser = parser();
 
     // Glob files arrays
-    options.sections = getFiles( options.sections );
-
-    Promise.all( this.promiseFiles.call( this, options.sections ) )
+    
+    // console.log(  );
+    Promise.all( getFiles( options.sections ) )
+        .then( function( values ) {
+        
+            values.forEach( function( value, index ) {
+                
+                options.sections[ index ].files = value;
+            });
+        })
+        .then( this.promiseFiles.bind( this, options.sections ))
         .then( function ( values ) {
 
             options.sections = values;
@@ -36,9 +44,7 @@ function getFiles( sections ) {
 
     return sections.map( function( section ) {
 
-        section.files = globber( section.files );
-
-        return section;
+        return globber( section.files );
     });
 }
 
@@ -50,10 +56,10 @@ Generate.prototype = {
 
         var self = this;
 
-        return sections.map( function( section ) {
+        return Promise.all( sections.map( function( section ) {
 
             return self.readSection( section );
-        });
+        }));
     },
 
     readSection: function( section ) {

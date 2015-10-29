@@ -51,6 +51,8 @@ Parser.prototype = {
     
     parseComment: function( currentFile, data, templateType ) {
         
+        log.info( 'Parsing Comments', currentFile );
+        
         var isHtmlComponent = false
             // grab each comment block
             , comments = data.split( '/**' )
@@ -108,8 +110,12 @@ Parser.prototype = {
             }
             // add code to data obj
             comments[ i ].code = block[ 1 ];
+            
+            // var logstr = i + ' parsed from [' + currentFile + ']';
             //this goes through each comment block for a particular file
-            // log.info( 'Code has been created for the following file:', currentFile );
+            // log.info( 'Parsed comment block', logstr );
+            
+            var infostr = '[' + templateType + '] for: ' + currentFile;
 
             if ( templateType === 'color' ) {
 
@@ -119,7 +125,7 @@ Parser.prototype = {
 
                 comments[i].serializedCode = colorsInfo;
                 // console.log(comments[i]);
-                log.info( 'Serialized Code has been created for the following file:', currentFile );
+                log.info( 'Serialized Code Created', infostr );
             }
 
             if ( templateType === 'typography' ) {
@@ -137,10 +143,10 @@ Parser.prototype = {
 
                 comments[i].serializedCode = typeInfo;
                 // console.log(comments[i]);
-                log.info( 'Serialized Code has been created for the following file:', currentFile );
+                log.info( 'Serialized Code Created', infostr );
             }
         }
-        log.info( 'Code has been created for the following file:', currentFile );
+        
         return comments;
     },
 

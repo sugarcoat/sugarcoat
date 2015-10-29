@@ -5,13 +5,6 @@
  * When a new project is created this file will need to be updated with the
  * correct paths from your project.
  *
- * A section's files must end with:
- *  - filetype (.scss)
- *  - folder with a pattern (/*.scss)
- *  - folder that calls everything (/*) 
- *
- * A section's files may not end with just a '/'.
- *
  */
 var patterns = {
     settings: {
@@ -33,7 +26,7 @@ var patterns = {
         },
         {
             title: 'UI Kit',
-            files: [
+            files: [ 
                 'demo/library/styles/base/feedback.scss',
                 'demo/library/styles/global/*.scss',
                 '!demo/library/styles/global/typography.scss',
