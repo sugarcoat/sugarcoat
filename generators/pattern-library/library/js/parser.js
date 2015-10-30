@@ -1,15 +1,15 @@
-var fs = require( 'fs' );
-var util = require( 'util' );
-var log = require( 'npmlog' );
-var commentParser = require( 'comment-parser' );
-var parserFunctions = commentParser.PARSERS;
-var beautify_html = require( 'js-beautify' ).html;
-
 /**
  * 
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
+
+var util = require( 'util' );
+var log = require( 'npmlog' );
+var beautify_html = require( 'js-beautify' ).html;
+var commentParser = require( 'comment-parser' );
+var parserFunctions = commentParser.PARSERS;
+
 function Parser() {}
 
 Parser.prototype = {
@@ -28,7 +28,6 @@ Parser.prototype = {
                     
                     var modifier = /([:\.#][\w-]+\s)/;
                     var match = string.split( modifier );
-                    // console.log( str, match );
                     
                     if ( match.length > 1 ) {
                         
@@ -53,19 +52,18 @@ Parser.prototype = {
         
         log.info( 'Parsing Comments', currentFile );
         
-        var isHtmlComponent = false
-            // grab each comment block
-            , comments = data.split( '/**' )
-            , COMMENTSPLIT = /^\s*\*\//m
-            // for html, include trailing comment
-            , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
-            ;
+        var isHtmlComponent = false;
         
-        // the first array item is empty if not an html component
-        if ( comments[ 0 ].length !== 0 ) {
+        if ( data.indexOf( '<!--' ) > -1 ) {
             
             isHtmlComponent = true;
         }
+        
+        var comments = data.split( '/**' )
+            , COMMENTSPLIT = /^\s*\*\//m
+            // for html, include trailing comment
+            , HTMLCOMMENTSPLIT = /^\s*\*\/\n*\s*-->/m
+            ;
         
         comments.shift();
         
@@ -84,10 +82,10 @@ Parser.prototype = {
             if ( isHtmlComponent ) {
 
                 // if there's a following comment block, remove the starting html comment
-                var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
-                    , isLastComment = block[ 1 ].length - lastCommentBlock === 5
-                    ;
-                if ( isLastComment ) {
+                var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' );
+                
+                if ( lastCommentBlock > -1 ) {
+
                     block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
                 }
             }
