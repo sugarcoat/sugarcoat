@@ -10,7 +10,7 @@ var fs = require( 'fs' );
 var log = require( 'npmlog' );
 var render = require( './library/js/render' );
 var parser = require( './library/js/parser' );
-var globber = require( '../utils/globber' );
+var globber = require( '../utils/globber' )git;
 
 function Generate( options ) {
 
