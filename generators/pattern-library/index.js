@@ -12,8 +12,6 @@ var util = require( 'util' )
  */
 function Generate( options ) {
 
-    var self = this;
-
     this.parser = parser();
 
     // Glob files arrays
@@ -73,6 +71,11 @@ Generate.prototype = {
             files.forEach( function( currentFile, index ) {
 
                 fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
+                    
+                    if ( err ) {
+                        
+                        log.error( err );
+                    }
 
                     current++;
 

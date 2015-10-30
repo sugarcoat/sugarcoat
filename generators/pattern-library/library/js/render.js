@@ -17,7 +17,6 @@ function Render( config ) {
     
     if ( !config.settings.dest ) {
         
-        log.error( 'No [dest] Destination provided' );
         throw new Error( 'Error: Please provide destination');
     }
     
@@ -71,13 +70,13 @@ Render.prototype = {
         
         return new Promise( function( resolve, reject ) {
             
-            log.info( 'Registering Partials', 'from directory:', directory )
+            log.info( 'Registering Partials', 'from directory:', directory );
             
             fs.readdir( directory, function( err, files ) {
                 
                 if ( err ) {
                     
-                    log.error( 'Error reading directory', directory, err );
+                    throw new Error( 'Error: reading directory', err );
                 }
             
                 var partials = [];
@@ -121,6 +120,11 @@ Render.prototype = {
             
             fs.readFile( filename, 'utf8', function( err, partial ) {
                 
+                if ( err ) {
+                    
+                    log.error( 'Error reading partial', '%j', partial, err );
+                }
+                
                 var obj = {
                     file: filename,
                     data: partial
@@ -151,6 +155,11 @@ Render.prototype = {
         var self = this;
         
         fs.readFile( this.templateSrc, { encoding: 'utf-8'}, function( err, data ) {
+            
+            if ( err ) {
+                
+                throw new Error( 'Could not read template: ', err );
+            }
 
             self.template = Handlebars.compile( data );
             self.renderTemplate();
@@ -164,13 +173,12 @@ Render.prototype = {
             , basename = 'documentation'
             , file = this.dest + basename + '.html'
             ;
-            console.log( util.inspect( data, { depth:7, colors:true } ));
 
         this.writeFile( file, compiledData, function( err ) {
         
             if ( err ) {
-                throw new Error( 'Error occurred: ', err );
-                //log.error( 'An error occured:', err );
+
+                throw new Error( 'Could not write file: ', err );
             }
             else {
                 // console.log( 'File Complete: ', file);
@@ -182,8 +190,8 @@ Render.prototype = {
     isequalHelper: function ( value1, value2, options ) {
 
         if ( arguments.length < 3 ) {
-            throw new Error( 'Handlebars Helper EQUAL needs 2 parameters' );
-            //log.error( 'Handlebars Helper EQUAL needs two parameters' );
+            
+            log.error( 'Handlebars Helper EQUAL needs two parameters' );
         }
 
         if ( value1 !== value2 ) {
@@ -197,8 +205,8 @@ Render.prototype = {
     notequalHelper: function ( value1, value2, options ) {
 
         if ( arguments.length < 3 ) {
-            throw new Error( 'Handlebars Helper EQUAL needs 2 parameters' );
-            //log.error( 'Handlebars Helper EQUAL needs two parameters' );
+            
+            log.error( 'Handlebars Helper EQUAL needs two parameters' );
         }
 
         if ( value1 === value2 ) {

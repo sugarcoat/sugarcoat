@@ -1,4 +1,3 @@
-var fs = require( 'fs' );
 var util = require( 'util' );
 var log = require( 'npmlog' );
 var commentParser = require( 'comment-parser' );
@@ -53,19 +52,18 @@ Parser.prototype = {
         
         log.info( 'Parsing Comments', currentFile );
         
-        var isHtmlComponent = false
-            // grab each comment block
-            , comments = data.split( '/**' )
+        var isHtmlComponent = false;
+        
+        if ( data.indexOf( '<!--' ) > -1) {
+            
+            isHtmlComponent = true;
+        }
+        
+        var comments = data.split( '/**' )
             , COMMENTSPLIT = /^\s*\*\//m
             // for html, include trailing comment
             , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
             ;
-        
-        // the first array item is empty if not an html component
-        if ( comments[ 0 ].length !== 0 ) {
-            
-            isHtmlComponent = true;
-        }
         
         comments.shift();
         
