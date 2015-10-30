@@ -3,14 +3,16 @@
  *
  *
  *
+ *
  */
 
 var util = require( 'util' )
 var fs = require( 'fs' );
 var log = require( 'npmlog' );
-var globber = require( '../utils/globber' );
-var parser = require( './library/js/parser' );
-var render = require( './library/js/render' );
+
+var globber = require( '../../lib/globber' );
+var parser = require( './parser' );
+var render = require( './render' );
 
 function generate( options ) {
 
