@@ -22,7 +22,6 @@ var patterns = {
         },
         {
             title: 'Components',
-            // files: 'generators/pattern-library/templates/partials/default.hbs'
             files: 'components/*.html'
         },
         {
@@ -34,12 +33,12 @@ var patterns = {
                 '!library/styles/global/colors.scss'
             ]
         },
-        // {
-        //     title: 'Typography',
-        //     files: 'demo/library/styles/global/typography.scss',
-        //     type: 'variables',
-        //     template: 'typography'
-        // }
+        {
+            title: 'Typography',
+            files: 'library/styles/global/typography.scss',
+            type: 'variables',
+            template: 'typography'
+        }
     ]
 };
 

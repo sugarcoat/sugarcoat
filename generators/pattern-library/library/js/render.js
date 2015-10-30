@@ -1,13 +1,11 @@
 var fs = require( 'fs' )
-    , util = require( 'util' )
-    , mkdirp = require( 'mkdirp' )
-    , path = require( 'path' )
-    , log = require( 'npmlog' )
-    , Handlebars = require( 'Handlebars' )
-    ;
+var util = require( 'util' );
+var mkdirp = require( 'mkdirp' );
+var path = require( 'path' );
+var log = require( 'npmlog' );
+var Handlebars = require( 'Handlebars' );
 
 var defaults = {
-    
     layoutDir: path.join( __dirname, '../../templates/main.hbs'),
     partialsDir: path.join( __dirname, '../../templates/partials')
 };
@@ -16,7 +14,8 @@ function Render( config ) {
 
     this.config = config;
     this.templateSrc = config.settings.layout || defaults.layoutDir;
-    this.customPartials = config.settings.partials || defaults.partialsDir;
+    this.partialsDir = defaults.partialsDir;
+    this.customPartials = config.settings.partials;
 
     if ( !config.settings.dest ) {
 
