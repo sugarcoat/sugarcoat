@@ -137,7 +137,7 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 
 ### `template String` ###
 
-*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating]()
+*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating](https://github.com/SapientNitroLA/sugarcoat#custom-templating)
 
 ```js
 {
