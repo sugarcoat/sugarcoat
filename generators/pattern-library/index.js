@@ -16,9 +16,6 @@ function Generate( options ) {
 
     this.parser = parser();
 
-    // Glob files arrays
-
-    // console.log(  );
     Promise.all( getFiles( options.sections ) )
         .then( function( values ) {
 
