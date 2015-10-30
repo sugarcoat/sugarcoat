@@ -12,6 +12,7 @@
     "npmlog": "^1.2.1",
     "path": "^0.12.7"
   },
+  "main": "index.js",
   "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
   "repository": {
     "type": "git",
