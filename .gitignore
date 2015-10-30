@@ -5,4 +5,3 @@ node_modules
 .tm_properties
 *.sublime-project
 *.sublime-workspace
-.jshintrc
