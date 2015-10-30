@@ -6,7 +6,7 @@ Making documentation a bit sweeter.
 
 **Pattern Library Generator**
 
-- Takes your already-documented code and creates a readable, auto-generated website.
+- Takes your already-documented code and creates a readable, auto-generated website
 - Promotes documentation best-practices for your project, beginning to end
 - Accepts comments from `.html` and `.css/.less/.scss` files
 - Includes a default pattern library template out of the box
@@ -76,7 +76,7 @@ partials - *(Optional)* Folder for Handlebars partials to be registered to the H
 
 ### `sections Array` ###
 
-Contains an `Array` of section Objects
+Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugarcoat#section-object)
 
 ## Section Object ##
 
@@ -86,20 +86,7 @@ Contains an `Array` of section Objects
 
 ### `files Array` ###
 
-*(Required)* Target file(s) with comments to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) and will take a String, Array, or Object (with `src` string or array of files, and an `options` obj). You can also negate certain patterns by using the `!` symbol at the beginning of the path.
-
-**Negation example**
-
-```js
-{
-    title: 'A bunch of files',
-    files: [ 
-        'demo/library/styles/global/*.scss',
-        '!demo/library/styles/global/colors.scss'
-    ]
-    // Excludes demo/library/styles/global/colors.scss from the list of files found in demo/library/styles/global
-}
-```
+*(Required)* Target file(s) that contain comments you'd like to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) and will take a `String`, `Array`, or `Object`. You can also use a negation pattern by using the `!` symbol at the beginning of the path.
 
 **String example**
 
@@ -117,14 +104,28 @@ Contains an `Array` of section Objects
     title: 'A bunch of files with glob options',
     files: {
       src: 'demo/library/styles/base/feedback.scss'
-      options: { /* Glob Options */}
+      options: { /* glob Options */}
     }
+}
+```
+
+**Negation example**
+
+```js
+{
+    title: 'A bunch of files',
+    files: [ 
+        'demo/library/styles/global/*.scss',
+        '!demo/library/styles/global/colors.scss'
+    ]
+    // Excludes demo/library/styles/global/colors.scss
+    // from the list of files found in demo/library/styles/global
 }
 ```
 
 ### `type String` ###
 
-*(Optional)* The default is `default`. If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` files.
+*(Optional)* If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` files. Otherwise, sugarcoat will always use the `default` partial template
 
 ```js
 {
@@ -136,7 +137,7 @@ Contains an `Array` of section Objects
 
 ### `template String` ###
 
-*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see "Custom Templating"
+*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating]()
 
 ```js
 {
@@ -144,7 +145,7 @@ Contains an `Array` of section Objects
     files: 'demo/library/styles/global/colors.scss',
     type: 'variables',
     template: 'color'
-},
+}
 ```
 
 ## Sample Comments ##
@@ -194,6 +195,10 @@ Contains an `Array` of section Objects
   <span>I'm a Component!</span>
 </div>
 ```
+
+## Custom Templating ##
+
+
 
 # Project Roadmap #
 
