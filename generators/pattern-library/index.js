@@ -1,27 +1,26 @@
-var util = require( 'util' )
-    , fs = require( 'fs' )
-    // , winston = require( 'winston' )
-    , log = require( 'npmlog' )
-    , render = require( './library/js/render' )
-    , parser = require( './library/js/parser' )
-    , globber = require( '../utils/globber' )
-    ;
-
 /**
  *
+ *
+ *
+ *
  */
+
+var util = require( 'util' )
+var fs = require( 'fs' );
+var log = require( 'npmlog' );
+var render = require( './library/js/render' );
+var parser = require( './library/js/parser' );
+var globber = require( '../utils/globber' );
+
 function Generate( options ) {
 
     this.parser = parser();
 
-    // Glob files arrays
-    
-    // console.log(  );
     Promise.all( getFiles( options.sections ) )
         .then( function( values ) {
-        
+
             values.forEach( function( value, index ) {
-                
+
                 options.sections[ index ].files = value;
             });
         })
@@ -71,9 +70,9 @@ Generate.prototype = {
             files.forEach( function( currentFile, index ) {
 
                 fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
-                    
+
                     if ( err ) {
-                        
+
                         log.error( err );
                     }
 
