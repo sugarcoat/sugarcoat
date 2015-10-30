@@ -84,7 +84,7 @@ npm install sugarcoat --save
     partials: 'generators/pattern-library/templates/customPartials'
   }
 }
-```js
+```
 
 ### `sections Array` ###
 
