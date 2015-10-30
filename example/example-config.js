@@ -33,7 +33,8 @@ var patterns = {
                 '!library/styles/global/typography.scss',
                 '!library/styles/global/colors.scss'
             ]
-        },
+        }
+        // ,
         // {
         //     title: 'Typography',
         //     files: 'demo/library/styles/global/typography.scss',
