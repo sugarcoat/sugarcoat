@@ -49,7 +49,7 @@ Parser.prototype = {
         ]
     },
     
-    parseComment: function( currentFile, data, templateType ) {
+    parseComment: function( currentFile, data, type, templateType ) {
         
         log.info( 'Parsing Comments', currentFile );
         
@@ -113,7 +113,7 @@ Parser.prototype = {
             
             var infostr = '[' + templateType + '] for: ' + currentFile;
 
-            if ( templateType ) {
+            if ( type ) {
 
                 var variableInfo = this.parseVarCode( comments[i].code, currentFile );
 

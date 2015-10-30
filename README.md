@@ -9,6 +9,9 @@ Making documentation a bit sweeter.
 - Takes your already-documented code and creates a readable, auto-generated website.
 - Promotes documentation best-practices for your project, beginning to end
 - Accepts comments from `.html` and `.css/.less/.scss` files
+- Includes a default pattern library template out of the box
+
+---
 
 1. Can I use my own template?
 
@@ -61,27 +64,90 @@ npm install sugarcoat --save
 }
 ```
 
-### Config Options ###
+## Configuration ##
 
-**settings: {...}**
+### `settings Object` ###
 
-dest - *(Required)* Folder in which Generate will out put all files. Will create one if it does not already exist. Accepts path with no trailing slash (`/`)
+**`dest` String** - *(Required)* Folder in which sugarcoat will output all files. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash (`/`)
 
-template - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
+**`template`** String - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
 
 partials - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
 
-**sections: [...]**
+### `sections Array` ###
 
-title - *(Required)* Title of section.
+Contains an `Array` of section Objects
 
-files - *(Required)* Target file(s) with comments to be parsed. Uses [glob](https://www.npmjs.com/package/glob) and will take a String, Array, or Object (with `src` string or array of files, and an `options` obj)
+## Section Object ##
 
-type - *(Optional)* Declared if variables are used in the file and need to be output to a special format and/or template.
+### `title String` ###
 
-template - *(Optional)* To be used with `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`
+*(Required)* Title of section.
 
-### Sample Comments ###
+### `files Array` ###
+
+*(Required)* Target file(s) with comments to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) and will take a String, Array, or Object (with `src` string or array of files, and an `options` obj). You can also negate certain patterns by using the `!` symbol at the beginning of the path.
+
+**Negation example**
+
+```js
+{
+    title: 'A bunch of files',
+    files: [ 
+        'demo/library/styles/global/*.scss',
+        '!demo/library/styles/global/colors.scss'
+    ]
+    // Excludes demo/library/styles/global/colors.scss from the list of files found in demo/library/styles/global
+}
+```
+
+**String example**
+
+```js
+{
+    title: 'One File',
+    files: 'demo/library/styles/base/feedback.scss'
+}
+```
+
+**Object example**
+
+```js
+{
+    title: 'A bunch of files with glob options',
+    files: {
+      src: 'demo/library/styles/base/feedback.scss'
+      options: { /* Glob Options */}
+    }
+}
+```
+
+### `type String` ###
+
+*(Optional)* The default is `default`. If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` files.
+
+```js
+{
+    title: 'Variables',
+    files: 'demo/library/styles/global/variables.scss',
+    type: 'variables'
+}
+```
+
+### `template String` ###
+
+*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see "Custom Templating"
+
+```js
+{
+    title: 'Colors',
+    files: 'demo/library/styles/global/colors.scss',
+    type: 'variables',
+    template: 'color'
+},
+```
+
+## Sample Comments ##
 
 #### `*.css`, `*.scss`, `*.less` ####
 

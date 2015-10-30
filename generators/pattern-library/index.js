@@ -78,7 +78,7 @@ Generate.prototype = {
 
                     section.files[ index ] = {
                         currentFile: currentFile,
-                        data: self.parser.parseComment( currentFile, data, section.template )
+                        data: self.parser.parseComment( currentFile, data, section.type, section.template )
                     };
 
                     if ( current === files.length ) resolve( section );
