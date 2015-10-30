@@ -34,12 +34,12 @@ var patterns = {
                 '!demo/library/styles/global/colors.scss'
             ]
         },
-        {
-            title: 'Typography',
-            files: 'demo/library/styles/global/typography.scss',
-            type: 'variables',
-            template: 'typography'
-        }
+        // {
+        //     title: 'Typography',
+        //     files: 'demo/library/styles/global/typography.scss',
+        //     type: 'variables',
+        //     template: 'typography'
+        // }
     ]
 };
 

@@ -8,90 +8,89 @@
 var util = require( 'util' )
 var fs = require( 'fs' );
 var log = require( 'npmlog' );
-var render = require( './library/js/render' );
+var globber = require( '../utils/globber' );
 var parser = require( './library/js/parser' );
-var globber = require( '../utils/globber' )git;
+var render = require( './library/js/render' );
 
 function Generate( options ) {
 
-    this.parser = parser();
-
-    Promise.all( getFiles( options.sections ) )
-        .then( function( values ) {
-
-            values.forEach( function( value, index ) {
-
-                options.sections[ index ].files = value;
-            });
-        })
-        .then( this.promiseFiles.bind( this, options.sections ))
-        .then( function ( values ) {
-
-            options.sections = values;
-
-            return options;
-        })
+    globFiles( options )
+        .then( readSections )
+        .then( parseSections )
         .then( render );
 }
 
 /**
  *
  */
-function getFiles( sections ) {
+function globFiles( options ) {
 
-    return sections.map( function( section ) {
+    var globArr = options.sections.map( function( section ) {
 
         return globber( section.files );
+
+    });
+
+    return Promise.all( globArr ).then( function ( sections ) {
+
+        sections.forEach( function( section, index ) {
+
+            options.sections[ index ].files = section;
+        });
+
+        return options;
     });
 }
 
+/**
+ *
+ */
+function readSections( options ) {
 
-// run in the terminal using `node index.js`
-Generate.prototype = {
+    var promiseArr = options.sections.map( function ( section, index ) {
 
-    promiseFiles: function( sections ) {
+        return Promise.all( section.files.map( function ( file, index ) {
 
-        var self = this;
+            return new Promise( function ( resolve, reject ) {
 
-        return Promise.all( sections.map( function( section ) {
+                fs.readFile( file, 'utf8', function( err, src ) {
 
-            return self.readSection( section );
-        }));
-    },
-
-    readSection: function( section ) {
-
-        var files = section.files;
-        var current = 0;
-        var self = this;
-
-        return new Promise( function( resolve, reject ) {
-
-            files.forEach( function( currentFile, index ) {
-
-                fs.readFile( currentFile, { encoding: 'UTF8'}, function( err, data ) {
-
-                    if ( err ) {
-
-                        log.error( err );
-                    }
-
-                    current++;
+                    if ( err ) return reject( err );
 
                     section.files[ index ] = {
-                        currentFile: currentFile,
-                        data: self.parser.parseComment( currentFile, data, section.type, section.template )
-                    };
+                        path: file,
+                        src: src
+                    }
 
-                    if ( current === files.length ) resolve( section );
-
+                    resolve( section.files[ index ] );
                 });
             });
-        });
-    }
-};
+        }));
+    });
 
-// new Generate();
+    return Promise.all( promiseArr ).then( function ( values ) {
+        return options;
+    });
+}
+
+/**
+ *
+ */
+function parseSections( options ) {
+
+    var parse = parser();
+
+    options.sections.forEach( function ( section, index ) {
+
+        section.files.map( function ( file, index ) {
+
+            section.files[ index ].data = parse.parseComment( file.path, file.src, section.type, section.template );
+        });
+    });
+
+    return options;
+}
+
 
 module.exports = function( options ) {
 
