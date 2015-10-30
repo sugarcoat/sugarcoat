@@ -22,6 +22,7 @@ var patterns = {
         // },
         {
             title: 'Components',
+            // files: 'generators/pattern-library/templates/partials/default.hbs'
             files: 'demo/components/*.html'
         }
         // {

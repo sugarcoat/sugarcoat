@@ -62,7 +62,7 @@ Parser.prototype = {
         var comments = data.split( '/**' )
             , COMMENTSPLIT = /^\s*\*\//m
             // for html, include trailing comment
-            , HTMLCOMMENTSPLIT = /^\s*\*\/\n-->/m
+            , HTMLCOMMENTSPLIT = /^\s*\*\/\n*\s*-->/m
             ;
         
         comments.shift();
@@ -82,10 +82,10 @@ Parser.prototype = {
             if ( isHtmlComponent ) {
 
                 // if there's a following comment block, remove the starting html comment
-                var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' )
-                    , isLastComment = block[ 1 ].length - lastCommentBlock === 5
-                    ;
-                if ( isLastComment ) {
+                var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' );
+                
+                if ( lastCommentBlock > -1 ) {
+
                     block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
                 }
             }
