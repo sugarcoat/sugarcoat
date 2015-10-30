@@ -1,14 +1,22 @@
-<div class="variables">
-  {{#each files}}
-    {{~#each data}}
-      {{~#each serializedCode}}
-    <div class="variable">
-      <span>{{ variable }}: {{ value }}</span>
-      {{#if comment }}
-      	<p>{{ comment }}</p>
-      {{/if }}
-    </div>
+<table class="variables">
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Value</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each files}}
+      {{~#each data}}
+        {{~#each serializedCode}}
+    <tr>
+      <td>{{ variable }}</td>
+      <td>{{ value }}</td>
+      <td>{{ comment }}</td>
+    </tr>
+        {{~/each}}
       {{~/each}}
-    {{~/each}}
-  {{/each}}
-</div>
+    {{/each}}
+  </tbody>
+</table>
