@@ -27,7 +27,6 @@ Parser.prototype = {
                     
                     var modifier = /([:\.#][\w-]+\s)/;
                     var match = string.split( modifier );
-                    // console.log( str, match );
                     
                     if ( match.length > 1 ) {
                         
@@ -54,7 +53,7 @@ Parser.prototype = {
         
         var isHtmlComponent = false;
         
-        if ( data.indexOf( '<!--' ) > -1) {
+        if ( data.indexOf( '<!--' ) > -1 ) {
             
             isHtmlComponent = true;
         }
