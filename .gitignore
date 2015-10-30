@@ -1,5 +1,6 @@
 .DS_Store
 library/css
+demo/**/pattern-library
 node_modules
 .tm_properties
 *.sublime-project

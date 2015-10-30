@@ -12,7 +12,7 @@ var globber = require( '../utils/globber' );
 var parser = require( './library/js/parser' );
 var render = require( './library/js/render' );
 
-function Generate( options ) {
+function generate( options ) {
 
     globFiles( options )
         .then( readSections )
@@ -92,7 +92,5 @@ function parseSections( options ) {
 }
 
 
-module.exports = function( options ) {
-
-    return new Generate( options );
-};
+module.exports = generate;
+module.exports.generate = generate;

@@ -1,0 +1,64 @@
+Options +Includes +Indexes +FollowSymLinks
+AddType image/svg+xml svg
+AddType 'text/html; charset=UTF-8' html
+AddHandler server-parsed .html .js # The ".js" is used only for local dev env parsing of SSIs in javascript files
+DirectoryIndex index.shtml index.html index.htm index.php
+
+# SSIETag off
+FileETag none
+
+# Redirect Service requests to the correct directory
+# RedirectMatch (.*)/pageComponents/.+/services(.*)$ $1/services$2
+
+# Make sure IE renders in standards mode
+Header set X-UA-Compatible "IE=edge"
+
+# Enable expirations
+ExpiresActive On
+ExpiresDefault "access plus 1 month"
+
+# Enable keep alive
+<IfModule mod_headers.c>
+  Header set Connection keep-alive
+</IfModule>
+
+# GZIP
+<IfModule mod_deflate.c>
+
+    # Force compression for mangled headers.
+    # http://developer.yahoo.com/blogs/ydn/posts/2010/12/pushing-beyond-gzipping
+    <IfModule mod_setenvif.c>
+        <IfModule mod_headers.c>
+            SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+            RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+        </IfModule>
+    </IfModule>
+
+    # Compress all output labeled with one of the following MIME-types
+    # (for Apache versions below 2.3.7, you don't need to enable `mod_filter`
+    #  and can remove the `<IfModule mod_filter.c>` and `</IfModule>` lines
+    #  as `AddOutputFilterByType` is still in the core directives).
+    <IfModule mod_ext_filter.c>
+        AddOutputFilterByType DEFLATE application/atom+xml \
+                                      application/javascript \
+                                      application/json \
+                                      application/ld+json \
+                                      application/rss+xml \
+                                      application/vnd.ms-fontobject \
+                                      application/x-font-ttf \
+                                      application/x-javascript \
+                                      application/x-web-app-manifest+json \
+                                      application/xhtml+xml \
+                                      application/xml \
+                                      font/opentype \
+                                      image/svg+xml \
+                                      image/x-icon \
+                                      text/css \
+                                      text/html \
+                                      text/javascript \
+                                      text/plain \
+                                      text/x-component \
+                                      text/xml
+    </IfModule>
+
+</IfModule>
