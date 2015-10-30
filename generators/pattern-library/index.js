@@ -2,8 +2,8 @@ var util = require( 'util' )
     , fs = require( 'fs' )
     // , winston = require( 'winston' )
     , log = require( 'npmlog' )
-    , render = require( './lib/render' )
-    , parser = require( './lib/parser' )
+    , render = require( './library/js/render' )
+    , parser = require( './library/js/parser' )
     , globber = require( '../utils/globber' )
     ;
 
