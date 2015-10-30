@@ -1,16 +1,16 @@
-<div>
+<div class="furtive">
   <h2>Colors</h2>
   <div class="color-swatches">
     {{#each files }}
         {{~#each data }}
             {{~#each serializedCode }}
-    <div class="color-swatch">
+    <div class="color-swatch brdr--light-gray">
       <div class="swatch" style="background-color:{{ value }}">
         <span>{{ variable }}: {{ value }}</span>
         <span>{{ variable }}: {{ value }}</span>
       </div>
       {{#if comment }}
-    	<p>{{ comment }}</p>
+    	<p class="px1">{{ comment }}</p>
       {{/if}}
     </div>
             {{/each }}
