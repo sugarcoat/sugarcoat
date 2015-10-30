@@ -8,30 +8,30 @@
  */
 var patterns = {
     settings: {
-        dest: 'demo/documentation/pattern-library',
+        dest: 'documentation/pattern-library',
         //include path to where the layout will live for the pattern library
-        layout: 'generators/pattern-library/templates/main.hbs',
-        partials: 'generators/pattern-library/templates/customPartials'
+        layout: '../generators/pattern-library/templates/main.hbs',
+        partials: '../generators/pattern-library/templates/customPartials'
     },
     sections: [
         {
             title: 'Colors',
-            files: 'demo/library/styles/global/colors.scss',
+            files: 'library/styles/global/colors.scss',
             type: 'variables',
             template: 'color'
         },
         {
             title: 'Components',
             // files: 'generators/pattern-library/templates/partials/default.hbs'
-            files: 'demo/components/*.html'
+            files: 'components/*.html'
         },
         {
             title: 'UI Kit',
             files: [
-                'demo/library/styles/base/feedback.scss',
-                'demo/library/styles/global/*.scss',
-                '!demo/library/styles/global/typography.scss',
-                '!demo/library/styles/global/colors.scss'
+                'library/styles/base/feedback.scss',
+                'library/styles/global/*.scss',
+                '!library/styles/global/typography.scss',
+                '!library/styles/global/colors.scss'
             ]
         },
         // {
