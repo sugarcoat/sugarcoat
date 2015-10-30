@@ -68,15 +68,29 @@ npm install sugarcoat --save
 
 ### `settings Object` ###
 
-**`dest` String** - *(Required)* Folder in which sugarcoat will output all files. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash (`/`)
+**`dest String`** - *(Required)* Folder in which sugarcoat will output your library. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash "/"
 
-**`template`** String - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
+**`layout String`** - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
 
-partials - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
+**`partials String`** - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
+
+**Example**
+
+```js
+{
+  settings: {
+    dest: 'demo/documentation/pattern-library',
+    layout: 'generators/pattern-library/templates/main.hbs',
+    partials: 'generators/pattern-library/templates/customPartials'
+  }
+}
+```js
 
 ### `sections Array` ###
 
 Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugarcoat#section-object)
+
+---
 
 ## Section Object ##
 
@@ -148,9 +162,19 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 }
 ```
 
-## Sample Comments ##
+## Commenting Code ##
 
-#### `*.css`, `*.scss`, `*.less` ####
+Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse]() to build its AST. The following are reserved tags:
+
+- **`@module`**: The name of the module. Sugarcoat uses this tag in its default navigation template
+- **`@example`**: Takes the following single or multiline markup and adds it as the comment object's `code` key
+- **`@modifier`**: Takes the following word and adds it as the `name` key in the tag object. The word can be prefixed with any of the following: `:`, `.`, `#`
+
+**HTML**
+
+When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `code` key of the comment object.
+
+**Comment Example (scss)**
 
 ```css
 /**
@@ -162,23 +186,51 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
  *        <span class="tooltip-content">This is a tooltip</span>
  *    </div>
  * @modifier .active enabled class on .tooltip
- * @modifier :hover transition animation
  * 
  */
- 
- .tooltip {
-     position:relative;
- }
- .tooltip-content {
-     position:absolute;
-     top:0;
-     left:0;
-     background-color:rgba(255,255,255,0.5);
-     color:blue;
- }
 ```
 
-#### `*.html` ####
+**Comment Object (AST)**
+
+```js
+{ 
+  tags: [ 
+    { 
+      tag: 'module',
+      description: 'Tooltip',
+      optional: false,
+      type: '',
+      name: '',
+      line: 3,
+      source: '@module Tooltip'
+    },
+    { 
+      tag: 'example',
+      description: '<div class="tooltip">\n<span class="tooltip-content">This is a tooltip</span>\n</div>',
+      optional: false,
+      type: '',
+      name: '',
+      line: 4,
+      source: '@example\n<<div class="tooltip">\n<span class="tooltip-content">This is a tooltip</span>\n</div>' 
+    },
+    { 
+      tag: 'modifier',
+      name: '.active ',
+      description: 'enabled class on .tooltip',
+      optional: false,
+      type: '',
+      line: 10,
+      source: '@modifier .active enabled class on .tooltip' 
+    }
+  ],
+  line: 0,
+  description: '',
+  source: '@module Tooltip\n@example\n     <div class="tooltip">\n         <span class="tooltip-content">This is a tooltip</span>\n     </div>\n@modifier .active enabled class on .tooltip',
+  code: '<div class="tooltip">\n    <span class="tooltip-content">This is a tooltip</span>\n</div>'
+}
+```
+
+**Comment Example (html)**
 
 ```html
 <!--
@@ -196,9 +248,47 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 </div>
 ```
 
+**Comment Object (AST)**
+
+```js
+{ 
+  tags: [ 
+    { 
+      tag: 'title',
+      description: 'Some Component',
+      optional: false,
+      type: '',
+      name: '',
+      line: 2,
+      source: '@title Some Component'
+    },
+    { 
+      tag: 'description',
+      description: 'This component has an interesting description',
+      optional: false,
+      type: '',
+      name: '',
+      line: 3,
+      source: '@description This component has an interesting description'
+    },
+    { 
+      tag: 'dependencies',
+      description: '/library/js/modules/some-component.js',
+      optional: false,
+      type: '',
+      name: '',
+      line: 4,
+      source: '@dependencies /library/js/modules/some-component.js'
+    }
+  ],
+  line: 0,
+  description: '',
+  source: '@title Some Component\n@description This component has an interesting description\n@dependencies /library/js/modules/some-component.js',
+  code: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n'
+}
+```
+
 ## Custom Templating ##
-
-
 
 # Project Roadmap #
 

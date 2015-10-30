@@ -164,6 +164,7 @@ Render.prototype = {
             , basename = 'documentation'
             , file = this.dest + basename + '.html'
             ;
+            console.log( util.inspect( data, { depth:7, colors:true } ));
 
         this.writeFile( file, compiledData, function( err ) {
         
