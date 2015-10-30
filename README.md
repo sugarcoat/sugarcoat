@@ -164,15 +164,11 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 
 ## Commenting Code ##
 
-Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse]() to build its AST. The following are reserved tags:
+Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse]() to build its AST comment object. The following are reserved tags:
 
 - **`@module`** The name of the module. Sugarcoat uses this tag in its default navigation template
 - **`@example`** Takes the following single or multiline markup and adds it as the comment object's `code` key
 - **`@modifier`** Takes the following word and adds it as the `name` key in the tag object. The word can be prefixed with any of the following characters: **`:.#`**
-
-**HTML**
-
-When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `code` key of the comment object.
 
 **Comment Example (scss)**
 
@@ -229,6 +225,10 @@ When parsing html-based markup, Sugarcoat will take the code following a comment
   code: '<div class="tooltip">\n    <span class="tooltip-content">This is a tooltip</span>\n</div>'
 }
 ```
+
+**HTML**
+
+When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `code` key of the comment object.
 
 **Comment Example (html)**
 
@@ -290,16 +290,16 @@ When parsing html-based markup, Sugarcoat will take the code following a comment
 
 ## Templating ##
 
-Sugarcoat provides a default template for your pattern library. Each comment block found by sugarcoat will render using one of the following partials:
+Sugarcoat provides a default template for your pattern library. Each comment object found by sugarcoat will render using one of the following partials:
 
-- `default` Default rendering of a comment object
-- `variable` Renders when `type: 'variables'` - A list of variables and its associated value. If a `template` is not provided with the section object, it will use this partial
-- `color` Renders when `template: 'color'` - A swatches array with the associated variable name and color
-- `typography` Renders when `template: `typography` - Fonts and variable names with their examples
+- `default.hbs` Default rendering of a comment object
+- `variable.hbs` Renders when `type: 'variables'` - A list of variables and its associated value. If a `template` is not provided with the section object, it will use this partial
+- `colo.hbsr` Renders when `template: 'color'` - A swatches array with the associated variable name and color
+- `typography.hbs` Renders when `template: `typography` - Fonts and variable names with their examples
 
 Miscellaneous partials:
 
-- `nav` Outputs a navigation that maps to each `title` of a section object and each comment object's `@module` tag
+- `nav.hbs` Outputs a navigation that maps to each `title` of a section object and each comment object's `@module` tag
 
 ### Custom Templating ###
 
@@ -314,13 +314,3 @@ If you'd like to provide one or more of your own partials, provide a directory p
 - variable
 - color
 - typography
-
-
-## Project Roadmap ##
-
-## Guidelines ##
-
-- **Frictionless**: Is this the easiest way to document the feature/module/workflow/etc.? 
-- **DRY**: Does the approach cause a duplication of effort?
-- **Useful**: Is the information meant to be useful to the developer or the tool?
-- **Evergreen**: Does the approach require unrelated effort to just to stay up to date?
