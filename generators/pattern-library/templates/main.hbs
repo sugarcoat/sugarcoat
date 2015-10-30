@@ -21,19 +21,25 @@
 {{#each this}}
 
 {{#isequal type 'variables'}}
-  {{~#isequal template 'color'}}
-    {{~> color}}
-  {{~/isequal}}
-  {{~#isequal template 'typography'}}
-    {{~> typography}}
-  {{~/isequal}}
-  {{~#isequal template 'variable'}}
+
+  {{~#if template}}
+    {{~#isequal template 'color'}}
+      {{~> color}}
+    {{~/isequal}}
+    {{~#isequal template 'typography'}}
+      {{~> typography}}
+    {{~/isequal}}
+    {{~#isequal template 'variable'}}
+      {{~> variable}}
+    {{~/isequal}}
+  {{~else}}
     {{~> variable}}
-  {{~/isequal}}
+  {{~/if}}
+  
 {{/isequal}}
 
 {{#notequal type 'variables'}}
-{{> default}}
+  {{~> default}}
 {{/notequal}}
 
 {{/each}}

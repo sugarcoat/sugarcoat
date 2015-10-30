@@ -1,14 +1,15 @@
-var util = require( 'util' );
-var log = require( 'npmlog' );
-var commentParser = require( 'comment-parser' );
-var parserFunctions = commentParser.PARSERS;
-var beautify_html = require( 'js-beautify' ).html;
-
 /**
  * 
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
+
+var util = require( 'util' );
+var log = require( 'npmlog' );
+var beautify_html = require( 'js-beautify' ).html;
+var commentParser = require( 'comment-parser' );
+var parserFunctions = commentParser.PARSERS;
+
 function Parser() {}
 
 Parser.prototype = {

@@ -1,9 +1,9 @@
 var fs = require( 'fs' )
-    , Handlebars = require( 'Handlebars' )
     , util = require( 'util' )
     , mkdirp = require( 'mkdirp' )
     , path = require( 'path' )
     , log = require( 'npmlog' )
+    , Handlebars = require( 'Handlebars' )
     ;
 
 function Render( config ) {

@@ -1,11 +1,14 @@
 <div class="variables">
-  {{#each this }}
+  {{#each files}}
+    {{~#each data}}
+      {{~#each serializedCode}}
     <div class="variable">
-      <p>{{ variable }}</p>
-      <p>{{ value }}</p>
+      <span>{{ variable }}: {{ value }}</span>
       {{#if comment }}
       	<p>{{ comment }}</p>
       {{/if }}
     </div>
-  {{/each }}
+      {{~/each}}
+    {{~/each}}
+  {{/each}}
 </div>
