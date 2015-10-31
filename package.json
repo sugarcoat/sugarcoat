@@ -1,7 +1,7 @@
 {
-  "name": "Documentation",
+  "name": "sugarcoat",
   "version": "0.1.0",
-  "author": "Valerie Balcom + Allison Groening + Ryan Fitzer",
+  "description": "Making documentation a bit sweeter ✨",
   "dependencies": {
     "comment-parser": "^0.3.0",
     "glob": "^5.0.15",
@@ -13,13 +13,38 @@
     "path": "^0.12.7"
   },
   "main": "index.js",
-  "description": "Just an in-progress, non-functioning assemble task to automate documentation creation.",
   "repository": {
     "type": "git",
     "url": "https://github.com/SapientNitroLA/sugarcoat.git"
   },
+  "keywords": [
+    "sugar",
+    "coat",
+    "documentation",
+    "pattern",
+    "library",
+    "styleguide",
+    "comment",
+    "parse",
+    "automated",
+    "assembler"
+  ],
   "bugs": {
     "url": "https://github.com/SapientNitroLA/sugarcoat/issues"
   },
-  "homepage": "https://github.com/SapientNitroLA/sugarcoat"
+  "homepage": "https://github.com/SapientNitroLA/sugarcoat",
+  "contributors": [
+    {
+      "name": "Ali Groening",
+      "url": "https://github.com/tisAliG"
+    },
+    {
+      "name": "Ryan Fitzer",
+      "url": "https://github.com/ryanfitzer"
+    },
+    {
+      "name": "Valerie Balcom",
+      "url": "https://github.com/vbalcom"
+    }
+  ]
 }

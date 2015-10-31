@@ -93,6 +93,4 @@ function parseSections( options ) {
     return options;
 }
 
-
 module.exports = generate;
-module.exports.generate = generate;
