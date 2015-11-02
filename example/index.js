@@ -1,4 +1,4 @@
-var generate = require( '../generators/pattern-library/' )
+var generate = require( 'sugarcoat' )
     , config = require( './example-config.js' )
     ;
 
