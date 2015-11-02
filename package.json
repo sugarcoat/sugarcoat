@@ -1,6 +1,6 @@
 {
   "name": "sugarcoat",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Making documentation a bit sweeter ✨",
   "dependencies": {
     "comment-parser": "^0.3.0",
@@ -12,6 +12,7 @@
     "npmlog": "^1.2.1",
     "path": "^0.12.7"
   },
+  "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
