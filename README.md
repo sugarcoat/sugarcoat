@@ -1,6 +1,6 @@
 # sugarcoat #
 
-Making documentation a bit sweeter.
+Making documentation a bit sweeter. This is still a work in-progress. Please file an issue if you encounter any bugs or think a feature should be added. 
 
 ## Features ##
 
