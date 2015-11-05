@@ -29,7 +29,9 @@ function Render( config ) {
 
     if ( !config.settings.dest ) {
 
-        throw new Error( 'Error: Please provide destination');
+        log.info( 'Render', 'No `settings.dest` path provided. Exiting without rendering.' );
+
+        return;
     }
 
     // required config
