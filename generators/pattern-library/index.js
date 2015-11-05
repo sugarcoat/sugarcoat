@@ -20,7 +20,7 @@ function generate( options ) {
     // setupStyles( path.join( __dirname, 'templates/styles/furtive.css' ), '../generators/pattern-library/templates/styles/furtive.css' );
     // setupStyles( './node_modules/sugarcoat/generators/pattern-library/templates/styles/pattern-lib.css', '../generators/pattern-library/templates/styles/pattern-lib.css' );
 
-    globFiles( options )
+    return globFiles( options )
         .then( readSections )
         .then( parseSections )
         .then( render );
