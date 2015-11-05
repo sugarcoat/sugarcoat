@@ -1,11 +1,12 @@
 /**
- * 
+ *
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
 
 var util = require( 'util' );
 var log = require( 'npmlog' );
+var _ = require( 'lodash' );
 var beautify_html = require( 'js-beautify' ).html;
 var commentParser = require( 'comment-parser' );
 var parserFunctions = commentParser.PARSERS;
@@ -16,27 +17,34 @@ var rCommentSplit = /^\s*\*\//m;
 var rHtmlCommentSplit = /^\s*\*\/\n*\s*-->/m;
 
 
+function stripNewLines( str ) {
+
+    return str.replace( /^\n*/, '' )
+    .replace( /\n*$/, '' );
+}
+
+
 function Parser() {}
 
 Parser.prototype = {
-    
+
     customParsers: {
         parsers: [
-            
+
             parserFunctions.parse_tag,
-            
+
             function( str, data ) {
-                
+
                 var string = str;
                 str = '';
-                
+
                 if ( data.tag === 'modifier' ) {
-                    
+
                     // var modifier = /([:\.#][\w-]+\s)/;
                     var match = string.split( rModifier );
-                    
+
                     if ( match.length > 1 ) {
-                        
+
                         data.name = match[ 1 ];
                         // console.log( match );
                         str = match[ 1 ];
@@ -53,46 +61,46 @@ Parser.prototype = {
             parserFunctions.parse_description
         ]
     },
-    
+
     parseComment: function( currentFile, data, type, templateType ) {
-        
+
         log.info( 'Parsing Comments', currentFile );
-        
+
         var isHtmlComponent = false;
-        
+
         if ( data.indexOf( '<!--' ) > -1 ) {
-            
+
             isHtmlComponent = true;
-            
+
             //find out how many comment blocks there are
 
             blockCount = ( ( data.match( rCommentBlock ) || [] ).length ) - 1;
         }
-        
+
         var comments = data.split( '/**' );
-        
+
         comments.shift();
-        
+
         for ( var i = 0; i < comments.length; i++ ) {
-            
+
             // split blocks into comment and code content
-            var block = isHtmlComponent ? 
-                    comments[ i ].split( rHtmlCommentSplit ) : comments[ i ].split( rCommentSplit ) 
+            var block = isHtmlComponent ?
+                    comments[ i ].split( rHtmlCommentSplit ) : comments[ i ].split( rCommentSplit )
                 , toParse = '/**' + block[ 0 ] + ' */'
                 ;
-            
+
             // add comment section to array
 
             comments[ i ] = commentParser( toParse, this.customParsers )[ 0 ];
-            
+
             if ( isHtmlComponent ) {
 
                 // if there's a following comment block, remove the starting html comment
                 var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' );
-                
+
                 if ( lastCommentBlock > -1 && blockCount !== i ) {
 
-                    block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
+                    block[ 1 ] = block[ 1 ].slice( 0, lastCommentBlock );
                 }
             }
             // check if tags has a example tag
@@ -101,7 +109,7 @@ Parser.prototype = {
                 var currentComments = comments[ i ].tags;
 
                 for ( var j = 0; j < currentComments.length; j++ ) {
-                    
+
                     var currentComment = currentComments[ j ];
 
                      // tag has an example description with html markup
@@ -112,9 +120,10 @@ Parser.prototype = {
                     }
                 }
             }
+
             // add code to data obj
-            comments[ i ].code = block[ 1 ];
-            
+            comments[ i ].code = _.trim( block[ 1 ] );
+
             var infostr = '[' + templateType + '] for: ' + currentFile;
 
             if ( type ) {
@@ -139,7 +148,7 @@ Parser.prototype = {
                 log.info( 'Serialized Code Created', infostr );
             }
         }
-        
+
         return comments;
     },
 
@@ -150,7 +159,7 @@ Parser.prototype = {
             ;
 
         if ( path.indexOf( '.scss' ) !== -1  || path.indexOf( '.sass' ) !== -1 ) {
-            // SASS = $        
+            // SASS = $
             infoStrings = code.match(/(\$.*:.*)/g);
         }
 
@@ -181,7 +190,7 @@ Parser.prototype = {
                 });
             }
         });
-        
+
         return infoArray;
     }
 };

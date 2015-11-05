@@ -1,8 +1,8 @@
 <!--
 /**
- * 
+ *
  * @module Default comment block template
- * 
+ *
  */
 -->
 
@@ -14,7 +14,7 @@
       <h3>{{ path }}</h3>
       {{#each data}}
     </div>
-    
+
     <div class="comment-block">
       <div class="furtive">
         <dl class="desc">
@@ -26,14 +26,10 @@
           {{/each}}
         </dl>
       </div>
-      
+
       {{{ code }}}
 
-<pre class="code">
-<code class="language-markup">
-{{~ code }}
-</code>
-</pre>
+      <pre class="code"><code class="language-markup">{{~ code }}</code></pre>
 
     </div>
     {{/each}}
