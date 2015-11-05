@@ -16,8 +16,8 @@ var render = require( './render' );
 
 function generate( options ) {
 
-    setupStyles( './node_modules/sugarcoat/generators/pattern-library/templates/styles/furtive.css', '../generators/pattern-library/templates/styles/furtive.css' );
-    setupStyles( './node_modules/sugarcoat/generators/pattern-library/templates/styles/pattern-lib.css', '../generators/pattern-library/templates/styles/pattern-lib.css' );
+    // setupStyles( './node_modules/sugarcoat/generators/pattern-library/templates/styles/furtive.css', '../generators/pattern-library/templates/styles/furtive.css' );
+    // setupStyles( './node_modules/sugarcoat/generators/pattern-library/templates/styles/pattern-lib.css', '../generators/pattern-library/templates/styles/pattern-lib.css' );
 
     globFiles( options )
         .then( readSections )
@@ -122,7 +122,7 @@ function setupStyles ( oldFile, newFile ) {
             log.info( 'CSS file created', newFile );
         });
     });
-    console.log('css');
+    // console.log('css');
 }
 
 module.exports = generate;
