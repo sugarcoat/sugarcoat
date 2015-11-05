@@ -40,6 +40,26 @@ Making documentation a bit sweeter. This is still a work in-progress. Please fil
 npm install sugarcoat --save
 ```
 
+
+## Usage ##
+
+### Node Module ###
+
+The `sugarcoat` method takes a `config` object and an `options` object and returns a `Promise`.
+
+```js
+var sugarcoat = require( 'sugarcoat' );
+
+sugarcoat( config, options );
+```
+
+### CLI ###
+
+```bash
+sugarcoat [options] <configuration>
+```
+
+
 ## Sample Config Object ##
 
 ```js
