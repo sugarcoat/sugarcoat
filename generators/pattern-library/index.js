@@ -9,14 +9,21 @@
 var util = require( 'util' )
 var fs = require( 'fs' );
 var log = require( 'npmlog' );
+var _ = require( 'lodash' );
 
 var globber = require( '../../lib/globber' );
 var parser = require( './parser' );
 var render = require( './render' );
 
+var defaultOptions = {
+    logLevel: 'info'
+};
+
 function generate( config, options ) {
 
-    log.level = options.logLevel || 'info';
+    options = _.assign( {}, defaultOptions, options );
+
+    log.level = options.logLevel;
 
     return globFiles( config )
         .then( readSections )

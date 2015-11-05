@@ -10,6 +10,12 @@ var beautify_html = require( 'js-beautify' ).html;
 var commentParser = require( 'comment-parser' );
 var parserFunctions = commentParser.PARSERS;
 
+var rModifier = /([:\.#][\w-]+\s)/;
+var rCommentBlock = /(<!--[\n|\s]*\/\*\*)/g;
+var rCommentSplit = /^\s*\*\//m;
+var rHtmlCommentSplit = /^\s*\*\/\n*\s*-->/m;
+
+
 function Parser() {}
 
 Parser.prototype = {
@@ -26,8 +32,8 @@ Parser.prototype = {
                 
                 if ( data.tag === 'modifier' ) {
                     
-                    var modifier = /([:\.#][\w-]+\s)/;
-                    var match = string.split( modifier );
+                    // var modifier = /([:\.#][\w-]+\s)/;
+                    var match = string.split( rModifier );
                     
                     if ( match.length > 1 ) {
                         
@@ -59,14 +65,11 @@ Parser.prototype = {
             isHtmlComponent = true;
             
             //find out how many comment blocks there are
-            blockCount = ( ( data.match(/(<!--[\n|\s]*\/\*\*)/g) || [] ).length ) - 1;
+
+            blockCount = ( ( data.match( rCommentBlock ) || [] ).length ) - 1;
         }
         
-        var comments = data.split( '/**' )
-            , COMMENTSPLIT = /^\s*\*\//m
-            // for html, include trailing comment
-            , HTMLCOMMENTSPLIT = /^\s*\*\/\n*\s*-->/m
-            ;
+        var comments = data.split( '/**' );
         
         comments.shift();
         
@@ -74,7 +77,7 @@ Parser.prototype = {
             
             // split blocks into comment and code content
             var block = isHtmlComponent ? 
-                    comments[ i ].split( HTMLCOMMENTSPLIT ) : comments[ i ].split( COMMENTSPLIT ) 
+                    comments[ i ].split( rHtmlCommentSplit ) : comments[ i ].split( rCommentSplit ) 
                 , toParse = '/**' + block[ 0 ] + ' */'
                 ;
             
@@ -134,9 +137,7 @@ Parser.prototype = {
 
                 //log out info about serialized code
                 log.info( 'Serialized Code Created', infostr );
-
             }
-
         }
         
         return comments;
