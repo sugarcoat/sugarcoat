@@ -1,3 +1,13 @@
+/**
+ *
+ *
+ *
+ *
+ *
+ */
+/*
+    TODO Can this be refactored to not require a Constructor
+*/
 var fs = require( 'fs' )
 var util = require( 'util' );
 var mkdirp = require( 'mkdirp' );
@@ -233,5 +243,7 @@ Render.prototype = {
 
 module.exports = function( options ) {
 
-    return new Render( options );
+    new Render( options );
+
+    return options;
 };
