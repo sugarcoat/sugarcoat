@@ -1,3 +1,13 @@
+/**
+ *
+ *
+ *
+ *
+ *
+ */
+/*
+    TODO Can this be refactored to not require a Constructor
+*/
 var fs = require( 'fs' )
 var util = require( 'util' );
 var mkdirp = require( 'mkdirp' );
@@ -19,7 +29,9 @@ function Render( config ) {
 
     if ( !config.settings.dest ) {
 
-        throw new Error( 'Error: Please provide destination');
+        log.info( 'Render', 'No `settings.dest` path provided. Exiting without rendering.' );
+
+        return;
     }
 
     // required config
@@ -293,5 +305,7 @@ Render.prototype = {
 
 module.exports = function( options ) {
 
-    return new Render( options );
+    new Render( options );
+
+    return options;
 };
