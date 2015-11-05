@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "Making documentation a bit sweeter ✨",
   "dependencies": {
+    "commander": "^2.9.0",
     "comment-parser": "^0.3.0",
     "glob": "^5.0.15",
     "handlebars": "^4.0.3",
@@ -13,6 +14,9 @@
     "path": "^0.12.7"
   },
   "license": "MIT",
+  "bin": {
+    "sugarcoat": "generators/pattern-library/bin/index.js"
+  },
   "main": "index.js",
   "repository": {
     "type": "git",

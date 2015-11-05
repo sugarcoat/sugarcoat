@@ -14,9 +14,11 @@ var globber = require( '../../lib/globber' );
 var parser = require( './parser' );
 var render = require( './render' );
 
-function generate( options ) {
+function generate( config, options ) {
 
-    return globFiles( options )
+    log.level = options.logLevel || 'info';
+
+    return globFiles( config )
         .then( readSections )
         .then( parseSections )
         .then( render );
