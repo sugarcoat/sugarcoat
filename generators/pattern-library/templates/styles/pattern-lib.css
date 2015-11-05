@@ -18,3 +18,11 @@
 .color-swatches .color-swatch .swatch span:first-child {
 	color: #000000;
 }
+
+/*
+ * Code blocks
+ *
+ */
+ pre.code {
+ 	width: 650px;
+ }

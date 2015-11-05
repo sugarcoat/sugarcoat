@@ -57,6 +57,9 @@ Parser.prototype = {
         if ( data.indexOf( '<!--' ) > -1 ) {
             
             isHtmlComponent = true;
+            
+            //find out how many comment blocks there are
+            blockCount = ( ( data.match(/(<!--[\n|\s]*\/\*\*)/g) || [] ).length ) - 1;
         }
         
         var comments = data.split( '/**' )
@@ -84,7 +87,7 @@ Parser.prototype = {
                 // if there's a following comment block, remove the starting html comment
                 var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' );
                 
-                if ( lastCommentBlock > -1 ) {
+                if ( lastCommentBlock > -1 && blockCount !== i ) {
 
                     block[ 1 ] = block[ 1 ].slice(0, lastCommentBlock );
                 }

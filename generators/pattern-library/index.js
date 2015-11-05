@@ -16,11 +16,7 @@ var render = require( './render' );
 
 function generate( options ) {
 
-
-    // setupStyles( path.join( __dirname, 'templates/styles/furtive.css' ), '../generators/pattern-library/templates/styles/furtive.css' );
-    // setupStyles( './node_modules/sugarcoat/generators/pattern-library/templates/styles/pattern-lib.css', '../generators/pattern-library/templates/styles/pattern-lib.css' );
-
-    globFiles( options )
+    return globFiles( options )
         .then( readSections )
         .then( parseSections )
         .then( render );
@@ -95,35 +91,6 @@ function parseSections( options ) {
     });
 
     return options;
-}
-
-/**
- * setupStyles: reads in the style files for the pattern library and adds them to the project so we can access them
- */
-function setupStyles ( oldFile, newFile ) {
-
-    //read in furtive CSS
-    fs.readFile( oldFile, 'utf8', function( err, data ) {
-
-        if ( err ) throw err;
-
-        var dir = '../generators/pattern-library/templates/styles/';
-
-        if ( !fs.existsSync( dir ) ) {
-
-            fs.mkdirSync( dir );
-        }
-
-        // console.log(data);
-        fs.writeFile( newFile, data, function( err ){
-
-            if ( err ) throw err;
-
-            // console.log('file created!');
-            log.info( 'CSS file created', newFile );
-        });
-    });
-    // console.log('css');
 }
 
 module.exports = generate;

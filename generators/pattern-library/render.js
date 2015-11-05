@@ -24,7 +24,12 @@ function Render( config ) {
 
     // required config
     this.dest = config.settings.dest + '/';
+    
+    this.setupFiles();
+
     this.setupHandlebars();
+
+    return this.config;
 }
 
 Render.prototype = {
@@ -45,8 +50,8 @@ Render.prototype = {
 
         partialsDirectories = partialsDirectories.map( function( directory ) {
 
-                return self.readDir( directory );
-            });
+            return self.readDir( directory );
+        });
 
         Promise.all(
             partialsDirectories
@@ -228,6 +233,61 @@ Render.prototype = {
 
             fs.writeFile( file, contents, callback );
         });
+    },
+
+    // setupStyles: reads in the style files for the pattern library and adds them to the project so we can access them
+    moveFile: function( oldFile, newFile, folder ) {
+
+        //read in furtive CSS
+        fs.readFile( oldFile, 'utf8', function( err, data ) {
+
+            if ( err ) throw err;
+
+            var dir = path.join( process.cwd(), 'documentation/pattern-library/' );
+            dir = path.join( dir, folder );
+
+            if ( !fs.existsSync( dir ) ) {
+
+                fs.mkdirSync( dir );
+            }
+
+            // console.log(data);
+            fs.writeFile( newFile, data, function( err ){
+
+                if ( err ) throw err;
+
+                // console.log('file created!');
+                log.info( 'File created', newFile );
+            });
+        });
+        // console.log('css');
+    },
+
+    setupFiles: function() {
+
+        //furtive file paths
+        var furtive = path.join( __dirname, 'templates/styles/furtive.css' );
+        var newFurtive = path.join( process.cwd(), 'documentation/pattern-library/styles/furtive.css' );
+        //set up furtive.css
+        this.moveFile( furtive, newFurtive, 'styles' );
+
+        //patt-lib file paths
+        var patLib = path.join( __dirname, 'templates/styles/pattern-lib.css' );
+        var newPattLib = path.join( process.cwd(), 'documentation/pattern-library/styles/pattern-lib.css' );
+        //set up furtive.css
+        this.moveFile( patLib, newPattLib, 'styles' );
+
+        //furtive file paths
+        var prismCSS = path.join( __dirname, 'templates/styles/prism.css' );
+        var newPrismCSS = path.join( process.cwd(), 'documentation/pattern-library/styles/prism.css' );
+        //set up furtive.css
+        this.moveFile( prismCSS, newPrismCSS, 'styles' );
+        
+        //prism.js file paths
+        var prismJS = path.join( __dirname, 'templates/js/prism.js' );
+        var newPrismJS = path.join( process.cwd(), 'documentation/pattern-library/js/prism.js' );
+        //set up prism.js
+        this.moveFile( prismJS, newPrismJS, 'js' );
     }
 };
 
