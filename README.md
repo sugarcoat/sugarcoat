@@ -43,9 +43,9 @@ npm install sugarcoat --save
 
 ## Usage ##
 
-### Node Module ###
+### As a Node Module ###
 
-The `sugarcoat` method takes a `config` object and an `options` object and returns a `Promise`. The `resolve` callback provided to the `.then` method recieves the full data object of parsed sections. 
+The `sugarcoat` method takes a `config` object and an `options` object and returns a `Promise`. The `resolve` callback provided to the `.then` method recieves the full data object of parsed sections.
 
 ```js
 var sugarcoat = require( 'sugarcoat' );
@@ -55,10 +55,12 @@ sugarcoat( config, options ).then( function( data ) {
 });
 ```
 
-### CLI ###
+### On the Command Line ###
+
+You can also install `sugarcoat` globally (via `npm install -g). The `sugarcoat` command takes a path to a configuration file which must export the configuration object via `module.exports`.
 
 ```bash
-sugarcoat [options] <configuration>
+sugarcoat "./my/config.js"
 ```
 
 
