@@ -9,21 +9,14 @@
 var util = require( 'util' )
 var fs = require( 'fs' );
 var log = require( 'npmlog' );
-var _ = require( 'lodash' );
 
 var globber = require( '../../lib/globber' );
 var parser = require( './parser' );
 var render = require( './render' );
 
-var defaultOptions = {
-    logLevel: 'info'
-};
+function generate( config ) {
 
-function generate( config, options ) {
-
-    options = _.assign( {}, defaultOptions, options );
-
-    log.level = options.logLevel;
+    log.level = config.settings.logLevel || 'info';
 
     return globFiles( config )
         .then( readSections )
@@ -34,9 +27,9 @@ function generate( config, options ) {
 /**
  *
  */
-function globFiles( options ) {
+function globFiles( config ) {
 
-    var globArr = options.sections.map( function( section ) {
+    var globArr = config.sections.map( function( section ) {
 
         return globber( section.files );
 
@@ -46,7 +39,7 @@ function globFiles( options ) {
 
         sections.forEach( function( section, index ) {
 
-            options.sections[ index ].files = section;
+            config.sections[ index ].files = section;
         });
 
         return options;

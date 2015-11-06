@@ -6,7 +6,7 @@
  *
  */
 /*
-    TODO Can this be refactored to not require a Constructor
+    TODO Can this be refactored to not require a Constructor?
 */
 var fs = require( 'fs' )
 var util = require( 'util' );
@@ -29,14 +29,12 @@ function Render( config ) {
 
     if ( !config.settings.dest ) {
 
-        log.info( 'Render', 'No `settings.dest` path provided. Exiting without rendering.' );
-
-        return;
+        throw new Error( 'Error: Please provide destination' );
     }
 
     // required config
     this.dest = config.settings.dest + '/';
-    
+
     this.setupFiles();
 
     this.setupHandlebars();
@@ -294,7 +292,7 @@ Render.prototype = {
         var newPrismCSS = path.join( process.cwd(), 'documentation/pattern-library/styles/prism.css' );
         //set up furtive.css
         this.moveFile( prismCSS, newPrismCSS, 'styles' );
-        
+
         //prism.js file paths
         var prismJS = path.join( __dirname, 'templates/js/prism.js' );
         var newPrismJS = path.join( process.cwd(), 'documentation/pattern-library/js/prism.js' );

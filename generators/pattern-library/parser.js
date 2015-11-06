@@ -3,7 +3,9 @@
  * Takes a section object with title key and files string or array and returns the parsed comments
  *
  */
-
+/*
+    TODO Can this be refactored to not require a Constructor?
+*/
 var util = require( 'util' );
 var log = require( 'npmlog' );
 var _ = require( 'lodash' );
@@ -15,14 +17,6 @@ var rModifier = /([:\.#][\w-]+\s)/;
 var rCommentBlock = /(<!--[\n|\s]*\/\*\*)/g;
 var rCommentSplit = /^\s*\*\//m;
 var rHtmlCommentSplit = /^\s*\*\/\n*\s*-->/m;
-
-
-function stripNewLines( str ) {
-
-    return str.replace( /^\n*/, '' )
-    .replace( /\n*$/, '' );
-}
-
 
 function Parser() {}
 
