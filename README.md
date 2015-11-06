@@ -1,10 +1,29 @@
 # sugarcoat #
 
+[![NPM version](https://badge.fury.io/js/sugarcoat.svg)](https://www.npmjs.com/package/sugarcoat) [![Dependency Status](https://david-dm.org/sapientnitrola/sugarcoat.svg)](https://david-dm.org/sapientnitrola/sugarcoat)
+
 Making documentation a bit sweeter ✨
 
 **Note**: This is still a work in-progress. Please file an issue if you encounter any bugs or think a feature should be added. 
 
-## Features ##
+
+# Index #
+
+  - [Features](#features)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [Module](#module)
+    - [CLI](#cli)
+  - [Configuration](#configuration)
+    - [`settings` Object](#settings-object)
+    - [`sections` Array](#sections-array)
+  - [Commenting Code](#commenting-code)
+  - [Templating](#templating)
+    - [Custom Templating](#custom-templating)
+  - [TODO](#todo)
+
+
+# Features #
 
 **Pattern Library Generator**
 
@@ -36,16 +55,16 @@ Making documentation a bit sweeter ✨
   Yup, just use a globbing pattern with the negation symbol `!` at the beginning of the pathname
 
 
-## Install ##
+# Install #
 
 ```bash
 npm install sugarcoat --save
 ```
 
 
-## Usage ##
+# Usage #
 
-### Module ###
+## Module ##
 
 The `sugarcoat` method takes a `config` object and an `options` object and returns a `Promise`. The `resolve` callback provided to the `.then` method recieves the full data object of parsed sections.
 
@@ -57,7 +76,7 @@ sugarcoat( config, options ).then( function( data ) {
 });
 ```
 
-### CLI ###
+## CLI ##
 
 You can also install `sugarcoat` globally (via `npm install -g). The `sugarcoat` command takes a path to a configuration file which must export the configuration object via `module.exports`.
 
@@ -66,7 +85,10 @@ sugarcoat "./my/config.js"
 ```
 
 
-## Sample Config Object ##
+# Configuration #
+
+
+**Example**
 
 ```js
 {
@@ -90,9 +112,7 @@ sugarcoat "./my/config.js"
 }
 ```
 
-## Configuration ##
-
-### `settings` Object ###
+## `settings` Object ##
 
 **`dest` String** - *(Optional)* Folder in which sugarcoat will output your library. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash "/". Including a `dest` folder means that sugarcoat will render 
 
@@ -120,19 +140,19 @@ sugarcoat "./my/config.js"
 }
 ```
 
-### `sections` Array ###
+## `sections` Array ##
 
 Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugarcoat#section-object)
 
 ---
 
-## Section Object ##
+### Section Object ###
 
-### `title` String ###
+#### `title` String ####
 
 *(Required)* Title of section.
 
-### `files` Array ###
+#### `files` Array ####
 
 *(Required)* Target file(s) that contain comments you'd like to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) and will take a `String`, `Array`, or `Object`. You can also use a negation pattern by using the `!` symbol at the beginning of the path.
 
@@ -171,7 +191,7 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 }
 ```
 
-### `type` String ###
+#### `type` String ####
 
 *(Optional)* If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` files. Otherwise, sugarcoat will always use the `default` partial template
 
@@ -183,7 +203,7 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 }
 ```
 
-### `template` String ###
+#### `template` String ####
 
 *(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating](https://github.com/SapientNitroLA/sugarcoat#custom-templating)
 
@@ -196,20 +216,20 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 }
 ```
 
-## Commenting Code ##
+# DocBlock Comments #
 
 Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse]() to build its AST comment object. The following are reserved tags:
 
-- **`@module`** The name of the module. Sugarcoat uses this tag in its default navigation template
+- **`@title`** The name of the module. Sugarcoat uses this tag in its default navigation template
 - **`@example`** Takes the following single or multiline markup and adds it as the comment object's `code` key
 - **`@modifier`** Takes the following word and adds it as the `name` key in the tag object. The word can be prefixed with any of the following characters: **`:.#`**
 
-**Comment Example (scss)**
+**Comment Example**
 
 ```css
 /**
  * 
- * @module Tooltip
+ * @title Tooltip
  * @category Feedback
  * @example
  *    <div class="tooltip">
@@ -224,15 +244,19 @@ Sugarcoat's `parser.js` module adds some additional parsing functionality to [co
 
 ```js
 { 
+  line: 0,
+  description: '',
+  source: '@title Tooltip\n@example\n     <div class="tooltip">\n         <span class="tooltip-content">This is a tooltip</span>\n     </div>\n@modifier .active enabled class on .tooltip',
+  code: '<div class="tooltip">\n    <span class="tooltip-content">This is a tooltip</span>\n</div>',
   tags: [ 
     { 
-      tag: 'module',
+      tag: 'title',
       description: 'Tooltip',
       optional: false,
       type: '',
       name: '',
       line: 3,
-      source: '@module Tooltip'
+      source: '@title Tooltip'
     },
     { 
       tag: 'example',
@@ -252,11 +276,7 @@ Sugarcoat's `parser.js` module adds some additional parsing functionality to [co
       line: 10,
       source: '@modifier .active enabled class on .tooltip' 
     }
-  ],
-  line: 0,
-  description: '',
-  source: '@module Tooltip\n@example\n     <div class="tooltip">\n         <span class="tooltip-content">This is a tooltip</span>\n     </div>\n@modifier .active enabled class on .tooltip',
-  code: '<div class="tooltip">\n    <span class="tooltip-content">This is a tooltip</span>\n</div>'
+  ]
 }
 ```
 
@@ -285,7 +305,11 @@ When parsing html-based markup, Sugarcoat will take the code following a comment
 **Comment Object (AST)**
 
 ```js
-{ 
+{
+  line: 0,
+  description: '',
+  source: '@title Some Component\n@description This component has an interesting description\n@dependencies /library/js/modules/some-component.js',
+  code: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n',
   tags: [ 
     { 
       tag: 'title',
@@ -314,15 +338,11 @@ When parsing html-based markup, Sugarcoat will take the code following a comment
       line: 4,
       source: '@dependencies /library/js/modules/some-component.js'
     }
-  ],
-  line: 0,
-  description: '',
-  source: '@title Some Component\n@description This component has an interesting description\n@dependencies /library/js/modules/some-component.js',
-  code: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n'
+  ]
 }
 ```
 
-## Templating ##
+# Templating #
 
 Sugarcoat provides a default template for your pattern library. Each comment object found by sugarcoat will render using one of the following partials:
 
@@ -333,9 +353,9 @@ Sugarcoat provides a default template for your pattern library. Each comment obj
 
 Miscellaneous partials:
 
-- `nav.hbs` Outputs a navigation that maps to each `title` of a section object and each comment object's `@module` tag
+- `nav.hbs` Outputs a navigation that maps to each `title` of a section object and each comment object's `@title` tag
 
-### Custom Templating ###
+## Custom Templating ##
 
 If you'd like to provide your own template, simply provide a path to the `layout` key in the `settings` object. 
 
@@ -348,3 +368,11 @@ If you'd like to provide one or more of your own partials, provide a directory p
 - variable
 - color
 - typography
+
+
+# TODO #
+
+- Ability to add custom tags (custom parser functions)
+- More refactoring of module structure (globber, parser, renderer)
+- Add JavaScript modules/components example
+- Add tests (once API is a little more stable)
