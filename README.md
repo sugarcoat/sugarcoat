@@ -15,6 +15,8 @@ Making documentation a bit sweeter ✨
 
 ---
 
+**Q&A**
+
 1. Can I use my own template?
 
   Yes, you can use your own template, and even your own partials. See the options `template` and `partials`
@@ -59,7 +61,7 @@ sugarcoat( config, options ).then( function( data ) {
 
 ### CLI ###
 
-You can also install `sugarcoat` globally (via `npm install -g). The `sugarcoat` command takes a path to a configuration file which must export the configuration object via `module.exports`.
+You can also install `sugarcoat` globally (via `npm install -g`). The `sugarcoat` command takes a path to a configuration file which must export the configuration object via `module.exports`.
 
 ```bash
 sugarcoat "./my/config.js"
@@ -122,7 +124,7 @@ sugarcoat "./my/config.js"
 
 ### `sections` Array ###
 
-Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugarcoat#section-object)
+Contains an `Array` of [Section Objects](#section-object)
 
 ---
 
@@ -185,7 +187,7 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 
 ### `template` String ###
 
-*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating](https://github.com/SapientNitroLA/sugarcoat#custom-templating)
+*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating](#custom-templating)
 
 ```js
 {
@@ -198,7 +200,7 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 
 ## Commenting Code ##
 
-Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse]() to build its AST comment object. The following are reserved tags:
+Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse](https://www.npmjs.com/package/comment-parser) to build its AST comment object. The following are reserved tags:
 
 - **`@module`** The name of the module. Sugarcoat uses this tag in its default navigation template
 - **`@example`** Takes the following single or multiline markup and adds it as the comment object's `code` key
