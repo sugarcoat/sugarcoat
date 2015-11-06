@@ -88,19 +88,19 @@ sugarcoat [options] <configuration>
 
 ## Configuration ##
 
-### `settings Object` ###
+### `settings` Object ###
 
-**`dest String`** - *(Optional)* Folder in which sugarcoat will output your library. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash "/". Including a `dest` folder means that sugarcoat will render 
+**`dest` String** - *(Optional)* Folder in which sugarcoat will output your library. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash "/". Including a `dest` folder means that sugarcoat will render 
 
-**`layout String`** - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
+**`layout` String** - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
 
-**`partials String`** - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
+**`partials` String** - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
 
-**`json Boolean`** - *(Optional)* Boolean defaults to false. If set to true sugarcoat will return an object of the parsed data.
+**`json` Boolean** - *(Optional)* Boolean defaults to false. If set to true sugarcoat will return an object of the parsed data.
 
-**`logLevel String`** - *(Optional)* String that can be used to set the level that logs print out. If you wish to have no logs, use the option `silent`. 
+**`logLevel` String** - *(Optional)* String that can be used to set the level that logs print out. If you wish to have no logs, use the option `silent`. 
 
-If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work. 
+*If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work. 
 
 **Example**
 
@@ -109,12 +109,14 @@ If you do not put a `dest` string or `json` boolean, sugarcoat will error out. M
   settings: {
     dest: 'demo/documentation/pattern-library',
     layout: 'generators/pattern-library/templates/main.hbs',
-    partials: 'generators/pattern-library/templates/customPartials'
+    partials: 'generators/pattern-library/templates/customPartials',
+    json: true, 
+    loglevel: 'silent'
   }
 }
 ```
 
-### `sections Array` ###
+### `sections` Array ###
 
 Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugarcoat#section-object)
 
@@ -122,11 +124,11 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 
 ## Section Object ##
 
-### `title String` ###
+### `title` String ###
 
 *(Required)* Title of section.
 
-### `files Array` ###
+### `files` Array ###
 
 *(Required)* Target file(s) that contain comments you'd like to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) and will take a `String`, `Array`, or `Object`. You can also use a negation pattern by using the `!` symbol at the beginning of the path.
 
@@ -165,7 +167,7 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 }
 ```
 
-### `type String` ###
+### `type` String ###
 
 *(Optional)* If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` files. Otherwise, sugarcoat will always use the `default` partial template
 
@@ -177,7 +179,7 @@ Contains an `Array` of [Section Objects](https://github.com/SapientNitroLA/sugar
 }
 ```
 
-### `template String` ###
+### `template` String ###
 
 *(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating](https://github.com/SapientNitroLA/sugarcoat#custom-templating)
 
