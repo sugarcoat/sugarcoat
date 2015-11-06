@@ -7,6 +7,7 @@
  */
 
 var fs = require( 'fs' );
+var path = require( 'path' );
 var util = require( 'util' )
 
 var log = require( 'npmlog' );
@@ -63,6 +64,7 @@ function readSections( options ) {
 
                     section.files[ index ] = {
                         path: file,
+                        ext: path.parse( file ).ext.substring( 1 ),
                         src: src
                     }
 

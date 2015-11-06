@@ -50,6 +50,7 @@ Render.prototype = {
 
         Handlebars.registerHelper( 'isequal', this.isequalHelper );
         Handlebars.registerHelper( 'notequal', this.notequalHelper );
+        Handlebars.registerHelper( 'toID', this.toID );
 
         var partialsDirectories = [ this.partialsDir ];
 
@@ -298,6 +299,11 @@ Render.prototype = {
         var newPrismJS = path.join( process.cwd(), 'documentation/pattern-library/js/prism.js' );
         //set up prism.js
         this.moveFile( prismJS, newPrismJS, 'js' );
+    },
+
+    toID: function ( str ) {
+
+        return str.replace( /\s|\/|\./g, '-' ).toLowerCase();
     }
 };
 

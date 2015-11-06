@@ -1,38 +1,79 @@
 <!--
 /**
  *
- * @module Default comment block template
+ * @title Default comment block template
  *
  */
 -->
 
-<div>
-  <div class="furtive">
-    <h2>{{ title }}</h2>
-    {{#each files}}
-    <div class="file-block">
-      <h3>{{ path }}</h3>
-      {{#each data}}
-    </div>
+<div id="{{toID title}}">
 
-    <div class="comment-block">
-      <div class="furtive">
-        <dl class="desc">
-          {{#each tags}}
-            {{#notequal tag 'example'}}
-          <dt>{{ tag }} {{ name }}</dt>
-          <dd>{{#if optional}}<i>(Optional)</i> {{/if}}{{ description }}</dd>
-            {{/notequal}}
-          {{/each}}
-        </dl>
+  <div class="furtive">
+
+    <h2>{{ title }}</h2>
+
+  </div>
+
+    {{#each files as |file| }}
+
+      <div>
+
+        {{#each file.data as |data| }}
+
+          <div id="{{toID file.path }}-{{ @index }}" class="comment-block">
+
+            <div class="furtive">
+
+              <dl class="desc">
+
+                {{#each data.tags as |theTag| }}
+
+                  {{#notequal theTag.tag 'example'}}
+
+                    <dt>{{ theTag.tag }} <code>{{ theTag.name }}</code></dt>
+                    <dd>{{#if theTag.optional}}<i>(Optional)</i> {{/if}}{{ theTag.description }}</dd>
+
+                  {{/notequal}}
+
+                {{/each}}
+
+                <dt>filepath</dt>
+                <dd>{{ file.path }}</dd>
+
+              </dl>
+
+            </div>
+
+            {{#isequal file.ext 'html'}}
+
+              <div class="sc-rendered">
+                {{{ data.code }}}
+              </div>
+
+              <pre class="code"><code class="language-markup">{{ data.code }}</code></pre>
+
+            {{/isequal}}
+
+            {{#each data.tags as |theTag| }}
+
+              {{#isequal theTag.tag 'example'}}
+
+                <div class="sc-rendered">
+                  {{{ theTag.description }}}
+                </div>
+
+                <pre class="code"><code class="language-markup">{{ theTag.description }}</code></pre>
+
+              {{/isequal}}
+
+            {{/each}}
+
+          </div>
+
+        {{/each}}
+
       </div>
 
-      {{{ code }}}
-
-      <pre class="code"><code class="language-markup">{{~ code }}</code></pre>
-
-    </div>
-    {{/each}}
-  </div>
   {{/each}}
+
 </div>

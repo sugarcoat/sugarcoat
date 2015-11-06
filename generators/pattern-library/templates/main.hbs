@@ -23,29 +23,29 @@
 
 {{> nav}}
 
-{{#each this}}
+{{#each this as |section|}}
 
-{{#isequal type 'variables'}}
+  {{#isequal section.type 'variables'}}
 
-  {{~#if template}}
-    {{~#isequal template 'color'}}
-      {{~> color}}
-    {{~/isequal}}
-    {{~#isequal template 'typography'}}
-      {{~> typography}}
-    {{~/isequal}}
-    {{~#isequal template 'variable'}}
+    {{~#if section.template}}
+      {{~#isequal section.template 'color'}}
+        {{~> color}}
+      {{~/isequal}}
+      {{~#isequal section.template 'typography'}}
+        {{~> typography}}
+      {{~/isequal}}
+      {{~#isequal section.template 'variable'}}
+        {{~> variable}}
+      {{~/isequal}}
+    {{~else}}
       {{~> variable}}
-    {{~/isequal}}
-  {{~else}}
-    {{~> variable}}
-  {{~/if}}
+    {{~/if}}
 
-{{/isequal}}
+  {{/isequal}}
 
-{{#notequal type 'variables'}}
-  {{~> default}}
-{{/notequal}}
+  {{#notequal section.type 'variables'}}
+    {{~> default}}
+  {{/notequal}}
 
 {{/each}}
 

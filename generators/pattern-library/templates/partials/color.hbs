@@ -1,20 +1,43 @@
-<div class="furtive">
-  <h2>Colors</h2>
-  <div class="color-swatches">
-    {{#each files }}
-        {{~#each data }}
-            {{~#each serializedCode }}
-    <div class="color-swatch brdr--light-gray">
-      <div class="swatch" style="background-color:{{ value }}">
-        <span>{{ variable }}: {{ value }}</span>
-        <span>{{ variable }}: {{ value }}</span>
-      </div>
-      {{#if comment }}
-    	<p class="px1">{{ comment }}</p>
-      {{/if}}
-    </div>
+<div id="{{toID title}}">
+
+  <div class="furtive">
+
+    <h2>{{ title }}</h2>
+
+    <div class="color-swatches">
+
+      {{#each files as |file| }}
+
+        <div id="{{toID file.path }}">
+
+          {{~#each file.data as |data| }}
+
+            {{~#each data.serializedCode as |serial| }}
+
+              <div class="color-swatch brdr--light-gray">
+
+                <div class="swatch" style="background-color:{{ serial.value }}"></div>
+
+                <pre class="px1"><code>{{ serial.variable }}: {{ serial.value }}</code></pre>
+
+                {{#if serial.comment }}
+
+                  <p class="px1">{{ serial.comment }}</p>
+
+                {{/if}}
+
+              </div>
+
             {{/each }}
-        {{~/each }}
-    {{~/each }}
+
+          {{~/each }}
+
+        </div>
+
+      {{~/each }}
+
+    </div>
+
   </div>
+
 </div>

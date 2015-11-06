@@ -110,7 +110,7 @@ Parser.prototype = {
                     if ( currentComment.tag === 'example' ) {
 
                         // beautify code
-                        block[ 1 ] = beautify_html( currentComment.description );
+                        block[ 1 ] = currentComment.description = beautify_html( currentComment.description, { indent_size: 2 } );
                     }
                 }
             }

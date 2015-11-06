@@ -1,19 +1,44 @@
 <nav class="furtive">
+
   <ul>
-    {{#each this}}
-    <li><a href="#">{{ title }}</a>
-      <ul>
-        {{#each files}}
-          {{#each data}}
-            {{#each tags}}
-              {{#isequal tag 'module'}}
-        <li>{{description}}</li>
-              {{/isequal}}
+
+    {{#each this as |section| }}
+
+      <li><a href="#{{toID section.title}}">{{ section.title }}</a>
+
+        <ul>
+
+          {{#each section.files as |file| }}
+
+            {{#each file.data as |data| }}
+
+              <li>
+
+                <a href="#{{toID file.path }}-{{ @index }}">
+
+                {{#each data.tags as |theTag| }}
+
+                  {{#isequal theTag.tag 'title' }}
+
+                    {{ theTag.description }}
+
+                  {{/isequal}}
+
+                {{/each}}
+
+                </a>
+
+              </li>
+
             {{/each}}
+
           {{/each}}
-        {{/each}}
-      </ul>
-    </li>
+
+        </ul>
+
+      </li>
+
     {{/each}}
+
   </ul>
 </nav>
