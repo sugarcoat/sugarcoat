@@ -6,10 +6,10 @@
  *
  */
 
-var util = require( 'util' )
 var fs = require( 'fs' );
-var log = require( 'npmlog' );
+var util = require( 'util' )
 
+var log = require( 'npmlog' );
 var globber = require( '../../lib/globber' );
 var parser = require( './parser' );
 var render = require( './render' );
@@ -42,7 +42,7 @@ function globFiles( config ) {
             config.sections[ index ].files = section;
         });
 
-        return options;
+        return config;
     });
 }
 

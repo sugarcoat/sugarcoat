@@ -27,7 +27,7 @@ function Render( config ) {
     this.partialsDir = defaults.partialsDir;
     this.customPartials = config.settings.partials;
 
-    if ( !config.settings.dest ) {
+    if ( !config.settings.json && !config.settings.dest ) {
 
         throw new Error( 'Error: Please provide destination' );
     }
