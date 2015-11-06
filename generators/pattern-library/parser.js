@@ -40,7 +40,7 @@ Parser.prototype = {
                     if ( match.length > 1 ) {
 
                         data.name = match[ 1 ];
-                        // console.log( match );
+
                         str = match[ 1 ];
                     }
                 }
@@ -62,19 +62,21 @@ Parser.prototype = {
 
         var isHtmlComponent = false;
 
+        //test for html comment start, that will tell us it is an html file that we will be parsing
         if ( data.indexOf( '<!--' ) > -1 ) {
 
             isHtmlComponent = true;
 
             //find out how many comment blocks there are
-
             blockCount = ( ( data.match( rCommentBlock ) || [] ).length ) - 1;
         }
 
+        //split the data at the beginning of the comment block
         var comments = data.split( '/**' );
 
         comments.shift();
 
+        //loop through each commentblock 
         for ( var i = 0; i < comments.length; i++ ) {
 
             // split blocks into comment and code content
@@ -83,15 +85,15 @@ Parser.prototype = {
                 , toParse = '/**' + block[ 0 ] + ' */'
                 ;
 
-            // add comment section to array
-
+            // add add parsed comment to array
             comments[ i ] = commentParser( toParse, this.customParsers )[ 0 ];
 
             if ( isHtmlComponent ) {
 
-                // if there's a following comment block, remove the starting html comment
+                //find out if there is a last opening html comment block
                 var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' );
 
+                // if there's a following comment block, remove the starting html comment
                 if ( lastCommentBlock > -1 && blockCount !== i ) {
 
                     block[ 1 ] = block[ 1 ].slice( 0, lastCommentBlock );
@@ -110,19 +112,19 @@ Parser.prototype = {
                     if ( currentComment.tag === 'example' ) {
 
                         // beautify code
-                        block[ 1 ] = currentComment.description = beautify_html( currentComment.description, { indent_size: 2 } );
+                        currentComment.description = beautify_html( currentComment.description, { indent_size: 2 } );
                     }
                 }
             }
 
-            // add code to data obj
-            comments[ i ].code = _.trim( block[ 1 ] );
+            // add code to data obj as 'context'
+            comments[ i ].context = _.trim( block[ 1 ] );
 
             var infostr = '[' + templateType + '] for: ' + currentFile;
 
             if ( type ) {
 
-                var variableInfo = this.parseVarCode( comments[i].code, currentFile );
+                var variableInfo = this.parseVarCode( comments[i].context, currentFile );
 
                 if ( templateType === 'typography' ) {
 
@@ -135,7 +137,7 @@ Parser.prototype = {
                     });
                 }
 
-                //set template code that has been serialized to serializedCode
+                //add serializedCode to data obj as 'serializedCode'
                 comments[i].serializedCode = variableInfo;
 
                 //log out info about serialized code

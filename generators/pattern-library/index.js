@@ -88,10 +88,12 @@ function parseSections( options ) {
 
     options.sections.forEach( function ( section, index ) {
 
+
         section.files.map( function ( file, index ) {
 
             section.files[ index ].data = parse.parseComment( file.path, file.src, section.type, section.template );
         });
+
     });
 
     return options;

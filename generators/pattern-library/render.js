@@ -271,7 +271,6 @@ Render.prototype = {
                 log.info( 'File created', newFile );
             });
         });
-        // console.log('css');
     },
 
     setupFiles: function() {
