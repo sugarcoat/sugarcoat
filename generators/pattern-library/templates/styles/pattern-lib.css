@@ -1,4 +1,12 @@
 /*
+ * Page set up
+ *
+ */
+body { 
+	width: 960px;
+	margin: 0 auto;
+}
+/*
  * Color Swatches
  *
  */
@@ -7,6 +15,7 @@
 	margin-left: 3%;
 	margin-bottom: 2%;
 	display: inline-block;
+	vertical-align: top;
 }
 .color-swatches .color-swatch .swatch { 
 	padding: 1em;
@@ -18,11 +27,3 @@
 .color-swatches .color-swatch .swatch span:first-child {
 	color: #000000;
 }
-
-/*
- * Code blocks
- *
- */
- pre.code {
- 	width: 650px;
- }
