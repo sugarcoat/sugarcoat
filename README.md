@@ -88,11 +88,17 @@ sugarcoat [options] <configuration>
 
 ### `settings Object` ###
 
-**`dest String`** - *(Required)* Folder in which sugarcoat will output your library. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash "/"
+**`dest String`** - *(Optional)* Folder in which sugarcoat will output your library. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash "/". Including a `dest` folder means that sugarcoat will render 
 
 **`layout String`** - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
 
 **`partials String`** - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
+
+**`json Boolean`** - *(Optional)* Boolean defaults to false. If set to true sugarcoat will return an object of the parsed data.
+
+**`logLevel String`** - *(Optional)* String that can be used to set the level that logs print out. If you wish to have no logs, use the option `silent`. 
+
+If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work. 
 
 **Example**
 
@@ -314,7 +320,7 @@ Sugarcoat provides a default template for your pattern library. Each comment obj
 
 - `default.hbs` Default rendering of a comment object
 - `variable.hbs` Renders when `type: 'variables'` - A list of variables and its associated value. If a `template` is not provided with the section object, it will use this partial
-- `colo.hbsr` Renders when `template: 'color'` - A swatches array with the associated variable name and color
+- `color.hbs` Renders when `template: 'color'` - A swatches array with the associated variable name and color
 - `typography.hbs` Renders when `template: `typography` - Fonts and variable names with their examples
 
 Miscellaneous partials:
