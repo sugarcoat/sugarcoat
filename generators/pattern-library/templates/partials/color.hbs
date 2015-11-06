@@ -8,7 +8,9 @@
 
       {{#each files as |file| }}
 
-        <div id="{{toID file.path }}">
+        <div id="{{toID file.path }}-{{ @index }}">
+
+          <p>file: {{ file.path }}</p>
 
           {{~#each file.data as |data| }}
 

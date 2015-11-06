@@ -13,7 +13,7 @@ var util = require( 'util' );
 var mkdirp = require( 'mkdirp' );
 var path = require( 'path' );
 var log = require( 'npmlog' );
-var Handlebars = require( 'Handlebars' );
+var Handlebars = require( 'handlebars' );
 
 var defaults = {
     layoutDir: path.join( __dirname, 'templates/main.hbs'),
