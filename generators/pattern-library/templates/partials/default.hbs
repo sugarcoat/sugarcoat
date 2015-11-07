@@ -20,7 +20,7 @@
 
         {{#each file.data as |data| }}
 
-          <div id="{{toID file.path }}-{{ @index }}" class="comment-block">
+          <div id="{{toID file.path @index}}" class="sugar-comment-block">
 
             <div class="furtive">
 
@@ -46,11 +46,11 @@
 
             {{#isequal file.ext 'html'}}
 
-              <div class="sc-rendered">
+              <div class="sugar-rendered">
                 {{{ data.context }}}
               </div>
 
-              <pre class="code"><code class="language-markup">{{ data.context }}</code></pre>
+              <pre><code class="language-markup">{{ data.context }}</code></pre>
 
             {{/isequal}}
 
@@ -58,11 +58,11 @@
 
               {{#isequal theTag.tag 'example'}}
 
-                <div class="sc-rendered">
+                <div class="sugar-rendered">
                   {{{ theTag.description }}}
                 </div>
 
-                <pre class="code"><code class="language-markup">{{ theTag.description }}</code></pre>
+                <pre><code class="language-markup">{{ theTag.description }}</code></pre>
 
               {{/isequal}}
 

@@ -300,9 +300,13 @@ Render.prototype = {
         this.moveFile( prismJS, newPrismJS, 'js' );
     },
 
-    toID: function ( str ) {
+    toID: function ( str, index, context ) {
 
-        return str.replace( /\s|\/|\./g, '-' ).toLowerCase();
+        context = context === undefined ? index : context;
+
+        index = isNaN( index ) ? '' : '-' + index;
+
+        return 'sugar-' + str.replace( /\s|\/|\./g, '-' ).toLowerCase() + index;
     }
 };
 

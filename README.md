@@ -374,6 +374,7 @@ If you'd like to provide one or more of your own partials, provide a directory p
 
 # TODO #
 
+- Extract Handlebar Helpers from Render module
 - Ability to add custom tags (custom parser functions)
 - More styling and better structuring of rendered sections
 - Namespace sugarcoat-specific css

@@ -4,11 +4,11 @@
 
     <h2>{{ title }}</h2>
 
-    <div class="color-swatches">
+    <div class="sugar-color-swatches">
 
       {{#each files as |file| }}
 
-        <div id="{{toID file.path }}-{{ @index }}">
+        <div id="{{toID file.path @index}}">
 
           <p>file: {{ file.path }}</p>
 
@@ -16,9 +16,9 @@
 
             {{~#each data.serializedCode as |serial| }}
 
-              <div class="color-swatch brdr--light-gray">
+              <div class="sugar-color-swatch brdr--light-gray">
 
-                <div class="swatch" style="background-color:{{ serial.value }}"></div>
+                <div class="sugar-swatch" style="background-color:{{ serial.value }}"></div>
 
                 <pre class="px1"><code>{{ serial.variable }}: {{ serial.value }}</code></pre>
 
