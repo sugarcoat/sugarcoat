@@ -223,7 +223,7 @@ Contains an `Array` of [Section Objects](#section-object)
 Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse](https://www.npmjs.com/package/comment-parser) to build its AST comment object. The following are reserved tags:
 
 - **`@title`** The name of the module. Sugarcoat uses this tag in its default navigation template
-- **`@example`** Takes the following single or multiline markup and adds it as the comment object's `code` key
+- **`@example`** Takes a single or multiline code example
 - **`@modifier`** Takes the following word and adds it as the `name` key in the tag object. The word can be prefixed with any of the following characters: **`:.#`**
 
 **Comment Example**
@@ -249,7 +249,7 @@ Sugarcoat's `parser.js` module adds some additional parsing functionality to [co
   line: 0,
   description: '',
   source: '@title Tooltip\n@example\n     <div class="tooltip">\n         <span class="tooltip-content">This is a tooltip</span>\n     </div>\n@modifier .active enabled class on .tooltip',
-  code: '<div class="tooltip">\n    <span class="tooltip-content">This is a tooltip</span>\n</div>',
+  context: '',
   tags: [ 
     { 
       tag: 'title',
@@ -284,7 +284,7 @@ Sugarcoat's `parser.js` module adds some additional parsing functionality to [co
 
 **HTML**
 
-When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `code` key of the comment object.
+When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `context` key of the comment object.
 
 **Comment Example (html)**
 
@@ -311,7 +311,7 @@ When parsing html-based markup, Sugarcoat will take the code following a comment
   line: 0,
   description: '',
   source: '@title Some Component\n@description This component has an interesting description\n@dependencies /library/js/modules/some-component.js',
-  code: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n',
+  context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n',
   tags: [ 
     { 
       tag: 'title',
