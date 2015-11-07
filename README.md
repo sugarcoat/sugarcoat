@@ -17,7 +17,7 @@ Making documentation a bit sweeter ✨
   - [Configuration](#configuration)
     - [`settings` Object](#settings-object)
     - [`sections` Array](#sections-array)
-  - [Commenting Code](#commenting-code)
+  - [DocBlock Comments](#docblock-comments)
   - [Templating](#templating)
     - [Custom Templating](#custom-templating)
   - [TODO](#todo)
