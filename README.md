@@ -374,11 +374,11 @@ If you'd like to provide one or more of your own partials, provide a directory p
 
 # TODO #
 
-- Extract Handlebar Helpers from Render module
-- Ability to add custom tags (custom parser functions)
-- More styling and better structuring of rendered sections
-- Namespace sugarcoat-specific css
-- Inject elements/compoents css for real previews
 - More refactoring of module structure (globber, parser, renderer)
+- Ability to add custom tags (custom parser functions)
+- Extract Handlebars helpers from `render` module
+- Namespace sugarcoat-specific css
+- More styling and better structuring of rendered sections
+- Inject elements/components css for real previews
 - Add JavaScript modules/components example
 - Add tests (once API is a little more stable)
