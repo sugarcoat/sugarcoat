@@ -18,11 +18,11 @@
 
                 {{#each data.tags as |theTag| }}
 
-                  {{#isequal theTag.tag 'title' }}
+                  {{#isEqual theTag.tag 'title' }}
 
                     {{ theTag.description }}
 
-                  {{/isequal}}
+                  {{/isEqual}}
 
                 {{/each}}
 

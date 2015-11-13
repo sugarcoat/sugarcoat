@@ -28,12 +28,12 @@
 
                 {{#each data.tags as |theTag| }}
 
-                  {{#notequal theTag.tag 'example'}}
+                  {{#notEqual theTag.tag 'example'}}
 
                     <dt>{{ theTag.tag }} <code>{{ theTag.name }}</code></dt>
                     <dd>{{#if theTag.optional}}<i>(Optional)</i> {{/if}}{{ theTag.description }}</dd>
 
-                  {{/notequal}}
+                  {{/notEqual}}
 
                 {{/each}}
 
@@ -44,7 +44,7 @@
 
             </div>
 
-            {{#isequal file.ext 'html'}}
+            {{#isEqual file.ext 'html'}}
 
               <div class="sugar-rendered">
                 {{{ data.context }}}
@@ -52,11 +52,11 @@
 
               <pre><code class="language-markup">{{ data.context }}</code></pre>
 
-            {{/isequal}}
+            {{/isEqual}}
 
             {{#each data.tags as |theTag| }}
 
-              {{#isequal theTag.tag 'example'}}
+              {{#isEqual theTag.tag 'example'}}
 
                 <div class="sugar-rendered">
                   {{{ theTag.description }}}
@@ -64,7 +64,7 @@
 
                 <pre><code class="language-markup">{{ theTag.description }}</code></pre>
 
-              {{/isequal}}
+              {{/isEqual}}
 
             {{/each}}
 

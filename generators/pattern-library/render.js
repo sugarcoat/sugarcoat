@@ -14,6 +14,7 @@ var mkdirp = require( 'mkdirp' );
 var path = require( 'path' );
 var log = require( 'npmlog' );
 var Handlebars = require( 'handlebars' );
+var hbHelpers = require( '../../lib/hbhelpers.js' );
 
 var defaults = {
     layoutDir: path.join( __dirname, 'templates/main.hbs'),
@@ -46,11 +47,13 @@ Render.prototype = {
 
     setupHandlebars: function() {
 
-        var self = this;
-
-        Handlebars.registerHelper( 'isequal', this.isequalHelper );
-        Handlebars.registerHelper( 'notequal', this.notequalHelper );
-        Handlebars.registerHelper( 'toID', this.toID );
+        var self = this
+            , helpers = hbHelpers()
+            ;
+        
+        Handlebars.registerHelper( 'isEqual', helpers.isEqual );
+        Handlebars.registerHelper( 'notEqual', helpers.notEqual );
+        Handlebars.registerHelper( 'toID', helpers.toID );
 
         var partialsDirectories = [ this.partialsDir ];
 
@@ -205,35 +208,35 @@ Render.prototype = {
         });
     },
 
-    isequalHelper: function ( value1, value2, options ) {
+    // isequalHelper: function ( value1, value2, options ) {
 
-        if ( arguments.length < 3 ) {
+    //     if ( arguments.length < 3 ) {
 
-            log.error( 'Handlebars Helper EQUAL needs two parameters' );
-        }
+    //         log.error( 'Handlebars Helper EQUAL needs two parameters' );
+    //     }
 
-        if ( value1 !== value2 ) {
-            return options.inverse( this );
-        }
-        else {
-            return options.fn( this );
-        }
-    },
+    //     if ( value1 !== value2 ) {
+    //         return options.inverse( this );
+    //     }
+    //     else {
+    //         return options.fn( this );
+    //     }
+    // },
 
-    notequalHelper: function ( value1, value2, options ) {
+    // notequalHelper: function ( value1, value2, options ) {
 
-        if ( arguments.length < 3 ) {
+    //     if ( arguments.length < 3 ) {
 
-            log.error( 'Handlebars Helper EQUAL needs two parameters' );
-        }
+    //         log.error( 'Handlebars Helper EQUAL needs two parameters' );
+    //     }
 
-        if ( value1 === value2 ) {
-            return options.inverse( this );
-        }
-        else {
-            return options.fn( this );
-        }
-    },
+    //     if ( value1 === value2 ) {
+    //         return options.inverse( this );
+    //     }
+    //     else {
+    //         return options.fn( this );
+    //     }
+    // },
 
     // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
     writeFile: function( file, contents, callback ) {
@@ -298,16 +301,16 @@ Render.prototype = {
         var newPrismJS = path.join( process.cwd(), 'documentation/pattern-library/js/prism.js' );
         //set up prism.js
         this.moveFile( prismJS, newPrismJS, 'js' );
-    },
-
-    toID: function ( str, index, context ) {
-
-        context = context === undefined ? index : context;
-
-        index = isNaN( index ) ? '' : '-' + index;
-
-        return 'sugar-' + str.replace( /\s|\/|\./g, '-' ).toLowerCase() + index;
     }
+
+    // toID: function ( str, index, context ) {
+
+    //     context = context === undefined ? index : context;
+
+    //     index = isNaN( index ) ? '' : '-' + index;
+
+    //     return 'sugar-' + str.replace( /\s|\/|\./g, '-' ).toLowerCase() + index;
+    // }
 };
 
 module.exports = function( options ) {

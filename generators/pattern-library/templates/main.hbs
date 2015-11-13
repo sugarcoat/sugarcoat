@@ -25,27 +25,27 @@
 
 {{#each this as |section|}}
 
-  {{#isequal section.type 'variables'}}
+  {{#isEqual section.type 'variables'}}
 
     {{~#if section.template}}
-      {{~#isequal section.template 'color'}}
+      {{~#isEqual section.template 'color'}}
         {{~> color}}
-      {{~/isequal}}
-      {{~#isequal section.template 'typography'}}
+      {{~/isEqual}}
+      {{~#isEqual section.template 'typography'}}
         {{~> typography}}
-      {{~/isequal}}
-      {{~#isequal section.template 'variable'}}
+      {{~/isEqual}}
+      {{~#isEqual section.template 'variable'}}
         {{~> variable}}
-      {{~/isequal}}
+      {{~/isEqual}}
     {{~else}}
       {{~> variable}}
     {{~/if}}
 
-  {{/isequal}}
+  {{/isEqual}}
 
-  {{#notequal section.type 'variables'}}
+  {{#notEqual section.type 'variables'}}
     {{~> default}}
-  {{/notequal}}
+  {{/notEqual}}
 
 {{/each}}
 
