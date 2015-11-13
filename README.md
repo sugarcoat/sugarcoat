@@ -17,7 +17,7 @@ Making documentation a bit sweeter ✨
   - [Configuration](#configuration)
     - [`settings` Object](#settings-object)
     - [`sections` Array](#sections-array)
-  - [Commenting Code](#commenting-code)
+  - [DocBlock Comments](#docblock-comments)
   - [Templating](#templating)
     - [Custom Templating](#custom-templating)
   - [TODO](#todo)
@@ -38,23 +38,23 @@ Making documentation a bit sweeter ✨
 
 1. Can I use my own template?
 
-  Yes, you can use your own template, and even your own partials. See the options `template` and `partials`
+   Yes, you can use your own template, and even your own partials. See the options `template` and `partials`
 
 2. Can you parse special variables?
 
-  Yes, we're able to grab `.less` and `.scss` variables when you use the option `type` in a `sections` object.
+   Yes, we're able to grab `.less` and `.scss` variables when you use the option `type` in a `sections` object.
 
 3. Can I designate the order of the library?
 
-  Yes, sugarcoat renders each section object in the order in which they're declared
+   Yes, sugarcoat renders each section object in the order in which they're declared
 
 4. What if I want to include an entire folder?
 
-  Sure, just use a globbing pattern in your `files` array
+   Sure, just use a globbing pattern in your `files` array
 
 5. What if I don't want to include a specific file?
 
-  Yup, just use a globbing pattern with the negation symbol `!` at the beginning of the pathname
+   Yup, just use a globbing pattern with the negation symbol `!` at the beginning of the pathname
 
 
 # Install #
@@ -223,7 +223,7 @@ Contains an `Array` of [Section Objects](#section-object)
 Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse](https://www.npmjs.com/package/comment-parser) to build its AST comment object. The following are reserved tags:
 
 - **`@title`** The name of the module. Sugarcoat uses this tag in its default navigation template
-- **`@example`** Takes the following single or multiline markup and adds it as the comment object's `code` key
+- **`@example`** Takes a single or multiline code example
 - **`@modifier`** Takes the following word and adds it as the `name` key in the tag object. The word can be prefixed with any of the following characters: **`:.#`**
 
 **Comment Example**
@@ -249,7 +249,7 @@ Sugarcoat's `parser.js` module adds some additional parsing functionality to [co
   line: 0,
   description: '',
   source: '@title Tooltip\n@example\n     <div class="tooltip">\n         <span class="tooltip-content">This is a tooltip</span>\n     </div>\n@modifier .active enabled class on .tooltip',
-  code: '<div class="tooltip">\n    <span class="tooltip-content">This is a tooltip</span>\n</div>',
+  context: '',
   tags: [ 
     { 
       tag: 'title',
@@ -284,7 +284,7 @@ Sugarcoat's `parser.js` module adds some additional parsing functionality to [co
 
 **HTML**
 
-When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `code` key of the comment object.
+When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `context` key of the comment object.
 
 **Comment Example (html)**
 
@@ -311,7 +311,7 @@ When parsing html-based markup, Sugarcoat will take the code following a comment
   line: 0,
   description: '',
   source: '@title Some Component\n@description This component has an interesting description\n@dependencies /library/js/modules/some-component.js',
-  code: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n',
+  context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n',
   tags: [ 
     { 
       tag: 'title',
@@ -374,11 +374,11 @@ If you'd like to provide one or more of your own partials, provide a directory p
 
 # TODO #
 
-- Extract Handlebar Helpers from Render module
-- Ability to add custom tags (custom parser functions)
-- More styling and better structuring of rendered sections
-- Namespace sugarcoat-specific css
-- Inject elements/compoents css for real previews
 - More refactoring of module structure (globber, parser, renderer)
+- Ability to add custom tags (custom parser functions)
+- Extract Handlebars helpers from `render` module
+- Namespace sugarcoat-specific css
+- More styling and better structuring of rendered sections
+- Inject elements/components css for real previews
 - Add JavaScript modules/components example
 - Add tests (once API is a little more stable)
