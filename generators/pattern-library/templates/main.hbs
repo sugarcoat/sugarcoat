@@ -3,21 +3,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <!-- Begin Styles -->
-  <style type="text/css" media="screen">
-    .desc dt {
-      font-weight: bold;
-    }
-    .desc dd {
-      margin-bottom: 15px;
-    }
-  </style>
-
-  <link rel="stylesheet" type="text/css" href="styles/furtive.css">
-  <link rel="stylesheet" type="text/css" href="styles/pattern-lib.css">
-  <link rel="stylesheet" type="text/css" href="styles/prism.css">
-
-  <!-- End Styles -->
+  {{> head}}
 </head>
 <body class="sugar-body">
 
@@ -49,10 +35,7 @@
 
 {{/each}}
 
-<!-- Begin Scripts -->
-<!-- <script src="../../library/js/config/require-config.js"></script> -->
-<script src="../../documentation/pattern-library/js/prism.js"></script>
-<!-- End Scripts -->
+{{> footer}}
 
 </body>
 </html>

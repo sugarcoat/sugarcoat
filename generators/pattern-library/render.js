@@ -251,8 +251,6 @@ Render.prototype = {
 
     setupFiles: function() {
 
-        // console.log('destinationsssssssssss', this.dest);
-
         //furtive file paths
         var furtive = path.join( __dirname, 'templates/styles/furtive.css' );
         var newFurtive = path.join( process.cwd(), this.dest + 'styles/furtive.css' );
@@ -277,6 +275,19 @@ Render.prototype = {
         //set up prism.js
         this.moveFile( prismJS, newPrismJS, 'js' );
     }
+
+    // renderCSS: function() {
+
+        //get the filepaths & ext
+        //if ( ext === 'scss' || ext === 'sass' ) {
+            //use node sass to render scss into css (https://www.npmjs.com/package/node-sass)
+            //push the css into the folder: dest/styles/ 
+        //}
+        // if ( ext === 'less' ) {
+
+            //use less to render less to css (http://onedayitwillmake.com/blog/2013/03/compiling-less-from-a-node-js-script/)
+        // }
+    // }
 };
 
 module.exports = function( options ) {
