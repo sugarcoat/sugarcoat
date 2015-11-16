@@ -1,28 +1,25 @@
-/**
- *
- *
- *
- *
- *
- */
-
 var fs = require( 'fs' );
 var path = require( 'path' );
-var util = require( 'util' )
+var util = require( 'util' );
 
-var log = require( 'npmlog' );
-var globber = require( '../../lib/globber' );
 var parser = require( './parser' );
 var render = require( './render' );
+var globber = require( '../../lib/globber' );
+var configure = require( './configure' );
 
-function generate( config ) {
+/**
+ *
+ */
+module.exports = function( config ) {
 
-    log.level = config.settings.logLevel || 'info';
+    config = configure( config );
 
-    return globFiles( config )
-        .then( readSections )
-        .then( parseSections )
-        .then( render );
+    var sequence = globFiles( config )
+       .then( readSections )
+       .then( parseSections )
+       .then( render );
+
+   return sequence;
 }
 
 /**
@@ -33,7 +30,6 @@ function globFiles( config ) {
     var globArr = config.sections.map( function( section ) {
 
         return globber( section.files );
-
     });
 
     return Promise.all( globArr ).then( function ( sections ) {
@@ -50,9 +46,9 @@ function globFiles( config ) {
 /**
  *
  */
-function readSections( options ) {
+function readSections( config ) {
 
-    var promiseArr = options.sections.map( function ( section, index ) {
+    var promiseArr = config.sections.map( function ( section, index ) {
 
         return Promise.all( section.files.map( function ( file, index ) {
 
@@ -75,18 +71,18 @@ function readSections( options ) {
     });
 
     return Promise.all( promiseArr ).then( function ( values ) {
-        return options;
+        return config;
     });
 }
 
 /**
  *
  */
-function parseSections( options ) {
+function parseSections( config ) {
 
-    var parse = parser();
+    var parse = parser( config );
 
-    options.sections.forEach( function ( section, index ) {
+    config.sections.forEach( function ( section, index ) {
 
 
         section.files.map( function ( file, index ) {
@@ -96,7 +92,5 @@ function parseSections( options ) {
 
     });
 
-    return options;
+    return config;
 }
-
-module.exports = generate;

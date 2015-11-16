@@ -116,17 +116,23 @@ sugarcoat "./my/config.js"
 
 ## `settings` Object ##
 
-**`dest` String** - *(Optional)* Folder in which sugarcoat will output your library. Sugarcoat will create the folder if it does not already exist. When declaring a folder, use a path with no trailing slash "/". Including a `dest` folder means that sugarcoat will render 
+**`cwd` String** - *(Optional)* This is the path to which the `dest` path is relative. Defaults to value of `process.cwd()`.
 
-**`layout` String** - *(Optional)* Path of the Handlebars template used during render. Default is `demo/documentation/templates/main.hbs`
+**`dest` String** - *(Optional)* Directory to which sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create the directory if it does not already exist. Default is `null` and renders no output.
 
-**`partials` String** - *(Optional)* Folder for Handlebars partials to be registered to the Handlebars template. If using the reserved partial basenames of `color`, `typography`, `variable`, or `default`, the associated default partial will be replaced with your custom partial.
+**`json` Boolean** - *(Optional)* If set to `true`, sugarcoat will return the parsed data as JSON. Default is `false`.
 
-**`json` Boolean** - *(Optional)* Boolean defaults to false. If set to true sugarcoat will return an object of the parsed data.
+**`log` Object** - *(Optional)* Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
-**`logLevel` String** - *(Optional)* String that can be used to set the level that logs print out. If you wish to have no logs, use the option `silent`. 
+**`template.cwd` String** - *(Optional)* This is the base path to which all `template` paths relative.
 
-*If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work. 
+**`template.layout` String** - *(Optional)* Path (relative to `template.cwd`) to the Handlebars layout template instead the one provided by Sugarcoat.
+
+**`template.partials` Array** - *(Optional)* An array directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a reserved basename (`color`, `typography`, `variable`, or `default`), the respective partial will be used instead the one provided by Sugarcoat.
+
+**`template.assets` Array** - *(Optional)* An array directory (not file) paths (relative to `template.cwd`) to the static assets to use instead of the ones provided by Sugarcoat. These directories will be copied into the `dest` directory.
+
+**Note**: If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work.
 
 **Example**
 

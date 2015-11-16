@@ -1,32 +1,26 @@
-/**
- *
- *
- *
- *
- *
- */
 /*
     TODO Can this be refactored to not require a Constructor?
 */
 var fs = require( 'fs' )
 var util = require( 'util' );
-var mkdirp = require( 'mkdirp' );
 var path = require( 'path' );
-var log = require( 'npmlog' );
-var Handlebars = require( 'handlebars' );
-var hbHelpers = require( '../../lib/hbhelpers.js' );
 
-var defaults = {
-    layoutDir: path.join( __dirname, 'templates/main.hbs'),
-    partialsDir: path.join( __dirname, 'templates/partials')
-};
+var _ = require( 'lodash' );
+var glob = require( 'glob' );
+var mkdirp = require( 'mkdirp' );
+var Handlebars = require( 'handlebars' );
+var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
+
+var log = require( '../../lib/logger' );
+var globber = require( '../../lib/globber' );
 
 function Render( config ) {
 
     this.config = config;
-    this.templateSrc = config.settings.layout || defaults.layoutDir;
-    this.partialsDir = defaults.partialsDir;
-    this.customPartials = config.settings.partials;
+    log.config( config.settings.log );
+    Handlebars.registerHelper( hbsHelpers );
+
+    this.customPartials = this.config.settings.partials;
 
     if ( !config.settings.json && !config.settings.dest ) {
 
@@ -34,9 +28,9 @@ function Render( config ) {
     }
 
     // required config
-    this.dest = config.settings.dest + '/';
+    this.dest = config.settings.dest;
 
-    this.setupFiles();
+    this.setupFiles( this.dest );
 
     this.setupHandlebars();
 
@@ -48,113 +42,63 @@ Render.prototype = {
     setupHandlebars: function() {
 
         var self = this
-            , helpers = hbHelpers()
+            , template = this.config.settings.template
+            , partialsDir = template.partials
+            , layout = template.layout
             ;
-        
-        Handlebars.registerHelper( 'isEqual', helpers.isEqual );
-        Handlebars.registerHelper( 'notEqual', helpers.notEqual );
-        Handlebars.registerHelper( 'toID', helpers.toID );
 
-        var partialsDirectories = [ this.partialsDir ];
+        partialsDir = partialsDir.map( function( directory ) {
 
-        if ( this.customPartials ) {
-
-            partialsDirectories.push( this.customPartials );
-        }
-
-        partialsDirectories = partialsDirectories.map( function( directory ) {
-
-            return self.readDir( directory );
+            return globber( path.join( directory, '**/*' ) );
         });
 
-        Promise.all(
-            partialsDirectories
-        )
-        .then(
-            this.assignValues.bind( this )
-        )
-        .then(
-            this.managePartials.bind( this )
-        );
-    },
+        Promise.all( partialsDir )
+        .then( this.managePartials.bind( this ) )
+        .then( this.registerPartials.bind( this ) )
+        .then( function () {
 
-    assignValues: function( values ) {
+            fs.readFile( layout, 'utf8', function( err, data ) {
 
-        this.partials = values[ 0 ];
+                if ( err ) throw new Error( err );
 
-        if ( values[ 1 ]) {
-            this.partials = this.partials.concat( values[ 1 ]);
-        }
-    },
+                self.template = Handlebars.compile( data );
+                self.renderTemplate();
 
-    readDir: function( directory ) {
-
-        return new Promise( function( resolve, reject ) {
-
-            log.info( 'Registering Partials', 'from directory:', directory );
-
-            fs.readdir( directory, function( err, files ) {
-
-                if ( err ) {
-
-                    throw new Error( 'Error: reading directory', err );
-                }
-
-                var partials = [];
-
-                for ( var i = 0 ; i < files.length ; i++ ) {
-
-                    var matches = /^([^.]+).hbs$/.exec( files[ i ] );
-
-                    if ( matches ) partials.push( directory + '/' + files[ i ] );
-
-                    if ( i === files.length - 1 ) resolve( partials );
-
-                }
+                return;
             });
+        })
+        .catch( function ( err ) {
+            log.error( 'Render', err );
         });
     },
 
-    managePartials: function() {
+    managePartials: function( partials ) {
 
         var self = this;
 
-        var partials = this.partials.map( function( partial ) {
+        this.partials = _.flatten( partials );
+
+        return Promise.all( this.partials.map( function( partial ) {
 
             return self.getPartials( partial );
-        });
-
-        return Promise.all(
-            partials
-        )
-        .then(
-            this.registerPartials.bind( this )
-        )
-        .then(
-            this.readTemplate.bind( this )
-        );
+        }));
     },
 
     getPartials: function( filename ) {
 
         return new Promise( function( resolve, reject ) {
 
-            fs.readFile( filename, 'utf8', function( err, partial ) {
+            fs.readFile( filename, 'utf8', function( err, data ) {
 
-                if ( err ) {
+                if ( err ) return reject( err );
 
-                    log.error( 'Error reading partial', '%j', partial, err );
-                }
+                log.info( 'Render', `registering partial "${path.basename( filename )}"` );
 
-                var obj = {
-                    file: filename,
-                    data: partial
-                };
-
-                resolve( obj );
-
+                return resolve({
+                    file: path.basename( filename ),
+                    data: data
+                });
             });
-
         });
     },
 
@@ -171,40 +115,18 @@ Render.prototype = {
         });
     },
 
-    readTemplate: function() {
-
-        var self = this;
-
-        fs.readFile( this.templateSrc, { encoding: 'utf-8'}, function( err, data ) {
-
-            if ( err ) {
-
-                throw new Error( 'Could not read template: ', err );
-            }
-
-            self.template = Handlebars.compile( data );
-            self.renderTemplate();
-        });
-    },
-
     renderTemplate: function() {
 
-        var data = this.config.sections
-            , compiledData = this.template( data )
-            , basename = 'documentation'
-            , file = this.dest + basename + '.html'
+        var cwd = this.config.settings.cwd
+            , markup = this.template( this.config.sections )
+            , file = path.join( `${this.dest}`, 'index.html' )
             ;
 
-        this.writeFile( file, compiledData, function( err ) {
+        this.writeFile( file, markup, function( err ) {
 
-            if ( err ) {
+            if ( err ) throw new Error( err );
 
-                throw new Error( 'Could not write file: ', err );
-            }
-            else {
-                // console.log( 'File Complete: ', file);
-                log.info( 'Template rendered:', file );
-            }
+            return log.info( 'Render', `template rendered "${path.relative( cwd, file )}"` );
         });
     },
 
@@ -213,75 +135,89 @@ Render.prototype = {
 
         mkdirp( path.dirname( file ), function ( err ) {
 
-            if ( err ) { return callback( err ); }
+            if ( err ) return callback( err );
 
             fs.writeFile( file, contents, callback );
         });
     },
 
-    // setupStyles: reads in the style files for the pattern library and adds them to the project so we can access them
-    moveFile: function( oldFile, newFile, folder ) {
+    copyFile: function( oldFile, newFile ) {
 
-        var destination = this.dest;
-        // console.log('dest', typeof this.dest);
+        var destDir = path.parse( newFile )
 
         //read in furtive CSS
         fs.readFile( oldFile, 'utf8', function( err, data ) {
 
-            if ( err ) throw err;
+            if ( err ) throw new Error( err );
 
-            var dir = path.join( process.cwd(), destination ); //second option should be settings: dest
-            dir = path.join( dir, folder );
+            if ( !fs.existsSync( destDir.dir ) ) fs.mkdirSync( destDir.dir );
 
-            if ( !fs.existsSync( dir ) ) {
-
-                fs.mkdirSync( dir );
-            }
-
-            // console.log(data);
             fs.writeFile( newFile, data, function( err ){
 
-                if ( err ) throw err;
+                if ( err ) throw new Error( err );
 
-                // console.log('file created!');
-                log.info( 'File created', newFile );
+
+                log.info( 'Render', `asset copied "${newFile}"` );
             });
         });
     },
 
-    setupFiles: function() {
+    setupFiles: function( dest ) {
 
-        // console.log('destinationsssssssssss', this.dest);
+        var destPaths
+            , self = this
+            , srcPaths = this.config.settings.template.assets
+            ;
 
-        //furtive file paths
-        var furtive = path.join( __dirname, 'templates/styles/furtive.css' );
-        var newFurtive = path.join( process.cwd(), this.dest + 'styles/furtive.css' );
-        //set up furtive.css
-        this.moveFile( furtive, newFurtive, 'styles' );
+        srcPaths = srcPaths.map( function ( srcPath ) {
 
-        //patt-lib file paths
-        var patLib = path.join( __dirname, 'templates/styles/pattern-lib.css' );
-        var newPattLib = path.join( process.cwd(), this.dest + 'styles/pattern-lib.css' );
-        //set up furtive.css
-        this.moveFile( patLib, newPattLib, 'styles' );
+            srcPath = path.join( srcPath, '**/*' );
 
-        //furtive file paths
-        var prismCSS = path.join( __dirname, 'templates/styles/prism.css' );
-        var newPrismCSS = path.join( process.cwd(), this.dest + 'styles/prism.css' );
-        //set up furtive.css
-        this.moveFile( prismCSS, newPrismCSS, 'styles' );
+            var srcExecutor = function ( resolve, reject ) {
 
-        //prism.js file paths
-        var prismJS = path.join( __dirname, 'templates/js/prism.js' );
-        var newPrismJS = path.join( process.cwd(), this.dest + 'js/prism.js' );
-        //set up prism.js
-        this.moveFile( prismJS, newPrismJS, 'js' );
+                return glob( srcPath, function ( err, file ) {
+
+                    if ( err ) return reject( err );
+
+                    return resolve( file );
+                })
+            };
+
+            return new Promise( srcExecutor );
+        });
+
+        Promise.all( srcPaths )
+        .then( function ( files ) {
+
+            srcPaths = _.flatten( files );
+
+            destPaths = srcPaths.map( function ( file ) {
+                return path.join( dest, path.relative( self.config.settings.template.cwd, file ) );
+            });
+        }).then( function () {
+
+            srcPaths.forEach( function ( srcPath, index ) {
+                self.copyFile( srcPath, destPaths[ index ] );
+            });
+        })
+        .catch( function ( err ) {
+            log.error( '', err );
+        });
+    },
+
+    toID: function ( str, index, context ) {
+
+        context = context === undefined ? index : context;
+
+        index = isNaN( index ) ? '' : '-' + index;
+
+        return 'sugar-' + str.replace( /\s|\/|\./g, '-' ).toLowerCase() + index;
     }
 };
 
-module.exports = function( options ) {
+module.exports = function( config ) {
 
-    new Render( options );
+    new Render( config );
 
-    return options;
+    return config;
 };
