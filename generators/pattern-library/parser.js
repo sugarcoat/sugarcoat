@@ -7,8 +7,9 @@
     TODO Can this be refactored to not require a Constructor?
 */
 var util = require( 'util' );
-var log = require( 'npmlog' );
 var _ = require( 'lodash' );
+
+var log = require( '../../lib/logger' );
 var beautify_html = require( 'js-beautify' ).html;
 var commentParser = require( 'comment-parser' );
 var parserFunctions = commentParser.PARSERS;
@@ -18,7 +19,10 @@ var rCommentBlock = /(<!--[\n|\s]*\/\*\*)/g;
 var rCommentSplit = /^\s*\*\//m;
 var rHtmlCommentSplit = /^\s*\*\/\n*\s*-->/m;
 
-function Parser() {}
+function Parser( config ) {
+
+    log.config( config.settings.log );
+}
 
 Parser.prototype = {
 
@@ -76,7 +80,7 @@ Parser.prototype = {
 
         comments.shift();
 
-        //loop through each commentblock 
+        //loop through each commentblock
         for ( var i = 0; i < comments.length; i++ ) {
 
             // split blocks into comment and code content
@@ -191,6 +195,6 @@ Parser.prototype = {
     }
 };
 
-module.exports = function() {
-    return new Parser();
+module.exports = function( config ) {
+    return new Parser( config );
 };
