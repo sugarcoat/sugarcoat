@@ -90,7 +90,7 @@ sugarcoat "./my/config.js"
 # Configuration #
 
 
-**Example**
+**Simple Example**
 
 ```js
 {
@@ -117,79 +117,125 @@ sugarcoat "./my/config.js"
 ## `settings` Object ##
 
 ### `cwd` ###
-*(Optional)*
 
-Type: `String` 
+Type: `String`
+Optional: `true` 
 Default: value of `process.cwd()`
 
 This is the path to which the `dest` path is relative.
 
 
 ### `dest` ###
-*(Optional)*
 
 Type: `String`
+Optional: `true`
 Default: `null`
 
 Directory to which sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create the directory if it does not already exist.
 
 
 ### `json` ###
-*(Optional)*
 
 Type: `Boolean`
+Optional: `true`
 Default: `false`
 
 If set to `true`, sugarcoat will return the parsed data as JSON.
 
 
 ### `log` ###
-*(Optional)*
 
-Type: Object
+Type: `Object`
+Optional: `true`
 
 Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
 
-**`template.cwd` String** - *(Optional)* This is the base path to which all `template` paths relative (excluding absolute paths). 
+### `template.cwd` ###
+ 
+Type: `String`
+Optional: `true`
+Default: The current working directory will be relative to whereever the `index.js` file is located.
 
-**`template.layout` String** - *(Optional)* Path (relative to `template.cwd`) to the Handlebars layout template instead the one provided by Sugarcoat.
+This is the base path to which all `template` paths are relative to (excluding absolute paths). 
 
-**`template.partials` Array** - *(Optional)* An array directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a reserved basename (`color`, `typography`, `variable`, or `default`), the respective partial will be used instead the one provided by Sugarcoat.
 
-**`template.assets` Array** - *(Optional)* An array directory (not file) paths (relative to `template.cwd`) to the static assets to use instead of the ones provided by Sugarcoat. These directories will be copied into the `dest` directory.
+### `template.layout` ###
 
-**Note**: If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work.
+Type: `String`
+Optional: `true`)
+Default: `main.hbs` that is provided by sugarcoat.
 
-**Example**
+Path (relative to `template.cwd`) to the Handlebars template that will define the layout of the site. If you'd like to provide your own layout file you must also provide a `template.cwd`.
+
+
+### `template.partials` ###
+
+Type: `Array`
+Optional: `true`
+Default: 
+
+An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a reserved basename (`color`, `typography`, `variable`, `default`, `nav`, `head`, or `footer`), the respective partial will be used instead the one provided by Sugarcoat. If you'd like to provide your own partials you must also provide a `template.cwd`.
+
+
+### `template.assets` ###
+
+Type: `Array`
+Optional: `true`
+Default: `[ 'js', 'styles', 'images' ]`
+
+An array directory (not file) paths (relative to `template.cwd`) to the static assets to use instead of the ones provided by Sugarcoat. These directories will be copied into the `dest` directory.
+
+
+**Advanced Example**
 
 ```js
 {
   settings: {
     dest: 'demo/documentation/pattern-library',
-    layout: 'generators/pattern-library/templates/main.hbs',
-    partials: 'generators/pattern-library/templates/customPartials',
+    template: {
+      cwd: 'generators/pattern-library/templates/',
+      layout: 'generators/pattern-library/templates/main.hbs',
+      partials: [
+        'generators/pattern-library/templates/customPartials',
+        'generators/pattern-library/templates/moreCustomPartials'
+      ],
+      assets: [
+        'js',
+        'styles',
+        'images'
+      ]
+    },
     json: true, 
-    loglevel: 'silent'
+    log: {
+      level: 'silent'
+    }
   }
 }
 ```
+
+**Note**: If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work.
 
 ## `sections` Array ##
 
 Contains an `Array` of [Section Objects](#section-object)
 
----
-
 ### Section Object ###
 
-#### `title` String ####
+#### `title` ####
 
-*(Required)* Title of section.
+Type: `String`
+Optional: `false`
 
-#### `files` Array ####
+Title of section.
 
-*(Required)* Target file(s) that contain comments you'd like to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) and will take a `String`, `Array`, or `Object`. You can also use a negation pattern by using the `!` symbol at the beginning of the path.
+
+#### `files` ####
+
+Type: `Sting` || `Array` || `Object`
+Optional: `false`
+
+Target file(s) that contain comments you'd like to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) which will take a `String`, `Array`, or `Object`. You can also use a negation pattern by using the `!` symbol at the beginning of the path.
 
 **String example**
 
@@ -206,13 +252,13 @@ Contains an `Array` of [Section Objects](#section-object)
 {
     title: 'A bunch of files with glob options',
     files: {
-      src: 'demo/library/styles/base/feedback.scss'
+      src: 'demo/library/styles/base/*'
       options: { /* glob Options */}
     }
 }
 ```
 
-**Negation example**
+**Array with Negation example**
 
 ```js
 {
@@ -226,9 +272,13 @@ Contains an `Array` of [Section Objects](#section-object)
 }
 ```
 
-#### `type` String ####
+#### `type` ####
 
-*(Optional)* If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` files. Otherwise, sugarcoat will always use the `default` partial template
+Type: `String`
+Optional: `true`
+Default: `default`
+
+If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` file. Otherwise, sugarcoat will always use the `default` partial template (unless you chose to provide your own partial).
 
 ```js
 {
@@ -238,9 +288,13 @@ Contains an `Array` of [Section Objects](#section-object)
 }
 ```
 
-#### `template` String ####
+#### `template` ####
 
-*(Optional)* Used with the above option, `type`. Declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, see [Custom Templating](#custom-templating)
+Type: `String`
+Optional: `true`
+Default: `variable`
+
+When used with the above option, `type`sugarcoat declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, provide a path to your partial. For more information on this, see [Custom Templating](#custom-templating).
 
 ```js
 {
@@ -388,22 +442,25 @@ Sugarcoat provides a default template for your pattern library. Each comment obj
 
 Miscellaneous partials:
 
-- `nav.hbs` Outputs a navigation that maps to each `title` of a section object and each comment object's `@title` tag
+- `nav.hbs` Outputs a navigation that maps to each `title` of a section object and each comment object's `@title` tag. This is used in sugarcoat's `main.hbs` layout template.
+- `head.hbs` Outputs links to CSS files such as [Furtive](http://furtive.co/) (to style the site a bit), `pattern-lib` (sugarcoat specific css needed for styling the `color` and `typography` template sections), and [Prism](http://prismjs.com/) (to style the code blocks to be more readable). This is used in sugarcoat's `main.hbs` layout template.
+- `footer.hbs` Outputs links to JS files such as [Prism](http://prismjs.com/) (to format code blocks). This is used in sugarcoat's `main.hbs` layout template.
 
 ## Custom Templating ##
 
-If you'd like to provide your own template, simply provide a path to the `layout` key in the `settings` object. 
+If you'd like to provide your own template, provide a path to the `template.layout` key and a relative path to `template.cwd` in the `settings` object. 
 
-If you'd like to provide one or more of your own partials, provide a directory path to the `partials` key in the `settings.template` object. If you provide sugarcoat with a partial with a basename that is "reserved", sugarcoat will use yours instead.
+If you'd like to provide one or more of your own partials, provide a directory path to the `partials` key and a relative path to `template.cwd` in the `settings` object. If you'd like to provide more than one directory path, you may do so by putting all of your paths in an array within the `template.partials` key. If you provide sugarcoat with a partial with a basename that is "reserved", sugarcoat will use your partial instead of the one sugarcoat provided. 
 
 "Reserved" basenames:
 
-- nav
-- default
-- variable
 - color
 - typography
-
+- variable
+- default
+- nav
+- head
+- footer
 
 # TODO #
 
