@@ -1,0 +1,79 @@
+/**
+ *
+ * @title Button
+ * @category UIElement
+ * @modifier .cta primary coloring
+ * @modifier :hover transition animation on hover
+ *
+ * @example <a class="btn" href="#">a.btn</a>
+ *
+ * @example <button class="btn">button.btn</button>
+ *
+ * @example <button class="btn cta">button.btn.cta</button>
+ *
+ * @example
+ *  <div class="btn-set">
+ *    <button class="btn cta">button.btn.cta</button>
+ *    <button class="btn">button.btn</button>
+ *  </div>
+ */
+.btn {
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+.cta {
+    border-color: green;
+}
+.btn-set {
+    overflow:hidden;
+}
+.btn-set .btn {
+    width:50%;
+    float:left;
+}
+
+/**
+ * @title Flashblock
+ * @category Feedback
+ * @example
+ *  <div class="flash-block">
+ *      <div class="flash-block-content">
+ *          Success Message
+ *      </div>
+ *  </div>
+ * @modifier .flash-block-success JS added class that disables the block disappearing
+ * @modifier :focus Special animated hover focus state
+ * @modifier :hover Special animated hover focus state
+ *
+ */
+.flash-block {
+    border:1px solid grey;
+    margin:20px;
+}
+.flash-block-content {
+    padding:20px;
+}
+.flash-block-success {
+    background-color:green;
+    color:white;
+}
+
+/**
+ * @title Tooltip
+ * @example
+ *  <div class="tooltip">
+ *      <span class="tooltip-content">This is a tooltip</span>
+ *  </div>
+ * @modifier .active enabled class on .tooltip
+ *
+ */
+.tooltip {
+    position:relative;
+}
+.tooltip-content {
+    position:absolute;
+    top:0;
+    left:0;
+    background-color:rgba(255,255,255,0.5);
+    color:blue;
+}
