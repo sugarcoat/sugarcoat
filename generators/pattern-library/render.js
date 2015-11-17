@@ -150,12 +150,17 @@ Render.prototype = {
 
             if ( err ) throw new Error( err );
 
+            console.log(oldFile);
+
             if ( !fs.existsSync( destDir.dir ) ) fs.mkdirSync( destDir.dir );
+
+            console.log(oldFile);
 
             fs.writeFile( newFile, data, function( err ){
 
                 if ( err ) throw new Error( err );
 
+                console.log('new', newFile);
 
                 log.info( 'Render', `asset copied "${newFile}"` );
             });

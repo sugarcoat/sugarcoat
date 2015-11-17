@@ -116,15 +116,42 @@ sugarcoat "./my/config.js"
 
 ## `settings` Object ##
 
-**`cwd` String** - *(Optional)* This is the path to which the `dest` path is relative. Defaults to value of `process.cwd()`.
+### `cwd` ###
+*(Optional)*
 
-**`dest` String** - *(Optional)* Directory to which sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create the directory if it does not already exist. Default is `null` and renders no output.
+Type: `String` 
+Default: value of `process.cwd()`
 
-**`json` Boolean** - *(Optional)* If set to `true`, sugarcoat will return the parsed data as JSON. Default is `false`.
+This is the path to which the `dest` path is relative.
 
-**`log` Object** - *(Optional)* Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
-**`template.cwd` String** - *(Optional)* This is the base path to which all `template` paths relative.
+### `dest` ###
+*(Optional)*
+
+Type: `String`
+Default: `null`
+
+Directory to which sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create the directory if it does not already exist.
+
+
+### `json` ###
+*(Optional)*
+
+Type: `Boolean`
+Default: `false`
+
+If set to `true`, sugarcoat will return the parsed data as JSON.
+
+
+### `log` ###
+*(Optional)*
+
+Type: Object
+
+Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
+
+
+**`template.cwd` String** - *(Optional)* This is the base path to which all `template` paths relative (excluding absolute paths). 
 
 **`template.layout` String** - *(Optional)* Path (relative to `template.cwd`) to the Handlebars layout template instead the one provided by Sugarcoat.
 

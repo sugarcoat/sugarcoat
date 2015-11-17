@@ -40,10 +40,6 @@ function init( options ) {
     // Remove the default assets
     if ( _.has( options, 'settings.template.assets' ) ) {
 
-        if ( !_.has( options, 'settings.template.cwd' ) ) {
-            log.error( 'Configure', '`settings.template.cwd` is required when `settings.template.assets` is defined.' );
-        }
-
         template.assets = _.difference( template.assets, defaults.settings.template.assets );
     }
 
