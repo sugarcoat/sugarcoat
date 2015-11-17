@@ -1,0 +1,45 @@
+<div id="{{toID title}}">
+
+  <div class="furtive">
+
+    <h2>{{ title }}</h2>
+
+    <div class="sugar-color-swatches">
+
+      {{#each files as |file| }}
+
+        <div id="{{toID file.path @index}}">
+
+          <p>file: {{ file.path }}</p>
+
+          {{~#each file.data as |data| }}
+
+            {{~#each data.serializedCode as |serial| }}
+
+              <div class="sugar-color-swatch brdr--light-gray">
+
+                <div class="sugar-swatch" style="background-color:{{ serial.value }}"></div>
+
+                <pre class="px1"><code>{{ serial.variable }}: {{ serial.value }}</code></pre>
+
+                {{#if serial.comment }}
+
+                  <p class="px1">{{ serial.comment }}</p>
+
+                {{/if}}
+
+              </div>
+
+            {{/each }}
+
+          {{~/each }}
+
+        </div>
+
+      {{~/each }}
+
+    </div>
+
+  </div>
+
+</div>

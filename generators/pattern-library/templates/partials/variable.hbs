@@ -1,0 +1,36 @@
+<div id="{{toID title}}">
+
+  <table class="variables furtive">
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Value</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
+
+    {{#each files as |file| }}
+
+      <tbody id="{{toID file.path}}">
+
+        {{~#each file.data as |data| }}
+
+          {{~#each data.serializedCode}}
+
+            <tr>
+              <td>{{ data.variable }}</td>
+              <td>{{ data.value }}</td>
+              <td>{{ data.comment }}</td>
+            </tr>
+
+          {{~/each}}
+
+        {{~/each}}
+
+
+      </tbody>
+
+    {{/each}}
+
+  </table>
+</div>
