@@ -380,9 +380,8 @@ If you'd like to provide one or more of your own partials, provide a directory p
 
 # TODO #
 
-- More refactoring of module structure (globber, parser, renderer)
-- Ability to add custom tags (custom parser functions)
+- More refactoring of modules (functional, Promises)
 - More styling and better structuring of rendered sections
-- Inject elements/components css for real previews
-- Add JavaScript modules/components example
-- Add tests (once API is a little more stable)
+- Ability to add custom tags (custom parser functions)
+- Add support for JavaScript modules and components (React)
+- Add tests (once API is stable)
