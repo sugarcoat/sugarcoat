@@ -367,7 +367,7 @@ Miscellaneous partials:
 
 If you'd like to provide your own template, simply provide a path to the `layout` key in the `settings` object. 
 
-If you'd like to provide one or more of your own partials, provide a directory path to the `partials` key in the `settings` object. If you provide sugarcoat with a partial with a basename that is "reserved", sugarcoat will use yours instead.
+If you'd like to provide one or more of your own partials, provide a directory path to the `partials` key in the `settings.template` object. If you provide sugarcoat with a partial with a basename that is "reserved", sugarcoat will use yours instead.
 
 "Reserved" basenames:
 

@@ -15,22 +15,22 @@
 
     {{~#if section.template}}
       {{~#isEqual section.template 'color'}}
-        {{~> color}}
+        {{~> section/color}}
       {{~/isEqual}}
       {{~#isEqual section.template 'typography'}}
-        {{~> typography}}
+        {{~> section/typography}}
       {{~/isEqual}}
       {{~#isEqual section.template 'variable'}}
-        {{~> variable}}
+        {{~> section/variable}}
       {{~/isEqual}}
     {{~else}}
-      {{~> variable}}
+      {{~> section/variable}}
     {{~/if}}
 
   {{/isEqual}}
 
   {{#notEqual section.type 'variables'}}
-    {{~> default}}
+    {{~> section/default}}
   {{/notEqual}}
 
 {{/each}}
