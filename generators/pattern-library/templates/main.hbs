@@ -11,27 +11,35 @@
 
 {{#each this as |section|}}
 
-  {{#isEqual section.type 'variables'}}
+  {{#if section.type }}
 
-    {{~#if section.template}}
-      {{~#isEqual section.template 'color'}}
-        {{~> section/color}}
-      {{~/isEqual}}
-      {{~#isEqual section.template 'typography'}}
-        {{~> section/typography}}
-      {{~/isEqual}}
-      {{~#isEqual section.template 'variable'}}
-        {{~> section/variable}}
-      {{~/isEqual}}
-    {{~else}}
-      {{~> section/variable}}
-    {{~/if}}
+    {{#isEqual section.type 'variables'}}
 
-  {{/isEqual}}
+      {{#if section.template }}
 
-  {{#notEqual section.type 'variables'}}
-    {{~> section/default}}
-  {{/notEqual}}
+        {{> (lookup . 'template') }}
+
+      {{else}}
+
+        {{> variable}}
+
+      {{/if}}
+
+    {{/isEqual}}
+
+  {{else}}
+
+    {{#if section.template }}
+
+      {{> (lookup . 'template') }}
+
+    {{else}}
+
+      {{> default}}
+
+    {{/if}}
+
+  {{/if}}
 
 {{/each}}
 
