@@ -47,12 +47,22 @@ Render.prototype = {
             , layout = template.layout
             ;
 
-        partialsDir = partialsDir.map( function( directory ) {
+        var partialsPaths = partialsDir.map( function( directory ) {
 
-            return globber( path.join( directory, '**/*' ) );
+            return globber({
+                src: [ path.join( directory, '**/*' ) ],
+                options: {
+                    nodir: true
+                }
+            }).then( function ( partials ) {
+
+                return _.flatten( partials ).map( function ( partialPath ) {
+                    return [ partialPath, `${directory}${path.sep}` ];
+                });
+            });
         });
 
-        Promise.all( partialsDir )
+        Promise.all( partialsPaths )
         .then( this.managePartials.bind( this ) )
         .then( this.registerPartials.bind( this ) )
         .then( function () {
@@ -84,31 +94,35 @@ Render.prototype = {
         }));
     },
 
-    getPartials: function( filename ) {
+    getPartials: function( partialPath ) {
 
         return new Promise( function( resolve, reject ) {
 
-            fs.readFile( filename, 'utf8', function( err, data ) {
+            var filePath = partialPath[0]
+                , hbsName = partialPath[0].replace( partialPath[1], '' )
+                ;
+
+            fs.readFile( filePath, 'utf8', function( err, data ) {
 
                 if ( err ) return reject( err );
 
-                log.info( 'Render', `registering partial "${path.basename( filename )}"` );
+                log.info( 'Render', `registering partial "${hbsName}"` );
 
                 return resolve({
-                    file: path.basename( filename ),
+                    file: hbsName,
                     data: data
                 });
             });
         });
     },
 
-    registerPartials: function() {
+    registerPartials: function( partialPaths ) {
 
-        var partials = arguments[ 0 ];
+        var partials = _.flatten( partialPaths );
 
         partials.forEach( function( partial ) {
 
-            var name = path.parse( partial.file ).name;
+            var name = partial.file.replace( path.parse( partial.file ).ext, '' );
 
             Handlebars.registerPartial( name, partial.data );
 
