@@ -47,22 +47,12 @@ Render.prototype = {
             , layout = template.layout
             ;
 
-        var partialsPaths = partialsDir.map( function( directory ) {
+        partialsDir = partialsDir.map( function( directory ) {
 
-            return globber({
-                src: [ path.join( directory, '**/*' ) ],
-                options: {
-                    nodir: true
-                }
-            }).then( function ( partials ) {
-
-                return _.flatten( partials ).map( function ( partialPath ) {
-                    return [ partialPath, `${directory}${path.sep}` ];
-                });
-            });
+            return globber( path.join( directory, '**/*' ) );
         });
 
-        Promise.all( partialsPaths )
+        Promise.all( partialsDir )
         .then( this.managePartials.bind( this ) )
         .then( this.registerPartials.bind( this ) )
         .then( function () {
@@ -94,35 +84,31 @@ Render.prototype = {
         }));
     },
 
-    getPartials: function( partialPath ) {
+    getPartials: function( filename ) {
 
         return new Promise( function( resolve, reject ) {
 
-            var filePath = partialPath[0]
-                , hbsName = partialPath[0].replace( partialPath[1], '' )
-                ;
-
-            fs.readFile( filePath, 'utf8', function( err, data ) {
+            fs.readFile( filename, 'utf8', function( err, data ) {
 
                 if ( err ) return reject( err );
 
-                log.info( 'Render', `registering partial "${hbsName}"` );
+                log.info( 'Render', `registering partial "${path.basename( filename )}"` );
 
                 return resolve({
-                    file: hbsName,
+                    file: path.basename( filename ),
                     data: data
                 });
             });
         });
     },
 
-    registerPartials: function( partialPaths ) {
+    registerPartials: function() {
 
-        var partials = _.flatten( partialPaths );
+        var partials = arguments[ 0 ];
 
         partials.forEach( function( partial ) {
 
-            var name = partial.file.replace( path.parse( partial.file ).ext, '' );
+            var name = path.parse( partial.file ).name;
 
             Handlebars.registerPartial( name, partial.data );
 
@@ -164,17 +150,11 @@ Render.prototype = {
 
             if ( err ) throw new Error( err );
 
-            console.log(oldFile);
-
             if ( !fs.existsSync( destDir.dir ) ) fs.mkdirSync( destDir.dir );
-
-            console.log(oldFile);
 
             fs.writeFile( newFile, data, function( err ){
 
                 if ( err ) throw new Error( err );
-
-                console.log('new', newFile);
 
                 log.info( 'Render', `asset copied "${newFile}"` );
             });
@@ -222,15 +202,6 @@ Render.prototype = {
         .catch( function ( err ) {
             log.error( '', err );
         });
-    },
-
-    toID: function ( str, index, context ) {
-
-        context = context === undefined ? index : context;
-
-        index = isNaN( index ) ? '' : '-' + index;
-
-        return 'sugar-' + str.replace( /\s|\/|\./g, '-' ).toLowerCase() + index;
     }
 };
 

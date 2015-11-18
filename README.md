@@ -173,18 +173,17 @@ Path (relative to `template.cwd`) to the Handlebars template that will define th
 
 Type: `Array`
 Optional: `true`
-Default: 
 
-An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a reserved basename (`color`, `typography`, `variable`, `default`, `nav`, `head`, or `footer`), the respective partial will be used instead the one provided by Sugarcoat. If you'd like to provide your own partials you must also provide a `template.cwd`.
+An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a reserved basename (`color`, `typography`, `variable`, `default`, `nav`, `head`, or `footer`), the respective partial will be used instead the one provided by Sugarcoat. If you'd like to provide your own partials the path must be absolute or you must provide a `template.cwd`.
 
 
 ### `template.assets` ###
 
 Type: `Array`
 Optional: `true`
-Default: `[ 'js', 'styles', 'images' ]`
+Default: `sugarcoat`
 
-An array directory (not file) paths (relative to `template.cwd`) to the static assets to use instead of the ones provided by Sugarcoat. These directories will be copied into the `dest` directory.
+An array of directory (not file) paths (relative to `template.cwd`) to the static assets to use instead of the ones provided by Sugarcoat. If you would like to use sugarcoat's assets as well as your own, you may include `sugarcoat` as an asset in the asset array. This will create another directory called `sugarcoat` that will include sugarcoat's provided assets. These directories will be copied into the `dest` directory.
 
 
 **Advanced Example**
@@ -201,6 +200,7 @@ An array directory (not file) paths (relative to `template.cwd`) to the static a
         'generators/pattern-library/templates/moreCustomPartials'
       ],
       assets: [
+        'sugarcoat',
         'js',
         'styles',
         'images'
@@ -232,7 +232,7 @@ Title of section.
 
 #### `files` ####
 
-Type: `Sting` || `Array` || `Object`
+Type: `String`|`Array`|`Object`
 Optional: `false`
 
 Target file(s) that contain comments you'd like to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) which will take a `String`, `Array`, or `Object`. You can also use a negation pattern by using the `!` symbol at the beginning of the path.

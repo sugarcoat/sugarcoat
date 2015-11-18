@@ -8,6 +8,7 @@ var log = require( '../../lib/logger' );
 /**
  * Default configuration values
  */
+var defaultAssets = 'sugarcoat';
 var defaults = {};
 
 defaults.settings = {};
@@ -17,11 +18,9 @@ defaults.settings.dest = null;
 defaults.settings.template = {};
 defaults.settings.template.cwd = path.join( __dirname, 'templates' );
 defaults.settings.template.layout = path.join( defaults.settings.template.cwd, 'main.hbs' );
-defaults.settings.template.partials = [ path.join( defaults.settings.template.cwd, 'partials' ) ];
-defaults.settings.template.assets = [
-    'js',
-    'styles',
-    'images'
+defaults.settings.template.assets = [];
+defaults.settings.template.partials = [ 
+    path.join( defaults.settings.template.cwd, 'partials' ) 
 ];
 
 /**
@@ -37,10 +36,10 @@ function init( options ) {
 
     log.config( options.settings.log );
 
-    // Remove the default assets
-    if ( _.has( options, 'settings.template.assets' ) ) {
+    if ( _.isEmpty( template.assets ) || _.includes( template.assets, defaultAssets ) ) {
 
-        template.assets = _.difference( template.assets, defaults.settings.template.assets );
+        template.assets = _.pull( template.assets, defaultAssets );
+        template.assets = template.assets.concat( path.join( defaults.settings.template.cwd, defaultAssets ) );
     }
 
     // Resolve `dest` path if provided
