@@ -17,42 +17,51 @@ var globber = require( '../../lib/globber' );
 function Render( config ) {
 
     this.config = config;
+    this.dest = config.settings.dest;
+
     log.config( config.settings.log );
     Handlebars.registerHelper( hbsHelpers );
-
-    this.customPartials = this.config.settings.partials;
 
     if ( !config.settings.json && !config.settings.dest ) {
 
         throw new Error( 'Error: Please provide destination' );
     }
 
-    // required config
-    this.dest = config.settings.dest;
+    this.copyAssets( config.settings );
 
-    this.setupFiles( this.dest );
-
-    this.setupHandlebars();
+    this.setupHandlebars( config.settings );
 
     return this.config;
 }
 
 Render.prototype = {
 
-    setupHandlebars: function() {
+    setupHandlebars: function( settings ) {
 
         var self = this
-            , template = this.config.settings.template
+            , template = settings.template
             , partialsDir = template.partials
             , layout = template.layout
             ;
 
-        partialsDir = partialsDir.map( function( directory ) {
+        partialsDir = partialsDir.map( function( dirPath ) {
 
-            return globber( path.join( directory, '**/*' ) );
+            return globber({
+                src: [ path.join( dirPath, '**/*' ) ],
+                options: {
+                    nodir: true
+                }
+            })
+            .then( function ( files ) {
+
+                return {
+                    cwd: dirPath,
+                    srcFiles: files
+                };
+            });
         });
 
-        Promise.all( partialsDir )
+        Promise.all( partialsDir ).then( flattenArray )
         .then( this.managePartials.bind( this ) )
         .then( this.registerPartials.bind( this ) )
         .then( function () {
@@ -76,41 +85,55 @@ Render.prototype = {
 
         var self = this;
 
-        this.partials = _.flatten( partials );
+        this.partials = partials;
 
-        return Promise.all( this.partials.map( function( partial ) {
+        partials = partials.map( function( partial ) {
 
-            return self.getPartials( partial );
-        }));
+            var arr = [];
+
+            partial.srcFiles.forEach( function ( srcFile ) {
+
+                arr.push( self.getPartial( srcFile, partial.cwd ) );
+            });
+
+            return Promise.all( arr ).then( flattenArray );
+        })
+
+        return Promise.all( partials ).then( flattenArray );
     },
 
-    getPartials: function( filename ) {
+    getPartial: function( srcFile, cwd ) {
 
         return new Promise( function( resolve, reject ) {
 
-            fs.readFile( filename, 'utf8', function( err, data ) {
+            fs.readFile( srcFile, 'utf8', function( err, data ) {
 
                 if ( err ) return reject( err );
 
-                log.info( 'Render', `registering partial "${path.basename( filename )}"` );
-
                 return resolve({
-                    file: path.basename( filename ),
+                    file: path.relative( cwd, srcFile ),
                     data: data
                 });
             });
         });
     },
 
-    registerPartials: function() {
-
-        var partials = arguments[ 0 ];
+    registerPartials: function( partials ) {
 
         partials.forEach( function( partial ) {
 
-            var name = path.parse( partial.file ).name;
+            var name = partial.file.replace( path.parse( partial.file ).ext, '' )
+                , isOverride = !!Handlebars.partials[ name ]
+                , msgNormal = `partial registered: "${name}"`
+                , msgOverride = `partial registered: "${name}" partial has been overridden`
+                , msg = isOverride ? msgOverride : msgNormal
+                ;
+
+            if ( isOverride ) Handlebars.unregisterPartial( name );
 
             Handlebars.registerPartial( name, partial.data );
+
+            log.info( 'Render', msg );
 
         });
     },
@@ -122,88 +145,121 @@ Render.prototype = {
             , file = path.join( `${this.dest}`, 'index.html' )
             ;
 
-        this.writeFile( file, markup, function( err ) {
+        writeFile( file, markup, function( err ) {
 
             if ( err ) throw new Error( err );
 
-            return log.info( 'Render', `template rendered "${path.relative( cwd, file )}"` );
+            return log.info( 'Render', `layout rendered "${path.relative( cwd, file )}"` );
         });
     },
 
-    // creates directories to path name provided if directory doesn't exist, otherwise is a noop.
-    writeFile: function( file, contents, callback ) {
+    copyAssets: function( settings ) {
 
-        mkdirp( path.dirname( file ), function ( err ) {
-
-            if ( err ) return callback( err );
-
-            fs.writeFile( file, contents, callback );
-        });
-    },
-
-    copyFile: function( oldFile, newFile ) {
-
-        var destDir = path.parse( newFile )
-
-        //read in furtive CSS
-        fs.readFile( oldFile, 'utf8', function( err, data ) {
-
-            if ( err ) throw new Error( err );
-
-            if ( !fs.existsSync( destDir.dir ) ) fs.mkdirSync( destDir.dir );
-
-            fs.writeFile( newFile, data, function( err ){
-
-                if ( err ) throw new Error( err );
-
-                log.info( 'Render', `asset copied "${newFile}"` );
-            });
-        });
-    },
-
-    setupFiles: function( dest ) {
-
-        var destPaths
-            , self = this
-            , srcPaths = this.config.settings.template.assets
+        var self = this
+            , dest = settings.dest
+            , assets = settings.template.assets
             ;
 
-        srcPaths = srcPaths.map( function ( srcPath ) {
+        assets = assets.map( function ( asset ) {
 
-            srcPath = path.join( srcPath, '**/*' );
+            var pattern = path.join( asset.dir, '**/*' );
 
             var srcExecutor = function ( resolve, reject ) {
 
-                return glob( srcPath, function ( err, file ) {
+                return glob( pattern, { nodir: true }, function ( err, files ) {
 
                     if ( err ) return reject( err );
 
-                    return resolve( file );
+                    asset.srcFiles = files;
+
+                    return resolve( asset );
                 })
             };
 
             return new Promise( srcExecutor );
         });
 
-        Promise.all( srcPaths )
-        .then( function ( files ) {
+        Promise.all( assets )
+        .then( function ( assets ) {
 
-            srcPaths = _.flatten( files );
+            assets = _.flatten( assets );
 
-            destPaths = srcPaths.map( function ( file ) {
-                return path.join( dest, path.relative( self.config.settings.template.cwd, file ) );
+            assets = assets.map( function ( asset ) {
+
+                asset.destFiles = [];
+
+                asset.srcFiles.forEach( function ( srcFile ) {
+
+                    asset.destFiles.push( path.join( dest, path.relative( asset.cwd, srcFile ) ) );
+                });
+
+                return asset;
             });
-        }).then( function () {
 
-            srcPaths.forEach( function ( srcPath, index ) {
-                self.copyFile( srcPath, destPaths[ index ] );
+            return assets;
+
+        }).then( function ( assets ) {
+
+            assets = _.flatten( assets );
+
+            assets.forEach( function ( asset ) {
+
+                asset.srcFiles.forEach( function ( srcFile, index ) {
+
+                    self.copyFile( srcFile, asset.destFiles[ index ], asset );
+                });
             });
+
         })
         .catch( function ( err ) {
-            log.error( '', err );
+            log.error( 'Render', err );
+        });
+    },
+
+    copyFile: function( srcFile, destFile, asset ) {
+
+        var readFile = new Promise( function ( resolve, reject ) {
+
+            fs.readFile( srcFile, 'utf8', function( err, data ) {
+
+                if ( err ) return reject( err );
+
+                return resolve( data );
+
+            });
+        });
+
+        readFile.then( function ( data ) {
+
+            return writeFile( destFile, data, function( err ) {
+
+                if ( err ) throw new Error( err );
+
+                log.info( 'Render', `asset copied: "${path.relative( asset.cwd, srcFile )}"` );
+            });
+
+        })
+        .catch( function ( reason ) {
+
+            log.error( 'Render', reason );
         });
     }
 };
+
+function flattenArray( arr ) {
+    return _.flatten( arr );
+}
+
+// TODO return a Promise
+function writeFile( file, contents, callback ) {
+
+    mkdirp( path.parse( file ).dir, function ( err ) {
+
+        if ( err ) return callback( err );
+
+        fs.writeFile( file, contents, callback );
+    });
+}
 
 module.exports = function( config ) {
 

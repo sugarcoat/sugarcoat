@@ -8,19 +8,20 @@ var log = require( '../../lib/logger' );
 /**
  * Default configuration values
  */
-var defaultAssets = 'sugarcoat';
 var defaults = {};
+var defaultAssets = 'sugarcoat';
+var cwdTemplates = path.join( __dirname, 'templates' );
 
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
 defaults.settings.dest = null;
 
 defaults.settings.template = {};
-defaults.settings.template.cwd = path.join( __dirname, 'templates' );
-defaults.settings.template.layout = path.join( defaults.settings.template.cwd, 'main.hbs' );
+defaults.settings.template.cwd = process.cwd();
+defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
 defaults.settings.template.assets = [];
-defaults.settings.template.partials = [ 
-    path.join( defaults.settings.template.cwd, 'partials' ) 
+defaults.settings.template.partials = [
+    path.join( cwdTemplates, 'partials' )
 ];
 
 /**
@@ -32,33 +33,46 @@ function init( options ) {
         , config = _.merge( defaultsCopy, options )
         , settings = config.settings
         , template = settings.template
+        , shouldGetDefaultAssets = _.isEmpty( template.assets ) || _.includes( template.assets, defaultAssets )
         ;
 
+    // Configure the logger
     log.config( options.settings.log );
 
-    if ( _.isEmpty( template.assets ) || _.includes( template.assets, defaultAssets ) ) {
+    // Remove `defaultAssets` keyword, if present
+    _.pull( template.assets, defaultAssets );
 
-        template.assets = _.pull( template.assets, defaultAssets );
-        template.assets = template.assets.concat( path.join( defaults.settings.template.cwd, defaultAssets ) );
+    // Convert to a file object
+    template.assets = template.assets.map( function ( dirPath ) {
+
+        return {
+            cwd: template.cwd,
+            dir: path.resolve( template.cwd, dirPath )
+        }
+    });
+
+    // Add in the default assets
+    if ( shouldGetDefaultAssets ) {
+
+        template.assets.push({
+            cwd: cwdTemplates,
+            dir: path.resolve( cwdTemplates, defaultAssets )
+        });
     }
 
-    // Resolve `dest` path if provided
-    if ( settings.dest ) {
-        settings.dest = path.resolve( settings.cwd, settings.dest );
-    }
+    // Add the default partials onto the biginning of the array
+    template.partials = defaults.settings.template.partials.concat( template.partials );
 
-    // Concat the default partials directory into config
-    template.partials = _.union( template.partials, defaults.settings.template.partials );
-
+    // Resolve all paths
     template.layout = path.resolve( template.cwd, template.layout );
 
     template.partials = template.partials.map( function ( dir ) {
         return path.resolve( template.cwd, dir );
     });
 
-    template.assets = template.assets.map( function ( dir ) {
-        return path.resolve( template.cwd, dir );
-    });
+    if ( settings.dest ) {
+        settings.dest = path.resolve( settings.cwd, settings.dest );
+    }
 
     return config;
 }
