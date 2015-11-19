@@ -4,7 +4,7 @@
 
 Making documentation a bit sweeter ✨
 
-**Note**: This is still a work in-progress. Please file an issue if you encounter any bugs or think a feature should be added. 
+**Note**: This is still a work in-progress. Please file an issue if you encounter any issues or think a feature should be added.
 
 
 # Index #
@@ -27,10 +27,10 @@ Making documentation a bit sweeter ✨
 
 **Pattern Library Generator**
 
-- Takes your already-documented code and creates a readable, auto-generated website
-- Promotes documentation best-practices for your project, beginning to end
-- Accepts comments from `.html` and `.css/.less/.scss` files
-- Includes a default pattern library template out of the box
+- Parses the documentation comments from your code into HTML or JSON
+- Accepts comments from any text-based file format (HTML, CSS, JavaScript, SASS, Less, etc.)
+- Promotes documentation best-practices for your project
+- Includes a default Handlebars template that generates a pattern library
 
 ---
 
@@ -38,23 +38,23 @@ Making documentation a bit sweeter ✨
 
 1. Can I use my own template?
 
-   Yes, you can use your own template, and even your own partials. See the options [`template.layout`](#templatelayout) and [`template.partials`](#templatepartials) for more information.
+   Yes, you can use your own Handlebars template and partials. See the options [`template.layout`](#templatelayout) and [`template.partials`](#templatepartials) for more information.
 
-2. Can you parse special variables?
+2. Can you parse css-preprocessor variables?
 
-   Yes, we're able to grab `.less` and `.scss` variables when you use the option `type` in a `sections` object.
+   Yes, we're able to grab the variables in your Less and SASS files. Just set the `type` option to `variables` appropriate `sections` array.
 
-3. Can I designate the order of the library?
+3. Can I designate the order in which sections rendered the pattern library?
 
-   Yes, sugarcoat renders each section object in the order in which they are declared.
+   Yes, Sugarcoat renders each section object in the order in which they're declared in the `sections` array.
 
-4. What if I want to include an entire folder?
+4. What if I want to include an entire directory of files?
 
-   Sure, just use a globbing pattern in your `files` array or string. See [`section.files`](#files) for glob pattern examples.
+   Sure, just use a glob pattern in your `files` array
 
 5. What if I don't want to include a specific file?
 
-   Sure, just use a globbing pattern with the negation symbol `!` at the beginning of the pathname. See [`section.files`](#files) for a negation example.
+   Sure, just use a glob pattern with the negation symbol `!` at the beginning of the pattern. See [`section.files`](#files) for a negation example.
 
 
 # Install #
