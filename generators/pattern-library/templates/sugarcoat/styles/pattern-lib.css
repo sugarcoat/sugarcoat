@@ -27,3 +27,14 @@
 .sugar-color-swatches .sugar-color-swatch .sugar-swatch span:first-child {
 	color:#000000;
 }
+
+/*
+ * Defaults
+ *
+ */
+.desc dt {
+    font-weight:bold;
+}
+.desc dd {
+    margin-bottom:15px;
+}

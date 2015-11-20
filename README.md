@@ -4,6 +4,8 @@
 
 Making documentation a bit sweeter ✨
 
+Sugarcoat was created to enable developers to produce rich project documentation easily and with minimal up-keep. Sugarcoat works by parsing project files for documentation comments (similar to JavaDoc, JSDoc, etc.) and generates HTML or JSON that is organized and easy to read. Sugarcoat allows developers and designers to access up-to-date previews of UI elements, page components, project specific colors and typography, all in one place.
+
 **Note**: This is still a work in-progress. Please file an issue if you encounter any issues or think a feature should be added.
 
 
@@ -23,44 +25,32 @@ Making documentation a bit sweeter ✨
   - [Roadmap](#roadmap)
 
 
-# Features #
-
-**Pattern Library Generator**
-
-- Parses the documentation comments from your code into HTML or JSON
-- Accepts comments from any text-based file format (HTML, CSS, JavaScript, SASS, Less, etc.)
-- Promotes documentation best-practices for your project
-- Includes a default Handlebars template that generates a pattern library
-
 ---
 
-**Q&A**
+# Features #
 
-1. Can I use my own template?
+1. Can you parse css-preprocessor variables?
+
+   Yes, we're able to grab the variables in your Less and SASS files. Just set the `type` option to `variables` appropriate `sections` array. See [`section.type`](#type) for more information.
+
+2. Can I customize the default template that comes with Sugarcoat?
+   
+   No problem. The `template` option in the [`settings` Object`](#settings-object) enables you to define your own layout, partials and static assets. The [`template`](#template) option in the [`section` Object`](#section-object) allows you to override the partial for a particular section.
+
+3. Can I use my own template instead of the one that comes with Sugarcoat?
 
    Yes, you can use your own Handlebars template and partials. See the options [`template.layout`](#templatelayout) and [`template.partials`](#templatepartials) for more information.
 
-2. Can you parse css-preprocessor variables?
-
-   Yes, we're able to grab the variables in your Less and SASS files. Just set the `type` option to `variables` appropriate `sections` array.
-
-3. Can I designate the order in which sections rendered the pattern library?
-
-   Yes, Sugarcoat renders each section object in the order in which they're declared in the `sections` array.
-
-4. What if I want to include an entire directory of files?
-
-   Sure, just use a glob pattern in your `files` array
-
-5. What if I don't want to include a specific file?
+4. Can I exclude files from being parsed?
 
    Sure, just use a glob pattern with the negation symbol `!` at the beginning of the pattern. See [`section.files`](#files) for a negation example.
+
 
 
 # Install #
 
 ```bash
-npm install sugarcoat --save
+npm install --save sugarcoat
 ```
 
 
@@ -68,13 +58,17 @@ npm install sugarcoat --save
 
 ## Module ##
 
-The `sugarcoat` method takes a `config` object and an `options` object and returns a `Promise`. The `resolve` callback provided to the `.then` method recieves the full data object of parsed sections.
+The Sugarcoat module takes an `config` object and returns a `Promise`. The `resolve` callback provided to the `.then` method receives the full data object of parsed sections.
 
 ```js
 var sugarcoat = require( 'sugarcoat' );
 
-sugarcoat( config, options ).then( function( data ) {
-    // do something with data
+sugarcoat( config );
+
+// or
+
+sugarcoat( config ).then( function() {
+    console.log( 'Sweet!' );
 });
 ```
 
@@ -95,19 +89,19 @@ sugarcoat "./my/config.js"
 ```js
 {
   settings: {
-    dest: 'demo/documentation/pattern-library'
+    dest: 'my/project/pattern-library'
   },
   sections: [
     {
       title: 'Components',
-      files: 'demo/components/*.html'
+      files: 'my/project/components/*.html'
     },
     {
       title: 'UI Kit',
       files: [
-        'demo/library/styles/global/*.scss',
-        '!demo/library/styles/global/typography.scss',
-        'demo/library/styles/base/feedback.scss'
+        'my/project/library/styles/global/*.scss',
+        'my/project/library/styles/base/feedback.scss',
+        '!my/project/library/styles/global/typography.scss'
       ]
     }
   ]
@@ -120,10 +114,9 @@ sugarcoat "./my/config.js"
 
 Type: `String`  
 Optional: `true`  
-Default: value of `process.cwd()`
+Default: `process.cwd()`  
 
 This is the path to which the `dest` path is relative.
-
 
 ### `dest` ###
 
@@ -131,17 +124,15 @@ Type: `String`
 Optional: `true`  
 Default: `null`  
 
-Directory to which sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create the directory if it does not already exist.
-
+Directory to which sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
 
 ### `json` ###
 
 Type: `Boolean`  
 Optional: `true`  
-Default: `false`
+Default: `false`  
 
 If set to `true`, sugarcoat will return the parsed data as JSON.
-
 
 ### `log` ###
 
@@ -150,32 +141,28 @@ Optional: `true`
 
 Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
-
 ### `template.cwd` ###
  
 Type: `String`  
 Optional: `true`  
-Default: The current working directory will be relative to whereever the `index.js` file is located.  
+Default: Sugarcoat's theme directory
 
-This is the base path to which all `template` paths are relative to (excluding absolute paths). 
-
+The base path to which all `template` paths are relative. 
 
 ### `template.layout` ###
 
 Type: `String`  
 Optional: `true`  
-Default: `main.hbs` that is provided by sugarcoat.  
+Default: `main.hbs` (provided by Sugarcoat).  
 
-Path (relative to `template.cwd`) to the Handlebars template that will define the layout of the site. If you'd like to provide your own layout file you must also provide a `template.cwd`.
-
+Path (relative to `template.cwd`) to the Handlebars layout that will define the layout of the site.
 
 ### `template.partials` ###
 
 Type: `Array`  
-Optional: `true`  
+Optional: `true`
 
-An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a reserved basename (`color`, `typography`, `variable`, `default`, `nav`, `head`, or `footer`), the respective partial will be used instead the one provided by Sugarcoat. If you'd like to provide your own partials the path must be absolute or you must provide a `template.cwd`.
-
+An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override one provided by Sugarcoat.
 
 ### `template.assets` ###
 
@@ -183,21 +170,19 @@ Type: `Array`
 Optional: `true`  
 Default: `sugarcoat`  
 
-An array of directory (not file) paths (relative to `template.cwd`) to the static assets to use instead of the ones provided by Sugarcoat. If you would like to use sugarcoat's assets as well as your own, you may include `sugarcoat` as an asset in the asset array. This will create another directory called `sugarcoat` that will include sugarcoat's provided assets. These directories will be copied into the `dest` directory.
-
+An array of directory (not file) paths (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's assets, as well as your own, just include `sugarcoat` in the asset array.
 
 **Advanced Example**
 
 ```js
 {
   settings: {
-    dest: 'demo/documentation/pattern-library',
+    dest: 'my/project/pattern-library',
     template: {
-      cwd: 'generators/pattern-library/templates/',
-      layout: 'generators/pattern-library/templates/main.hbs',
+      cwd: 'my/project/templates',
+      layout: 'my-custom-layout.hbs',
       partials: [
-        'generators/pattern-library/templates/customPartials',
-        'generators/pattern-library/templates/moreCustomPartials'
+        'my-partials'
       ],
       assets: [
         'sugarcoat',
@@ -205,16 +190,12 @@ An array of directory (not file) paths (relative to `template.cwd`) to the stati
         'styles',
         'images'
       ]
-    },
-    json: true, 
-    log: {
-      level: 'silent'
     }
   }
 }
 ```
 
-**Note**: If you do not put a `dest` string or `json` boolean, sugarcoat will error out. Minimum of one must be present in order for sugarcoat to work.
+**Note**: If you do not put a `dest` string or `json` boolean, Sugarcoat throw an `Exception`.
 
 ## `sections` Array ##
 
@@ -229,73 +210,76 @@ Optional: `false`
 
 Title of section.
 
-
 #### `files` ####
 
 Type: `String`|`Object`|`Array`  
 Optional: `false`  
 
-Target file(s) that contain comments you would like to be parsed. Sugarcoat's module, `globber.js`, uses  [glob](https://www.npmjs.com/package/glob) which will take a `String`, `Array`, or `Object`. You will need to use a glob pattern inorder to get all the files within a directory. You can also use a negation pattern by using the `!` symbol at the beginning of the path.
+File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [glob](https://www.npmjs.com/package/glob) to enable pattern matching. You will need to use a glob pattern to get all the files within a directory. You can also specify a negation pattern by using the `!` symbol at the beginning of the path.
 
 **String Examples**
 
-You may include a single file or a directory. The second string example provided will use globber to get all of the files within `demo/library/styles/base/`.
+You may include a single file or a directory. The second example uses a glob pattern to match all files within `my/project/library/styles/base`.
 
 ```js
 {
-    title: 'One File',
-    files: 'demo/library/styles/base/feedback.scss'
+    title: 'Single File',
+    files: 'my/project/library/styles/base/feedback.scss'
 }
 ```
 
 ```js
 {
     title: 'Multiple Files',
-    files: 'demo/library/styles/base/*'
+    files: 'my/project/library/styles/base/*'
 }
 ```
 
 **Object Example**
 
-You may include an object for `files`, that includes `src` and `options`. `src` is a directory and `options` are any specific options you wish to use inorder for globber to get the exact files you are looking for. In the example provided below, the option of `nodir` tells globber to not give us back any of the directories. The glob option `nodir:true` with our glob pattern of `**/*` will allow globber to get us all of the files within `demo/library/styles/base/` and any of its subdirectories. See [Glob](https://www.npmjs.com/package/glob) for all the available glob options. 
+You may use an object for `files`, that includes a `src` and `options` property. The `src` property expects a glob pattern and the `options` property enables passing specific options for greater specificity. See [Glob](https://www.npmjs.com/package/glob) for all the available glob options.
+
+In the example provided below, the pattern in the `src` property ends with `**/*` and instructs glob to match all files within `my/project/library/styles/base/`, including any subdirectories. The `nodir` option instructs glob to return only file paths.
 
 ```js
 {
-    title: 'A bunch of files with glob options',
-    files: {
-      src: 'demo/library/styles/base/**/*'
-      options: { nodir: true }
+  title: 'A Bunch of Files with glob Options',
+  files: {
+    src: 'my/project/library/styles/base/**/*'
+    options: {
+      nodir: true
     }
+  }
 }
 ```
 
 **Array Example**
 
-If you have multiple files in different directories you will want to use an array. In an array you can include paths to specific files, or you can include directories with glob patterns (or you can mix and match). 
+If you have multiple files in different directories you will want to use an array. The array can include paths to specific files, or glob patterns (or you can mix and match). 
 
 ```js
 {
     title: 'A bunch of files',
     files: [ 
-        'demo/library/styles/global/*.scss',
-        'demo/library/styles/base/feedback.scss'
+        'my/project/library/styles/global/*.scss',
+        'my/project/library/styles/base/feedback.scss'
     ]
 }
 ```
 
 **Array with Negation Example**
 
-If you have a directory with multiple files in it that you would like to use you but also have a few files you would like to exclude, you may include a negation pattern to exclude any specifc files.
+If you have a directory that contains multiple files you would like to use, but also contains a few files you would like to exclude, provide a negation pattern to exclude ignore specific files.
 
 ```js
 {
     title: 'A bunch of files',
     files: [ 
-        'demo/library/styles/global/*.scss',
-        '!demo/library/styles/global/colors.scss'
+        'my/project/library/styles/global/*.scss',
+        '!my/project/library/styles/global/colors.scss'
     ]
-    // Excludes demo/library/styles/global/colors.scss
-    // from the list of files found in demo/library/styles/global
+    // Excludes my/project/library/styles/global/colors.scss
+    // from the list of files found in my/project/library/styles/global
 }
 ```
 
@@ -305,12 +289,12 @@ Type: `String`
 Optional: `true`  
 Default: `default`  
 
-If you'd like sugarcoat to parse a file's variables, use `variables`. This works with any `.scss` or `.less` file. Otherwise, sugarcoat will always use the `default` partial template (unless you chose to provide your own partial).
+If you'd like to parse a preprocessed stylesheet's variables, provide the `variables` option. This works with any `.scss` or `.less` file.
 
 ```js
 {
-    title: 'Variables',
-    files: 'demo/library/styles/global/variables.scss',
+    title: 'Style Variables',
+    files: 'my/project/library/styles/global/variables.scss',
     type: 'variables'
 }
 ```
@@ -319,9 +303,9 @@ If you'd like sugarcoat to parse a file's variables, use `variables`. This works
 
 Type: `String`  
 Optional: `true`  
-Default: `variable`  
+Default: depends on the value of `type`  
 
-When used with the above option, `type`sugarcoat declares which partial to use when rendering variables. The default partial is `variable`. Provided alternate renderings include the options `color` or `typography`. If you'd like to designate your own partial, provide a path to your partial. For more information on this, see [Custom Templating](#custom-templating).
+The default partial is `default`, or `variables` when the `type` property is `variable`. You can also specify `color` or `typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
 
 ```js
 {
@@ -334,35 +318,34 @@ When used with the above option, `type`sugarcoat declares which partial to use w
 
 # Code Comment Syntax #
 
-Sugarcoat's `parser.js` module adds some additional parsing functionality to [comment-parse](https://www.npmjs.com/package/comment-parser) to build its AST comment object. The following are reserved tags:
+Sugarcoat adds some additional parsing options to [comment-parse](https://www.npmjs.com/package/comment-parser) in order to build the comment object. The following are reserved tags:
 
-- **`@title`** The name of the module. Sugarcoat uses this tag in its default navigation template
-- **`@example`** Takes a single or multiline code example
-- **`@modifier`** Takes the following word and adds it as the `name` key in the tag object. The word can be prefixed with any of the following characters: **`:.#`**
+  - **`@title`** This tag's value is displayed the default navigation partial
+  
+  - **`@example`** Takes a single or multiline code example
+
+  - **`@modifier`** Takes the following word and adds it as the `name` key in the tag object. This word can be prefixed with any of the following characters: **`:.#`**
 
 **Comment Example**
 
 ```css
 /**
- * 
  * @title Tooltip
- * @category Feedback
  * @example
- *    <div class="tooltip">
- *        <span class="tooltip-content">This is a tooltip</span>
- *    </div>
+ *  <div class="tooltip">
+ *    <span class="tooltip-content">This is a tooltip</span>
+ *  </div>
  * @modifier .active enabled class on .tooltip
- * 
  */
 ```
 
-**Comment Object (AST)**
+**Example of a Comment Object**
 
 ```js
 { 
   line: 0,
   description: '',
-  source: '@title Tooltip\n@example\n     <div class="tooltip">\n         <span class="tooltip-content">This is a tooltip</span>\n     </div>\n@modifier .active enabled class on .tooltip',
+  source: '@title Tooltip\n@example\n <div class="tooltip">\n   <span class="tooltip-content">This is a tooltip</span>\n </div>\n@modifier .active enabled class on .tooltip',
   context: '',
   tags: [ 
     { 
@@ -396,36 +379,35 @@ Sugarcoat's `parser.js` module adds some additional parsing functionality to [co
 }
 ```
 
+Sugarcoat takes the source code that follows a comment (up until the next comment), and applies it to the `context` key of the comment object.
+
+
 **HTML**
 
-When parsing html-based markup, Sugarcoat will take the code following a comment, and apply it to the `context` key of the comment object.
+For html files, Sugarcoat uses the same comment style. Since HTML doesn't support this style you'll need to wrap your documentation comments with an HTML-style comment. This is to maintain consistency.
 
 **Comment Example (html)**
 
 ```html
 <!--
 /**
- *
  * @title Some Component
  * @description This component has a description
- * @dependencies /library/js/modules/some-component.js, /library/js/modules/other-component.js
- *
  */
 -->
-
 <div class="some-component">
   <span>I'm a Component!</span>
 </div>
 ```
 
-**Comment Object (AST)**
+**Comment Object**
 
 ```js
 {
   line: 0,
   description: '',
-  source: '@title Some Component\n@description This component has an interesting description\n@dependencies /library/js/modules/some-component.js',
-  context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n  <!-- I\'m an inline comment! -->\n</div>\n\n',
+  source: '@title Some Component\n@description This component has an interesting description',
+  context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n</div>',
   tags: [ 
     { 
       tag: 'title',
@@ -444,57 +426,66 @@ When parsing html-based markup, Sugarcoat will take the code following a comment
       name: '',
       line: 3,
       source: '@description This component has an interesting description'
-    },
-    { 
-      tag: 'dependencies',
-      description: '/library/js/modules/some-component.js',
-      optional: false,
-      type: '',
-      name: '',
-      line: 4,
-      source: '@dependencies /library/js/modules/some-component.js'
     }
   ]
 }
 ```
 
+
+
 # Templating #
 
-Sugarcoat provides a default template for your pattern library. Each comment object found by sugarcoat will render using one of the following partials:
+Sugarcoat provides a default layout for your pattern library, rendering each parsed comment object with one of the following partials:
 
-- `default.hbs` Default rendering of a comment object.
-- `variable.hbs` Renders when `type: 'variables'` and if a `template` has not been provided - A list of variables and its associated value. 
-- `color.hbs` Renders when `template: 'color'` - A swatches array with the associated variable name and color.
-- `typography.hbs` Renders when `template: `typography` - Fonts and variable names with their examples.
+  - `default` Default rendering of a comment object.
+  
+  - `variable` Renders when `type: 'variables'` is provided - A list of variables and its associated value. 
+  
+  - `color` Renders when `template: 'color'` is provided - A list of color swatches with the associated variable name and color.
+  
+  - `typography` Renders when `template: `typography` is provided - Fonts and variable names with their examples.
+
 
 Miscellaneous partials:
 
-- `nav.hbs` Outputs a navigation that maps to each `title` of a section object and each comment object's `@title` tag. This is used in sugarcoat's `main.hbs` layout template.
-- `head.hbs` Outputs links to CSS files such as [Furtive](http://furtive.co/) (to style the site a bit), `pattern-lib` (sugarcoat specific css needed for styling the `color` and `typography` template sections), and [Prism](http://prismjs.com/) (to style the code blocks to be more readable). This is used in sugarcoat's `main.hbs` layout template.
-- `footer.hbs` Outputs links to JS files such as [Prism](http://prismjs.com/) (to format code blocks). This is used in sugarcoat's `main.hbs` layout template.
+  - `nav` Outputs the main navigation - Lists `title` of each section object, nesting each comment object's `@title` tag. Used in the default `main.hbs` layout.
+  
+  - `head` Outputs links to Sugarcoat's default stylesheets:
+    - [Furtive](http://furtive.co/): general styles
+    - `pattern-lib`: specific styling for the `color` and `typography` sections
+    - [Prism](http://prismjs.com/) styles for code blocks
+  
+  - `footer` Outputs links to JavaScript files:
+    - [Prism](http://prismjs.com/): formatting for code blocks
 
 ## Custom Templating ##
 
-If you'd like to provide your own template, provide a path to the `template.layout` key and a relative path to `template.cwd` in the `settings` object. 
+**Custom Layout**
 
-If you'd like to provide one or more of your own partials, provide a directory path to the `partials` key and a relative path to `template.cwd` in the `settings` object. If you'd like to provide more than one directory path, you may do so by putting all of your paths in an array within the `template.partials` key. If you provide sugarcoat with a partial with a basename that is "reserved", sugarcoat will use your partial instead of the one sugarcoat provided. 
+If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object. 
 
-"Reserved" basenames:
+**Custom Partials**
 
-- color
-- typography
-- variable
-- default
-- nav
-- head
-- footer
+To register your own partials, add a directory path to the `template.partials` array (relative to `template.cwd`) in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided. 
+
+### Reserved Partial Names #
+
+  - head
+  - nav
+  - footer
+  - color
+  - typography
+  - variable
+  - default
+
+
 
 # Roadmap #
 
 ## v1.0.0 ##
 - More styling and better structuring of rendered sections
 - Consolidating code comment sytax strategy
-- Standardize file globbing
+- Standardize file options
 
 ## v?.0.0 ##
 - More refactoring of modules (functional, Promises)
