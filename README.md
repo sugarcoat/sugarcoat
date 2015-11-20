@@ -35,7 +35,7 @@ Sugarcoat was created to enable developers to produce rich project documentation
 
 2. Can I customize the default template that comes with Sugarcoat?
    
-   No problem. The `template` option in the [`settings` Object`](#settings-object) enables you to define your own layout, partials and static assets. The [`template`](#template) option in the [`section` Object`](#section-object) allows you to override the partial for a particular section.
+   No problem. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. The [`template`](#template) option in the [`section` Object](#section-object) allows you to override the partial for a particular section.
 
 3. Can I use my own template instead of the one that comes with Sugarcoat?
 
@@ -269,7 +269,7 @@ If you have multiple files in different directories you will want to use an arra
 
 **Array with Negation Example**
 
-If you have a directory that contains multiple files you would like to use, but also contains a few files you would like to exclude, provide a negation pattern to exclude ignore specific files.
+If you have a directory that contains multiple files you would like to use, but also contains a few files you would like to exclude, provide a negation pattern to exclude specific files.
 
 ```js
 {
@@ -320,7 +320,7 @@ The default partial is `default`, or `variables` when the `type` property is `va
 
 Sugarcoat adds some additional parsing options to [comment-parse](https://www.npmjs.com/package/comment-parser) in order to build the comment object. The following are reserved tags:
 
-  - **`@title`** This tag's value is displayed the default navigation partial
+  - **`@title`** This tag's value is displayed in the default navigation partial
   
   - **`@example`** Takes a single or multiline code example
 
@@ -443,7 +443,7 @@ Sugarcoat provides a default layout for your pattern library, rendering each par
   
   - `color` Renders when `template: 'color'` is provided - A list of color swatches with the associated variable name and color.
   
-  - `typography` Renders when `template: `typography` is provided - Fonts and variable names with their examples.
+  - `typography` Renders when `template: 'typography'` is provided - Fonts and variable names with their examples.
 
 
 Miscellaneous partials:
