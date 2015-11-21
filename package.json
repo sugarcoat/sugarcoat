@@ -25,18 +25,6 @@
     "type": "git",
     "url": "https://github.com/SapientNitroLA/sugarcoat.git"
   },
-  "keywords": [
-    "sugar",
-    "coat",
-    "documentation",
-    "pattern",
-    "library",
-    "styleguide",
-    "comment",
-    "parse",
-    "automated",
-    "assembler"
-  ],
   "bugs": {
     "url": "https://github.com/SapientNitroLA/sugarcoat/issues"
   },
@@ -54,5 +42,36 @@
       "name": "Valerie Balcom",
       "url": "https://github.com/vbalcom"
     }
+  ],
+  "keywords": [
+    "sugar",
+    "coat",
+    "sugarcoat",
+    "docs",
+    "documentation",
+    "pattern",
+    "library",
+    "pattern library",
+    "patternlibrary",
+    "pattern-library",
+    "ui",
+    "ui library",
+    "uilibrary",
+    "ui-library",
+    "component",
+    "component library",
+    "componentlibrary",
+    "component-library",
+    "style",
+    "guide",
+    "style guide",
+    "styleguide",
+    "style-guide",
+    "comment",
+    "docblock",
+    "parse",
+    "parser",
+    "automated",
+    "assembler"
   ]
 }
