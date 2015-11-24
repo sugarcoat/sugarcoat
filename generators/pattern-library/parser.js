@@ -1,7 +1,5 @@
 /**
- *
  * Takes a section object with title key and files string or array and returns the parsed comments
- *
  */
 /*
     TODO Can this be refactored to not require a Constructor?
@@ -9,10 +7,10 @@
 var util = require( 'util' );
 var _ = require( 'lodash' );
 
-var log = require( '../../lib/logger' );
-var beautify_html = require( 'js-beautify' ).html;
+var beautifyHTML = require( 'js-beautify' ).html;
 var commentParser = require( 'comment-parser' );
 var parserFunctions = commentParser.PARSERS;
+var log = require( '../../lib/logger' );
 
 var rModifier = /([:\.#][\w-]+\s)/;
 var rCommentBlock = /(<!--[\n|\s]*\/\*\*)/g;
@@ -62,9 +60,11 @@ Parser.prototype = {
 
     parseComment: function( currentFile, data, type, templateType ) {
 
-        log.info( 'Parsing Comments', currentFile );
+        var blockCount
+            , isHtmlComponent = false
+            ;
 
-        var isHtmlComponent = false;
+        log.info( 'Parse', `"${currentFile}"` );
 
         //test for html comment start, that will tell us it is an html file that we will be parsing
         if ( data.indexOf( '<!--' ) > -1 ) {
@@ -116,15 +116,13 @@ Parser.prototype = {
                     if ( currentComment.tag === 'example' ) {
 
                         // beautify code
-                        currentComment.description = beautify_html( currentComment.description, { indent_size: 2 } );
+                        currentComment.description = beautifyHTML( currentComment.description, { indent_size: 2 } );
                     }
                 }
             }
 
             // add code to data obj as 'context'
             comments[ i ].context = _.trim( block[ 1 ] );
-
-            var infostr = '[' + templateType + '] for: ' + currentFile;
 
             if ( type ) {
 
@@ -143,9 +141,6 @@ Parser.prototype = {
 
                 //add serializedCode to data obj as 'serializedCode'
                 comments[i].serializedCode = variableInfo;
-
-                //log out info about serialized code
-                log.info( 'Serialized Code Created', infostr );
             }
         }
 

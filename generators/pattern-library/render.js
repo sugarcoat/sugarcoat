@@ -6,7 +6,6 @@ var util = require( 'util' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
-var glob = require( 'glob' );
 var mkdirp = require( 'mkdirp' );
 var Handlebars = require( 'handlebars' );
 var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
@@ -20,6 +19,7 @@ function Render( config ) {
     this.dest = config.settings.dest;
 
     log.config( config.settings.log );
+
     Handlebars.registerHelper( hbsHelpers );
 
     if ( !config.settings.json && !config.settings.dest ) {
@@ -27,11 +27,15 @@ function Render( config ) {
         throw new Error( 'Error: Please provide destination' );
     }
 
-    this.copyAssets( config.settings );
-
-    this.setupHandlebars( config.settings );
-
-    return this.config;
+    return this.setupHandlebars( config.settings )
+    .then( function () {
+        return normalizeAssets( config.settings );
+    })
+    .then( function () {
+        return config;
+    }).catch( function ( err ) {
+        log.error( 'Render', err );
+    });
 }
 
 Render.prototype = {
@@ -61,23 +65,27 @@ Render.prototype = {
             });
         });
 
-        Promise.all( partialsDir ).then( flattenArray )
+        return Promise.all( partialsDir )
+        .then( flattenArray )
         .then( this.managePartials.bind( this ) )
         .then( this.registerPartials.bind( this ) )
         .then( function () {
 
-            fs.readFile( layout, 'utf8', function( err, data ) {
+            return new Promise( function ( resolve, reject ) {
 
-                if ( err ) throw new Error( err );
+                fs.readFile( layout, 'utf8', function( err, data ) {
 
-                self.template = Handlebars.compile( data );
-                self.renderTemplate();
+                    if ( err ) return reject( err );
 
-                return;
+                    self.template = Handlebars.compile( data );
+
+                    resolve();
+
+                });
+            })
+            .then( function () {
+                return self.renderTemplate();
             });
-        })
-        .catch( function ( err ) {
-            log.error( 'Render', err );
         });
     },
 
@@ -134,8 +142,9 @@ Render.prototype = {
             Handlebars.registerPartial( name, partial.data );
 
             log.info( 'Render', msg );
-
         });
+
+        return partials;
     },
 
     renderTemplate: function() {
@@ -145,103 +154,8 @@ Render.prototype = {
             , file = path.join( `${this.dest}`, 'index.html' )
             ;
 
-        writeFile( file, markup, function( err ) {
-
-            if ( err ) throw new Error( err );
-
+        return writeFile( file, markup ).then( function( file ) {
             return log.info( 'Render', `layout rendered "${path.relative( cwd, file )}"` );
-        });
-    },
-
-    copyAssets: function( settings ) {
-
-        var self = this
-            , dest = settings.dest
-            , assets = settings.template.assets
-            ;
-
-        assets = assets.map( function ( asset ) {
-
-            var pattern = path.join( asset.dir, '**/*' );
-
-            var srcExecutor = function ( resolve, reject ) {
-
-                return glob( pattern, { nodir: true }, function ( err, files ) {
-
-                    if ( err ) return reject( err );
-
-                    asset.srcFiles = files;
-
-                    return resolve( asset );
-                })
-            };
-
-            return new Promise( srcExecutor );
-        });
-
-        Promise.all( assets )
-        .then( function ( assets ) {
-
-            assets = _.flatten( assets );
-
-            assets = assets.map( function ( asset ) {
-
-                asset.destFiles = [];
-
-                asset.srcFiles.forEach( function ( srcFile ) {
-
-                    asset.destFiles.push( path.join( dest, path.relative( asset.cwd, srcFile ) ) );
-                });
-
-                return asset;
-            });
-
-            return assets;
-
-        }).then( function ( assets ) {
-
-            assets = _.flatten( assets );
-
-            assets.forEach( function ( asset ) {
-
-                asset.srcFiles.forEach( function ( srcFile, index ) {
-
-                    self.copyFile( srcFile, asset.destFiles[ index ], asset );
-                });
-            });
-
-        })
-        .catch( function ( err ) {
-            log.error( 'Render', err );
-        });
-    },
-
-    copyFile: function( srcFile, destFile, asset ) {
-
-        var readFile = new Promise( function ( resolve, reject ) {
-
-            fs.readFile( srcFile, 'utf8', function( err, data ) {
-
-                if ( err ) return reject( err );
-
-                return resolve( data );
-
-            });
-        });
-
-        readFile.then( function ( data ) {
-
-            return writeFile( destFile, data, function( err ) {
-
-                if ( err ) throw new Error( err );
-
-                log.info( 'Render', `asset copied: "${path.relative( asset.cwd, srcFile )}"` );
-            });
-
-        })
-        .catch( function ( reason ) {
-
-            log.error( 'Render', reason );
         });
     }
 };
@@ -250,20 +164,104 @@ function flattenArray( arr ) {
     return _.flatten( arr );
 }
 
+function normalizeAssets( settings ) {
+
+    var flattened = []
+        , dest = settings.dest
+        , assets = settings.template.assets
+        ;
+
+    var expand = assets.map( function ( assetObj ) {
+
+        var relDir = path.relative( assetObj.cwd, assetObj.dir );
+
+        return globber({
+            src: path.join( relDir, '**/*' ),
+            options: {
+                cwd: assetObj.cwd,
+                nodir: true
+            }
+        })
+        .then( function ( expandedPaths ) {
+
+            assetObj.srcFiles = expandedPaths;
+
+            return assetObj.srcFiles.map( function ( assetPath ) {
+
+                var result = {
+                    from: path.resolve( assetObj.cwd, assetPath ),
+                    to: path.resolve( dest, assetPath )
+                };
+
+                flattened.push( result );
+
+                return result;
+            });
+        });
+    });
+
+    return Promise.all( expand ).then( function () {
+
+        return Promise.all( flattened.map( function ( assetObj ) {
+
+            return copy( assetObj.from, assetObj.to )
+            .then( function ( assetPaths ) {
+
+                log.info( 'Render', `asset copied: "${ path.relative( dest, assetPaths[1] ) }"` );
+                return;
+            });
+        }));
+    })
+    .catch( function ( err ) {
+        log.error( err );
+    });
+}
+
+function copy( fromPath, toPath ) {
+
+    var reader = fs.createReadStream( fromPath )
+        , writer = fs.createWriteStream( toPath )
+        ;
+
+    return new Promise( function ( resolve, reject ) {
+
+        reader.on( 'error', reject );
+        writer.on( 'error', reject );
+
+        writer.on( 'finish', function() {
+
+            resolve( [ fromPath, toPath ] );
+        });
+
+        mkdirp( path.parse( toPath ).dir, function ( err ) {
+
+            if ( err ) return reject( err );
+
+            reader.pipe( writer );
+        });
+    });
+}
+
 // TODO return a Promise
-function writeFile( file, contents, callback ) {
+function writeFile( file, contents ) {
 
-    mkdirp( path.parse( file ).dir, function ( err ) {
+    return new Promise( function ( resolve, reject ) {
 
-        if ( err ) return callback( err );
+        mkdirp( path.parse( file ).dir, function ( err ) {
 
-        fs.writeFile( file, contents, callback );
+            if ( err ) return reject( err );
+
+            fs.writeFile( file, contents, function ( err ) {
+
+                if ( err ) return reject( err );
+
+                resolve( file );
+            });
+        });
     });
 }
 
 module.exports = function( config ) {
 
-    new Render( config );
-
-    return config;
+    return new Render( config );
 };

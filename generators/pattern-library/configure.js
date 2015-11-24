@@ -61,7 +61,7 @@ function init( options ) {
     }
 
     // Add the default partials onto the biginning of the array
-    template.partials = defaults.settings.template.partials.concat( template.partials );
+    template.partials = _.uniq( defaults.settings.template.partials.concat( template.partials ) );
 
     // Resolve all paths
     template.layout = path.resolve( template.cwd, template.layout );

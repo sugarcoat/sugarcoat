@@ -484,7 +484,7 @@ To register your own partials, add a directory path to the `template.partials` a
 
 ## v1.0.0 ##
 - More styling and better structuring of rendered sections
-- Consolidating code comment sytax strategy
+- Consolidating code comment syntax strategy
 - Standardize file options
 
 ## v?.0.0 ##
