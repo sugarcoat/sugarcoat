@@ -31,11 +31,11 @@ Sugarcoat was created to enable developers to produce rich project documentation
 
 1. Can you parse css-preprocessor variables?
 
-   Yes, we're able to grab the variables in your Less and SASS files. Just set the `type` option to `variables` appropriate `sections` array. See [`section.type`](#type) for more information.
+   Yes, we're able to grab the variables in your Less and SASS files. Just set the `type` option to `variables` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
 
 2. Can I customize the default template that comes with Sugarcoat?
    
-   No problem. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. The [`template`](#template) option in the [`section` Object](#section-object) allows you to override the partial for a particular section.
+   No problem. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once, those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
 
 3. Can I use my own template instead of the one that comes with Sugarcoat?
 
@@ -162,7 +162,7 @@ Path (relative to `template.cwd`) to the Handlebars layout that will define the 
 Type: `Array`  
 Optional: `true`
 
-An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override one provided by Sugarcoat.
+An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat.
 
 ### `template.assets` ###
 
