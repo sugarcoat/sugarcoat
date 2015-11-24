@@ -1,4 +1,4 @@
-# sugarcoat #
+# Sugarcoat #
 
 [![NPM version](https://badge.fury.io/js/sugarcoat.svg)](https://www.npmjs.com/package/sugarcoat) [![Dependency Status](https://david-dm.org/sapientnitrola/sugarcoat.svg)](https://david-dm.org/sapientnitrola/sugarcoat)
 
@@ -124,7 +124,7 @@ Type: `String`
 Optional: `true`  
 Default: `null`  
 
-Directory to which sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
+Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
 
 ### `json` ###
 
@@ -132,7 +132,7 @@ Type: `Boolean`
 Optional: `true`  
 Default: `false`  
 
-If set to `true`, sugarcoat will return the parsed data as JSON.
+If set to `true`, Sugarcoat will return the parsed data as JSON.
 
 ### `log` ###
 
