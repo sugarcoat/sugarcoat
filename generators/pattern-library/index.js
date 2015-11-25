@@ -21,10 +21,9 @@ module.exports = function( config ) {
     .then( render )
     .then( function () {
         log.info( 'Finished!' );
-        return config;
     })
     .catch( function ( err ) {
-        log.error( '', err );
+        log.error( err );
     });
 }
 
