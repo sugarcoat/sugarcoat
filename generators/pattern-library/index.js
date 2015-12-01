@@ -8,10 +8,13 @@ var log = require( '../../lib/logger' );
 var configure = require( './configure' );
 var globber = require( '../../lib/globber' );
 
+process.on( 'unhandledRejection', unhandledRejection );
+
 /**
  *
  */
-module.exports = function( config ) {
+module.exports = init;
+function init( config ) {
 
     config = configure( config );
 
@@ -19,8 +22,11 @@ module.exports = function( config ) {
     .then( readSections )
     .then( parseSections )
     .then( render )
-    .then( function () {
+    .then( function ( html ) {
+
         log.info( 'Finished!' );
+
+        return output( html, config );
     })
     .catch( function ( err ) {
         log.error( err );
@@ -37,7 +43,8 @@ function globFiles( config ) {
         return globber( section.files );
     });
 
-    return Promise.all( globArr ).then( function ( sections ) {
+    return Promise.all( globArr )
+    .then( function ( sections ) {
 
         sections.forEach( function( section, index ) {
 
@@ -75,7 +82,8 @@ function readSections( config ) {
         }));
     });
 
-    return Promise.all( promiseArr ).then( function () {
+    return Promise.all( promiseArr )
+    .then( function () {
         return config;
     });
 }
@@ -93,8 +101,39 @@ function parseSections( config ) {
 
             section.files[ index ].data = parse.parseComment( file.path, file.src, section.type, section.template );
         });
-
     });
 
     return config;
+}
+
+/**
+ *
+ */
+function output( html, config ) {
+
+    var type = config.settings.format
+        , result = config
+        ;
+
+    if ( type === 'json' ) {
+
+        result = JSON.stringify( result );
+
+    }
+    else if ( type === 'html' ) {
+
+        result = html;
+    }
+
+    return result;
+}
+
+/**
+ *
+ */
+function unhandledRejection( reason /*, promise*/ ) {
+
+    log.error( '', reason );
+
+    throw reason;
 }
