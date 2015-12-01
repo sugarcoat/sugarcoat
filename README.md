@@ -53,7 +53,7 @@ npm install --save sugarcoat
 
 ## Module ##
 
-The Sugarcoat module takes an `config` object and returns a `Promise`. The `resolve` callback provided to the `.then` method receives the full data object of parsed sections.
+The Sugarcoat module takes an `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data.
 
 ```js
 var sugarcoat = require( 'sugarcoat' );
@@ -62,8 +62,8 @@ sugarcoat( config );
 
 // or
 
-sugarcoat( config ).then( function() {
-    console.log( 'Sweet!' );
+sugarcoat( config ).then( function( data ) {
+    console.log( data );
 });
 ```
 
