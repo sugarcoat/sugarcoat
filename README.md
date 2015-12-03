@@ -2,9 +2,9 @@
 
 [![NPM version](https://badge.fury.io/js/sugarcoat.svg)](https://www.npmjs.com/package/sugarcoat) [![Dependency Status](https://david-dm.org/sapientnitrola/sugarcoat.svg)](https://david-dm.org/sapientnitrola/sugarcoat)
 
-Making documentation a bit sweeter ✨
+Making UI documentation a bit sweeter ✨
 
-Sugarcoat was created to enable developers to produce rich project documentation easily and with minimal up-keep. Sugarcoat works by parsing project files for documentation comments (similar to JavaDoc, JSDoc, etc.) and generates HTML or JSON that is organized and easy to read. Sugarcoat allows developers and designers to access up-to-date previews of UI elements, page components, project specific colors and typography, all in one place.
+Sugarcoat was created to enable developers to produce rich UI documentation easily and with minimal up-keep. Sugarcoat works by parsing project files for documentation comments (similar to JavaDoc, JSDoc, etc.) and generates HTML or JSON that is organized and easy to read. Sugarcoat allows developers and designers to access up-to-date previews of UI elements, page components, project specific colors and typography, all in one place.
 
 **Note**: This is still a work in-progress. Please file an issue if you encounter any issues or think a feature should be added.
 
@@ -41,11 +41,6 @@ Sugarcoat was created to enable developers to produce rich project documentation
 
    Yes, you can use your own Handlebars template and partials. See the options [`template.layout`](#templatelayout) and [`template.partials`](#templatepartials) for more information.
 
-4. Can I exclude files from being parsed?
-
-   Sure, just use a glob pattern with the negation symbol `!` at the beginning of the pattern. See [`section.files`](#files) for a negation example.
-
-
 
 # Install #
 
@@ -58,7 +53,7 @@ npm install --save sugarcoat
 
 ## Module ##
 
-The Sugarcoat module takes an `config` object and returns a `Promise`. The `resolve` callback provided to the `.then` method receives the full data object of parsed sections.
+The Sugarcoat module takes an `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data.
 
 ```js
 var sugarcoat = require( 'sugarcoat' );
@@ -67,8 +62,8 @@ sugarcoat( config );
 
 // or
 
-sugarcoat( config ).then( function() {
-    console.log( 'Sweet!' );
+sugarcoat( config ).then( function( data ) {
+    console.log( data );
 });
 ```
 
@@ -77,8 +72,21 @@ sugarcoat( config ).then( function() {
 You can also install `sugarcoat` globally (via `npm install -g`). The `sugarcoat` command takes a path to a configuration file which must export the configuration object via `module.exports`.
 
 ```bash
-sugarcoat "./my/config.js"
+sugarcoat './my/config.js'
 ```
+
+**Usage**
+
+```bash
+sugarcoat [flags] <configuration file>
+
+Options:
+
+  -h, --help     output usage information
+  -o --output    Write output to process.stdout
+  -V, --version  output the version number
+```
+
 
 
 # Configuration #
@@ -126,13 +134,13 @@ Default: `null`
 
 Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
 
-### `json` ###
+### `format` ###
 
-Type: `Boolean`  
+Type: `String`  
 Optional: `true`  
-Default: `false`  
+Default: `null`  
 
-If set to `true`, Sugarcoat will return the parsed data as JSON.
+Format the return value from the Sugarcoat `Promise`. By default, the expanded `config` object is returned. Options are `'json'` and `'html'`. The `'json'` option simply runs `JSON.stringify` on the expanded `config` object. This is useful when using the `--output` flag in the CLI.
 
 ### `log` ###
 
@@ -195,7 +203,6 @@ An array of directory (not file) paths (relative to `template.cwd`) to the stati
 }
 ```
 
-**Note**: If you do not put a `dest` string or `json` boolean, Sugarcoat throw an `Exception`.
 
 ## `sections` Array ##
 
@@ -215,71 +222,65 @@ Title of section.
 Type: `String`|`Object`|`Array`  
 Optional: `false`  
 
-File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [glob](https://www.npmjs.com/package/glob) to enable pattern matching. You will need to use a glob pattern to get all the files within a directory. You can also specify a negation pattern by using the `!` symbol at the beginning of the path.
+File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching. You can also specify a negation pattern by using the `!` symbol at the beginning of the path.
 
-**String Examples**
+**Examples**
 
-You may include a single file or a directory. The second example uses a glob pattern to match all files within `my/project/library/styles/base`.
+Provide a single path:
 
 ```js
 {
-    title: 'Single File',
-    files: 'my/project/library/styles/base/feedback.scss'
+  title: 'Single File',
+  files: 'my/project/library/styles/components/feedback.scss'
 }
 ```
 
+Match all files in a directory:
+
 ```js
 {
-    title: 'Multiple Files',
-    files: 'my/project/library/styles/base/*'
+  title: 'Multiple Files',
+  files: 'my/project/library/styles/base/*'
 }
 ```
 
-**Object Example**
-
-You may use an object for `files`, that includes a `src` and `options` property. The `src` property expects a glob pattern and the `options` property enables passing specific options for greater specificity. See [Glob](https://www.npmjs.com/package/glob) for all the available glob options.
-
-In the example provided below, the pattern in the `src` property ends with `**/*` and instructs glob to match all files within `my/project/library/styles/base/`, including any subdirectories. The `nodir` option instructs glob to return only file paths.
+Provide multiple paths/patterns:
 
 ```js
 {
-  title: 'A Bunch of Files with glob Options',
+  title: 'Multiple Files',
+  files: [
+    'my/project/library/styles/base/*',
+    'my/project/library/styles/components/feedback.scss',
+    '!my/project/library/styles/base/colors.scss'
+  ]
+}
+```
+
+Provide an object in order to specify options to pass to [globby](https://www.npmjs.com/package/globby):
+
+```js
+{
+  title: 'Multiple Files',
   files: {
-    src: 'my/project/library/styles/base/**/*'
-    options: {
-      nodir: true
-    }
+    src: String|Object|Array,
+    options: Object
   }
 }
 ```
 
-**Array Example**
-
-If you have multiple files in different directories you will want to use an array. The array can include paths to specific files, or glob patterns (or you can mix and match). 
+Provide an array of objects:
 
 ```js
 {
-    title: 'A bunch of files',
-    files: [ 
-        'my/project/library/styles/global/*.scss',
-        'my/project/library/styles/base/feedback.scss'
-    ]
-}
-```
-
-**Array with Negation Example**
-
-If you have a directory that contains multiple files you would like to use, but also contains a few files you would like to exclude, provide a negation pattern to exclude specific files.
-
-```js
-{
-    title: 'A bunch of files',
-    files: [ 
-        'my/project/library/styles/global/*.scss',
-        '!my/project/library/styles/global/colors.scss'
-    ]
-    // Excludes my/project/library/styles/global/colors.scss
-    // from the list of files found in my/project/library/styles/global
+  title: 'Multiple Files',
+  files: [
+    {
+      src: String|Object|Array,
+      options: Object
+    },
+    {...}
+  ]
 }
 ```
 
@@ -328,7 +329,7 @@ Sugarcoat adds some additional parsing options to [comment-parse](https://www.np
 
 **Comment Example**
 
-```css
+```
 /**
  * @title Tooltip
  * @example
@@ -483,12 +484,15 @@ To register your own partials, add a directory path to the `template.partials` a
 # Roadmap #
 
 ## v1.0.0 ##
+
 - More styling and better structuring of rendered sections
 - Consolidating code comment syntax strategy
-- Standardize file options
+- Standardize file syntax in `settings` to align with the `file` syntax in section objects
+- Add automated tests
+
 
 ## v?.0.0 ##
+
 - More refactoring of modules (functional, Promises)
 - Ability to add custom tags (custom parser functions)
 - Add support for JavaScript modules and components (React)
-- Add tests (once API is stable)

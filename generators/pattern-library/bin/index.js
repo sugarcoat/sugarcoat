@@ -3,35 +3,29 @@
 /**
  * Command line interface for Sugarcoat.
  */
-!function () {
+var util = require( 'util' );
+var path = require( 'path' );
+var program = require( 'commander' );
+var pkg = require( '../../../package.json' );
+var patternLib = require( '../index' );
 
-    var fs = require( 'fs' );
-    var path = require( 'path' );
-    var program = require( 'commander' );
-    var pkg = require( '../../../package.json' );
-    var patternLib = require( '../index' );
+program
+    .usage( '[flags] <configuration file>' )
+    .option( '-o --output', 'Write output to process.stdout' )
+    .description( pkg.description )
+    .version( pkg.version )
+    .parse( process.argv );
 
-    program
-        .usage( '[options] <configuration file>' )
-        .option( '--json', 'Return JSON' )
-        .description( pkg.description )
-        .version( pkg.version )
-        .parse( process.argv );
+if ( !program.args.length ) {
 
-    if ( !program.args.length ) {
+    program.help();
+}
+else {
 
-        return program.help();
-    }
+    var config = require( path.join( process.cwd(), program.args[0] ) );
 
-    var config = require( path.join( process.cwd(),program.args[0] ) )
+    patternLib( config ).then( function ( data ) {
 
-    if ( program.json ) {
-
-        return patternLib( config, { logLevel: 'silent' } ).then( function ( data ) {
-
-            process.stdout.write( JSON.stringify( data ) );
-        });
-    }
-
-    return patternLib( config, {} );
-}();
+        if ( program.output && config.settings.format ) process.stdout.write( data );
+    });
+}

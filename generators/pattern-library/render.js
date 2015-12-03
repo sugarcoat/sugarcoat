@@ -14,11 +14,6 @@ module.exports = function ( config ) {
 
     Handlebars.registerHelper( hbsHelpers );
 
-    if ( !config.settings.json && !config.settings.dest ) {
-
-        throw new Error( 'Error: Please provide destination' );
-    }
-
     return globPartials( config )
     .then( readPartials )
     .then( registerPartials )
@@ -121,14 +116,15 @@ function renderLayout( config ) {
 
         var hbsCompiled = Handlebars.compile( config.settings.template.layout.src )
             , file = path.join( config.settings.dest, 'index.html' )
+            , html = hbsCompiled( config.sections )
             ;
 
-        return writeFile( file, hbsCompiled( config.sections ) )
+        return writeFile( file, html )
         .then( function() {
 
             log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
-            return config;
+            return html;
         });
     });
 }

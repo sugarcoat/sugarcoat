@@ -1,11 +1,11 @@
 {
   "name": "sugarcoat",
   "version": "0.4.1",
-  "description": "Making documentation a bit sweeter ✨",
+  "description": "Making UI documentation a bit sweeter ✨",
   "dependencies": {
     "commander": "^2.9.0",
     "comment-parser": "^0.3.0",
-    "glob": "^6.0.1",
+    "globby": "^4.0.0",
     "handlebars": "^4.0.3",
     "js-beautify": "^1.5.10",
     "lodash": "^3.10.1",
