@@ -1,0 +1,27 @@
+<div class="sugar-preview">
+  
+  {{#isEqual file.ext 'html'}}
+
+    <div class="sugar-rendered">
+      {{{ this.context }}}
+    </div>
+
+    <pre><code class="language-markup">{{ this.context }}</code></pre>
+
+  {{/isEqual}}
+
+  {{#each this.tags as |theTag| }}
+
+    {{#isEqual theTag.tag 'example'}}
+
+      <div class="sugar-rendered">
+        {{{ theTag.description }}}
+      </div>
+
+      <pre><code class="language-markup">{{ theTag.description }}</code></pre>
+
+    {{/isEqual}}
+  
+  {{/each}}
+
+</div>
