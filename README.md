@@ -306,14 +306,14 @@ Type: `String`
 Optional: `true`  
 Default: depends on the value of `type`  
 
-The default partial is `default`, or `variables` when the `type` property is `variable`. You can also specify `color` or `typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
+The default partial is `section-default`, or `section-variable` when the `type` property is `variables`. You can also specify `section-color` or `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
 
 ```js
 {
     title: 'Colors',
     files: 'demo/library/styles/global/colors.scss',
     type: 'variables',
-    template: 'color'
+    template: 'section-color'
 }
 ```
 
@@ -438,13 +438,13 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 
 Sugarcoat provides a default layout for your pattern library, rendering each parsed comment object with one of the following partials:
 
-  - `default` Default rendering of a comment object.
+  - `section-default` Default rendering of a comment object.
   
-  - `variable` Renders when `type: 'variables'` is provided - A list of variables and its associated value. 
+  - `section-variable` Renders when `type: 'variables'` is provided - A list of variables and its associated value. 
   
-  - `color` Renders when `template: 'color'` is provided - A list of color swatches with the associated variable name and color.
+  - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
   
-  - `typography` Renders when `template: 'typography'` is provided - Fonts and variable names with their examples.
+  - `section-typography` Renders when `template: 'section-typography'` is provided - Fonts and variable names with their examples.
 
 
 Miscellaneous partials:
@@ -453,11 +453,13 @@ Miscellaneous partials:
   
   - `head` Outputs links to Sugarcoat's default stylesheets:
     - [Furtive](http://furtive.co/): general styles
-    - `pattern-lib`: specific styling for the `color` and `typography` sections
+    - `pattern-lib`: specific styling for the `section-color` and `section-typography` section templates
     - [Prism](http://prismjs.com/) styles for code blocks
   
   - `footer` Outputs links to JavaScript files:
     - [Prism](http://prismjs.com/): formatting for code blocks
+
+  - 'preview' outputs the example within your code comment block and a code block of the example code (this will have the prism formatting).
 
 ## Custom Templating ##
 
@@ -474,10 +476,10 @@ To register your own partials, add a directory path to the `template.partials` a
   - head
   - nav
   - footer
-  - color
-  - typography
-  - variable
-  - default
+  - section-color
+  - section-typography
+  - section-variable
+  - section-default
 
 
 
