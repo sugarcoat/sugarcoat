@@ -128,7 +128,7 @@ Parser.prototype = {
 
                 var variableInfo = this.parseVarCode( comments[i].context, currentFile );
 
-                if ( templateType === 'typography' ) {
+                if ( templateType === 'section-typography' ) {
 
                     //break down fonts into an array
                     variableInfo.forEach( function( variableLine ){

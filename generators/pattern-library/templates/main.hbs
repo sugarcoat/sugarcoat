@@ -11,35 +11,7 @@
 
 {{#each this as |section|}}
 
-  {{#if section.type }}
-
-    {{#isEqual section.type 'variables'}}
-
-      {{#if section.template }}
-
-        {{> (lookup . 'template') }}
-
-      {{else}}
-
-        {{> section-variable}}
-
-      {{/if}}
-
-    {{/isEqual}}
-
-  {{else}}
-
-    {{#if section.template }}
-
-      {{> (lookup . 'template') }}
-
-    {{else}}
-
-      {{> section-default}}
-
-    {{/if}}
-
-  {{/if}}
+  {{> (lookup . 'template') }}
 
 {{/each}}
 

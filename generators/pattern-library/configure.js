@@ -75,6 +75,13 @@ function init( options ) {
         settings.dest = path.resolve( settings.cwd, settings.dest );
     }
 
+    config.sections.forEach( function ( section ) {
+        
+        if ( !section.template ) {
+            section.template = `section-${ section.type || 'default' }`;
+        }
+    });
+
     return config;
 }
 
