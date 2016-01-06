@@ -1,14 +1,18 @@
 # Table of Contents #
 
   - [Section Title: Color](#section-title-color)
-  	- [Tertiary Section Title: Primary Colors](#tertiary-section-title-primary-colors)
-  	- [Tertiary Section Title: Accent Colors](#tertiary-section-title-accent-colors)
+  	- [Secondary Section Title: colors.css](#secondary-section-title-colors-css)
+  		- [Tertiary Section Title: Primary Colors](#tertiary-section-title-primary-colors)
+  		- [Tertiary Section Title: Accent Colors](#tertiary-section-title-accent-colors)
   - [Section Title: UI](#section-title-ui)
-    - [Tertiary Section Title: Buttons](#tertiary-section-title-buttons)
-    - [Tertiary Section Title: Lists](#tertiary-section-title-lists)
+  	- [Secondary Section Title: buttons.css](#secondary-section-title-buttons-css)
+    	- [Tertiary Section Title: Buttons](#tertiary-section-title-buttons)
+    - [Secondary Section Title: lists.css](#secondary-section-title-lists-css)
+    	- [Tertiary Section Title: Lists](#tertiary-section-title-lists)
   - [Section Title: Typography](#section-title-typography)
-    - [Tertiary Section Title: Helvetica Neue](#tertiary-section-title-helvetica-neue)
-    - [Tertiary Section Title: Georgia](#tertiary-section-title-georgia)
+  	- [Secondary Section Title: typography.css](#secondary-section-title-typography-css)
+    	- [Tertiary Section Title: Helvetica Neue](#tertiary-section-title-helvetica-neue)
+    	- [Tertiary Section Title: Georgia](#tertiary-section-title-georgia)
 
 ---
 
