@@ -1,16 +1,16 @@
 # Table of Contents #
 
   - [Section Title: Color](#section-title-color)
-  	- [Secondary Section Title: colors.css](#secondary-section-title-colors-css)
+  	- [Secondary Section Title: colors.css](#secondary-section-title-colorscss)
   		- [Tertiary Section Title: Primary Colors](#tertiary-section-title-primary-colors)
   		- [Tertiary Section Title: Accent Colors](#tertiary-section-title-accent-colors)
   - [Section Title: UI](#section-title-ui)
-  	- [Secondary Section Title: buttons.css](#secondary-section-title-buttons-css)
+  	- [Secondary Section Title: buttons.css](#secondary-section-title-buttonscss)
     	- [Tertiary Section Title: Buttons](#tertiary-section-title-buttons)
-    - [Secondary Section Title: lists.css](#secondary-section-title-lists-css)
+    - [Secondary Section Title: lists.css](#secondary-section-title-listscss)
     	- [Tertiary Section Title: Lists](#tertiary-section-title-lists)
   - [Section Title: Typography](#section-title-typography)
-  	- [Secondary Section Title: typography.css](#secondary-section-title-typography-css)
+  	- [Secondary Section Title: typography.css](#secondary-section-title-typographycss)
     	- [Tertiary Section Title: Helvetica Neue](#tertiary-section-title-helvetica-neue)
     	- [Tertiary Section Title: Georgia](#tertiary-section-title-georgia)
 
