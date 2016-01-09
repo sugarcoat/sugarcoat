@@ -1,140 +1,172 @@
 # Table of Contents #
 
-  - [Section Title: Color](#section-title-color)
-  	- [Secondary Section Title: colors.css](#secondary-section-title-colorscss)
-  		- [Tertiary Section Title: Primary Colors](#tertiary-section-title-primary-colors)
-  		- [Tertiary Section Title: Accent Colors](#tertiary-section-title-accent-colors)
-  - [Section Title: UI](#section-title-ui)
-  	- [Secondary Section Title: buttons.css](#secondary-section-title-buttonscss)
-    	- [Tertiary Section Title: Buttons](#tertiary-section-title-buttons)
-    - [Secondary Section Title: lists.css](#secondary-section-title-listscss)
-    	- [Tertiary Section Title: Lists](#tertiary-section-title-lists)
-  - [Section Title: Typography](#section-title-typography)
-  	- [Secondary Section Title: typography.css](#secondary-section-title-typographycss)
-    	- [Tertiary Section Title: Helvetica Neue](#tertiary-section-title-helvetica-neue)
-    	- [Tertiary Section Title: Georgia](#tertiary-section-title-georgia)
-
----
-
-# Section Title: Color #
-
-
-## Secondary Section Title: `colors.css` ##
-
-Path: [`library/styles/global/colors.css`](library/styles/global/colors.css)
-
-
-### Tertiary Section Title: Primary Colors ###
-
-![infored](images/infored.png)
-
-![infogreen](images/infogreen.png)
-
-![infoyellow](images/infoyellow.png)
-
-![foodcourtgray](images/foodcourtgray.png)
-
-
-### Tertiary Section Title: Accent Colors ###
-
-![infored](images/infored.png)
-
-![infogreen](images/infogreen.png)
-
-![infoyellow](images/infoyellow.png)
-
-![foodcourtgray](images/foodcourtgray.png)
+- [Color Palette](#color-palette)
+    - [Bright Colors](#bright-colors)
+    - [Dark Colors](#dark-colors)
+- [UI Elements](#ui-elements)
+    - [Buttons](#buttons)
+    - [Lists](#lists)
+- [Fonts](#fonts)
+    - [Primary Fonts](#primary-fonts)
+    - [Secondary Fonts](#secondary-fonts)
 
 
 ---
 
-# Section Title: UI #
 
-## Secondary Title: `buttons.css` ##
+# Color Palette #
 
-Path: [`library/styles/global/buttons.css`](library/styles/global/buttons.css)
 
-### Tertiary Section Title: Buttons ###
+## Bright Colors ##
 
-| Example: CTA |
-| :----------- |
-| <a class="btn" href="#">Call to Action</a> |
-| ``` <a class="btn" href="#">Call to Action</a> ``` |
+![info-red](images/info-red.png)
 
-| Example: Basic Button |
-| :-------------------- |
-| <button class="btn">Basic</button> |
-| ``` <button class="btn">Basic</button> ``` |
+![info-green](images/info-green.png)
 
-| Example: Submit Button |
-| :--------------------- |
-| <button class="btn">Basic</button> |
-| ``` <button class="btn">Basic</button> ``` |
+![info-yellow](images/info-yellow.png)
+
+
+## Dark Colors ##
+
+![dark-black](images/dark-black.png)
+
+![light-black](images/light-black.png)
+
+![off-black](images/off-black.png)
+
+File: [`library/styles/global/colors.css`](library/styles/global/colors.css)
+
+---
+
+
+# UI Elements #
+
+
+## Buttons ##
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+**Example**: Call to Action 
+
+<a class="btn" href="#">Learn More 👉🏻</a>
+
+```html
+<a class="btn" href="#">Learn More 👉🏻</a>
+```
+
+**Example**: Basic Button
+
+![Button Checkout](images/button-checkout.png)
+
+```html
+<button class="btn">Continue to Checkout</button>
+```
+
+**Example**: Submit Button
+
+![Button Checkout](images/button-submit.png)
+
+```html
+<button class="btn">Submit Order</button>
+```
 
 <dl>
 	<dt>Modifier: <code>.class-name-1</code></dt>
-
   <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</dd>
-
-	<dt>Modifier: <code>.class-name-2</code></dt>
-
+	<dt>State: <code>:hover</code></dt>
   <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</dd>
 </dl>
 
-## Secondary Title: `lists.css` ##
+File: [`library/styles/global/buttons.css`](library/styles/global/buttons.css)
 
-Path: [`library/styles/global/lists.css`](library/styles/global/lists.css)
 
-### Tertiary Section Title: Lists ###
+## Lists ##
 
-| Example: Bullets |
-| :--------------- |
-| <ul><li>Item 1</li><li>Item 2</li></ul> |
-| ``` <ul><li>Item 1</li><li>Item 2</li></ul> ``` |
+**Example**: Bulleted List
 
-| Example: Numbered |
-| :-------------------- |
-| <ol><li>Item 1</li><li>Item 2</li></ol> |
-| ``` <ol><li>Item 1</li><li>Item 2</li></ol> ``` |
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+  <li>Item 4</li>
+  <li>Item 5</li>
+  <li>Item 6</li>
+</ul>
+
+```html
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+  <li>Item 4</li>
+  <li>Item 5</li>
+  <li>Item 6</li>
+</ul>
+```
+
+**Example**: Numbered List
+
+<ol>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+  <li>Item 4</li>
+  <li>Item 5</li>
+  <li>Item 6</li>
+</ol>
+
+```html
+<ol>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+  <li>Item 4</li>
+  <li>Item 5</li>
+  <li>Item 6</li>
+</ol>
+```
 
 <dl>
 	<dt>Modifier: <code>.class-name-1</code></dt>
-
   <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</dd>
-
 	<dt>Modifier: <code>.class-name-2</code></dt>
-
   <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</dd>
 </dl>
 
+File: [`library/styles/global/lists.css`](library/styles/global/lists.css)
+
 ---
 
-# Section Title: Typography #
 
-## Secondary Title: `typography.css` ##
+# Fonts #
+
+
+## Primary Fonts ##
+
+> <h4>The quick brown fox jumps over the lazy dog.</h4>
+
+| Variable Name     | Font Sequence                             |  
+| :---------------- | :---------------------------------------- |  
+| `$font-primary-1` | `'Helvetica Neue 55 Roman', 'sans-serif'` |  
+
+> <h4>The quick brown fox jumps over the lazy dog.</h4>
+
+| Variable          | Font Sequence                             |  
+| :---------------- | :---------------------------------------- |  
+| `$font-primary-2` | `'Helvetica Neue 73 Bold Extended', 'sans-serif'`          |  
+
+
+## Secondary Fonts ##
+
+> <h4><samp>The quick brown fox jumps over the lazy dog.<samp></h4>
+
+| Variable          | Font Sequence        |  
+| :---------------- | :------------------- |  
+| `$font-secondary` | `'Courier', 'monospaced'` |  
+
 
 File: [`library/styles/global/fonts.css`](library/styles/global/fonts.css)
 
-### Tertiary Section Title: Helvetica Neue ###
-
-
-> <h4>The quick brown fox jumps over the lazy dog.</h4>
-
-| Variable | Font Sequence |
-| :---------- | :------- |
-| $font-primary | `'Helvetica Neue', 'sans-serif'` |
-
-
-
-### Tertiary Section Title: Georgia ###
-
-> <h4>The quick brown fox jumps over the lazy dog.</h4>
-
-| Variable | Font Sequence |
-| :---------- | :------- |
-| $font-secondary | `'Georgia', 'serif'` |
-
-
 ---
 
-<small>Copyright 2016 | SapientNitro | Last Modified: January 5, 2016</small>
+Copyright 2016 | SapientNitro | Last Modified: January 5, 2016
