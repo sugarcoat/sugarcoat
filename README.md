@@ -31,7 +31,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 1. Can you parse css-preprocessor variables?
 
-   Yes, we're able to grab the variables in your Less and SASS files. Just set the `type` option to `variables` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
+   Yes, we're able to grab the variables in your Less and SASS files. Just set the `type` option to `variable` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
 
 2. Can I customize the default template that comes with Sugarcoat?
    
@@ -290,13 +290,13 @@ Type: `String`
 Optional: `true`  
 Default: `default`  
 
-If you'd like to parse a preprocessed stylesheet's variables, provide the `variables` option. This works with any `.scss` or `.less` file.
+If you'd like to parse a preprocessed stylesheet's variables, provide the `variable` option. This works with any `.scss` or `.less` file.
 
 ```js
 {
-    title: 'Style Variables',
-    files: 'my/project/library/styles/global/variables.scss',
-    type: 'variables'
+    title: 'Project Defaults',
+    files: 'my/project/library/styles/global/vars.scss',
+    type: 'variable'
 }
 ```
 
@@ -306,13 +306,13 @@ Type: `String`
 Optional: `true`  
 Default: depends on the value of `type`  
 
-The default partial is `section-default`, or `section-variable` when the `type` property is `variables`. You can also specify `section-color` or `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
+The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. You can also specify `section-color` or `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
 
 ```js
 {
     title: 'Colors',
     files: 'demo/library/styles/global/colors.scss',
-    type: 'variables',
+    type: 'variable',
     template: 'section-color'
 }
 ```
@@ -440,7 +440,7 @@ Sugarcoat provides a default layout for your pattern library, rendering each par
 
   - `section-default` Default rendering of a comment object.
   
-  - `section-variable` Renders when `type: 'variables'` is provided - A list of variables and its associated value. 
+  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value. 
   
   - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
   

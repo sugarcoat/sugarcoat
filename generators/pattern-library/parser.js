@@ -124,6 +124,7 @@ Parser.prototype = {
             // add code to data obj as 'context'
             comments[ i ].context = _.trim( block[ 1 ] );
 
+            // there is only 1 type, do not call out specifically until we have more than 1 type
             if ( type ) {
 
                 var variableInfo = this.parseVarCode( comments[i].context, currentFile );
