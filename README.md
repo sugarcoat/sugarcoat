@@ -167,10 +167,10 @@ Path (relative to `template.cwd`) to the Handlebars layout that will define the 
 
 ### `template.partials` ###
 
-Type: `Array`  
+Type: `String`|`Object`|`Array`
 Optional: `true`
 
-An array of directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat.
+A string, object, or array of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`. 
 
 ### `template.assets` ###
 
@@ -190,7 +190,16 @@ An array of directory (not file) paths (relative to `template.cwd`) to the stati
       cwd: 'my/project/templates',
       layout: 'my-custom-layout.hbs',
       partials: [
-        'my-partials'
+        {
+          src: 'my-partials',
+          options: {
+            nodir: false
+        },
+        {
+          src: 'my-other-partials',
+          options: {
+            nodir: false
+        }
       ],
       assets: [
         'sugarcoat',

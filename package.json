@@ -8,7 +8,7 @@
     "globby": "^4.0.0",
     "handlebars": "^4.0.3",
     "js-beautify": "^1.5.10",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "mkdirp": "^0.5.1",
     "npmlog": "^2.0.0",
     "path": "^0.12.7"

@@ -31,24 +31,26 @@ function flattenArray( arr ) {
     return _.flatten( arr );
 }
 
+function uniqueByValue( arr, value ) {
+    return _.uniqBy( arr, value );
+}
+
 function globPartials( config ) {
 
-    var partials = config.settings.template.partials.map( function( dirPath ) {
+    var partials = config.settings.template.partials.map( function( dir ) {
 
         return globber({
-            src: [ path.join( dirPath, '**/*' ) ],
-            options: {
-                nodir: true
-            }
+            src: [ path.join( dir.src, '**/*' ) ],
+            options: dir.options
         })
         .then( function ( files ) {
 
             return files.reduce( function ( collection, filePath ) {
 
                 collection.push({
-                    cwd: dirPath,
+                    cwd: dir.src,
                     file: filePath,
-                    name: path.relative( dirPath, filePath ).replace( path.parse( filePath ).ext, '' )
+                    name: path.relative( dir.src, filePath ).replace( path.parse( filePath ).ext, '' )
                 });
 
                 return collection;
@@ -60,8 +62,17 @@ function globPartials( config ) {
     return Promise.all( partials )
     .then( function ( files ) {
 
-        config.settings.template.partials = flattenArray( files );
+        files = flattenArray( files );
+        
+        // config.settings.template.partials = flattenArray( files );
+
+        //now that we have one array of partials, we need to test if any of the objects have the same "name"
+        config.settings.template.partials = uniqueByValue(files, 'name');
+
         return config;
+    }).catch( function ( err ) {
+
+        console.log(err.message);
     });
 }
 

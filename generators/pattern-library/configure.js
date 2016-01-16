@@ -30,11 +30,18 @@ defaults.settings.template.partials = [
  */
 function init( options ) {
 
+    // set patrials to always be an array before merging with defaults
+    if ( !_.isArray(options.settings.template.partials)){
+        options.settings.template.partials = [ options.settings.template.partials ];
+    }
+
     var defaultsCopy = _.cloneDeep( defaults )
         , config = _.merge( defaultsCopy, options )
         , settings = config.settings
         , template = settings.template
         , shouldGetDefaultAssets = _.isEmpty( template.assets ) || _.includes( template.assets, defaultAssets )
+        , partialSrc
+        , partialOpt
         ;
 
     // Configure the logger
@@ -61,14 +68,25 @@ function init( options ) {
         });
     }
 
-    // Add the default partials onto the biginning of the array
-    template.partials = _.uniq( defaults.settings.template.partials.concat( template.partials ) );
+    // Add the default partials onto the beginning of the array, and get the unique values ??doesnt work
+    // template.partials = _.uniq( defaults.settings.template.partials.concat( template.partials ) );
 
+    //add default partials onto the beginning of the array
+    template.partials = template.partials.concat( defaults.settings.template.partials );
+    
     // Resolve all paths
     template.layout = path.resolve( template.cwd, template.layout );
 
+    //when we map out the partials array we need to break out the source and options 
+    //so we can use them when we glob each object in the array
     template.partials = template.partials.map( function ( dir ) {
-        return path.resolve( template.cwd, dir );
+        partialSrc = path.resolve( template.cwd, (dir.src)? dir.src : dir );
+        partialOpt = (dir.options)? dir.options : { nodir: true };
+
+        return {
+            src: partialSrc,
+            options: partialOpt
+        };
     });
 
     if ( settings.dest ) {
