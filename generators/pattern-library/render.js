@@ -57,12 +57,7 @@ function globPartials( config ) {
 
         // files = _.flatten( files );
         config.settings.template.partials = _.flatten( files );
-
-        //now that we have one array of partials, we need to test if any of the objects have the same "name"
-        // config.settings.template.partials = _.uniqBy( files, 'name' );
-
-        console.log(util.inspect( config.settings.template.partials, { depth: 7, colors: true } ) );
-
+        
         return config;
     }).catch( function ( err ) {
 

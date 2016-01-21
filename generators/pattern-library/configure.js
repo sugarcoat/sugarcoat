@@ -91,17 +91,11 @@ function init( options ) {
 
 
     // **** PARTIALS **** 
-    console.log('orig partials', util.inspect( template.partials, { depth: 7, colors: true } ) );
 
-
+    template.partials = template.partials || [];
+    
     // If partials is empty or falsy, then set our defaults
-    if( _.isEmpty( template.partials ) ) {
-
-        console.log('this is falsey');
-        template.partials = [ normalizeDirectory( defaultPartials, template.cwd ) ];
-    }
-
-    else if( _.isArray( template.partials ) ) {
+    if( _.isArray( template.partials ) ) {
 
         console.log('this is an array');
         //normalize the contents of the array
@@ -109,23 +103,16 @@ function init( options ) {
 
             return normalizeDirectory( dirPath, template.cwd );
         });
-
-        //then add defaults on
-        defaultPartials = [ normalizeDirectory( defaultPartials, template.cwd ) ];
-        template.partials = defaultPartials.concat( template.partials );
     }
     else {
 
         console.log('not empty or array');
         //use new function on it 
         template.partials = [ normalizeDirectory( template.partials, template.cwd ) ];
-
-        //then add defaults on
-        defaultPartials = [ normalizeDirectory( defaultPartials ) ];
-        template.partials = defaultPartials.concat( template.partials );
     }
-
-    console.log('after work', util.inspect( template.partials, { depth: 7, colors: true } ) );
+    
+    //then add defaults on
+    template.partials.unshift( normalizeDirectory( defaultPartials, template.cwd ) );
     
     // **** SETTINGS ****
 
