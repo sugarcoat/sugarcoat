@@ -8,8 +8,6 @@ var log = require( '../../lib/logger' );
 var configure = require( './configure' );
 var globber = require( '../../lib/globber' );
 
-process.on( 'unhandledRejection', unhandledRejection );
-
 /**
  *
  */
@@ -17,6 +15,12 @@ module.exports = init;
 function init( config ) {
 
     config = configure( config );
+
+    if (config.error) {
+
+        log.error(config.error);
+        return Promise.reject();
+    }
 
     return globFiles( config )
     .then( readSections )
@@ -126,14 +130,4 @@ function output( html, config ) {
     }
 
     return result;
-}
-
-/**
- *
- */
-function unhandledRejection( reason /*, promise*/ ) {
-
-    log.error( '', reason );
-
-    throw reason;
 }

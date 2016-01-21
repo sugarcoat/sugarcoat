@@ -27,13 +27,6 @@ module.exports = function ( config ) {
 /*
     Tasks
 */
-function flattenArray( arr ) {
-    return _.flatten( arr );
-}
-
-function uniqueByValue( arr, value ) {
-    return _.uniqBy( arr, value );
-}
 
 function globPartials( config ) {
 
@@ -62,12 +55,13 @@ function globPartials( config ) {
     return Promise.all( partials )
     .then( function ( files ) {
 
-        files = flattenArray( files );
-        
-        // config.settings.template.partials = flattenArray( files );
+        // files = _.flatten( files );
+        config.settings.template.partials = _.flatten( files );
 
         //now that we have one array of partials, we need to test if any of the objects have the same "name"
-        config.settings.template.partials = uniqueByValue(files, 'name');
+        // config.settings.template.partials = _.uniqBy( files, 'name' );
+
+        console.log(util.inspect( config.settings.template.partials, { depth: 7, colors: true } ) );
 
         return config;
     }).catch( function ( err ) {
@@ -147,9 +141,13 @@ function copyAssets( config ) {
         , assets = config.settings.template.assets
         ;
 
+    // console.log('assets', util.inspect( assets, { depth: 7, colors: true } ) );
+
     var expand = assets.map( function ( assetObj ) {
 
         var relDir = path.relative( assetObj.cwd, assetObj.dir );
+
+        // console.log('relative path', relDir);
 
         return globber({
             src: path.join( relDir, '**/*' ),
@@ -157,8 +155,13 @@ function copyAssets( config ) {
                 cwd: assetObj.cwd,
                 nodir: true
             }
+            //once i add teh objects options here i get an error 
+            //options: assetObj.options
+            //do the sugarcoat defaults have to have the specific options above? 
         })
         .then( function ( expandedPaths ) {
+
+            // console.log('expanded paths', util.inspect( expandedPaths, { depth: 7, colors: true } ) );
 
             assetObj.srcFiles = expandedPaths;
 
@@ -169,7 +172,13 @@ function copyAssets( config ) {
                     to: path.resolve( dest, assetPath )
                 };
 
+                // console.log('result', util.inspect( result, { depth: 7, colors: true } ) );
+
                 flattened.push( result );
+
+                // console.log('flattened', util.inspect( flattened, { depth: 7, colors: true } ) );
+
+                // console.log('last result', util.inspect( result, { depth: 7, colors: true } ) );
 
                 return result;
             });

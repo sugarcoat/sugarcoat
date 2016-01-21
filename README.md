@@ -167,7 +167,7 @@ Path (relative to `template.cwd`) to the Handlebars layout that will define the 
 
 ### `template.partials` ###
 
-Type: `String`|`Object`|`Array`
+Type: `String`|`Object`|`Array`  
 Optional: `true`
 
 A string, object, or array of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`. 
