@@ -21,7 +21,7 @@ defaults.settings.format = null;
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
 defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
-defaults.settings.template.assets = [];
+// defaults.settings.template.assets = [];
 // defaults.settings.template.partials = [
 //     path.join( cwdTemplates, 'partials' )
 // ];
@@ -36,6 +36,7 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , shouldGetDefaultAssets = _.isEmpty( template.assets ) || _.includes( template.assets, defaultAssets ) || _.some( template.assets, [ 'src', defaultAssets ] )
+        , defaultAssetsIsObj = _.some( template.assets, [ 'src', defaultAssets ] )
         , assetSrc
         , assetOpts
         ;
@@ -45,20 +46,19 @@ function init( options ) {
 
     // **** ASSETS ****
 
-    // Remove `defaultAssets` keyword, if present in assets
-    if ( template.assets[0].hasOwnProperty('src') ) {
+    // Set Assets to an array
+    if ( !_.isArray( template.assets ) ) {
 
-        var sugarcoatAssetsArray = _.remove( template.assets, function (obj) {
-
-            return obj.src === defaultAssets;
-        });
-    }
-    else {
-
-        _.pull( template.assets, defaultAssets );
+        template.assets = [ template.assets ];
     }
 
-    // Convert to a file object
+    // Removing `defaultAssets` into its own array
+    var sugarcoatAssetsArray = _.remove( template.assets, function (obj) {
+
+        return obj.src === defaultAssets || obj === defaultAssets;
+    });
+
+    // Convert remaining array pieces into a file object
     template.assets = template.assets.map( function ( dirPath ) {
 
         assetSrc = ( dirPath.src ) ? dirPath.src : dirPath
@@ -75,9 +75,17 @@ function init( options ) {
     // Add in the default assets
     if ( shouldGetDefaultAssets ) {
 
-        var sugarcoatAsset = _.find( options.settings.template.assets, [ 'src', defaultAssets ] );
+        // Get the sugarcoat string or object out of the array
+        var sugarcoatAsset = sugarcoatAssetsArray[0];
 
-        template.assets.push({
+        // Add CWD to the options object if missing
+        if ( sugarcoatAsset.options && !sugarcoatAsset.options.hasOwnProperty('cwd') ) {
+            
+            sugarcoatAsset.options.cwd = cwdTemplates;
+        }
+
+        template.assets.push( {
+
             cwd: cwdTemplates,
             dir: path.resolve( cwdTemplates, defaultAssets ),
             options: ( sugarcoatAsset.options ) ? sugarcoatAsset.options : { cwd: cwdTemplates, nodir: true }
@@ -97,7 +105,7 @@ function init( options ) {
     // If partials is empty or falsy, then set our defaults
     if( _.isArray( template.partials ) ) {
 
-        console.log('this is an array');
+        // console.log('this is an array');
         //normalize the contents of the array
         template.partials = template.partials.map( function ( dirPath ) {
 
@@ -106,7 +114,7 @@ function init( options ) {
     }
     else {
 
-        console.log('not empty or array');
+        // console.log('not empty or array');
         //use new function on it 
         template.partials = [ normalizeDirectory( template.partials, template.cwd ) ];
     }
@@ -114,6 +122,7 @@ function init( options ) {
     //then add defaults on
     template.partials.unshift( normalizeDirectory( defaultPartials, template.cwd ) );
     
+
     // **** SETTINGS ****
 
     if ( settings.dest ) {

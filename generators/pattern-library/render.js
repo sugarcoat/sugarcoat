@@ -57,7 +57,7 @@ function globPartials( config ) {
 
         // files = _.flatten( files );
         config.settings.template.partials = _.flatten( files );
-        
+
         return config;
     }).catch( function ( err ) {
 
@@ -136,27 +136,15 @@ function copyAssets( config ) {
         , assets = config.settings.template.assets
         ;
 
-    // console.log('assets', util.inspect( assets, { depth: 7, colors: true } ) );
-
     var expand = assets.map( function ( assetObj ) {
 
         var relDir = path.relative( assetObj.cwd, assetObj.dir );
 
-        // console.log('relative path', relDir);
-
         return globber({
             src: path.join( relDir, '**/*' ),
-            options: {
-                cwd: assetObj.cwd,
-                nodir: true
-            }
-            //once i add teh objects options here i get an error 
-            //options: assetObj.options
-            //do the sugarcoat defaults have to have the specific options above? 
+            options: assetObj.options
         })
         .then( function ( expandedPaths ) {
-
-            // console.log('expanded paths', util.inspect( expandedPaths, { depth: 7, colors: true } ) );
 
             assetObj.srcFiles = expandedPaths;
 
@@ -167,13 +155,7 @@ function copyAssets( config ) {
                     to: path.resolve( dest, assetPath )
                 };
 
-                // console.log('result', util.inspect( result, { depth: 7, colors: true } ) );
-
                 flattened.push( result );
-
-                // console.log('flattened', util.inspect( flattened, { depth: 7, colors: true } ) );
-
-                // console.log('last result', util.inspect( result, { depth: 7, colors: true } ) );
 
                 return result;
             });
