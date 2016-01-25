@@ -138,10 +138,8 @@ function copyAssets( config ) {
 
     var expand = assets.map( function ( assetObj ) {
 
-        var relDir = path.relative( assetObj.cwd, assetObj.dir );
-
         return globber({
-            src: path.join( relDir, '**/*' ),
+            src: path.join( assetObj.src, '**/*' ),
             options: assetObj.options
         })
         .then( function ( expandedPaths ) {

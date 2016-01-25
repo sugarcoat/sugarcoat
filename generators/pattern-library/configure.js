@@ -35,11 +35,17 @@ function init( options ) {
         , config = _.merge( defaultsCopy, options )
         , settings = config.settings
         , template = settings.template
-        , shouldGetDefaultAssets = _.isEmpty( template.assets ) || _.includes( template.assets, defaultAssets ) || _.some( template.assets, [ 'src', defaultAssets ] )
-        , defaultAssetsIsObj = _.some( template.assets, [ 'src', defaultAssets ] )
-        , assetSrc
-        , assetOpts
         ;
+
+
+    // Check if "sugarcoat" is in assets property
+    var shouldGetDefaultAssets = _.isEmpty( template.assets )
+        || _.includes( template.assets, defaultAssets )
+        || _.some( template.assets, [ 'src', defaultAssets ] );
+
+
+
+
 
     // Configure the logger
     log.config( options.settings.log );
@@ -52,56 +58,32 @@ function init( options ) {
         template.assets = [ template.assets ];
     }
 
-    // Removing `defaultAssets` into its own array
-    var sugarcoatAssetsArray = _.remove( template.assets, function (obj) {
-
-        return obj.src === defaultAssets || obj === defaultAssets;
-    });
-
-    // Convert remaining array pieces into a file object
-    template.assets = template.assets.map( function ( dirPath ) {
-
-        assetSrc = ( dirPath.src ) ? dirPath.src : dirPath
-        , assetOpts = ( dirPath.options ) ? dirPath.options : { nodir: true }
-        ;
-
-        return {
-            cwd: template.cwd,
-            dir: path.resolve( template.cwd, assetSrc ),
-            options: assetOpts
-        }
-    });
-
     // Add in the default assets
     if ( shouldGetDefaultAssets ) {
 
         // Get the sugarcoat string or object out of the array
-        var sugarcoatAsset = sugarcoatAssetsArray[0];
+        _.remove( template.assets, defaultAssets );
 
-        // Add CWD to the options object if missing
-        if ( sugarcoatAsset.options && !sugarcoatAsset.options.hasOwnProperty('cwd') ) {
-            
-            sugarcoatAsset.options.cwd = cwdTemplates;
-        }
-
-        template.assets.push( {
-
-            cwd: cwdTemplates,
-            dir: path.resolve( cwdTemplates, defaultAssets ),
-            options: ( sugarcoatAsset.options ) ? sugarcoatAsset.options : { cwd: cwdTemplates, nodir: true }
-        });
+        template.assets.push( path.resolve( cwdTemplates, defaultAssets ) );
     }
 
+    // Convert remaining array pieces into a file object
+    template.assets = template.assets.map( function ( dirPath ) {
+
+        return normalizeDirectory( dirPath, template.cwd );
+    });
+
+
     // **** LAYOUT ****
-    
+
     // Resolve all paths
     template.layout = path.resolve( template.cwd, template.layout );
 
 
-    // **** PARTIALS **** 
+    // **** PARTIALS ****
 
     template.partials = template.partials || [];
-    
+
     // If partials is empty or falsy, then set our defaults
     if( _.isArray( template.partials ) ) {
 
@@ -115,13 +97,13 @@ function init( options ) {
     else {
 
         // console.log('not empty or array');
-        //use new function on it 
+        //use new function on it
         template.partials = [ normalizeDirectory( template.partials, template.cwd ) ];
     }
-    
+
     //then add defaults on
     template.partials.unshift( normalizeDirectory( defaultPartials, template.cwd ) );
-    
+
 
     // **** SETTINGS ****
 
@@ -132,7 +114,7 @@ function init( options ) {
     // **** SECTIONS ****
 
     config.sections.forEach( function ( section ) {
-        
+
         if ( !section.template ) {
             section.template = `section-${ section.type || 'default' }`;
         }
@@ -143,8 +125,8 @@ function init( options ) {
 
 function normalizeDirectory ( dir, cwd ) {
 
-    var dirSrc = path.resolve( dir.src || dir )
-        , dirOpts = dir.options || { nodir: true }
+    var dirOpts = dir.options || { nodir: true }
+        , dirSrc = dirOpts.cwd ? dir.src || dir : path.resolve( cwd, dir.src || dir )
         ;
 
     return {
