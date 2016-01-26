@@ -21,10 +21,6 @@ defaults.settings.format = null;
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
 defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
-// defaults.settings.template.assets = [];
-// defaults.settings.template.partials = [
-//     path.join( cwdTemplates, 'partials' )
-// ];
 
 /**
  *
