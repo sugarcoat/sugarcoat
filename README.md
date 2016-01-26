@@ -327,11 +327,11 @@ The default partial is `section-default`, or `section-variable` when the `type` 
 }
 ```
 
-## Standardized File Format ## 
+## Standardized File Format ##
 
 Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Object`, `Array`. 
 
-### `String` ###  
+### `String` ###
 
 The `string` format is a string of path to a file or directory. 
 
@@ -340,9 +340,9 @@ The `string` format is a string of path to a file or directory.
 files: 'my/project/library/js'
 ```
 
-### `Object` ###  
+### `Object` ###
 
-The `object` format is an object composed of a property of `src` and optionaly a property of `options`. The property `src` is a string that is the path to the file or directory. The property `options` is an object with options that will be passed along to globby](https://www.npmjs.com/package/globby).
+The `object` format is an object composed of a property of `src` and optionaly a property of `options`. The property `src` is a string that is the path to the file or directory. The property `options` is an object with options that will be passed along to [globby](https://www.npmjs.com/package/globby).
 
 **Example**
 ```js
@@ -354,7 +354,7 @@ files: {
 }
 ```
 
-### `Array` ###  
+### `Array` ###
 
 The `array` format can be composed of `strings` or `objects` (or a mix of both). Use the same format for [`string`](#string) and [`object`](#object) as stated above.  
 
