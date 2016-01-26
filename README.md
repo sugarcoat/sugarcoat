@@ -19,6 +19,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
   - [Configuration](#configuration)
     - [`settings` Object](#settings-object)
     - [`sections` Array](#sections-array)
+    - [Standardized File Format](#standardized-file-format)
   - [Code Comment Syntax](#code-comment-syntax)
   - [Templating](#templating)
     - [Custom Templating](#custom-templating)
@@ -167,10 +168,10 @@ Path (relative to `template.cwd`) to the Handlebars layout that will define the 
 
 ### `template.partials` ###
 
-Type: `String`|`Object`|`Array`  
+Type: [Standardized File Format](#standardized-file-format)  
 Optional: `true`
 
-A string, object, or array of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`. 
+A standardized file format of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`. 
 
 ### `template.assets` ###
 
@@ -228,7 +229,7 @@ Title of section.
 
 #### `files` ####
 
-Type: `String`|`Object`|`Array`  
+Type: [Standardized File Format](#standardized-file-format)  
 Optional: `false`  
 
 File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching. You can also specify a negation pattern by using the `!` symbol at the beginning of the path.
@@ -324,6 +325,50 @@ The default partial is `section-default`, or `section-variable` when the `type` 
     type: 'variable',
     template: 'section-color'
 }
+```
+
+## Standardized File Format ## 
+
+Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Object`, `Array`. 
+
+### `String` ###  
+
+The `string` format is a string of path to a file or directory. 
+
+**Example**
+```js
+files: 'my/project/library/js'
+```
+
+### `Object` ###  
+
+The `object` format is an object composed of a property of `src` and optionaly a property of `options`. The property `src` is a string that is the path to the file or directory. The property `options` is an object with options that will be passed along to globby](https://www.npmjs.com/package/globby).
+
+**Example**
+```js
+files: {
+  src: 'my/project/library/js',
+  options: {
+    nodir: true
+  }
+}
+```
+
+### `Array` ###  
+
+The `array` format can be composed of `strings` or `objects` (or a mix of both). Use the same format for [`string`](#string) and [`object`](#object) as stated above.  
+
+**Example**
+```js
+files: [
+  'my/project/library/js'.
+  {
+    src: 'my/project/library/css',
+    options: {
+      nodir: true
+    }
+  }
+]
 ```
 
 # Code Comment Syntax #
