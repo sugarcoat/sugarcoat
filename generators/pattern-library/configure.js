@@ -37,20 +37,16 @@ function init( options ) {
         , template = settings.template
         ;
 
-
-    // Check if "sugarcoat" is in assets property
-    var shouldGetDefaultAssets = _.isEmpty( template.assets )
-        || _.includes( template.assets, defaultAssets )
-        || _.some( template.assets, [ 'src', defaultAssets ] );
-
-
-
-
-
     // Configure the logger
     log.config( options.settings.log );
 
     // **** ASSETS ****
+
+    // Set Assets to an array
+    if ( _.isEmpty( template.assets ) ) {
+
+        template.assets = [ defaultAssets ];
+    }
 
     // Set Assets to an array
     if ( !_.isArray( template.assets ) ) {
@@ -59,7 +55,7 @@ function init( options ) {
     }
 
     // Add in the default assets
-    if ( shouldGetDefaultAssets ) {
+    if ( _.includes( template.assets, defaultAssets ) ) {
 
         // Get the sugarcoat string out of the array
         _.pull( template.assets, defaultAssets );
@@ -69,7 +65,6 @@ function init( options ) {
 
     // Convert remaining array pieces into a file object
     template.assets = template.assets.map( function ( dirPath ) {
-
         return normalizeDirectory( dirPath, cwdTemplates );
     });
 
@@ -128,7 +123,7 @@ function normalizeDirectory ( dir, cwd ) {
     var theDir = dir.src || dir;
 
     var dirSrc = path.isAbsolute( theDir ) ? theDir : path.resolve( cwd, theDir )
-        , dirOpts = dir.options || { nodir: true } 
+        , dirOpts = dir.options || { nodir: true }
         ;
 
     dirOpts.cwd = dirOpts.cwd || cwd;
