@@ -61,8 +61,8 @@ function init( options ) {
     // Add in the default assets
     if ( shouldGetDefaultAssets ) {
 
-        // Get the sugarcoat string or object out of the array
-        _.remove( template.assets, defaultAssets );
+        // Get the sugarcoat string out of the array
+        _.pull( template.assets, defaultAssets );
 
         template.assets.push( path.resolve( cwdTemplates, defaultAssets ) );
     }
@@ -70,7 +70,7 @@ function init( options ) {
     // Convert remaining array pieces into a file object
     template.assets = template.assets.map( function ( dirPath ) {
 
-        return normalizeDirectory( dirPath, template.cwd );
+        return normalizeDirectory( dirPath, cwdTemplates );
     });
 
 
@@ -125,9 +125,13 @@ function init( options ) {
 
 function normalizeDirectory ( dir, cwd ) {
 
-    var dirOpts = dir.options || { nodir: true }
-        , dirSrc = dirOpts.cwd ? dir.src || dir : path.resolve( cwd, dir.src || dir )
+    var theDir = dir.src || dir;
+
+    var dirSrc = path.isAbsolute( theDir ) ? theDir : path.resolve( cwd, theDir )
+        , dirOpts = dir.options || { nodir: true } 
         ;
+
+    dirOpts.cwd = dirOpts.cwd || cwd;
 
     return {
         src: dirSrc,

@@ -149,8 +149,8 @@ function copyAssets( config ) {
             return assetObj.srcFiles.map( function ( assetPath ) {
 
                 var result = {
-                    from: path.resolve( assetObj.cwd, assetPath ),
-                    to: path.resolve( dest, assetPath )
+                    from: path.resolve( assetObj.options.cwd, assetPath ),
+                    to: path.resolve( dest, path.relative( assetObj.options.cwd, assetPath ) )
                 };
 
                 flattened.push( result );
