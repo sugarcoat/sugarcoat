@@ -496,11 +496,11 @@ To register your own partials, add a directory path to the `template.partials` a
 
 ## v1.0.0 ##
 
-- More styling and better structuring of rendered sections
-- Robust example project
-- Consolidating code comment syntax strategy
-- Standardize file syntax in `settings` to align with the `file` syntax in section objects
-- Add automated tests
+- [More styling and better structuring of rendered sections](/../../issues/15)
+- [Robust example project](/../../issues/16)
+- [Consolidating code comment syntax strategy](/../../issues/4)
+- [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
+- [Add automated tests](/../../issues/18)
 
 
 ## v?.0.0 ##
