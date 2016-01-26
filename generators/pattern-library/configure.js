@@ -78,7 +78,6 @@ function init( options ) {
     // If partials is empty or falsy, then set our defaults
     if( _.isArray( template.partials ) ) {
 
-        // console.log('this is an array');
         //normalize the contents of the array
         template.partials = template.partials.map( function ( dirPath ) {
 
@@ -87,7 +86,6 @@ function init( options ) {
     }
     else {
 
-        // console.log('not empty or array');
         //use new function on it
         template.partials = [ normalizeDirectory( template.partials, template.cwd ) ];
     }
