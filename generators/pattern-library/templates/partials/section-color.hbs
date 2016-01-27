@@ -1,44 +1,47 @@
 <div id="{{toID title}}">
 
-  <div class="furtive">
+  <h2>{{ title }}</h2>
 
-    <h2>{{ title }}</h2>
+  <div>
 
-    <div class="sugar-color-swatches">
+    {{#each files as |file| }}
 
-      {{#each files as |file| }}
+      <div id="{{toID file.path @index}}">
 
-        <div id="{{toID file.path @index}}">
+        {{~#each file.data as |data| }}
 
-          <p>file: {{ file.path }}</p>
+          {{> block-title data=data}}
 
-          {{~#each file.data as |data| }}
+          {{~#each data.serializedCode as |serial| }}
 
-            {{~#each data.serializedCode as |serial| }}
+            <div>
 
-              <div class="sugar-color-swatch brdr--light-gray">
+              <div style="background-color:{{ serial.value }}"></div>
 
-                <div class="sugar-swatch" style="background-color:{{ serial.value }}"></div>
+              <p>Variable name:</p>
+              <pre><code>{{ serial.variable }}</code></pre>
 
-                <pre class="px1"><code>{{ serial.variable }}: {{ serial.value }}</code></pre>
+              <p>Color Code: {{ serial.value }}</p>
 
-                {{#if serial.comment }}
+              {{#if serial.comment }}
 
-                  <p class="px1">{{ serial.comment }}</p>
+                <div>
+                  <p>{{ serial.comment }}</p>
+                </div>
 
-                {{/if}}
+              {{/if}}
 
-              </div>
+            </div>
 
-            {{/each }}
+          {{/each }}
 
-          {{~/each }}
+        {{~/each }}
 
-        </div>
+      </div>
 
-      {{~/each }}
+      <p>File: {{ file.path }}</p>
 
-    </div>
+    {{~/each }}
 
   </div>
 
