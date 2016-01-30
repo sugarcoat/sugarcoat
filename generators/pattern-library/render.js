@@ -204,6 +204,10 @@ function copy( fromPath, toPath ) {
             });
 
             reader.pipe( writer );
+        })
+        .catch( function ( err ) {
+            log.error( 'Render', err );
+            return err;
         });
     });
 }
