@@ -1,51 +1,49 @@
 <div id="{{toID title}}">
+  <div class="furtive">
 
-  <h2>{{ title }}</h2>
+    <h2>{{ title }}</h2>
 
-  {{#each files as |file| }}
+    <div class="sugar-type-container">
 
-    <div id="{{toID file.path @index }}">
+      {{#each files as |file| }}
 
-      {{#each file.data as |data| }}
+        <div id="{{toID file.path @index }}">
 
-        {{> block-title data=data}}
+          {{#each file.data as |data| }}
 
-        {{#each data.serializedCode as |serialized| }}
+            {{#each data.serializedCode as |serial| }}
 
-          <div>
-      	    
-            <p>Font Family: 
+              <div class="sugar-font-block">
+        		    <p class="sugar-font-name">Font Family: <code>
 
-              <code>
+        		      {{#each serial.value as |value| }}
 
-        	      {{#each serialized.value as |value| }}
+        			      {{ value }}{{#unless @last}}, {{/unless}}
 
-      			      {{ value }}{{#unless @last}}, {{/unless}}
+        		      {{/each}}
 
-      		      {{/each}}
+                </code></p>
 
-              </code>
+        		      <p class="sugar-font-variable">Variable: {{ serial.variable }}</p>
 
-            </p>
+        		      <p style="font-family: {{ serial.value }};">The quick brown fox jumps over the lazy dog.</p>
 
-    		    <p>Variable: {{ serialized.variable }}</p>
+                  {{#if serial.comment }}
 
-      		  <p style="font-family: {{ serial.value }};">The quick brown fox jumps over the lazy dog.</p>
+                    <p class="sugar-font-comment">{{ serial.comment }}</p>
 
-            {{#if serialized.comment }}
+        		      {{/if }}
 
-              <p>{{ serialized.comment }}</p>
+              </div>
 
-            {{/if }}
+            {{/each}}
 
-          </div>
+        </div>
 
-        {{/each}}
+        {{/each }}
 
-      {{/each}}
+      {{/each }}
 
     </div>
-
-  {{/each }}
-
+  </div>
 </div>
