@@ -1,0 +1,27 @@
+<!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+
+{{#if data.tags}}
+
+  {{#each data.tags as |tags| }}
+
+    {{#isEqual tags.tag 'title'}}
+
+      <h3>{{ tags.description }}</h3>
+
+    {{/isEqual}}
+
+    {{#isEqual tags.tag 'description'}}
+
+      <p>{{ tags.description }}</p>
+
+    {{/isEqual}}
+
+  {{/each}}
+
+{{/if}}
