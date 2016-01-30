@@ -15,10 +15,10 @@
     {{#each file.data as |data| }}
 
       {{> block-title data=data}}
-
-      {{> tag-details file=file}}
-    
+      
       {{> preview file=file}}
+      
+      {{> tag-details file=file}}
     
     {{/each}}
 
