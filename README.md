@@ -98,6 +98,8 @@ Options:
 ```js
 {
   settings: {
+    title: 'My Pattern Library',
+    graphic: 'my/project/library/images/logo.jpg',
     dest: 'my/project/pattern-library'
   },
   sections: [
@@ -118,6 +120,14 @@ Options:
 ```
 
 ## `settings` Object ##
+
+### `title` ###  
+
+Type: `String`  
+Optional: `true`  
+Default: `null`  
+
+This is the title of your pattern library. It will be displayed in the rendered version of Sugarcoat.
 
 ### `cwd` ###
 
