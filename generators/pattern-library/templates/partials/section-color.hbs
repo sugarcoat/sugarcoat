@@ -18,11 +18,6 @@
 
               <div style="background-color:{{ serial.value }}"></div>
 
-              <p>Variable name:</p>
-              <pre><code>{{ serial.variable }}</code></pre>
-
-              <p>Color Code: {{ serial.value }}</p>
-
               {{#if serial.comment }}
 
                 <div>
@@ -30,6 +25,11 @@
                 </div>
 
               {{/if}}
+
+              <p>Variable name:</p>
+              <code>{{ serial.variable }}</code>
+
+              <p>Color Code: {{ serial.value }}</p>
 
             </div>
 
