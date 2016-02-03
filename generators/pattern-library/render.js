@@ -103,7 +103,6 @@ function registerPartials( config ) {
 }
 
 function renderLayout( config ) {
-console.log( util.inspect( config, { depth: 5, colors: true } ) );
 
     return readFile( config.settings.template.layout )
     .then( function ( data ) {
@@ -119,7 +118,7 @@ console.log( util.inspect( config, { depth: 5, colors: true } ) );
             , file = path.join( config.settings.dest, 'index.html' )
             , html = hbsCompiled( config )
             ;
-console.log('html', html);
+
         return writeFile( file, html )
         .then( function() {
 
