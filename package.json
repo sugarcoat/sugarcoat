@@ -1,6 +1,6 @@
 {
   "name": "sugarcoat",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Making UI documentation a bit sweeter ✨",
   "dependencies": {
     "commander": "^2.9.0",
