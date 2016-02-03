@@ -27,7 +27,8 @@ defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
  */
 function init( options ) {
 
-    var defaultsCopy = _.cloneDeep( defaults )
+    var addDefaultAssets = false
+        , defaultsCopy = _.cloneDeep( defaults )
         , config = _.merge( defaultsCopy, options )
         , settings = config.settings
         , template = settings.template
@@ -53,16 +54,21 @@ function init( options ) {
     // Add in the default assets
     if ( _.includes( template.assets, defaultAssets ) ) {
 
+        addDefaultAssets = true;
+
         // Get the sugarcoat string out of the array
         _.pull( template.assets, defaultAssets );
-
-        template.assets.push( path.resolve( cwdTemplates, defaultAssets ) );
     }
 
     // Convert remaining array pieces into a file object
     template.assets = template.assets.map( function ( dirPath ) {
-        return normalizeDirectory( dirPath, cwdTemplates );
+        return normalizeDirectory( dirPath, template.cwd );
     });
+
+    // Add in the default assets
+    if ( addDefaultAssets ) {
+        template.assets.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
+    }
 
 
     // **** LAYOUT ****
