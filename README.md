@@ -98,6 +98,8 @@ Options:
 ```js
 {
   settings: {
+    title: 'My Pattern Library',
+    graphic: 'my/project/library/images/logo.jpg',
     dest: 'my/project/pattern-library'
   },
   sections: [
@@ -118,6 +120,14 @@ Options:
 ```
 
 ## `settings` Object ##
+
+### `title` ###  
+
+Type: `String`  
+Optional: `true`  
+Default: `null`  
+
+This is the title of your pattern library. It will be displayed in the rendered version of Sugarcoat.
 
 ### `cwd` ###
 
@@ -541,15 +551,15 @@ To register your own partials, add a directory path to the `template.partials` a
 
 ## v1.0.0 ##
 
-- [More styling and better structuring of rendered sections](/../../issues/15)
-- [Robust example project](/../../issues/16)
-- [Consolidating code comment syntax strategy](/../../issues/4)
-- [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
-- [Add automated tests](/../../issues/18)
+- [ ] [More styling and better structuring of rendered sections](/../../issues/15)
+- [ ] [Robust example project](/../../issues/16)
+- [ ] [Consolidating code comment syntax strategy](/../../issues/4)
+- [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
+- [ ] [Add automated tests](/../../issues/18)
 
 
 ## v?.0.0 ##
 
-- More refactoring of modules (functional, Promises)
-- Ability to add custom tags (custom parser functions)
-- Add support for JavaScript modules and components (React)
+- [ ] More refactoring of modules (functional, Promises)
+- [ ] Ability to add custom tags (custom parser functions)
+- [ ] Add support for JavaScript modules and components (React)

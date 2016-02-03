@@ -13,24 +13,22 @@
         {{#each data.serializedCode as |serialized| }}
 
           <div>
+
+            <p style="font-family: {{ serial.value }};">The quick brown fox jumps over the lazy dog.</p>
       	    
-            <p>Font Family: 
+            <p>Variable Name:</p>
+            <code>{{ serialized.variable }}</code>
+            
+            <p>Font Sequence: 
+            <code>
 
-              <code>
+              {{#each serialized.value as |value| }}
 
-        	      {{#each serialized.value as |value| }}
+                {{ value }}{{#unless @last}}, {{/unless}}
 
-      			      {{ value }}{{#unless @last}}, {{/unless}}
+              {{/each}}
 
-      		      {{/each}}
-
-              </code>
-
-            </p>
-
-    		    <p>Variable: {{ serialized.variable }}</p>
-
-      		  <p style="font-family: {{ serial.value }};">The quick brown fox jumps over the lazy dog.</p>
+            </code>
 
             {{#if serialized.comment }}
 

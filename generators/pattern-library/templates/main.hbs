@@ -7,15 +7,21 @@
 </head>
 <body class="sugar-body">
 
-{{> nav}}
+  <div class="side-nav">
+    
+    {{> masthead this.settings }}
+    
+    {{> nav this.sections }}
+  
+  </div>
 
-{{#each this as |section|}}
+  {{#each this.sections as |section|}}
 
-  {{> (lookup . 'template') }}
+    {{> (lookup . 'template') }}
 
-{{/each}}
+  {{/each}}
 
-{{> footer}}
+  {{> footer}}
 
 </body>
 </html>

@@ -116,7 +116,7 @@ function renderLayout( config ) {
 
         var hbsCompiled = Handlebars.compile( config.settings.template.layout.src )
             , file = path.join( config.settings.dest, 'index.html' )
-            , html = hbsCompiled( config.sections )
+            , html = hbsCompiled( config )
             ;
 
         return writeFile( file, html )
