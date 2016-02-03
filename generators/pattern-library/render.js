@@ -103,6 +103,7 @@ function registerPartials( config ) {
 }
 
 function renderLayout( config ) {
+console.log( util.inspect( config, { depth: 5, colors: true } ) );
 
     return readFile( config.settings.template.layout )
     .then( function ( data ) {
@@ -118,7 +119,7 @@ function renderLayout( config ) {
             , file = path.join( config.settings.dest, 'index.html' )
             , html = hbsCompiled( config )
             ;
-
+console.log('html', html);
         return writeFile( file, html )
         .then( function() {
 
@@ -126,6 +127,10 @@ function renderLayout( config ) {
 
             return html;
         });
+    })
+    .catch( function ( err ) {
+        log.error( 'Render', err );
+        return err;
     });
 }
 

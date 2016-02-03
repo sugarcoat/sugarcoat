@@ -1,36 +1,36 @@
 <div id="{{toID title}}">
 
-  {{#each files as |file| }}
-  
-    <dl id="{{toID file.path}}">
+  <table class="variables furtive">
+    <thead>
+      <tr>
+        <th>Variable</th>
+        <th>Value</th>
+        <th>Comments</th>
+      </tr>
+    </thead>
 
-      {{~#each file.data as |data| }}
+    {{#each files as |file| }}
 
-        {{> block-title data=data}}
-        
-        {{~#each data.serializedCode as |serialized| }}
-        
-          <dt>Variable</dt>
-          <dd>
-            <code>{{ serialized.variable }}</code>
-          </dd>
+      <tbody id="{{toID file.path}}">
 
-          <dt>Value</dt>
-          <dd>
-            <code>{{ serialized.value }}</code>
-          </dd>
+        {{~#each file.data as |data| }}
 
-          {{#if serialized.comment }}
-            <dt>Comment</dt>
-            <dd>{{ serialized.comment }}</dd>
-          {{/if}}
+          {{~#each data.serializedCode}}
 
-        {{/each}}
+            <tr>
+              <td>{{ data.variable }}</td>
+              <td>{{ data.value }}</td>
+              <td>{{ data.comment }}</td>
+            </tr>
 
-      {{/each}}
+          {{~/each}}
 
-    </dl>
+        {{~/each}}
 
-  {{/each}}
 
+      </tbody>
+
+    {{/each}}
+
+  </table>
 </div>

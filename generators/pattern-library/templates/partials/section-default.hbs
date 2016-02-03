@@ -8,21 +8,47 @@
 
 <div id="{{toID title}}">
 
-  <h2>{{ title }}</h2>
+  <div class="furtive">
+
+    <h2>{{ title }}</h2>
+
+  </div>
 
   {{#each files as |file| }}
 
     {{#each file.data as |data| }}
 
-      {{> block-title data=data}}
-      
-      {{> preview file=file}}
-      
-      {{> tag-details file=file}}
+      <div id="{{toID file.path @index}}" class="sugar-comment-block">
+
+        <div class="furtive">
+
+          <dl class="desc">
+
+            {{#each data.tags as |theTag| }}
+
+              {{#notEqual theTag.tag 'example'}}
+
+                <dt>{{ theTag.tag }} <code>{{ theTag.name }}</code></dt>
+                <dd>{{#if theTag.optional}}<i>(Optional)</i> {{/if}}{{ theTag.description }}</dd>
+
+              {{/notEqual}}
+
+            {{/each}}
+
+            <dt>filepath</dt>
+            <dd>{{ file.path }}</dd>
+
+          </dl>
+
+        </div>
+
+      </div>
+    
+    {{> preview file=file}}
     
     {{/each}}
 
-    <p>File: {{ file.path }}</p>
+    
 
   {{/each}}
 
