@@ -129,6 +129,14 @@ Default: `null`
 
 This is the title of your pattern library. It will be displayed in the rendered version of Sugarcoat.
 
+### `graphic` ###  
+
+Type: 'String'  
+Optional: `true`  
+Default: `null`  
+
+This is the path to an image that can be the logo or letterhead for your pattern library. It will be displayd in the rendered version of Sugarcoat.
+
 ### `cwd` ###
 
 Type: `String`  
