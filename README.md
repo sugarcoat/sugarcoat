@@ -276,7 +276,7 @@ Provide multiple paths/patterns:
 
 ```js
 {
-  title: 'Multiple Files',
+  title: 'Multiple Files',  
   files: [
     'my/project/library/styles/base/*',
     'my/project/library/styles/components/feedback.scss',

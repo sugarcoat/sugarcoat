@@ -5,23 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   {{> head}}
 </head>
-<body class="sugar-body">
+<body class="container">
 
-  <div class="side-nav">
+  <div class="row">
     
-    {{> masthead this.settings }}
+    <div class="sugar-nav">
+      
+      {{> masthead this.settings }}
+      
+      {{> nav this.sections }}
     
-    {{> nav this.sections }}
-  
+    </div>
+
+    <div class="sugar-main">
+      {{#each this.sections as |section|}}
+
+        {{> (lookup . 'template') }}
+
+      {{/each}}
+
+      {{> footer}}
+    </div>
+
   </div>
-
-  {{#each this.sections as |section|}}
-
-    {{> (lookup . 'template') }}
-
-  {{/each}}
-
-  {{> footer}}
 
 </body>
 </html>
