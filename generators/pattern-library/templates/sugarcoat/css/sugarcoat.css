@@ -837,14 +837,13 @@ output {
   font-size: 1rem;
   color: #666666;
   font-weight: bold;
-  table-layout: fixed;
 }
-/* line 28, ../styles/base/defaults.scss */
+/* line 27, ../styles/base/defaults.scss */
 .sugar-main .sugar-file .sugar-path {
   font-family: 'Courier';
   font-weight: lighter;
   color: #0195c9;
-  word-wrap: break-word;
+  word-break: break-all;
 }
 
 /* line 1, ../styles/nav/defaults.scss */
@@ -867,32 +866,20 @@ output {
   height: 93px;
 }
 /* line 8, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-var-name {
-  font-family: 'Helvetica';
-  font-size: 1rem;
-  color: #c4c4c4;
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
+.sugar-section-color .sugar-swatch-code {
+  height: 88px;
+  padding: 0 10px;
+  margin-bottom: 2.5rem;
+  background-color: #f1f1f1;
 }
-/* line 15, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-var-code {
-  height: 37px;
+/* line 14, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-swatch-code p {
   font-family: 'Courier';
   font-weight: lighter;
   color: #999999;
-  background-color: #f1f1f1;
-  line-height: 37px;
-  padding: 0 10px;
-  margin-bottom: 1rem;
+  line-height: 88px;
 }
-/* line 25, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-code {
-  font-family: 'Helvetica';
-  font-size: 1rem;
-  color: #999999;
-  margin-bottom: 2.5rem;
-}
-/* line 31, ../styles/section-color/defaults.scss */
+/* line 21, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-color-comment {
   display: none;
 }

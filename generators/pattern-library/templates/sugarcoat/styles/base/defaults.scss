@@ -23,13 +23,12 @@
 		font-size: 1rem; //16px
 		color: #666666;
 		font-weight: bold;
-		table-layout: fixed;
 
 		.sugar-path {
 			font-family: 'Courier';
 			font-weight: lighter;
 			color: #0195c9;
-			word-wrap: break-word;
+			word-break: break-all;
 		}
 	}
 }

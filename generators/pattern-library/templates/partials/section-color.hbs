@@ -25,10 +25,7 @@
 
               <div class="sugar-color-swatch" style="background-color:{{ serial.value }}"></div>
 
-              <p class="sugar-var-name">Variable name:</p>
-              <div class="sugar-var-code">{{ serial.variable }}</div>
-
-              <p class="sugar-color-code">Color Code: {{ serial.value }}</p>
+              <div class="sugar-swatch-code"><p>{{ serial.variable }}:{{ serial.value }}</p></div>
 
               {{#if serial.comment }}
 
