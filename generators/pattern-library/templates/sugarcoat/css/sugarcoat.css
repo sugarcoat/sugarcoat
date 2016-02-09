@@ -807,6 +807,46 @@ output {
   margin-left: 100%;
 }
 
+/* line 1, ../styles/base/defaults.scss */
+.sugar-main {
+  margin: 0 5%;
+}
+/* line 4, ../styles/base/defaults.scss */
+.sugar-main h2 {
+  font-family: 'Helvetica';
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: #029dd5;
+}
+/* line 10, ../styles/base/defaults.scss */
+.sugar-main h3 {
+  font-family: 'Helvetica';
+  font-weight: lighter;
+  font-size: 1.5rem;
+  color: #666666;
+}
+/* line 16, ../styles/base/defaults.scss */
+.sugar-main .sugar-file-desc {
+  font-family: 'Helvetica';
+  font-size: 1rem;
+  color: #c4c4c4;
+}
+/* line 21, ../styles/base/defaults.scss */
+.sugar-main .sugar-file {
+  font-family: 'Helvetica Neue';
+  font-size: 1rem;
+  color: #666666;
+  font-weight: bold;
+  table-layout: fixed;
+}
+/* line 28, ../styles/base/defaults.scss */
+.sugar-main .sugar-file .sugar-path {
+  font-family: 'Courier';
+  font-weight: lighter;
+  color: #0195c9;
+  word-wrap: break-word;
+}
+
 /* line 1, ../styles/nav/defaults.scss */
 .sugar-nav {
   display: none;
@@ -816,6 +856,45 @@ output {
   /*
    * 768.scss
    */
+}
+/* line 1, ../styles/section-color/defaults.scss */
+.sugar-section-color {
+  width: 100%;
+}
+/* line 4, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-swatch {
+  width: 100%;
+  height: 93px;
+}
+/* line 8, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-var-name {
+  font-family: 'Helvetica';
+  font-size: 1rem;
+  color: #c4c4c4;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+/* line 15, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-var-code {
+  height: 37px;
+  font-family: 'Courier';
+  font-weight: lighter;
+  color: #999999;
+  background-color: #f1f1f1;
+  line-height: 37px;
+  padding: 0 10px;
+  margin-bottom: 1rem;
+}
+/* line 25, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-code {
+  font-family: 'Helvetica';
+  font-size: 1rem;
+  color: #999999;
+  margin-bottom: 2.5rem;
+}
+/* line 31, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment {
+  display: none;
 }
 
 /*# sourceMappingURL=sugarcoat.css.map */

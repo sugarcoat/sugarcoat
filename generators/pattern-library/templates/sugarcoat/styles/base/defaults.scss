@@ -1,3 +1,35 @@
 .sugar-main {
-	
+	margin: 0 5%;
+
+	h2 {
+		font-family: 'Helvetica';
+		font-size: 2.25rem; //36px
+		font-weight: bold;
+		color: #029dd5;
+	}
+	h3 {
+		font-family: 'Helvetica';
+		font-weight: lighter;
+		font-size: 1.5rem; //24px
+		color: #666666;
+	}
+	.sugar-file-desc {
+		font-family: 'Helvetica';
+		font-size: 1rem; //16px
+		color: #c4c4c4;
+	}
+	.sugar-file {
+		font-family: 'Helvetica Neue';
+		font-size: 1rem; //16px
+		color: #666666;
+		font-weight: bold;
+		table-layout: fixed;
+
+		.sugar-path {
+			font-family: 'Courier';
+			font-weight: lighter;
+			color: #0195c9;
+			word-wrap: break-word;
+		}
+	}
 }

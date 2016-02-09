@@ -1,7 +1,7 @@
 <!--
 /**
  *
- * @title Default comment block template
+ * @title Default comment block partial
  *
  */
 -->
@@ -22,7 +22,7 @@
     
     {{/each}}
 
-    <p>File: {{ file.path }}</p>
+    {{> file-path file=file}}
 
   {{/each}}
 

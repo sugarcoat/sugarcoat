@@ -1,4 +1,11 @@
-<div id="{{toID title}}">
+<!--
+/**
+ *
+ * @title Partial for Section "Color"
+ *
+ */
+-->
+<div id="{{toID title}}" class="sugar-section-color">
 
   <h2>{{ title }}</h2>
 
@@ -16,20 +23,20 @@
 
             <div>
 
-              <div style="background-color:{{ serial.value }}"></div>
+              <div class="sugar-color-swatch" style="background-color:{{ serial.value }}"></div>
+
+              <p class="sugar-var-name">Variable name:</p>
+              <div class="sugar-var-code">{{ serial.variable }}</div>
+
+              <p class="sugar-color-code">Color Code: {{ serial.value }}</p>
 
               {{#if serial.comment }}
 
-                <div>
+                <div class="sugar-color-comment">
                   <p>{{ serial.comment }}</p>
                 </div>
 
               {{/if}}
-
-              <p>Variable name:</p>
-              <code>{{ serial.variable }}</code>
-
-              <p>Color Code: {{ serial.value }}</p>
 
             </div>
 
@@ -39,7 +46,7 @@
 
       </div>
 
-      <p>File: {{ file.path }}</p>
+      {{> file-path file=file}}
 
     {{~/each }}
 
