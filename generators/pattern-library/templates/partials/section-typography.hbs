@@ -1,4 +1,4 @@
-<div id="{{toID title}}">
+<div id="{{toID title}}" class="sugar-section-type">
 
   <h2>{{ title }}</h2>
 
@@ -10,6 +10,8 @@
 
         {{> block-title data=data}}
 
+        <div class="sugar-type-file">
+
         {{#each data.serializedCode as |serialized| }}
 
           <div>
@@ -19,7 +21,7 @@
             <p>Variable Name:</p>
             <code>{{ serialized.variable }}</code>
             
-            <p>Font Sequence: 
+            <p>Font Sequence: </p>
             <code>
 
               {{#each serialized.value as |value| }}
@@ -39,6 +41,8 @@
           </div>
 
         {{/each}}
+
+      </div>
 
       {{/each}}
 

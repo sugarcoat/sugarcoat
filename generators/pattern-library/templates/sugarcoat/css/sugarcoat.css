@@ -856,6 +856,34 @@ output {
    * 768.scss
    */
 }
+/* line 1, ../styles/preview/defaults.scss */
+.sugar-preview-block {
+  width: 100%;
+}
+/* line 4, ../styles/preview/defaults.scss */
+.sugar-preview-block .sugar-preview {
+  border: 1px solid #e4e4e4;
+}
+/* line 7, ../styles/preview/defaults.scss */
+.sugar-preview-block .sugar-preview .sugar-example,
+.sugar-preview-block .sugar-preview .sugar-example-code {
+  padding: 1.25rem 1.0rem;
+}
+/* line 12, ../styles/preview/defaults.scss */
+.sugar-preview-block .sugar-preview .sugar-example-code {
+  background-color: #f1f1f1;
+  overflow-x: scroll;
+}
+/* line 16, ../styles/preview/defaults.scss */
+.sugar-preview-block .sugar-preview .sugar-example-code pre {
+  margin: 0;
+}
+
+/* line 1, ../styles/section-default/defaults.scss */
+.sugar-section-default {
+  width: 100%;
+}
+
 /* line 1, ../styles/section-color/defaults.scss */
 .sugar-section-color {
   width: 100%;
@@ -863,7 +891,7 @@ output {
 /* line 4, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-color-swatch {
   width: 100%;
-  height: 93px;
+  height: 100px;
 }
 /* line 8, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-swatch-code {
@@ -882,6 +910,11 @@ output {
 /* line 21, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-color-comment {
   display: none;
+}
+
+/* line 1, ../styles/section-typography/defaults.scss */
+.sugar-section-type {
+  width: 100%;
 }
 
 /*# sourceMappingURL=sugarcoat.css.map */

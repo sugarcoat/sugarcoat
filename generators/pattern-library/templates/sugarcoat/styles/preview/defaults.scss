@@ -1,0 +1,21 @@
+.sugar-preview-block {
+	width: 100%;
+
+	.sugar-preview {
+		border: 1px solid #e4e4e4;
+		
+		.sugar-example,
+		.sugar-example-code {
+			padding: 1.25rem 1.0rem;
+		}
+
+		.sugar-example-code {
+			background-color: #f1f1f1;
+			overflow-x: scroll;
+
+			pre {
+				margin: 0;
+			}
+		}
+	}
+}
