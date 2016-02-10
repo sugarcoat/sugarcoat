@@ -834,7 +834,7 @@ output {
 /* line 21, ../styles/base/defaults.scss */
 .sugar-main .sugar-file {
   font-family: 'Helvetica Neue';
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #666666;
   font-weight: bold;
 }
@@ -844,6 +844,16 @@ output {
   font-weight: lighter;
   color: #0195c9;
   word-break: break-all;
+}
+/* line 34, ../styles/base/defaults.scss */
+.sugar-main pre {
+  padding: 1.5rem 1rem;
+  background-color: #f1f1f1;
+  font-family: 'Courier';
+  font-weight: lighter;
+  color: #999999;
+  margin-bottom: 0;
+  overflow-x: scroll;
 }
 
 /* line 1, ../styles/nav/defaults.scss */
@@ -877,15 +887,6 @@ output {
 .sugar-preview-block .sugar-preview .sugar-example-code {
   padding: 1.25rem 1.0rem;
 }
-/* line 20, ../styles/preview/defaults.scss */
-.sugar-preview-block .sugar-preview .sugar-example-code {
-  background-color: #f1f1f1;
-  overflow-x: scroll;
-}
-/* line 24, ../styles/preview/defaults.scss */
-.sugar-preview-block .sugar-preview .sugar-example-code pre {
-  margin: 0;
-}
 
 /* line 1, ../styles/tag-details/defaults.scss */
 .sugar-tag-details {
@@ -905,12 +906,11 @@ output {
   height: 100%;
   padding: 0 0.7rem;
   font-family: 'Courier';
-  display: inline-block;
+  display: block;
   text-transform: none;
-  margin-left: 10px;
   font-weight: normal;
 }
-/* line 23, ../styles/tag-details/defaults.scss */
+/* line 22, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dd .sugar-tag-description {
   font-family: 'Helvetica';
   font-size: 1rem;
@@ -938,21 +938,10 @@ output {
   height: 100px;
 }
 /* line 12, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-container .sugar-swatch-code {
-  padding: 0 1rem;
-  background-color: #f1f1f1;
+.sugar-section-color .sugar-swatch-container pre {
   white-space: nowrap;
-  overflow-x: scroll;
 }
-/* line 19, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-container .sugar-swatch-code p {
-  font-family: 'Courier';
-  font-weight: lighter;
-  color: #999999;
-  line-height: 88px;
-  margin-bottom: 0;
-}
-/* line 27, ../styles/section-color/defaults.scss */
+/* line 15, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-swatch-container .sugar-color-comment {
   display: none;
 }

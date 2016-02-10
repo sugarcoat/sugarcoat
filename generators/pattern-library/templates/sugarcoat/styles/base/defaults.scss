@@ -20,7 +20,7 @@
 	}
 	.sugar-file {
 		font-family: 'Helvetica Neue';
-		font-size: 1rem; //16px
+		font-size: 0.8rem; //16px
 		color: #666666;
 		font-weight: bold;
 
@@ -30,5 +30,14 @@
 			color: #0195c9;
 			word-break: break-all;
 		}
+	}
+	pre {
+		padding: 1.5rem 1rem;
+		background-color: #f1f1f1;
+		font-family: 'Courier';
+		font-weight: lighter;
+		color: #999999;
+		margin-bottom: 0;
+		overflow-x: scroll;
 	}
 }

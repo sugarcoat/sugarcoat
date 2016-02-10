@@ -21,12 +21,8 @@
                 <p style="font-family: {{ serialized.value }};">The quick brown fox jumps over the lazy dog.</p>
               
               </div>
-              
-              <div class="sugar-type-code">
   
-                <p class="sugar-type-code-snippet">{{ serialized.variable }}: {{serialized.value}};</p>
-              
-              </div>
+              <pre>{{ serialized.variable }}: {{serialized.value}};</pre>
 
               {{#if serialized.comment }}
 
