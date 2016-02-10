@@ -939,18 +939,20 @@ output {
 }
 /* line 12, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-swatch-container .sugar-swatch-code {
-  height: 88px;
-  padding: 0 10px;
+  padding: 0 1rem;
   background-color: #f1f1f1;
+  white-space: nowrap;
+  overflow-x: scroll;
 }
-/* line 17, ../styles/section-color/defaults.scss */
+/* line 19, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-swatch-container .sugar-swatch-code p {
   font-family: 'Courier';
   font-weight: lighter;
   color: #999999;
   line-height: 88px;
+  margin-bottom: 0;
 }
-/* line 24, ../styles/section-color/defaults.scss */
+/* line 27, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-swatch-container .sugar-color-comment {
   display: none;
 }

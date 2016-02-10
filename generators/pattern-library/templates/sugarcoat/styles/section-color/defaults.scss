@@ -10,15 +10,18 @@
 			height: 100px;
 		}
 		.sugar-swatch-code {
-			height: 88px;
-			padding: 0 10px;
+			// height: 88px;
+			padding: 0 1rem;
 			background-color: #f1f1f1;
+			white-space: nowrap;
+			overflow-x: scroll;
 
 			p {
 				font-family: 'Courier';
 				font-weight: lighter;
 				color: #999999;
 				line-height: 88px;
+				margin-bottom: 0;
 			}
 		}
 		.sugar-color-comment {
