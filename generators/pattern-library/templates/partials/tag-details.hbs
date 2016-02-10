@@ -6,7 +6,7 @@
  */
 -->
 
-<div id="{{toID file.path @index}}">
+<div id="{{toID file.path @index}}" class="sugar-tag-details">
 
   <dl>
 
@@ -16,21 +16,25 @@
 
         {{#notEqual theTag.tag 'title'}}
 
-          <dt>
-            {{ theTag.tag }} 
+          {{#notEqual theTag.tag 'description'}}
 
-            {{#if theTag.name}}
-              <code>{{ theTag.name }}</code>
-            {{/if}}
-          </dt>
+            <dt>
+              {{ theTag.tag }}: 
 
-          <dd>
-            {{#if theTag.optional}}
-              <i>(Optional)</i>
-            {{/if}}
+              {{#if theTag.name}}
+                <span class="sugar-modifier-code">{{ theTag.name }}</span>
+              {{/if}}
+            </dt>
 
-            {{ theTag.description }}
-          </dd>
+            <dd>
+              {{#if theTag.optional}}
+                <i>(Optional)</i>
+              {{/if}}
+
+              <span class="sugar-tag-description">{{ theTag.description }}</span>
+            </dd>
+
+          {{/notEqual}}
 
         {{/notEqual}}
 

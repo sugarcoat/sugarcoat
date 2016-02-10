@@ -1,0 +1,30 @@
+.sugar-tag-details {
+	width: 100%;
+
+	dt { 
+		font-family: 'Helvetica';
+		font-weight: bold;
+		font-size: 1rem;
+		line-height: 30px;
+		text-transform: capitalize;
+
+		.sugar-modifier-code {
+			background-color: #f1f1f1;
+			height: 100%;
+			padding: 0 0.7rem;
+			font-family: 'Courier';
+			display: inline-block;
+			text-transform: none;
+			margin-left: 10px;
+			font-weight: normal;
+		}
+	}
+	dd {
+		.sugar-tag-description {
+			font-family: 'Helvetica';
+			font-size: 1rem; //16px
+			color: #c4c4c4;
+			word-break: break-all;
+		}
+	}
+}

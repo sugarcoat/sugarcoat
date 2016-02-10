@@ -861,22 +861,61 @@ output {
   width: 100%;
 }
 /* line 4, ../styles/preview/defaults.scss */
+.sugar-preview-block .sugar-example-text {
+  color: #c4c4c4;
+  font-family: 'Helvetica Neue';
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+/* line 11, ../styles/preview/defaults.scss */
 .sugar-preview-block .sugar-preview {
   border: 1px solid #e4e4e4;
+  margin-bottom: 1rem;
 }
-/* line 7, ../styles/preview/defaults.scss */
+/* line 15, ../styles/preview/defaults.scss */
 .sugar-preview-block .sugar-preview .sugar-example,
 .sugar-preview-block .sugar-preview .sugar-example-code {
   padding: 1.25rem 1.0rem;
 }
-/* line 12, ../styles/preview/defaults.scss */
+/* line 20, ../styles/preview/defaults.scss */
 .sugar-preview-block .sugar-preview .sugar-example-code {
   background-color: #f1f1f1;
   overflow-x: scroll;
 }
-/* line 16, ../styles/preview/defaults.scss */
+/* line 24, ../styles/preview/defaults.scss */
 .sugar-preview-block .sugar-preview .sugar-example-code pre {
   margin: 0;
+}
+
+/* line 1, ../styles/tag-details/defaults.scss */
+.sugar-tag-details {
+  width: 100%;
+}
+/* line 4, ../styles/tag-details/defaults.scss */
+.sugar-tag-details dt {
+  font-family: 'Helvetica';
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 30px;
+  text-transform: capitalize;
+}
+/* line 11, ../styles/tag-details/defaults.scss */
+.sugar-tag-details dt .sugar-modifier-code {
+  background-color: #f1f1f1;
+  height: 100%;
+  padding: 0 0.7rem;
+  font-family: 'Courier';
+  display: inline-block;
+  text-transform: none;
+  margin-left: 10px;
+  font-weight: normal;
+}
+/* line 23, ../styles/tag-details/defaults.scss */
+.sugar-tag-details dd .sugar-tag-description {
+  font-family: 'Helvetica';
+  font-size: 1rem;
+  color: #c4c4c4;
+  word-break: break-all;
 }
 
 /* line 1, ../styles/section-default/defaults.scss */
@@ -889,26 +928,30 @@ output {
   width: 100%;
 }
 /* line 4, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-swatch {
+.sugar-section-color .sugar-swatch-container {
+  border: 1px solid #e4e4e4;
+  margin-bottom: 1.5rem;
+}
+/* line 8, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-swatch-container .sugar-color-swatch {
   width: 100%;
   height: 100px;
 }
-/* line 8, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-code {
+/* line 12, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-swatch-container .sugar-swatch-code {
   height: 88px;
   padding: 0 10px;
-  margin-bottom: 2.5rem;
   background-color: #f1f1f1;
 }
-/* line 14, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-code p {
+/* line 17, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-swatch-container .sugar-swatch-code p {
   font-family: 'Courier';
   font-weight: lighter;
   color: #999999;
   line-height: 88px;
 }
-/* line 21, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment {
+/* line 24, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-swatch-container .sugar-color-comment {
   display: none;
 }
 

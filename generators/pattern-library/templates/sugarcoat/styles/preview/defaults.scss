@@ -1,8 +1,16 @@
 .sugar-preview-block {
 	width: 100%;
 
+	.sugar-example-text {
+		color: #c4c4c4;
+		font-family: 'Helvetica Neue';
+		font-size: 1rem;
+		margin-bottom: 0.5rem;
+	}
+
 	.sugar-preview {
 		border: 1px solid #e4e4e4;
+		margin-bottom: 1rem;
 		
 		.sugar-example,
 		.sugar-example-code {

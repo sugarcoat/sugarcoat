@@ -2,6 +2,8 @@
   
   {{#isEqual file.ext 'html'}}
 
+    <p class="sugar-example-text">Example:</p>
+
     <div class="sugar-preview">
 
       <div class="sugar-example">
@@ -22,13 +24,19 @@
 
     {{#isEqual theTag.tag 'example'}}
 
-      <div class="sugar-example-and-preview">
-        {{{ theTag.description }}}
-      </div>
+      <p class="sugar-example-text">Example:</p>
 
       <div class="sugar-preview">
+
+        <div class="sugar-example">
+          {{{ theTag.description }}}
+        </div>
+
+        <div class="sugar-example-code">
       
-        <pre><code>{{ theTag.description }}</code></pre>
+          <pre><code>{{ theTag.description }}</code></pre>
+
+        </div>
 
       </div>
 
