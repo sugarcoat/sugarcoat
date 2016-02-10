@@ -930,7 +930,7 @@ output {
 /* line 4, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-swatch-container {
   border: 1px solid #e4e4e4;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.0rem;
 }
 /* line 8, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-swatch-container .sugar-color-swatch {
@@ -958,6 +958,31 @@ output {
 /* line 1, ../styles/section-typography/defaults.scss */
 .sugar-section-type {
   width: 100%;
+}
+/* line 6, ../styles/section-typography/defaults.scss */
+.sugar-section-type .sugar-type-file .sugar-type-container {
+  border: 1px solid #e4e4e4;
+  margin-bottom: 1rem;
+}
+/* line 10, ../styles/section-typography/defaults.scss */
+.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-example,
+.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code {
+  padding: 1.25rem 1.0rem;
+}
+/* line 14, ../styles/section-typography/defaults.scss */
+.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-example p {
+  margin-bottom: 0;
+}
+/* line 17, ../styles/section-typography/defaults.scss */
+.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code {
+  background-color: #f1f1f1;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+/* line 22, ../styles/section-typography/defaults.scss */
+.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code .sugar-type-code-snippet {
+  font-family: 'Courier';
+  margin-bottom: 0;
 }
 
 /*# sourceMappingURL=sugarcoat.css.map */

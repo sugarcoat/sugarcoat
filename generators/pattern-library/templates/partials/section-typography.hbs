@@ -12,37 +12,33 @@
 
         <div class="sugar-type-file">
 
-        {{#each data.serializedCode as |serialized| }}
+          {{#each data.serializedCode as |serialized| }}
 
-          <div>
+            <div class="sugar-type-container">
 
-            <p style="font-family: {{ serial.value }};">The quick brown fox jumps over the lazy dog.</p>
-      	    
-            <p>Variable Name:</p>
-            <code>{{ serialized.variable }}</code>
-            
-            <p>Font Sequence: </p>
-            <code>
+              <div class="sugar-type-example">
+              
+                <p style="font-family: {{ serialized.value }};">The quick brown fox jumps over the lazy dog.</p>
+              
+              </div>
+              
+              <div class="sugar-type-code">
+  
+                <p class="sugar-type-code-snippet">{{ serialized.variable }}: {{serialized.value}};</p>
+              
+              </div>
 
-              {{#each serialized.value as |value| }}
+              {{#if serialized.comment }}
 
-                {{ value }}{{#unless @last}}, {{/unless}}
+                <p>{{ serialized.comment }}</p>
 
-              {{/each}}
+              {{/if }}
 
-            </code>
+            </div>
 
-            {{#if serialized.comment }}
+          {{/each}}
 
-              <p>{{ serialized.comment }}</p>
-
-            {{/if }}
-
-          </div>
-
-        {{/each}}
-
-      </div>
+        </div>
 
       {{/each}}
 
