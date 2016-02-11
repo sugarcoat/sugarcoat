@@ -923,15 +923,6 @@ output {
   width: 100%;
 }
 
-/* line 1, ../styles/section-variable/defaults.scss */
-.sugar-variable-section {
-  width: 100%;
-}
-/* line 4, ../styles/section-variable/defaults.scss */
-.sugar-variable-section .sugar-last-var-value {
-  margin-bottom: 2rem;
-}
-
 /* line 1, ../styles/section-color/defaults.scss */
 .sugar-section-color {
   width: 100%;
@@ -983,6 +974,38 @@ output {
 .sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code .sugar-type-code-snippet {
   font-family: 'Courier';
   margin-bottom: 0;
+}
+
+/* line 1, ../styles/section-variable/defaults.scss */
+.sugar-variable-section {
+  width: 100%;
+}
+/* line 4, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-block {
+  margin-bottom: 2rem;
+}
+/* line 7, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-block code {
+  font-family: 'Courier';
+  display: inline;
+  text-transform: none;
+  font-size: 1rem;
+  background-color: #fff;
+  padding: 0;
+}
+/* line 15, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-block .sugar-variable {
+  font-weight: bold;
+}
+/* line 18, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-block .sugar-var-value {
+  font-weight: normal;
+}
+/* line 21, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-block .sugar-var-comment {
+  font-family: 'Helvetica';
+  font-size: 1rem;
+  color: #c4c4c4;
 }
 
 /*# sourceMappingURL=sugarcoat.css.map */

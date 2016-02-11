@@ -8,41 +8,29 @@
     
     {{/each}}
 
-    <dl id="{{toID file.path}}">
+    <div id="{{toID file.path}}">
 
       {{~#each file.data as |data| }}
         
         {{~#each data.serializedCode as |serialized| }}
+
+          <div class="sugar-var-block">
         
-          <dt>Variable:</dt>
-          <dd>
-            <code>{{ serialized.variable }}</code>
-          </dd>
+            <code class="sugar-variable">{{ serialized.variable }}: </code><code class="sugar-var-value">{{ serialized.value }}</code>
 
-          {{#if serialized.comment }}
-            
-            <dt>Value:</dt>
-            <dd>
-              <code>{{ serialized.value }}</code>
-            </dd>
+            {{#if serialized.comment }}
 
-            <dt>Comment:</dt>
-            <dd class="sugar-last-var-value">{{ serialized.comment }}</dd>
+              <p class="sugar-var-comment">{{ serialized.comment }}</p>
           
-          {{else}}
+            {{/if}}
 
-            <dt>Value:</dt>
-            <dd class="sugar-last-var-value">
-              <code>{{ serialized.value }}</code>
-            </dd>
-
-          {{/if}}
+          </div>
 
         {{/each}}
 
       {{/each}}
 
-    </dl>
+    </div>
 
     {{> file-path file=file}}
 
