@@ -1,28 +1,41 @@
-<div id="{{toID title}}">
+<div id="{{toID title}}" class="sugar-variable-section">
 
   {{#each files as |file| }}
-  
+
+    {{#each file.data as |fileData| }}
+
+        {{> block-title data=data}}
+    
+    {{/each}}
+
     <dl id="{{toID file.path}}">
 
       {{~#each file.data as |data| }}
-
-        {{> block-title data=data}}
         
         {{~#each data.serializedCode as |serialized| }}
         
-          <dt>Variable</dt>
+          <dt>Variable:</dt>
           <dd>
             <code>{{ serialized.variable }}</code>
           </dd>
 
-          <dt>Value</dt>
-          <dd>
-            <code>{{ serialized.value }}</code>
-          </dd>
-
           {{#if serialized.comment }}
-            <dt>Comment</dt>
-            <dd>{{ serialized.comment }}</dd>
+            
+            <dt>Value:</dt>
+            <dd>
+              <code>{{ serialized.value }}</code>
+            </dd>
+
+            <dt>Comment:</dt>
+            <dd class="sugar-last-var-value">{{ serialized.comment }}</dd>
+          
+          {{else}}
+
+            <dt>Value:</dt>
+            <dd class="sugar-last-var-value">
+              <code>{{ serialized.value }}</code>
+            </dd>
+
           {{/if}}
 
         {{/each}}

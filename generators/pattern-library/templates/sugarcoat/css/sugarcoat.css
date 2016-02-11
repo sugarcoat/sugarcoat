@@ -855,6 +855,16 @@ output {
   margin-bottom: 0;
   overflow-x: scroll;
 }
+/* line 43, ../styles/base/defaults.scss */
+.sugar-main code {
+  background-color: #f1f1f1;
+  height: 100%;
+  padding: 0 0.7rem;
+  font-family: 'Courier';
+  display: block;
+  text-transform: none;
+  font-weight: normal;
+}
 
 /* line 1, ../styles/nav/defaults.scss */
 .sugar-nav {
@@ -900,17 +910,7 @@ output {
   line-height: 30px;
   text-transform: capitalize;
 }
-/* line 11, ../styles/tag-details/defaults.scss */
-.sugar-tag-details dt .sugar-modifier-code {
-  background-color: #f1f1f1;
-  height: 100%;
-  padding: 0 0.7rem;
-  font-family: 'Courier';
-  display: block;
-  text-transform: none;
-  font-weight: normal;
-}
-/* line 22, ../styles/tag-details/defaults.scss */
+/* line 12, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dd .sugar-tag-description {
   font-family: 'Helvetica';
   font-size: 1rem;
@@ -921,6 +921,15 @@ output {
 /* line 1, ../styles/section-default/defaults.scss */
 .sugar-section-default {
   width: 100%;
+}
+
+/* line 1, ../styles/section-variable/defaults.scss */
+.sugar-variable-section {
+  width: 100%;
+}
+/* line 4, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-last-var-value {
+  margin-bottom: 2rem;
 }
 
 /* line 1, ../styles/section-color/defaults.scss */
