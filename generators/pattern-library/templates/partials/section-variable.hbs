@@ -1,27 +1,27 @@
-<div id="{{toID title}}" class="sugar-variable-section">
+<section id="{{toID title}}" class="sugar-variable-section">
 
   {{#each files as |file| }}
 
     {{#each file.data as |fileData| }}
 
         {{> block-title data=data}}
-    
+
     {{/each}}
 
     <div id="{{toID file.path}}">
 
       {{~#each file.data as |data| }}
-        
+
         {{~#each data.serializedCode as |serialized| }}
 
           <div class="sugar-var-block">
-        
+
             <code class="sugar-variable">{{ serialized.variable }}: </code><code class="sugar-var-value">{{ serialized.value }}</code>
 
             {{#if serialized.comment }}
 
               <p class="sugar-var-comment">{{ serialized.comment }}</p>
-          
+
             {{/if}}
 
           </div>
@@ -36,4 +36,4 @@
 
   {{/each}}
 
-</div>
+</section>

@@ -6,7 +6,7 @@
  */
 -->
 
-<div id="{{toID title}}" class="sugar-section-default">
+<section id="{{toID title}}" class="sugar-section-default">
 
   <h2>{{ title }}</h2>
 
@@ -15,15 +15,15 @@
     {{#each file.data as |data| }}
 
       {{> block-title data=data}}
-      
+
       {{> preview file=file}}
-      
+
       {{> tag-details file=file}}
-    
+
     {{/each}}
 
     {{> file-path file=file}}
 
   {{/each}}
 
-</div>
+</section>
