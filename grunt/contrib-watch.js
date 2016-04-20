@@ -7,7 +7,7 @@ module.exports = function( grunt ) {
 
     grunt.config( 'watch', {
         sass: {
-            files: [ 'styles/*.scss' ],
+            files: [ '**/styles/**/*.scss' ],
             tasks: [ 'sassdev' ]
         }
     });

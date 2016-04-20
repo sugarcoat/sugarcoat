@@ -4,13 +4,23 @@
 	.sugar-swatch-container {
 		border: 1px solid #e4e4e4;
 		margin-bottom: 1.0rem;
+        width: calc(100% - 30px);
+        margin-left: 30px;
 
 		.sugar-color-swatch {
-			width: 100%;
-			height: 100px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            margin-left: -30px;
 		}
 		pre {
 			white-space: nowrap;
+            height: 60px;
+            padding-top: 1.2em;
+            padding-left: 3em;
+            overflow-y: auto;
+            padding-bottom: 0;
 		}
 		.sugar-color-comment {
 			display: none;

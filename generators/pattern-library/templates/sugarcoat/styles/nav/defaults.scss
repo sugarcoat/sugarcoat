@@ -1,4 +1,35 @@
 .sugar-nav {
-
-	display: none;
+    background-color: #f1f1f1;
+//    width: 100%;
+    background: #f1f1f1;
+//    height: 100%;
+//    transform: translateX(-100%);
+//    position: absolute;
+//    top: 0;
+    
+    ul { 
+        list-style: none;
+        padding-left: 0;
+    }
+    ul li {
+        margin-bottom: 1.6em;
+    }
+    ul a {
+        font-family: 'Helvetica';
+        color: #666;
+        text-transform: uppercase;
+        font-weight: bold;
+        text-decoration: none;
+        letter-spacing: 0.14em;
+    }
+    ul ul a {
+        font-family: 'Helvetica';
+        font-weight: lighter;
+        letter-spacing: 0;
+        text-transform: none;
+    }
+    ul ul li {        
+        margin-top: 1.4em;
+        margin-bottom: 0;
+    }
 }

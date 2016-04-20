@@ -12,6 +12,7 @@
   <div>
 
     {{#each files as |file| }}
+    <div class="sugar-component">
 
       <div id="{{toID file.path @index}}">
 
@@ -48,7 +49,8 @@
       </div>
 
       {{> file-path file=file}}
-
+    
+    </div>
     {{~/each }}
 
   </div>

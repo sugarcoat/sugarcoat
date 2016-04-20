@@ -1,18 +1,19 @@
-<nav>
+<nav class="">
 
   <ul>
+  <!-- <ul class="col-xs-10 col-md-offset-1"> -->
 
     {{#each this as |section| }}
 
       <li><a href="#{{toID section.title}}">{{ section.title }}</a>
 
-        <ul>
+        <ul class="row">
 
           {{#each section.files as |file| }}
 
             {{#each file.data as |data| }}
 
-              <li>
+              <li class="col-xs-9 col-xs-offset-1">
 
                 <a href="#{{toID file.path @index }}">
 

@@ -1,18 +1,26 @@
+body {
+    transition: 1s ease-in transform;
+}
 .sugar-main {
-	margin: 0 5%;
+//    margin: 0 5%;
 
 	h2 {
 		font-family: 'Helvetica';
 		font-size: 2.25rem; //36px
 		font-weight: bold;
 		color: #029dd5;
+        margin-bottom: 0.8em;
 	}
 	h3 {
 		font-family: 'Helvetica';
 		font-weight: lighter;
 		font-size: 1.5rem; //24px
 		color: #666666;
+        margin-bottom: 0.7em;
 	}
+    .sugar-component {
+        margin-bottom: 60px;
+    }
 	.sugar-file-desc {
 		font-family: 'Helvetica';
 		font-size: 1rem; //16px

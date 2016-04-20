@@ -13,16 +13,19 @@
   {{#each files as |file| }}
 
     {{#each file.data as |data| }}
+      <div class="sugar-component">
 
-      {{> block-title data=data}}
-
-      {{> preview file=file}}
-
-      {{> tag-details file=file}}
-
+        {{> block-title data=data}}
+        
+        {{> preview file=file}}
+        
+        {{> tag-details file=file}}
+        
+        {{> file-path file=file}}
+      
+      </div>
+      
     {{/each}}
-
-    {{> file-path file=file}}
 
   {{/each}}
 
