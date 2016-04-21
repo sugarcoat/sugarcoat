@@ -17,6 +17,19 @@
             font-weight: bold;
             text-decoration: none;
             letter-spacing: 0.14em;
+            position: relative;
+        }
+        a:before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
+            border-radius: 10px;
+            position: absolute;
+            left: -28px;
+//            left: -17px; // for highlighting all sections
+            top: 3px;
+            transition: 0.5s ease-in background;
         }
         
         ul {
@@ -31,6 +44,12 @@
         ul li {        
             margin-top: 1.4em;
             margin-bottom: 0;
+        }
+        .active a:before {
+            background-color: #029dd5;
+        }
+        .active li a:before {
+            background-color: transparent;
         }
     }
 }
