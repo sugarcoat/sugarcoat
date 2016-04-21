@@ -1,0 +1,56 @@
+.sugar-section-color {
+    .sugar-swatch-container {
+        width: calc(50% - 1em);
+        position: relative;
+        float: left;
+        margin: 0 1rem 1rem 0;
+        
+        &:hover .sugar-color-comment {
+            display: block;
+            position: absolute;
+            z-index: 100;
+            background: black;
+            color: white;
+            width: 80%;
+            padding: 1em;
+            text-align: center;
+            height: auto;
+            margin: 0 auto;
+            margin-top: -90%;
+            left: 10%;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 12px;
+            font-weight: 300;
+            word-wrap: break-word;
+            
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .sugar-color-swatch {
+        background-color: #333333;
+        width: 100px;
+        border-radius: 0;
+        height: 100px;
+        width: 100%;
+        margin: 0;
+        position: relative;
+    }
+    pre {
+        padding-left: 1rem;
+        display: inline-block;
+        margin: 0;
+        float: left;   
+    }
+    .sugar-swatch-var {
+        border-right: 1px solid #e4e4e4;
+        width: 65%;
+    }
+    .sugar-swatch-val {
+        width: 35%;
+        position: relative;
+        border: none;
+    }
+}

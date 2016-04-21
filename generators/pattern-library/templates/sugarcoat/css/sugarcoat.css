@@ -1876,6 +1876,10 @@ body {
   transition: 1s ease-in transform;
 }
 
+/* line 4, ../styles/base/defaults.scss */
+.sugar-main {
+  margin: 0 5%;
+}
 /* line 7, ../styles/base/defaults.scss */
 .sugar-main h2 {
   font-family: 'Helvetica';
@@ -1908,15 +1912,16 @@ body {
   font-size: 0.8rem;
   color: #666666;
   font-weight: bold;
+  clear: both;
 }
-/* line 35, ../styles/base/defaults.scss */
+/* line 36, ../styles/base/defaults.scss */
 .sugar-main .sugar-file .sugar-path {
   font-family: 'Courier';
   font-weight: lighter;
   color: #0195c9;
   word-break: break-all;
 }
-/* line 42, ../styles/base/defaults.scss */
+/* line 43, ../styles/base/defaults.scss */
 .sugar-main pre {
   padding: 1.5rem 1rem;
   background-color: #f1f1f1;
@@ -1926,7 +1931,7 @@ body {
   margin-bottom: 0;
   overflow-x: scroll;
 }
-/* line 51, ../styles/base/defaults.scss */
+/* line 52, ../styles/base/defaults.scss */
 .sugar-main code {
   background-color: #f1f1f1;
   height: 100%;
@@ -1937,21 +1942,30 @@ body {
   font-weight: normal;
 }
 
+@media (min-width: 768px) {
+  /* line 1, ../styles/base/768.scss */
+  .sugar-main {
+    width: 75%;
+    margin: 0 0 0 25%;
+    padding: 2em;
+  }
+}
 /* line 1, ../styles/nav/defaults.scss */
 .sugar-nav {
   background-color: #f1f1f1;
-  background: #f1f1f1;
+  padding: 2em;
+  font-size: 14px;
 }
-/* line 10, ../styles/nav/defaults.scss */
+/* line 6, ../styles/nav/defaults.scss */
 .sugar-nav ul {
   list-style: none;
   padding-left: 0;
 }
-/* line 14, ../styles/nav/defaults.scss */
+/* line 10, ../styles/nav/defaults.scss */
 .sugar-nav ul li {
   margin-bottom: 1.6em;
 }
-/* line 17, ../styles/nav/defaults.scss */
+/* line 13, ../styles/nav/defaults.scss */
 .sugar-nav ul a {
   font-family: 'Helvetica';
   color: #666;
@@ -1959,6 +1973,10 @@ body {
   font-weight: bold;
   text-decoration: none;
   letter-spacing: 0.14em;
+}
+/* line 22, ../styles/nav/defaults.scss */
+.sugar-nav ul ul {
+  padding-left: 2em;
 }
 /* line 25, ../styles/nav/defaults.scss */
 .sugar-nav ul ul a {
@@ -1977,6 +1995,14 @@ body {
   /*
    * 768.scss
    */
+  /* line 4, ../styles/nav/768.scss */
+  .sugar-nav {
+    width: 25%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
 }
 /* line 1, ../styles/preview/defaults.scss */
 .sugar-preview-block {
@@ -2035,17 +2061,18 @@ body {
   margin-bottom: 1.0rem;
   width: calc(100% - 30px);
   margin-left: 30px;
+  position: relative;
 }
-/* line 10, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-container .sugar-color-swatch {
+/* line 12, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-swatch {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   position: absolute;
   margin-left: -30px;
 }
-/* line 17, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-container pre {
+/* line 19, ../styles/section-color/defaults.scss */
+.sugar-section-color pre {
   white-space: nowrap;
   height: 60px;
   padding-top: 1.2em;
@@ -2053,11 +2080,83 @@ body {
   overflow-y: auto;
   padding-bottom: 0;
 }
-/* line 25, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-container .sugar-color-comment {
+/* line 27, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-swatch-val {
+  float: right;
+  top: 0;
+  position: absolute;
+  /* z-index: 100; */
+  right: 0;
+  width: auto;
+  padding-left: 1em;
+  border-left: 1px solid #e4e4e4;
+}
+/* line 37, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment {
   display: none;
 }
 
+@media (min-width: 768px) {
+  /* line 2, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-swatch-container {
+    width: calc(50% - 1em);
+    position: relative;
+    float: left;
+    margin: 0 1rem 1rem 0;
+  }
+  /* line 8, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-swatch-container:hover .sugar-color-comment {
+    display: block;
+    position: absolute;
+    z-index: 100;
+    background: black;
+    color: white;
+    width: 80%;
+    padding: 1em;
+    text-align: center;
+    height: auto;
+    margin: 0 auto;
+    margin-top: -90%;
+    left: 10%;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 12px;
+    font-weight: 300;
+    word-wrap: break-word;
+  }
+  /* line 27, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-swatch-container:hover .sugar-color-comment p {
+    margin-bottom: 0;
+  }
+  /* line 32, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-color-swatch {
+    background-color: #333333;
+    width: 100px;
+    border-radius: 0;
+    height: 100px;
+    width: 100%;
+    margin: 0;
+    position: relative;
+  }
+  /* line 41, ../styles/section-color/768.scss */
+  .sugar-section-color pre {
+    padding-left: 1rem;
+    display: inline-block;
+    margin: 0;
+    float: left;
+  }
+  /* line 47, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-swatch-var {
+    border-right: 1px solid #e4e4e4;
+    width: 65%;
+  }
+  /* line 51, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-swatch-val {
+    width: 35%;
+    position: relative;
+    border: none;
+  }
+}
 /* line 1, ../styles/section-typography/defaults.scss */
 .sugar-section-type {
   width: 100%;
