@@ -16,7 +16,7 @@
             text-align: center;
             height: auto;
             margin: 0 auto;
-            margin-top: -80%;
+            transform: translateY(70px);
             left: 10%;
             text-transform: uppercase;
             letter-spacing: 0.3em;
@@ -26,6 +26,18 @@
             
             p {
                 margin-bottom: 0;
+            }
+            &:after {
+                content: '';
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 8px solid black;
+                position: absolute;
+                top: 0;
+                margin-left: -8px;
+                margin-top: -8px;
             }
         }
     }

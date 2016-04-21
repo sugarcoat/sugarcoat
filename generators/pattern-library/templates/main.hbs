@@ -6,9 +6,7 @@
   {{> head}}
 </head>
 <body>
-  
-  <!-- <div class=""> -->
-    
+      
     <nav class="sugar-nav">
     
         {{> masthead this.settings }}
@@ -16,9 +14,9 @@
         {{> nav this.sections }}
     </nav>
   
-  <!-- <div class="sugar-main-container"> -->
   
     <div class="sugar-main">
+      
       {{#each this.sections as |section|}}
 
         {{> (lookup . 'template') }}
@@ -27,8 +25,6 @@
 
       {{> footer}}
     </div>
-  
-  <!-- </div> -->
 
 </body>
 </html>
