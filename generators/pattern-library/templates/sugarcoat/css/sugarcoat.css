@@ -1947,7 +1947,17 @@ body {
   .sugar-main {
     width: 75%;
     margin: 0 0 0 25%;
+  }
+  /* line 5, ../styles/base/768.scss */
+  .sugar-main section {
     padding: 2em;
+    border-bottom: 1px solid #e4e4e4;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 2, ../styles/base/1200.scss */
+  .sugar-main .sugar-section-wrapper {
+    max-width: 835px;
   }
 }
 /* line 1, ../styles/nav/defaults.scss */
@@ -2002,6 +2012,18 @@ body {
     top: 0;
     bottom: 0;
     left: 0;
+  }
+}
+@media (min-width: 1200px) {
+  /* line 3, ../styles/nav/1200.scss */
+  .sugar-nav ul {
+    width: 245px;
+    float: right;
+  }
+  /* line 7, ../styles/nav/1200.scss */
+  .sugar-nav ul ul {
+    width: auto;
+    float: none;
   }
 }
 /* line 1, ../styles/preview/defaults.scss */
@@ -2116,7 +2138,7 @@ body {
     text-align: center;
     height: auto;
     margin: 0 auto;
-    margin-top: -90%;
+    margin-top: -80%;
     left: 10%;
     text-transform: uppercase;
     letter-spacing: 0.3em;

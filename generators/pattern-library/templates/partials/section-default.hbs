@@ -7,26 +7,30 @@
 -->
 
 <section id="{{toID title}}" class="sugar-section-default">
+  
+  <div class="sugar-section-wrapper">
+    
+    <h2>{{ title }}</h2>
 
-  <h2>{{ title }}</h2>
+    {{#each files as |file| }}
 
-  {{#each files as |file| }}
+      {{#each file.data as |data| }}
+        <div class="sugar-component">
 
-    {{#each file.data as |data| }}
-      <div class="sugar-component">
-
-        {{> block-title data=data}}
+          {{> block-title data=data}}
         
-        {{> preview file=file}}
+          {{> preview file=file}}
         
-        {{> tag-details file=file}}
+          {{> tag-details file=file}}
         
-        {{> file-path file=file}}
+          {{> file-path file=file}}
       
-      </div>
+        </div>
       
+      {{/each}}
+
     {{/each}}
-
-  {{/each}}
+    
+  </div>
 
 </section>

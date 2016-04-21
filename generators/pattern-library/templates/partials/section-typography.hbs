@@ -1,48 +1,51 @@
 <section id="{{toID title}}" class="sugar-section-type">
-
-  <h2>{{ title }}</h2>
   
-  {{#each files as |file| }}
-  <div class="sugar-component">
+  <div class="sugar-section-wrapper">
 
-    <div id="{{toID file.path @index }}">
-
-      {{#each file.data as |data| }}
-
-        {{> block-title data=data}}
-
-        <div class="sugar-type-file">
-
-          {{#each data.serializedCode as |serialized| }}
-
-            <div class="sugar-type-container">
-
-              <div class="sugar-type-example">
-
-                <p style="font-family: {{ serialized.value }};">The quick brown fox jumps over the lazy dog.</p>
-
+    <h2>{{ title }}</h2>
+    
+    {{#each files as |file| }}
+    <div class="sugar-component">
+    
+      <div id="{{toID file.path @index }}">
+    
+        {{#each file.data as |data| }}
+    
+          {{> block-title data=data}}
+    
+          <div class="sugar-type-file">
+    
+            {{#each data.serializedCode as |serialized| }}
+    
+              <div class="sugar-type-container">
+    
+                <div class="sugar-type-example">
+    
+                  <p style="font-family: {{ serialized.value }};">The quick brown fox jumps over the lazy dog.</p>
+    
+                </div>
+    
+                <pre>{{ serialized.variable }}: {{serialized.value}};</pre>
+    
+                {{#if serialized.comment }}
+    
+                  <p>{{ serialized.comment }}</p>
+    
+                {{/if }}
+    
               </div>
-
-              <pre>{{ serialized.variable }}: {{serialized.value}};</pre>
-
-              {{#if serialized.comment }}
-
-                <p>{{ serialized.comment }}</p>
-
-              {{/if }}
-
-            </div>
-
-          {{/each}}
-
-        </div>
-
-      {{/each}}
-
+    
+            {{/each}}
+    
+          </div>
+    
+        {{/each}}
+    
+      </div>
+    
+      {{> file-path file=file}}
     </div>
-
-    {{> file-path file=file}}
+    {{/each }}
   </div>
-  {{/each }}
 
 </section>
