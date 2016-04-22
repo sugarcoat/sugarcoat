@@ -17,6 +17,8 @@
   
     <div class="sugar-main">
       
+      {{> masthead this.settings }}
+      
       {{#each this.sections as |section|}}
 
         {{> (lookup . 'template') }}

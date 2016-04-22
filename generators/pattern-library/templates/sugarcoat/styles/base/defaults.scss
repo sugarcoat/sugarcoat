@@ -1,8 +1,21 @@
 body {
     transition: 1s ease-in transform;
 }
+.sugar-masthead {
+    margin-bottom: 65px;
+    margin-top: 40px;
+    
+    h1 {
+        font-size: 2.5em;
+//        float: right;
+    }
+    img {
+        width: 65px;
+        border-radius: 100%;
+    }
+}
 .sugar-main {
-    margin: 0 5%;
+    margin: 2em 5%;
 
 	h2 {
 		font-family: 'Helvetica';

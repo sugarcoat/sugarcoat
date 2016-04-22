@@ -2,8 +2,13 @@
     width: 75%;
     margin: 0 0 0 25%;
     
+    padding-top: 2em;
+    
     section {
         padding: 2em;
         border-bottom: 1px solid #e4e4e4;
+    }
+    .sugar-masthead {
+        display: none;
     }
 }

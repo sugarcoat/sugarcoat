@@ -1877,10 +1877,25 @@ body {
 }
 
 /* line 4, ../styles/base/defaults.scss */
-.sugar-main {
-  margin: 0 5%;
+.sugar-masthead {
+  margin-bottom: 65px;
+  margin-top: 40px;
 }
-/* line 7, ../styles/base/defaults.scss */
+/* line 8, ../styles/base/defaults.scss */
+.sugar-masthead h1 {
+  font-size: 2.5em;
+}
+/* line 12, ../styles/base/defaults.scss */
+.sugar-masthead img {
+  width: 65px;
+  border-radius: 100%;
+}
+
+/* line 17, ../styles/base/defaults.scss */
+.sugar-main {
+  margin: 2em 5%;
+}
+/* line 20, ../styles/base/defaults.scss */
 .sugar-main h2 {
   font-family: 'Helvetica';
   font-size: 2.25rem;
@@ -1888,7 +1903,7 @@ body {
   color: #029dd5;
   margin-bottom: 0.8em;
 }
-/* line 14, ../styles/base/defaults.scss */
+/* line 27, ../styles/base/defaults.scss */
 .sugar-main h3 {
   font-family: 'Helvetica';
   font-weight: lighter;
@@ -1896,17 +1911,17 @@ body {
   color: #666666;
   margin-bottom: 0.7em;
 }
-/* line 21, ../styles/base/defaults.scss */
+/* line 34, ../styles/base/defaults.scss */
 .sugar-main .sugar-component {
   margin-bottom: 60px;
 }
-/* line 24, ../styles/base/defaults.scss */
+/* line 37, ../styles/base/defaults.scss */
 .sugar-main .sugar-file-desc {
   font-family: 'Helvetica';
   font-size: 1rem;
   color: #c4c4c4;
 }
-/* line 29, ../styles/base/defaults.scss */
+/* line 42, ../styles/base/defaults.scss */
 .sugar-main .sugar-file {
   font-family: 'Helvetica Neue';
   font-size: 0.8rem;
@@ -1914,14 +1929,14 @@ body {
   font-weight: bold;
   clear: both;
 }
-/* line 36, ../styles/base/defaults.scss */
+/* line 49, ../styles/base/defaults.scss */
 .sugar-main .sugar-file .sugar-path {
   font-family: 'Courier';
   font-weight: lighter;
   color: #0195c9;
   word-break: break-all;
 }
-/* line 43, ../styles/base/defaults.scss */
+/* line 56, ../styles/base/defaults.scss */
 .sugar-main pre {
   padding: 1.5rem 1rem;
   background-color: #f1f1f1;
@@ -1931,7 +1946,7 @@ body {
   margin-bottom: 0;
   overflow-x: scroll;
 }
-/* line 52, ../styles/base/defaults.scss */
+/* line 65, ../styles/base/defaults.scss */
 .sugar-main code {
   background-color: #f1f1f1;
   height: 100%;
@@ -1947,11 +1962,16 @@ body {
   .sugar-main {
     width: 75%;
     margin: 0 0 0 25%;
+    padding-top: 2em;
   }
-  /* line 5, ../styles/base/768.scss */
+  /* line 7, ../styles/base/768.scss */
   .sugar-main section {
     padding: 2em;
     border-bottom: 1px solid #e4e4e4;
+  }
+  /* line 11, ../styles/base/768.scss */
+  .sugar-main .sugar-masthead {
+    display: none;
   }
 }
 @media (min-width: 1200px) {
@@ -1967,15 +1987,19 @@ body {
   font-size: 14px;
 }
 /* line 6, ../styles/nav/defaults.scss */
+.sugar-nav .sugar-masthead {
+  display: none;
+}
+/* line 10, ../styles/nav/defaults.scss */
 .sugar-nav ul {
   list-style: none;
   padding-left: 0;
 }
-/* line 10, ../styles/nav/defaults.scss */
+/* line 14, ../styles/nav/defaults.scss */
 .sugar-nav ul li {
   margin-bottom: 1.6em;
 }
-/* line 13, ../styles/nav/defaults.scss */
+/* line 17, ../styles/nav/defaults.scss */
 .sugar-nav ul a {
   font-family: 'Helvetica';
   color: #666;
@@ -1986,11 +2010,11 @@ body {
   position: relative;
   transition: 0.2s ease color;
 }
-/* line 23, ../styles/nav/defaults.scss */
+/* line 27, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-item.active {
   color: #029dd5;
 }
-/* line 26, ../styles/nav/defaults.scss */
+/* line 30, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-subitem:before {
   content: '';
   width: 10px;
@@ -2002,26 +2026,26 @@ body {
   top: 3px;
   transition: 0.5s ease-in background;
 }
-/* line 37, ../styles/nav/defaults.scss */
+/* line 41, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-subitem.active:before {
   background-color: #029dd5;
 }
-/* line 40, ../styles/nav/defaults.scss */
+/* line 44, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-item:not(.active) + ul .active:before {
   background-color: transparent;
 }
-/* line 43, ../styles/nav/defaults.scss */
+/* line 47, ../styles/nav/defaults.scss */
 .sugar-nav ul ul {
   padding-left: 2em;
 }
-/* line 46, ../styles/nav/defaults.scss */
+/* line 50, ../styles/nav/defaults.scss */
 .sugar-nav ul ul a {
   font-family: 'Helvetica';
   font-weight: lighter;
   letter-spacing: 0;
   text-transform: none;
 }
-/* line 52, ../styles/nav/defaults.scss */
+/* line 56, ../styles/nav/defaults.scss */
 .sugar-nav ul ul li {
   margin-top: 1.4em;
   margin-bottom: 0;
@@ -2039,15 +2063,21 @@ body {
     bottom: 0;
     left: 0;
   }
+  /* line 11, ../styles/nav/768.scss */
+  .sugar-nav .sugar-masthead {
+    display: block;
+  }
 }
 @media (min-width: 1200px) {
   /* line 3, ../styles/nav/1200.scss */
-  .sugar-nav ul {
+  .sugar-nav ul,
+  .sugar-nav .sugar-masthead {
     width: 245px;
     float: right;
   }
-  /* line 7, ../styles/nav/1200.scss */
-  .sugar-nav ul ul {
+  /* line 8, ../styles/nav/1200.scss */
+  .sugar-nav ul ul,
+  .sugar-nav .sugar-masthead ul {
     width: auto;
     float: none;
   }
