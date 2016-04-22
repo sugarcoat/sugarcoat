@@ -1984,9 +1984,26 @@ body {
   text-decoration: none;
   letter-spacing: 0.14em;
   position: relative;
+  transition: 0.2s ease color;
 }
-/* line 22, ../styles/nav/defaults.scss */
-.sugar-nav ul a:before {
+/* line 23, ../styles/nav/defaults.scss */
+.sugar-nav ul .active a {
+  color: #029dd5;
+}
+/* line 26, ../styles/nav/defaults.scss */
+.sugar-nav ul .active ul a {
+  color: #666;
+}
+/* line 29, ../styles/nav/defaults.scss */
+.sugar-nav ul li:not(.active) .active a {
+  color: #666;
+}
+/* line 32, ../styles/nav/defaults.scss */
+.sugar-nav ul a:hover {
+  color: #029dd5;
+}
+/* line 35, ../styles/nav/defaults.scss */
+.sugar-nav ul ul a:before {
   content: '';
   width: 10px;
   height: 10px;
@@ -1997,29 +2014,25 @@ body {
   top: 3px;
   transition: 0.5s ease-in background;
 }
-/* line 35, ../styles/nav/defaults.scss */
+/* line 48, ../styles/nav/defaults.scss */
 .sugar-nav ul ul {
   padding-left: 2em;
 }
-/* line 38, ../styles/nav/defaults.scss */
+/* line 51, ../styles/nav/defaults.scss */
 .sugar-nav ul ul a {
   font-family: 'Helvetica';
   font-weight: lighter;
   letter-spacing: 0;
   text-transform: none;
 }
-/* line 44, ../styles/nav/defaults.scss */
+/* line 57, ../styles/nav/defaults.scss */
 .sugar-nav ul ul li {
   margin-top: 1.4em;
   margin-bottom: 0;
 }
-/* line 48, ../styles/nav/defaults.scss */
-.sugar-nav ul .active a:before {
+/* line 61, ../styles/nav/defaults.scss */
+.sugar-nav ul .active .active a:before {
   background-color: #029dd5;
-}
-/* line 51, ../styles/nav/defaults.scss */
-.sugar-nav ul .active li a:before {
-  background-color: transparent;
 }
 
 @media (min-width: 768px) {

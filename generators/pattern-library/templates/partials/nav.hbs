@@ -5,18 +5,17 @@
 
     {{#each this as |section| }}
 
-      <li><a href="#{{toID section.title}}">{{ section.title }}</a>
+      <li><a class="sugar-nav-item" href="#{{toID section.title}}">{{ section.title }}</a>
 
-        <ul class="">
+        <ul>
 
           {{#each section.files as |file| }}
 
             {{#each file.data as |data| }}
 
-              <li class="">
-              <!-- <li class="col-xs-9 col-xs-offset-1"> -->
+              <li>
 
-                <a href="#{{toID file.path @index }}">
+                <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
 
                 {{#each data.tags as |theTag| }}
 
