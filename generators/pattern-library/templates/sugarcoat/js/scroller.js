@@ -1,18 +1,11 @@
 // http://jsfiddle.net/mekwall/up4nu/ modified to keep track of two sets fo nav items
 // Cache selectors
 var lastId, lastId2, topMenu = $('#sugar-nav'),
-    // topMenuHeight = 0,
-    // topMenuHeight = topMenu.outerHeight() + 15,
     // All list items
     menuItems = topMenu.find('a'),
     primaryItems = topMenu.find('.sugar-nav-item'),
     secondaryItems = topMenu.find('.sugar-nav-subitem'),
-    // menuItems = topMenu.find("a"), // for highlighting all sections
     // Anchors corresponding to menu items
-    // scrollItems = menuItems.map( function(){
-    //   var item = $( $( this ).attr( 'href' ));
-    //   if ( item.length ) { return item; }
-    // });
     scrollPrimaryItems = primaryItems.map(function() {
         var item = $($(this).attr('href'));
         if (item.length) {
@@ -30,9 +23,7 @@ var lastId, lastId2, topMenu = $('#sugar-nav'),
 // so we can get a fancy scroll animation
 menuItems.click(function(e) {
     var href = $(this).attr('href'),
-        offsetTop = href === '#' ? 0 : $(href).offset().top + 1;
-    // offsetTop = href === '#' ? 0 : $( href ).offset().top - topMenuHeight + 1;
-    
+        offsetTop = href === '#' ? 0 : $(href).offset().top + 1;    
     
     $('html, body').stop().animate({
         scrollTop: offsetTop
@@ -44,7 +35,6 @@ menuItems.click(function(e) {
 $(window).scroll(function() {
     // Get container scroll position
     var fromTop = $(this).scrollTop();
-    // var fromTop = $( this ).scrollTop() + topMenuHeight;
     // Get id of current scroll item
     var cur = scrollPrimaryItems.map(function() {
         if ($(this).offset().top < fromTop) {
@@ -58,12 +48,10 @@ $(window).scroll(function() {
         }
     });
 
-    // console.log( cur, cur2 );
     // Get the id of the current element
     cur = cur[cur.length - 1];
     cur2 = cur2[cur2.length - 1];
 
-    // console.log( cur2 );
     var id = cur && cur.length ? cur[0].id : '';
     var id2 = cur2 && cur2.length ? cur2[0].id : '';
 
