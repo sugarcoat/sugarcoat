@@ -2069,13 +2069,17 @@ body {
   }
 }
 @media (min-width: 1200px) {
-  /* line 3, ../styles/nav/1200.scss */
+  /* line 1, ../styles/nav/1200.scss */
+  .sugar-nav {
+    padding-left: 5%;
+  }
+  /* line 5, ../styles/nav/1200.scss */
   .sugar-nav ul,
   .sugar-nav .sugar-masthead {
     width: 245px;
     float: right;
   }
-  /* line 8, ../styles/nav/1200.scss */
+  /* line 10, ../styles/nav/1200.scss */
   .sugar-nav ul ul,
   .sugar-nav .sugar-masthead ul {
     width: auto;
