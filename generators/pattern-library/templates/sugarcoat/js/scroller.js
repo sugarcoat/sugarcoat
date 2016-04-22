@@ -24,37 +24,6 @@ function getHrefValues( obj ) {
 var primaryScrollItems = getHrefValues( primaryItems );
 var secondaryScrollItems = getHrefValues( secondaryItems );
 
-// var lastId, lastId2, topMenu = $('#sugar-nav'),
-//     // All list items
-//     menuItems = topMenu.find('a'),
-//     primaryItems = topMenu.find('.sugar-nav-item'),
-//     secondaryItems = topMenu.find('.sugar-nav-subitem'),
-//     // Anchors corresponding to menu items
-//     scrollPrimaryItems = primaryItems.map(function() {
-//         var item = $($(this).attr('href'));
-//         if (item.length) {
-//             return item;
-//         }
-//     }),
-//     scrollSecondaryItems = secondaryItems.map(function() {
-//         var item = $($(this).attr('href'));
-//         if (item.length) {
-//             return item;
-//         }
-//     });
-//
-// // Bind click handler to menu items
-// // so we can get a fancy scroll animation
-// menuItems.click(function(e) {
-//     var href = $(this).attr('href'),
-//         offsetTop = href === '#' ? 0 : $(href).offset().top + 1;
-//
-//     $('html, body').stop().animate({
-//         scrollTop: offsetTop
-//     }, 300);
-//     e.preventDefault();
-// });
-
 window.addEventListener( 'scroll', function( e ) {
     
     var currentPrimary = 0
