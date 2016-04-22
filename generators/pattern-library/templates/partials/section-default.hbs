@@ -15,13 +15,42 @@
     {{#each files as |file| }}
 
       {{#each file.data as |data| }}
+      
         <div class="sugar-component">
 
-          {{> block-title data=data}}
+          <!--
+          /**
+           *
+           * @title Partial for Comment Block Titles
+           *
+           */
+          -->
+            
+          {{#with @index as |theIndex|}}
+          
+          {{#if data.tags}}
+
+            {{#each data.tags as |tags| }}
+
+              {{#isEqual tags.tag 'title'}}
+    
+                  <h3 id="{{toID file.path theIndex}}">{{ tags.description }}</h3>
+
+                {{/isEqual}}
+
+                {{#isEqual tags.tag 'description'}}
+
+                  <p class="sugar-file-desc">{{ tags.description }}</p>
+
+              {{/isEqual}}
+
+            {{/each}}
+
+          {{/if}}
+          
+          {{/with}}
         
           {{> preview file=file}}
-          
-          {{toID file.path @index}}
         
           {{> tag-details file=file}}
         
