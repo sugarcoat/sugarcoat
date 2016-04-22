@@ -20,19 +20,10 @@
             position: relative;
             transition: 0.2s ease color;
         }
-        .active a {
+        .sugar-nav-item.active {
             color: #029dd5;
         }
-        .active ul a {
-            color: #666;
-        }
-        li:not(.active) .active a {
-            color: #666;
-        }
-        a:hover {
-            color: #029dd5;
-        }
-        ul a:before {
+        .sugar-nav-subitem:before {
             content: '';
             width: 10px;
             height: 10px;
@@ -40,11 +31,15 @@
             border-radius: 10px;
             position: absolute;
             left: -28px;
-//            left: -17px; // for highlighting all sections
             top: 3px;
             transition: 0.5s ease-in background;
         }
-        
+        .sugar-nav-subitem.active:before {
+            background-color: #029dd5;
+        }
+        .sugar-nav-item:not( .active ) + ul .active:before {
+            background-color: transparent;
+        }
         ul {
             padding-left: 2em;
         }
@@ -58,11 +53,5 @@
             margin-top: 1.4em;
             margin-bottom: 0;
         }
-        .active .active a:before {
-            background-color: #029dd5;
-        }
-//        .active li a:before {
-//            background-color: transparent;
-//        }
     }
 }
