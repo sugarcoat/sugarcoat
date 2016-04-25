@@ -1,7 +1,14 @@
+.sugar-nav-open {
+    .sugar-main {
+        transform: none;
+    }
+    .sugar-nav-toggle {
+        transform: none;
+    }
+}
 .sugar-main {
     width: 75%;
     margin: 0 0 0 25%;
-    
     padding-top: 2em;
     
     section {

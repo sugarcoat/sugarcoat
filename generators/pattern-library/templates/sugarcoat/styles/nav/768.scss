@@ -1,6 +1,9 @@
 /*
  * 768.scss
  */
+.sugar-nav-toggle {
+    display: none;
+}
 .sugar-nav {
     width: 25%;
     position: fixed;
@@ -10,5 +13,6 @@
     
     .sugar-masthead {
         display: block;
+        padding-top: 40px;
     }
 }

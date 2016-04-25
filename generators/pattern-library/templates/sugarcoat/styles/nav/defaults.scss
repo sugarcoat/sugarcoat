@@ -1,7 +1,48 @@
+.sugar-nav-toggle {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    font-size: 0;
+    width: 45px;
+    height: 40px;
+    background-color: rgba(153, 153, 153, 0.17);
+    z-index: 150;
+    cursor: pointer;
+    transition: 0.35s linear transform;
+    
+    &:after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 1px;
+        background-color: black;
+        top: 15px;
+        left: 10px;
+    }
+    &:before {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 1px;
+        background-color: black;
+        bottom: 15px;
+        left: 10px;
+    }
+}
 .sugar-nav {
     background-color: #f1f1f1;
     padding: 2em;
     font-size: 14px;
+    
+    position: fixed;
+    width: 245px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+//    z-index: -1;
+    transform: translate(0, 0);
     
     .sugar-masthead {
         display: none;

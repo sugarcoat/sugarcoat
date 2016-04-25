@@ -7,26 +7,33 @@
 </head>
 <body>
       
+  <div class="sugar-page-wrapper">
     <nav class="sugar-nav">
+      
+          {{> masthead this.settings }}
+      
+          {{> nav this.sections }}
+      </nav>
     
+      <a class="sugar-nav-toggle">Toggle</a>
+      
+      <div class="sugar-main">
+        
+        
         {{> masthead this.settings }}
-    
-        {{> nav this.sections }}
-    </nav>
+        
+        {{#each this.sections as |section|}}
   
+          {{> (lookup . 'template') }}
   
-    <div class="sugar-main">
+        {{/each}}
+  
+        {{> footer}}
+      </div>
       
-      {{> masthead this.settings }}
-      
-      {{#each this.sections as |section|}}
-
-        {{> (lookup . 'template') }}
-
-      {{/each}}
-
-      {{> footer}}
     </div>
+
+<script src="sugarcoat/js/sugar-nav.js"></script>
 
 </body>
 </html>

@@ -5,6 +5,7 @@ var lastId
     , lastId2
     , primaryItems = document.querySelectorAll( '.sugar-nav-item' )
     , secondaryItems = document.querySelectorAll( '.sugar-nav-subitem' )
+    , navToggle = document.querySelector( '.sugar-nav-toggle' )
     ;
 
 function getHrefValues( obj ) {
@@ -75,5 +76,18 @@ window.addEventListener( 'scroll', function( e ) {
         secondaryItems[ currentSecondary ].classList.add( 'active' );
         
         lastId2 = currentSecondary;
+    }
+});
+
+navToggle.addEventListener( 'click', function( e ) {
+    
+    var classList = document.body.classList;
+    
+    if ( classList.contains( 'sugar-nav-open' )) {
+        
+        classList.remove( 'sugar-nav-open' );
+    }
+    else {
+        classList.add( 'sugar-nav-open' );
     }
 });

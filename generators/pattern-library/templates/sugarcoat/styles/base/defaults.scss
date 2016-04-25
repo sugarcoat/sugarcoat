@@ -1,21 +1,33 @@
-body {
-    transition: 1s ease-in transform;
+
+.sugar-page-wrapper {
+    position: relative;
+    overflow: hidden;
 }
 .sugar-masthead {
-    margin-bottom: 65px;
-    margin-top: 40px;
+    padding-bottom: 65px;
+    padding-top: 100px;
     
     h1 {
         font-size: 2.5em;
-//        float: right;
     }
     img {
         width: 65px;
         border-radius: 100%;
     }
 }
+.sugar-nav-open {
+    .sugar-main {
+        transform: translateX(245px);
+    }
+    .sugar-nav-toggle {
+        transform: translateX(245px);
+    }
+}
 .sugar-main {
-    margin: 2em 5%;
+    padding: 0 5% 2em 5%;
+    background: white;
+    transition: 0.35s linear transform;
+    position: relative;
 
 	h2 {
 		font-family: 'Helvetica';
