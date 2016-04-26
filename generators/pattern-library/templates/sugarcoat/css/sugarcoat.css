@@ -1959,15 +1959,45 @@ output {
   margin-bottom: 0;
   overflow-x: scroll;
 }
-/* line 77, ../styles/base/defaults.scss */
-.sugar-main code {
-  background-color: #f1f1f1;
-  height: 100%;
-  padding: 0 0.7rem;
-  font-family: 'Courier';
-  display: block;
-  text-transform: none;
-  font-weight: normal;
+/* line 78, ../styles/base/defaults.scss */
+.sugar-main .sugar-type-container pre,
+.sugar-main .sugar-type-container .sugar-type-desc {
+  width: 100%;
+  border-top: 1px solid #e4e4e4;
+  position: relative;
+  padding: 1.6rem 1rem .8rem 1rem;
+}
+/* line 85, ../styles/base/defaults.scss */
+.sugar-main .sugar-type-container pre:before,
+.sugar-main .sugar-type-container .sugar-type-desc:before {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  font-weight: lighter;
+  font-family: 'Helvetica';
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 11px;
+  color: #C7C7C7;
+}
+/* line 99, ../styles/base/defaults.scss */
+.sugar-main .sugar-var:before {
+  content: 'variable';
+}
+/* line 104, ../styles/base/defaults.scss */
+.sugar-main .sugar-val:before {
+  content: 'value';
+}
+/* line 108, ../styles/base/defaults.scss */
+.sugar-main .sugar-type-desc {
+  background: #f1f1f1;
+  margin: 0;
+  width: 100%;
+  color: #999999;
+}
+/* line 114, ../styles/base/defaults.scss */
+.sugar-main .sugar-type-desc:before {
+  content: 'description';
 }
 
 @media (min-width: 768px) {
@@ -1994,6 +2024,16 @@ output {
   /* line 18, ../styles/base/768.scss */
   .sugar-main .sugar-masthead {
     display: none;
+  }
+  /* line 24, ../styles/base/768.scss */
+  .sugar-main .sugar-type-container .sugar-var {
+    width: 35%;
+    float: left;
+    border-right: 1px solid #e4e4e4;
+  }
+  /* line 29, ../styles/base/768.scss */
+  .sugar-main .sugar-type-container .sugar-val {
+    width: 65%;
   }
 }
 @media (min-width: 1200px) {
@@ -2339,27 +2379,28 @@ output {
 .sugar-section-type {
   width: 100%;
 }
-/* line 6, ../styles/section-typography/defaults.scss */
+/* line 13, ../styles/section-typography/defaults.scss */
 .sugar-section-type .sugar-type-file .sugar-type-container {
   border: 1px solid #e4e4e4;
+  overflow: hidden;
   margin-bottom: 1rem;
 }
-/* line 10, ../styles/section-typography/defaults.scss */
+/* line 18, ../styles/section-typography/defaults.scss */
 .sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-example,
 .sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code {
   padding: 1.25rem 1.0rem;
 }
-/* line 14, ../styles/section-typography/defaults.scss */
+/* line 22, ../styles/section-typography/defaults.scss */
 .sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-example p {
   margin-bottom: 0;
 }
-/* line 17, ../styles/section-typography/defaults.scss */
+/* line 25, ../styles/section-typography/defaults.scss */
 .sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code {
   background-color: #f1f1f1;
   white-space: nowrap;
   overflow-x: scroll;
 }
-/* line 22, ../styles/section-typography/defaults.scss */
+/* line 30, ../styles/section-typography/defaults.scss */
 .sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code .sugar-type-code-snippet {
   font-family: 'Courier';
   margin-bottom: 0;

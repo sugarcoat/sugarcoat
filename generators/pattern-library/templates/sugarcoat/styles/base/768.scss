@@ -18,4 +18,16 @@
     .sugar-masthead {
         display: none;
     }
+    .sugar-type-container {
+        pre {
+        }
+        .sugar-var {
+            width: 35%;
+            float: left;
+            border-right: 1px solid #e4e4e4;
+        }
+        .sugar-val {
+            width: 65%;
+        }
+    }
 }

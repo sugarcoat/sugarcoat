@@ -1,10 +1,18 @@
 .sugar-section-type {
 	width: 100%;
+    
+    pre {
+//        padding: 1.2rem 1rem;
+//        float: left;
+//        margin: 0;
+    }
 	
 	.sugar-type-file {
+        
 
 		.sugar-type-container {
 			border: 1px solid #e4e4e4;
+            overflow: hidden;
 			margin-bottom: 1rem;
 
 			.sugar-type-example,
