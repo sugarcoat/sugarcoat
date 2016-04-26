@@ -2100,7 +2100,7 @@ output {
   border-radius: 10px;
   position: absolute;
   left: -28px;
-  top: 3px;
+  top: 2px;
   transition: 0.5s ease-in background;
 }
 /* line 97, ../styles/nav/defaults.scss */

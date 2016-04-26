@@ -3,13 +3,20 @@
 // Cache selectors
 var lastId
     , lastId2
+    , scrollTimeout
     , nav = document.querySelector( '.sugar-nav' )
     , primaryItems = document.querySelectorAll( '.sugar-nav-item' )
     , secondaryItems = document.querySelectorAll( '.sugar-nav-subitem' )
     , navToggle = document.querySelector( '.sugar-nav-toggle' )
-    , scrollTimeout
+    , isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1
     ;
 
+/**
+ * 
+ * Helper Functions
+ *
+ */
+// grab all href values from an obj array
 function getHrefValues( obj ) {
 
     var hrefArray = [];
@@ -24,8 +31,9 @@ function getHrefValues( obj ) {
     return hrefArray;
 }
 
-function scrollToEl(elem, pos)
-{
+// recursive function to animate scroll position. 
+function scrollToEl(elem, pos) {
+    
     var y = elem.scrollTop;
     
     y += Math.round( ( pos - y ) * 0.3 );
@@ -35,83 +43,82 @@ function scrollToEl(elem, pos)
         elem.scrollTop = pos;
         return;
     }
-    elem.scrollTop = y;
     
+    elem.scrollTop = y;
     scrollTimeout = setTimeout( scrollToEl, 40, elem, pos );
 }
 
+// find item to scroll to, and change its active class
+function changeActiveItem( items, scrollItems, last, isPrimary ) {
+    
+    var current = 0;
+    
+    for ( var j = 0; j < scrollItems.length; j++ ) {
+        
+        var offset = scrollItems[ j ].getBoundingClientRect().top - 5;        
+        
+        if ( offset < 0 ) {
+
+            current = j;
+        }
+        else {
+            
+            break;
+        }
+    }
+    if ( last !== current ) {
+        
+        if ( items[ last ]) {
+            
+            items[ last ].classList.remove( 'active' );
+        }
+        items[ current ].classList.add( 'active' );
+        
+        // need to change global variable tracking the Id
+        if ( isPrimary ) {
+            lastId = current;
+        }
+        else {
+            lastId2 = current;
+        }
+    }
+}
 
 var primaryScrollItems = getHrefValues( primaryItems );
 var secondaryScrollItems = getHrefValues( secondaryItems );
 
+
+/**
+ * 
+ * Events
+ *
+ */
 nav.addEventListener( 'click', function( e ) {
     
     if ( e.target.tagName === 'A' ) {
         
         e.preventDefault();
+        // kill previous click scrolling
         clearTimeout( scrollTimeout );
         
         var href = e.target.getAttribute( 'href' );
         var element = document.querySelector( href );
         
-        scrollToEl( document.body, element.offsetTop );
+        // document.body is deprecated in ff
+        var body = isFirefox ? document.documentElement : document.body;
+        
+        scrollToEl( body, element.offsetTop );
     }
 });
 
+// scroll event to track active element on the page
 window.addEventListener( 'scroll', function( e ) {
     
-    var currentPrimary = 0
-        , currentSecondary = 0
-        ;
-    
-    for ( var j = 0; j < primaryScrollItems.length; j++ ) {
-        
-        var primaryOffset = primaryScrollItems[ j ].getBoundingClientRect().top - 5;        
-        
-        if ( primaryOffset < 0 ) {
-
-            currentPrimary = j;
-
-        }
-        else {
-            break;
-        }
-    }
-    for ( var k = 0; k < secondaryScrollItems.length; k++ ) {
-
-        var secondaryOffset = secondaryScrollItems[ k ].getBoundingClientRect().top - 5;        
-        
-        if ( secondaryOffset < 0 ) {
-
-            currentSecondary = k;
-        }
-        else {
-            break;
-        }
-    }
-    
-    if ( lastId !== currentPrimary ) {
-        
-        if ( primaryItems[ lastId ]) {
-            
-            primaryItems[ lastId ].classList.remove( 'active' );
-        }
-        primaryItems[ currentPrimary ].classList.add( 'active' );
-        
-        lastId = currentPrimary;
-    }
-    if ( lastId2 !== currentSecondary ) {
-        
-        if ( secondaryItems[ lastId2 ]) {
-            
-            secondaryItems[ lastId2 ].classList.remove( 'active' );
-        }
-        secondaryItems[ currentSecondary ].classList.add( 'active' );
-        
-        lastId2 = currentSecondary;
-    }
+    changeActiveItem( primaryItems, primaryScrollItems, lastId, true );
+    changeActiveItem( secondaryItems, secondaryScrollItems, lastId2, false );
 });
 
+// toggle function for mobile viewport
 navToggle.addEventListener( 'click', function( e ) {
     
     var classList = document.body.classList;
