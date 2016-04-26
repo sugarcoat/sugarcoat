@@ -1,11 +1,13 @@
 // http://jsfiddle.net/mekwall/up4nu/ modified to keep track of two sets fo nav items
+// http://stackoverflow.com/questions/8917921/cross-browser-javascript-not-jquery-scroll-to-top-animation javascript scroll to function
 // Cache selectors
-
 var lastId
     , lastId2
+    , nav = document.querySelector( '.sugar-nav' )
     , primaryItems = document.querySelectorAll( '.sugar-nav-item' )
     , secondaryItems = document.querySelectorAll( '.sugar-nav-subitem' )
     , navToggle = document.querySelector( '.sugar-nav-toggle' )
+    , scrollTimeout
     ;
 
 function getHrefValues( obj ) {
@@ -22,8 +24,39 @@ function getHrefValues( obj ) {
     return hrefArray;
 }
 
+function scrollToEl(elem, pos)
+{
+    var y = elem.scrollTop;
+    
+    y += Math.round( ( pos - y ) * 0.3 );
+    
+    if ( Math.abs( y - pos ) < 2 ) {
+        
+        elem.scrollTop = pos;
+        return;
+    }
+    elem.scrollTop = y;
+    
+    scrollTimeout = setTimeout( scrollToEl, 40, elem, pos );
+}
+
+
 var primaryScrollItems = getHrefValues( primaryItems );
 var secondaryScrollItems = getHrefValues( secondaryItems );
+
+nav.addEventListener( 'click', function( e ) {
+    
+    if ( e.target.tagName === 'A' ) {
+        
+        e.preventDefault();
+        clearTimeout( scrollTimeout );
+        
+        var href = e.target.getAttribute( 'href' );
+        var element = document.querySelector( href );
+        
+        scrollToEl( document.body, element.offsetTop );
+    }
+});
 
 window.addEventListener( 'scroll', function( e ) {
     
