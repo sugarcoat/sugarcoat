@@ -18,6 +18,7 @@
         background-color: black;
         top: 15px;
         left: 10px;
+        transition: 0.35s linear all;
     }
     &:before {
         content: '';
@@ -27,6 +28,20 @@
         background-color: black;
         bottom: 15px;
         left: 10px;
+        transition: 0.35s linear all;
+    }
+}
+.sugar-nav-open {
+    .sugar-nav-toggle {
+        
+        &:after {
+            transform: translateY(5px);
+            background-color:#029dd5;
+        }
+        &:before {
+            transform: translateY(-5px);            
+            background-color:#029dd5;
+        }
     }
 }
 .sugar-nav {

@@ -1984,7 +1984,7 @@ output {
   .sugar-main {
     width: 75%;
     margin: 0 0 0 25%;
-    padding-top: 2em;
+    padding: 2em 0 0 0;
   }
   /* line 14, ../styles/base/768.scss */
   .sugar-main section {
@@ -2024,8 +2024,9 @@ output {
   background-color: black;
   top: 15px;
   left: 10px;
+  transition: 0.35s linear all;
 }
-/* line 22, ../styles/nav/defaults.scss */
+/* line 23, ../styles/nav/defaults.scss */
 .sugar-nav-toggle:before {
   content: '';
   position: absolute;
@@ -2034,9 +2035,21 @@ output {
   background-color: black;
   bottom: 15px;
   left: 10px;
+  transition: 0.35s linear all;
 }
 
-/* line 32, ../styles/nav/defaults.scss */
+/* line 37, ../styles/nav/defaults.scss */
+.sugar-nav-open .sugar-nav-toggle:after {
+  transform: translateY(5px);
+  background-color: #029dd5;
+}
+/* line 41, ../styles/nav/defaults.scss */
+.sugar-nav-open .sugar-nav-toggle:before {
+  transform: translateY(-5px);
+  background-color: #029dd5;
+}
+
+/* line 47, ../styles/nav/defaults.scss */
 .sugar-nav {
   background-color: #f1f1f1;
   padding: 2em;
@@ -2050,20 +2063,20 @@ output {
   overflow-y: auto;
   transform: translate(0, 0);
 }
-/* line 47, ../styles/nav/defaults.scss */
+/* line 62, ../styles/nav/defaults.scss */
 .sugar-nav .sugar-masthead {
   display: none;
 }
-/* line 51, ../styles/nav/defaults.scss */
+/* line 66, ../styles/nav/defaults.scss */
 .sugar-nav ul {
   list-style: none;
   padding-left: 0;
 }
-/* line 55, ../styles/nav/defaults.scss */
+/* line 70, ../styles/nav/defaults.scss */
 .sugar-nav ul li {
   margin-bottom: 1.6em;
 }
-/* line 58, ../styles/nav/defaults.scss */
+/* line 73, ../styles/nav/defaults.scss */
 .sugar-nav ul a {
   font-family: 'Helvetica';
   color: #666;
@@ -2074,11 +2087,11 @@ output {
   position: relative;
   transition: 0.2s ease color;
 }
-/* line 68, ../styles/nav/defaults.scss */
+/* line 83, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-item.active {
   color: #029dd5;
 }
-/* line 71, ../styles/nav/defaults.scss */
+/* line 86, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-subitem:before {
   content: '';
   width: 10px;
@@ -2090,26 +2103,26 @@ output {
   top: 3px;
   transition: 0.5s ease-in background;
 }
-/* line 82, ../styles/nav/defaults.scss */
+/* line 97, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-subitem.active:before {
   background-color: #029dd5;
 }
-/* line 85, ../styles/nav/defaults.scss */
+/* line 100, ../styles/nav/defaults.scss */
 .sugar-nav ul .sugar-nav-item:not(.active) + ul .active:before {
   background-color: transparent;
 }
-/* line 88, ../styles/nav/defaults.scss */
+/* line 103, ../styles/nav/defaults.scss */
 .sugar-nav ul ul {
   padding-left: 2em;
 }
-/* line 91, ../styles/nav/defaults.scss */
+/* line 106, ../styles/nav/defaults.scss */
 .sugar-nav ul ul a {
   font-family: 'Helvetica';
   font-weight: lighter;
   letter-spacing: 0;
   text-transform: none;
 }
-/* line 97, ../styles/nav/defaults.scss */
+/* line 112, ../styles/nav/defaults.scss */
 .sugar-nav ul ul li {
   margin-top: 1.4em;
   margin-bottom: 0;
