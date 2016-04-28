@@ -14,27 +14,34 @@
 
       {{/each}}
 
-      <div id="{{toID file.path @index}}">
+        <div class="sugar-table-container">
+          <table class="sugar-var-table" id="{{toID file.path @index}}">
+            <thead>
+              <th>Variable</th>
+              <th>Value</th>
+              <th>Comment</th>
+            </thead>
 
-        {{~#each file.data as |data| }}
+            {{~#each file.data as |data| }}
 
-          {{~#each data.serializedCode as |serialized| }}
+              {{~#each data.serializedCode as |serialized| }}
 
-            <div class="sugar-var-block">
+                <tr>
 
-              <code class="sugar-variable">{{ serialized.variable }}: </code><code class="sugar-var-value">{{ serialized.value }}</code>
+                  <td><pre>{{ serialized.variable }}</pre></td>
+                  <td><pre>{{ serialized.value }}</pre></td>
+                  <td>
+                    {{#if serialized.comment }}
+                    <p>{{ serialized.comment }}</p>
+                    {{/if}}
+                  </td>
+                </tr>
 
-              {{#if serialized.comment }}
+              {{/each}}
 
-                <p class="sugar-var-comment">{{ serialized.comment }}</p>
-
-              {{/if}}
-
-            </div>
-
-          {{/each}}
-
-        {{/each}}
+            {{/each}}
+          </table>
+        </div>
 
       </div>
 

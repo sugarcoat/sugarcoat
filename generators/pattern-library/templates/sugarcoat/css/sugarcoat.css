@@ -2411,32 +2411,49 @@ output {
   width: 100%;
 }
 /* line 4, ../styles/section-variable/defaults.scss */
-.sugar-variable-section .sugar-var-block {
-  margin-bottom: 2rem;
+.sugar-variable-section .sugar-table-container {
+  overflow-x: scroll;
 }
-/* line 7, ../styles/section-variable/defaults.scss */
-.sugar-variable-section .sugar-var-block code {
-  font-family: 'Courier';
-  display: inline;
-  text-transform: none;
-  font-size: 1rem;
-  background-color: #fff;
-  padding: 0;
-  word-break: break-all;
+/* line 8, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-table {
+  width: 100%;
+  background: #f1f1f1;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
 }
-/* line 16, ../styles/section-variable/defaults.scss */
-.sugar-variable-section .sugar-var-block .sugar-variable {
-  font-weight: bold;
+/* line 15, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-table thead {
+  border: 1px solid #e4e4e4;
 }
 /* line 19, ../styles/section-variable/defaults.scss */
-.sugar-variable-section .sugar-var-block .sugar-var-value {
-  font-weight: normal;
-}
-/* line 22, ../styles/section-variable/defaults.scss */
-.sugar-variable-section .sugar-var-block .sugar-var-comment {
+.sugar-variable-section .sugar-var-table th {
   font-family: 'Helvetica';
-  font-size: 1rem;
-  color: #c4c4c4;
+  color: #999;
+  text-transform: uppercase;
+  font-weight: lighter;
+  letter-spacing: 0.3em;
+  font-size: 12px;
+  padding: .5em 1em;
+  background-color: white;
+}
+/* line 29, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-table tr {
+  border-bottom: 1px solid #e4e4e4;
+  background-color: #f1f1f1;
+}
+/* line 33, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-table td {
+  padding: 1em;
+}
+/* line 36, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-table pre {
+  padding: 0;
+}
+/* line 39, ../styles/section-variable/defaults.scss */
+.sugar-variable-section .sugar-var-table p {
+  font-family: 'Helvetica';
+  margin: 0;
+  color: #999999;
 }
 
 /*# sourceMappingURL=sugarcoat.css.map */

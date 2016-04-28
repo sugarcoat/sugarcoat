@@ -1,28 +1,69 @@
 .sugar-variable-section {
 	width: 100%;
-
-	.sugar-var-block {
-		margin-bottom: 2rem;
-
-		code {
-			font-family: 'Courier';
-			display: inline;
-			text-transform: none;
-			font-size: 1rem;
-			background-color: #fff;
-			padding: 0;
-			word-break: break-all;
-		}
-		.sugar-variable {
-			font-weight: bold;
-		}
-		.sugar-var-value {
-			font-weight: normal;
-		}
-		.sugar-var-comment {
-			font-family: 'Helvetica';
-			font-size: 1rem;
-			color: #c4c4c4;
-		}
-	}
+    
+    .sugar-table-container {
+        overflow-x: scroll;
+    }
+    
+    .sugar-var-table {
+        
+        width: 100%;
+        background: #f1f1f1;
+        border-left: 1px solid #e4e4e4;
+        border-right: 1px solid #e4e4e4;
+        
+        thead {
+            border: 1px solid #e4e4e4;
+        }
+        
+        th {
+            font-family: 'Helvetica';
+            color: #999;
+            text-transform: uppercase;
+            font-weight: lighter;
+            letter-spacing: 0.3em;
+            font-size: 12px;
+            padding: .5em 1em;
+            background-color: white;
+        }
+        tr {
+            border-bottom: 1px solid #e4e4e4;
+            background-color: #f1f1f1;
+        }
+        td {
+            padding: 1em;
+        }
+        pre {
+            padding: 0;
+        }
+        p {
+            font-family: 'Helvetica';
+            margin: 0;
+            color: #999999;
+        }
+    }
+//    .sugar-var-block {
+//        margin-bottom: 2rem;
+//
+//        code {
+//            font-family: 'Courier';
+//            display: inline;
+//            text-transform: none;
+//            font-size: 1rem;
+//            background-color: #fff;
+//            padding: 0;
+//            word-break: break-all;
+//        }
+//        .sugar-variable {
+//            font-weight: bold;
+//        }
+//        .sugar-var-value {
+//            font-weight: normal;
+//        }
+//        .sugar-var-comment {
+//            font-family: 'Helvetica';
+//            font-size: 1rem;
+//            color: #c4c4c4;
+//        }
+//    }
 }
