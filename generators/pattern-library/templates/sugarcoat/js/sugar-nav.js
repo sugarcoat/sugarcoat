@@ -4,6 +4,7 @@
 var lastId
     , lastId2
     , scrollTimeout
+    , outsideClick = document.querySelector( '.sugar-main' )
     , nav = document.querySelector( '.sugar-nav' )
     , primaryItems = document.querySelectorAll( '.sugar-nav-item' )
     , secondaryItems = document.querySelectorAll( '.sugar-nav-subitem' )
@@ -84,15 +85,33 @@ function changeActiveItem( items, scrollItems, last, isPrimary ) {
     }
 }
 
-var primaryScrollItems = getHrefValues( primaryItems );
-var secondaryScrollItems = getHrefValues( secondaryItems );
+function closeNav( classList ) {
+            
+    classList.remove( 'sugar-nav-open' );
+    
+    outsideClick.removeEventListener( 'click', checkOutsideClick );
+}
 
+function checkOutsideClick( e ) {
+        
+    var classList = document.body.classList;
+    
+    if ( classList.contains( 'sugar-nav-open' )) {
+        
+        closeNav( classList );
+    }
+}
 
 /**
  * 
  * Events
  *
  */
+
+var primaryScrollItems = getHrefValues( primaryItems );
+var secondaryScrollItems = getHrefValues( secondaryItems );
+
+
 nav.addEventListener( 'click', function( e ) {
     
     if ( e.target.tagName === 'A' ) {
@@ -125,9 +144,11 @@ navToggle.addEventListener( 'click', function( e ) {
     
     if ( classList.contains( 'sugar-nav-open' )) {
         
-        classList.remove( 'sugar-nav-open' );
+        closeNav( classList );
     }
     else {
         classList.add( 'sugar-nav-open' );
+        
+        outsideClick.addEventListener( 'click', checkOutsideClick );
     }
 });
