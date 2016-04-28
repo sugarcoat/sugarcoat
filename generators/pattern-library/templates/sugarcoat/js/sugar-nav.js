@@ -32,20 +32,30 @@ function getHrefValues( obj ) {
     return hrefArray;
 }
 
-// recursive function to animate scroll position. 
-function scrollToEl(elem, pos) {
+// recursive function to animate scroll position. Pos: scorlltop 
+function scrollToEl( elem, pos ) {
     
-    var y = elem.scrollTop;
+    var y = elem.scrollTop
+        , docHeight = (document.height !== undefined) ? document.height : document.body.offsetHeight
+        ;
     
     y += Math.round( ( pos - y ) * 0.3 );
     
+    // reached destination, return
     if ( Math.abs( y - pos ) < 2 ) {
         
         elem.scrollTop = pos;
         return;
     }
     
+    // browser window is too short to reach destination, return
+    if ( window.innerHeight >= docHeight - y ) {
+        
+        return;
+    }
+    
     elem.scrollTop = y;
+    
     scrollTimeout = setTimeout( scrollToEl, 40, elem, pos );
 }
 
