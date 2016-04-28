@@ -5,23 +5,24 @@
     <h2>{{ title }}</h2>
     
     {{#each files as |file| }}
-    <div class="sugar-component">
     
-      <div id="{{toID file.path @index }}">
+      <div class="sugar-component">
     
-        {{#each file.data as |data| }}
+        <div id="{{toID file.path @index }}">
     
-          {{> block-title data=data}}
+          {{#each file.data as |data| }}
     
-          <div class="sugar-type-file">
+            {{> block-title data=data}}
     
-            {{#each data.serializedCode as |serialized| }}
+            <div class="sugar-type-file">
     
-              <div class="sugar-type-container">
+              {{#each data.serializedCode as |serialized| }}
     
-                <div class="sugar-type-example">
+                <div class="sugar-type-container">
     
-                  <p style="font-family: {{ serialized.value }};">The quick brown fox jumps over the lazy dog.</p>
+                  <div class="sugar-type-example">
+    
+                    <p style="font-family: {{ serialized.value }};">The quick brown fox jumps over the lazy dog.</p>
     
                 </div>
                 
@@ -44,8 +45,11 @@
       </div>
     
       {{> file-path file=file}}
+      
     </div>
-    {{/each }}
+    
+  {{/each }}
+    
   </div>
 
 </section>

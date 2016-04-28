@@ -7,6 +7,10 @@
 		font-size: 1rem;
 		line-height: 30px;
 		text-transform: capitalize;
+        
+        code {
+            text-transform: none;
+        }
 	}
 	dd {
 		.sugar-tag-description {

@@ -2243,7 +2243,11 @@ output {
   line-height: 30px;
   text-transform: capitalize;
 }
-/* line 12, ../styles/tag-details/defaults.scss */
+/* line 11, ../styles/tag-details/defaults.scss */
+.sugar-tag-details dt code {
+  text-transform: none;
+}
+/* line 16, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dd .sugar-tag-description {
   font-family: 'Helvetica';
   font-size: 1rem;

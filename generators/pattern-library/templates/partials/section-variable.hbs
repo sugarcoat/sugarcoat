@@ -8,44 +8,49 @@
   
       <div class="sugar-component">
       
-      {{#each file.data as |fileData| }}
+        {{#each file.data as |fileData| }}
 
           {{> block-title data=fileData}}
 
-      {{/each}}
+        {{/each}}
 
-        <div class="sugar-table-container">
-          <table class="sugar-var-table" id="{{toID file.path @index}}">
-            <thead>
-              <th>Variable</th>
-              <th>Value</th>
-              <th>Comment</th>
-            </thead>
+          <div class="sugar-table-container">
+          
+            <table class="sugar-var-table" id="{{toID file.path @index}}">
+            
+              <thead>
+              
+                <th>Variable</th>
+                <th>Value</th>
+                <th>Comment</th>
+              
+              </thead>
 
-            {{~#each file.data as |data| }}
+              {{~#each file.data as |data| }}
 
-              {{~#each data.serializedCode as |serialized| }}
+                {{~#each data.serializedCode as |serialized| }}
 
-                <tr>
+                  <tr>
+                    <td><pre>{{ serialized.variable }}</pre></td>
+                    <td><pre>{{ serialized.value }}</pre></td>
+                    <td>
+                      {{#if serialized.comment }}
+                      <p>{{ serialized.comment }}</p>
+                      {{/if}}
+                    </td>
+                  </tr>
 
-                  <td><pre>{{ serialized.variable }}</pre></td>
-                  <td><pre>{{ serialized.value }}</pre></td>
-                  <td>
-                    {{#if serialized.comment }}
-                    <p>{{ serialized.comment }}</p>
-                    {{/if}}
-                  </td>
-                </tr>
+                {{/each}}
 
               {{/each}}
+            
+            </table>
+          
+          </div>
 
-            {{/each}}
-          </table>
         </div>
 
-      </div>
-
-      {{> file-path file=file}}
+        {{> file-path file=file}}
       
       </div>
 
