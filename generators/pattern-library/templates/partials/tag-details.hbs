@@ -22,13 +22,17 @@
               {{ theTag.tag }}: 
 
               {{#if theTag.name}}
+              
                 <code>{{ theTag.name }}</code>
+                
               {{/if}}
             </dt>
 
             <dd>
               {{#if theTag.optional}}
+              
                 <i>(Optional)</i>
+                
               {{/if}}
 
               <span class="sugar-tag-description">{{ theTag.description }}</span>

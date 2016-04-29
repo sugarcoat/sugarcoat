@@ -1,3 +1,10 @@
+<!--
+/**
+ *
+ * @title Partial for Typography component
+ *
+ */
+-->
 <section id="{{toID title}}" class="sugar-section-type">
   
   <div class="sugar-section-wrapper">
@@ -8,7 +15,7 @@
     
       <div class="sugar-component">
     
-        <div id="{{toID file.path @index }}">
+        <div id="{{ toID file.path @index }}">
     
           {{#each file.data as |data| }}
     
@@ -24,31 +31,31 @@
     
                     <p style="font-family: {{ serialized.value }};">The quick brown fox jumps over the lazy dog.</p>
     
-                </div>
+                  </div>
                 
-                <pre class="sugar-var">{{ serialized.variable }}</pre><pre class="sugar-val">{{ serialized.value }}</pre>
+                  <pre class="sugar-var">{{ serialized.variable }}</pre><pre class="sugar-val">{{ serialized.value }}</pre>
     
-                {{#if serialized.comment }}
+                  {{#if serialized.comment }}
     
-                  <p class="sugar-type-desc">{{ serialized.comment }}</p>
+                    <p class="sugar-type-desc">{{ serialized.comment }}</p>
     
-                {{/if }}
+                  {{/if }}
     
-              </div>
+                </div>
     
-            {{/each}}
+              {{/each}}
     
-          </div>
+            </div>
     
-        {{/each}}
+          {{/each}}
     
+        </div>
+    
+        {{> file-path file=file}}
+      
       </div>
     
-      {{> file-path file=file}}
-      
-    </div>
-    
-  {{/each }}
+    {{/each }}
     
   </div>
 

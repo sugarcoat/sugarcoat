@@ -1,45 +1,50 @@
-<!-- <nav> -->
+<!--
+/**
+ *
+ * @title Partial for nav of all components
+ *
+ */
+-->
 
-  <ul id="sugar-nav">
-  <!-- <ul class="col-xs-10 col-md-offset-1"> -->
+<ul id="sugar-nav">
 
-    {{#each this as |section| }}
+  {{#each this as |section| }}
 
-      <li><a class="sugar-nav-item" href="#{{toID section.title}}">{{ section.title }}</a>
+    <li>
+      <a class="sugar-nav-item" href="#{{toID section.title}}">{{ section.title }}</a>
 
-        <ul>
+      <ul>
 
-          {{#each section.files as |file| }}
+        {{#each section.files as |file| }}
 
-            {{#each file.data as |data| }}
+          {{#each file.data as |data| }}
 
-              <li>
+            <li>
 
-                <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
+              <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
 
-                {{#each data.tags as |theTag| }}
+              {{#each data.tags as |theTag| }}
 
-                  {{#isEqual theTag.tag 'title' }}
+                {{#isEqual theTag.tag 'title' }}
 
-                    {{ theTag.description }}
+                  {{ theTag.description }}
 
-                  {{/isEqual}}
+                {{/isEqual}}
 
-                {{/each}}
+              {{/each}}
 
-                </a>
+              </a>
 
-              </li>
-
-            {{/each}}
+            </li>
 
           {{/each}}
 
-        </ul>
+        {{/each}}
 
-      </li>
+      </ul>
 
-    {{/each}}
+    </li>
 
-  </ul>
-<!-- </nav> -->
+  {{/each}}
+
+</ul>

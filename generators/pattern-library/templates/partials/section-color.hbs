@@ -12,41 +12,45 @@
   <h2>{{ title }}</h2>
 
     {{#each files as |file| }}
-    <div class="sugar-component">
-
-      <div id="{{toID file.path @index}}">
-
-        {{~#each file.data as |data| }}
-
-          {{> block-title data=data}}
-
-          {{~#each data.serializedCode as |serial| }}
-
-            <div class="sugar-swatch-container">
-
-              <div class="sugar-color-swatch" style="background-color:{{ serial.value }}"></div>
-              
-                <pre class="sugar-swatch-var">{{ serial.variable }}</pre><pre class="sugar-swatch-val">{{ serial.value }}</pre>
-
-              {{#if serial.comment }}
-
-                <div class="sugar-color-comment">
-                  <p>{{ serial.comment }}</p>
-                </div>
-
-              {{/if}}
-
-            </div>
-
-          {{/each }}
-
-        {{~/each }}
-
-      </div>
-
-      {{> file-path file=file}}
     
-    </div>
+      <div class="sugar-component">
+
+        <div id="{{toID file.path @index}}">
+
+          {{~#each file.data as |data| }}
+
+            {{> block-title data=data}}
+
+            {{~#each data.serializedCode as |serialized| }}
+
+              <div class="sugar-swatch-container">
+
+                <div class="sugar-color-swatch" style="background-color:{{ serialized.value }}"></div>
+              
+                  <pre class="sugar-swatch-var">{{ serialized.variable }}</pre><pre class="sugar-swatch-val">{{ serialized.value }}</pre>
+
+                {{#if serialized.comment }}
+
+                  <div class="sugar-color-comment">
+                    
+                    <p>{{ serialized.comment }}</p>
+                    
+                  </div>
+
+                {{/if}}
+
+              </div>
+
+            {{/each }}
+
+          {{~/each }}
+
+        </div>
+
+        {{> file-path file=file}}
+    
+      </div>
+      
     {{~/each }}
 
   </div>
