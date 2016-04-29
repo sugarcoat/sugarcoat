@@ -2,25 +2,25 @@
 	width: 100%;
 
 	.sugar-swatch-container {
-		border: 1px solid #e4e4e4;
+		border: $border;
 		margin-bottom: 1.0rem;
         width: calc(100% - 30px);
         margin-left: 30px;
         position: relative;
-
 	}
 	.sugar-color-swatch {
-        width: 60px;
-        height: 60px;
+        width: 62px;
+        height: 62px;
         border-radius: 50%;
         position: absolute;
         margin-left: -30px;
+        top: -1px;
 	}
 	pre {
 		white-space: nowrap;
         height: 60px;
-        padding-top: 1.2em;
-        padding-left: 3em;
+        padding-top: 1.2rem;
+        padding-left: 3rem;
         overflow-y: auto;
         padding-bottom: 0;
 	}
@@ -31,10 +31,79 @@
         /* z-index: 100; */
         right: 0;
         width: auto;
-        padding-left: 1em;
-        border-left: 1px solid #e4e4e4;
+        padding-left: 1rem;
+        border-left: $border;
     }
-	.sugar-color-comment {
-		display: none;
-	}
+    
+    .sugar-color-comment {
+        p {
+            display: none;
+        }
+        
+        input[type=checkbox] {
+            display: none;
+        }
+        input[type=checkbox] ~ label {
+            font-size: 0;
+        }
+        input[type=checkbox] ~ label:after {
+            content: 'i';
+            position: absolute;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            background-color: black;
+            padding: 2px 8px;
+            border-radius: 50%;
+            top: 0;
+            left: -30px;
+            border: 1px solid white;
+            cursor: pointer;
+            color: white;
+            font-family: Helvetica;
+            font-weight: 300;
+        }
+        input[type=checkbox]:checked ~ p {
+        	display:block;
+        }
+    }
+    .sugar-color-comment {
+//        display: block;
+        position: absolute;
+        top: 0;
+//        z-index: 100;
+        
+//        width: 80%;
+//        
+//        text-align: center;
+//        height: auto;
+//        margin: 0 auto;
+//        transform: translateY(70px);
+//        left: 10%;
+        
+//
+        p {
+            margin: 0;
+            word-wrap: break-word;
+            @include font-cap();
+            background: black;
+            color: white;
+            padding: 1rem;
+            
+            &:after {
+                content: '';
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 8px solid black;
+                position: absolute;
+                top: 0;
+                margin-left: -8px;
+                margin-top: -8px;
+                
+            }
+        }
+//        
+    }
 }

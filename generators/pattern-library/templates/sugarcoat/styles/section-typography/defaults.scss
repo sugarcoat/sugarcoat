@@ -11,7 +11,7 @@
         
 
 		.sugar-type-container {
-			border: 1px solid #e4e4e4;
+			border: $border;
             overflow: hidden;
 			margin-bottom: 1rem;
 
@@ -20,7 +20,7 @@
 				padding: 1.25rem 1.0rem;
 			}
 			.sugar-type-example p {
-				margin-bottom: 0;
+				margin: 0;
 			}
 			.sugar-type-code {
 				background-color: #f1f1f1;

@@ -1,14 +1,24 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 
 .sugar-page-wrapper {
     position: relative;
     overflow: hidden;
 }
 .sugar-masthead {
-    padding-bottom: 65px;
-    padding-top: 100px;
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 25px;
     
     h1 {
-        font-size: 2.5em;
+        font-size: 2.5rem;
     }
     img {
         width: 65px;
@@ -24,7 +34,7 @@
     }
 }
 .sugar-main {
-    padding: 0 5% 2em 5%;
+    padding: 0 15px 2rem 60px;
     background: white;
     transition: 0.35s linear transform;
     position: relative;
@@ -33,15 +43,16 @@
 		font-family: 'Helvetica';
 		font-size: 2.25rem; //36px
 		font-weight: bold;
-		color: #029dd5;
-        margin-bottom: 0.8em;
+		color: $blue;
+        margin-bottom: 0.8rem;
+        margin-top: 0.8rem;
 	}
 	h3 {
 		font-family: 'Helvetica';
 		font-weight: lighter;
 		font-size: 1.5rem; //24px
 		color: #666666;
-        margin-bottom: 0.7em;
+        margin-bottom: 0.7rem;
 	}
     .sugar-component {
         margin-bottom: 60px;
@@ -49,7 +60,7 @@
 	.sugar-file-desc {
 		font-family: 'Helvetica';
 		font-size: 1rem; //16px
-		color: #c4c4c4;
+		color: #666;
 	}
 	.sugar-file {
 		font-family: 'Helvetica Neue';
@@ -70,15 +81,15 @@
 		background-color: #f1f1f1;
 		font-family: 'Courier';
 		font-weight: lighter;
-		color: #999999;
-		margin-bottom: 0;
+		color: #666;
+		margin: 0;
 		overflow-x: scroll;
 	}
     .sugar-type-container {
         pre,
         .sugar-type-desc {
             width: 100%;
-            border-top: 1px solid #e4e4e4;
+            border-top: $border;
             position: relative;
             padding: 1.6rem 1rem .8rem 1rem;
         }
@@ -87,12 +98,9 @@
             position: absolute;
             top: 5px;
             left: 8px;
-            font-weight: lighter;
-            font-family: 'Helvetica';
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
+            @include font-cap();
             font-size: 11px;
-            color: #C7C7C7;
+            color: #999;
         }
     }
     .sugar-var {
@@ -109,19 +117,10 @@
         background: #f1f1f1;
         margin: 0;
         width: 100%;
-        color: #999999;
+        color: #666;
         
         &:before {
             content: 'description';
         }
     }
-//    code {
-//        background-color: #f1f1f1;
-//            height: 100%;
-//            padding: 0 0.7rem;
-//            font-family: 'Courier';
-//            display: block;
-//            text-transform: none;
-//            font-weight: normal;
-//    }
 }

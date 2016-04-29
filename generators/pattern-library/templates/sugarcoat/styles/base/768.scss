@@ -6,14 +6,21 @@
         transform: none;
     }
 }
+.sugar-masthead {
+    padding-top: 0;
+    
+    h1 {
+        font-size: 2rem;
+    }
+}
 .sugar-main {
     width: 75%;
     margin: 0 0 0 25%;
-    padding: 2em 0 0 0;
+    padding: 0;
     
     section {
-        padding: 2em;
-        border-bottom: 1px solid #e4e4e4;
+        padding: 2rem;
+        border-bottom: $border;
     }
     .sugar-masthead {
         display: none;
@@ -24,7 +31,7 @@
         .sugar-var {
             width: 35%;
             float: left;
-            border-right: 1px solid #e4e4e4;
+            border-right: $border;
         }
         .sugar-val {
             width: 65%;

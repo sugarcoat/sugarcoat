@@ -1,34 +1,31 @@
 .sugar-nav-toggle {
     position: fixed;
-    top: 20px;
+    top: 0px;
     left: 0;
     font-size: 0;
-    width: 45px;
-    height: 40px;
-    background-color: rgba(153, 153, 153, 0.17);
+    width: 40px;
+    height: 100%;
+    background-color: #f1f1f1;
     z-index: 150;
     cursor: pointer;
     transition: 0.35s linear transform;
     
+    &:before,
     &:after {
         content: '';
         position: absolute;
         width: 25px;
         height: 1px;
+        left: 7px;
         background-color: black;
-        top: 15px;
-        left: 10px;
         transition: 0.35s linear all;
     }
+    
+    &:after {
+        top: 20px;
+    }
     &:before {
-        content: '';
-        position: absolute;
-        width: 25px;
-        height: 1px;
-        background-color: black;
-        bottom: 15px;
-        left: 10px;
-        transition: 0.35s linear all;
+        top: 30px;
     }
 }
 .sugar-nav-open {
@@ -36,19 +33,18 @@
         
         &:after {
             transform: translateY(5px);
-            background-color:#029dd5;
+            background-color: $blue;
         }
         &:before {
             transform: translateY(-5px);            
-            background-color:#029dd5;
+            background-color: $blue;
         }
     }
 }
 .sugar-nav {
     background-color: #f1f1f1;
-    padding: 2em;
+    padding: 2rem;
     font-size: 14px;
-    
     position: fixed;
     width: 245px;
     height: 100%;
@@ -56,8 +52,7 @@
     top: 0;
     overflow-x: hidden;
     overflow-y: auto;
-//    z-index: -1;
-    transform: translate(0, 0);
+    transform: translate(0, 0); //make clickable
     
     .sugar-masthead {
         display: none;
@@ -68,7 +63,7 @@
         padding-left: 0;
         
         li {
-            margin-bottom: 1.6em;
+            margin-bottom: 1.6rem;
         }
         a {
             font-family: 'Helvetica';
@@ -76,12 +71,12 @@
             text-transform: uppercase;
             font-weight: bold;
             text-decoration: none;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.14rem;
             position: relative;
             transition: 0.2s ease color;
         }
         .sugar-nav-item.active {
-            color: #029dd5;
+            color: $blue;
         }
         .sugar-nav-subitem:before {
             content: '';
@@ -95,13 +90,13 @@
             transition: 0.5s ease-in background;
         }
         .sugar-nav-subitem.active:before {
-            background-color: #029dd5;
+            background-color: $blue;
         }
         .sugar-nav-item:not( .active ) + ul .active:before {
             background-color: transparent;
         }
         ul {
-            padding-left: 2em;
+            padding-left: 2rem;
         }
         ul a {
             font-family: 'Helvetica';
@@ -110,7 +105,7 @@
             text-transform: none;
         }
         ul li {        
-            margin-top: 1.4em;
+            margin-top: 1.4rem;
             margin-bottom: 0;
         }
     }
