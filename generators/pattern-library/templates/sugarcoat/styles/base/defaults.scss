@@ -47,6 +47,10 @@ html {
         margin-bottom: 0.8rem;
         margin-top: 0.8rem;
 	}
+    h2 a {
+        text-decoration: none;
+        color: $blue;
+    }
 	h3 {
 		font-family: 'Helvetica';
 		font-weight: lighter;
