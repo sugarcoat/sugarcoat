@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /* line 9, ../styles/base/normalize.scss */
 html {
@@ -736,47 +737,15 @@ html {
   padding-left: 1rem;
   border-left: 1px solid #e4e4e4;
 }
-/* line 39, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment p {
-  display: none;
+/* line 38, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment {
+  width: 100%;
+  position: absolute;
+  top: 0;
 }
 /* line 43, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox] {
-  display: none;
-}
-/* line 46, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox] ~ label {
-  font-size: 0;
-}
-/* line 49, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox] ~ label:after {
-  content: 'i';
-  position: absolute;
-  font-size: 12px;
-  width: 20px;
-  height: 20px;
-  background-color: black;
-  padding: 2px 8px;
-  border-radius: 50%;
-  top: 0;
-  left: -30px;
-  border: 1px solid white;
-  cursor: pointer;
-  color: white;
-  font-family: Helvetica;
-  font-weight: 300;
-}
-/* line 66, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox]:checked ~ p {
-  display: block;
-}
-/* line 70, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment {
-  position: absolute;
-  top: 0;
-}
-/* line 85, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-color-comment p {
+  display: none;
   margin: 0;
   word-wrap: break-word;
   font-family: 'Helvetica';
@@ -788,7 +757,7 @@ html {
   color: white;
   padding: 1rem;
 }
-/* line 93, ../styles/section-color/defaults.scss */
+/* line 53, ../styles/section-color/defaults.scss */
 .sugar-section-color .sugar-color-comment p:after {
   content: '';
   width: 0;
@@ -800,6 +769,52 @@ html {
   top: 0;
   margin-left: -8px;
   margin-top: -8px;
+  left: 50%;
+}
+/* line 68, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment input[type=checkbox] {
+  display: none;
+}
+/* line 71, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment input[type=checkbox] ~ label {
+  font-size: 0;
+}
+/* line 74, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment input[type=checkbox] ~ label:after {
+  content: '=';
+  position: absolute;
+  font-size: 17px;
+  width: 20px;
+  height: 20px;
+  background-color: #f1f1f1;
+  padding: 0px 3px;
+  top: 0;
+  left: -30px;
+  border: 1px solid #c3c3c3;
+  cursor: pointer;
+  color: white;
+  font-family: Helvetica;
+  font-weight: 300;
+  color: black;
+  line-height: 16px;
+}
+/* line 92, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment input[type=checkbox]:checked ~ p {
+  display: block;
+  position: absolute;
+  z-index: 100;
+  top: 70px;
+  width: 80%;
+  left: 45px;
+  text-align: center;
+}
+/* line 101, ../styles/section-color/defaults.scss */
+.sugar-section-color .sugar-color-comment input[type=checkbox]:checked ~ label:after {
+  color: #029dd5;
+  content: '—';
+  font-size: 12px;
+  font-weight: bold;
+  padding: 1px 3px;
 }
 
 @media (min-width: 768px) {
@@ -812,7 +827,19 @@ html {
     display: flex;
     flex-wrap: wrap;
   }
-  /* line 12, ../styles/section-color/768.scss */
+  /* line 11, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-swatch-container:hover .sugar-color-comment p,
+  .sugar-section-color .sugar-swatch-container:hover .sugar-color-comment input[type=checkbox]:checked ~ p {
+    display: block;
+    z-index: 100;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    text-align: center;
+    margin-top: 10px;
+    top: auto;
+  }
+  /* line 24, ../styles/section-color/768.scss */
   .sugar-section-color .sugar-color-swatch {
     background-color: #333333;
     width: 100px;
@@ -822,22 +849,34 @@ html {
     margin: 0;
     position: relative;
   }
-  /* line 21, ../styles/section-color/768.scss */
+  /* line 33, ../styles/section-color/768.scss */
   .sugar-section-color pre {
     padding-left: 1rem;
     display: inline-block;
     margin: 0;
     float: left;
   }
-  /* line 27, ../styles/section-color/768.scss */
+  /* line 39, ../styles/section-color/768.scss */
   .sugar-section-color .sugar-swatch-var {
     border-right: 1px solid #e4e4e4;
     flex: 1;
   }
-  /* line 31, ../styles/section-color/768.scss */
+  /* line 43, ../styles/section-color/768.scss */
   .sugar-section-color .sugar-swatch-val {
     position: relative;
     border: none;
+  }
+  /* line 47, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-color-comment {
+    position: relative;
+  }
+  /* line 50, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-color-comment input[type=checkbox] ~ label {
+    display: none;
+  }
+  /* line 53, ../styles/section-color/768.scss */
+  .sugar-section-color .sugar-color-comment input[type=checkbox]:checked ~ p {
+    display: none;
   }
 }
 /* line 1, ../styles/section-typography/defaults.scss */

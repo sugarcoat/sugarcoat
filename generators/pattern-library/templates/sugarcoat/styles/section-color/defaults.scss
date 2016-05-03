@@ -36,53 +36,13 @@
     }
     
     .sugar-color-comment {
-        p {
-            display: none;
-        }
-        
-        input[type=checkbox] {
-            display: none;
-        }
-        input[type=checkbox] ~ label {
-            font-size: 0;
-        }
-        input[type=checkbox] ~ label:after {
-            content: 'i';
-            position: absolute;
-            font-size: 12px;
-            width: 20px;
-            height: 20px;
-            background-color: black;
-            padding: 2px 8px;
-            border-radius: 50%;
-            top: 0;
-            left: -30px;
-            border: 1px solid white;
-            cursor: pointer;
-            color: white;
-            font-family: Helvetica;
-            font-weight: 300;
-        }
-        input[type=checkbox]:checked ~ p {
-        	display:block;
-        }
-    }
-    .sugar-color-comment {
-//        display: block;
+        width: 100%;
         position: absolute;
         top: 0;
-//        z-index: 100;
         
-//        width: 80%;
-//        
-//        text-align: center;
-//        height: auto;
-//        margin: 0 auto;
-//        transform: translateY(70px);
-//        left: 10%;
-        
-//
         p {
+            display: none;
+
             margin: 0;
             word-wrap: break-word;
             @include font-cap();
@@ -101,9 +61,49 @@
                 top: 0;
                 margin-left: -8px;
                 margin-top: -8px;
-                
+                left: 50%;
             }
         }
-//        
+        
+        input[type=checkbox] {
+            display: none;
+        }
+        input[type=checkbox] ~ label {
+            font-size: 0;
+        }
+        input[type=checkbox] ~ label:after {
+            content: '=';
+            position: absolute;
+            font-size: 17px;
+            width: 20px;
+            height: 20px;
+            background-color: #f1f1f1;
+            padding: 0px 3px;
+            top: 0;
+            left: -30px;
+            border: 1px solid #c3c3c3;
+            cursor: pointer;
+            color: white;
+            font-family: Helvetica;
+            font-weight: 300;
+            color: black;
+            line-height: 16px;
+        }
+        input[type=checkbox]:checked ~ p {
+        	display:block;
+            position: absolute;
+            z-index: 100;
+            top: 70px;
+            width: 80%;
+            left: 45px;
+            text-align: center;
+        }
+        input[type=checkbox]:checked ~label:after {
+            color: $blue;
+            content: '—';
+            font-size: 12px;
+            font-weight: bold;
+            padding: 1px 3px;
+        }
     }
 }

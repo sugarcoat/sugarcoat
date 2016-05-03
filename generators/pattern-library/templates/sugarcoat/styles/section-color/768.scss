@@ -7,7 +7,19 @@
         display: flex;
         flex-wrap: wrap;
         
-        
+        &:hover {
+            .sugar-color-comment p,
+            .sugar-color-comment input[type=checkbox]:checked ~ p {
+                display: block;
+                z-index: 100;
+                position: absolute;
+                width: 80%;
+                left: 10%;
+                text-align: center;
+                margin-top: 10px;
+                top: auto;
+            }
+        }
     }
     .sugar-color-swatch {
         background-color: #333333;
@@ -31,5 +43,16 @@
     .sugar-swatch-val {
         position: relative;
         border: none;
+    }
+    .sugar-color-comment {
+        position: relative;
+        
+        input[type=checkbox] ~ label {
+            display: none;
+        }
+        input[type=checkbox]:checked ~ p {
+            display: none;
+        }
+        
     }
 }
