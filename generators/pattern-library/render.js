@@ -1,4 +1,4 @@
-var fs = require( 'fs' )
+var fs = require( 'fs' );
 var util = require( 'util' );
 var path = require( 'path' );
 
@@ -22,7 +22,7 @@ module.exports = function ( config ) {
     .catch( function ( err ) {
         return err;
     });
-}
+};
 
 /*
     Tasks
@@ -73,7 +73,7 @@ function readPartials( config ) {
         .then( function ( data ) {
 
             return fileObj.src = data;
-        })
+        });
     });
 
     return Promise.all( partials )
@@ -87,8 +87,8 @@ function registerPartials( config ) {
     config.settings.template.partials.forEach( function( partial ) {
 
         var isOverride = !!Handlebars.partials[ partial.name ]
-            , msgNormal = `partial registered: "${partial.name}"`
-            , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
+            , msgNormal = 'partial registered: "${partial.name}"'
+            , msgOverride = 'partial registered: "${partial.name}" partial has been overridden'
             , msg = isOverride ? msgOverride : msgNormal
             ;
 
@@ -114,7 +114,9 @@ function renderLayout( config ) {
     })
     .then( function () {
 
-        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src )
+        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
+                preventIndent: true
+            })
             , file = path.join( config.settings.dest, 'index.html' )
             , html = hbsCompiled( config )
             ;
@@ -122,7 +124,7 @@ function renderLayout( config ) {
         return writeFile( file, html )
         .then( function() {
 
-            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
+            log.info( 'Render', 'layout rendered "${path.relative( config.settings.cwd, file )}"' );
 
             return html;
         });
@@ -168,7 +170,7 @@ function copyAssets( config ) {
             return copy( assetObj.from, assetObj.to )
             .then( function ( assetPaths ) {
 
-                return log.info( 'Render', `asset copied: "${ path.relative( dest, assetPaths[1] ) }"` );
+                return log.info( 'Render', 'asset copied: "${ path.relative( dest, assetPaths[1] ) }"' );
             });
         }));
     })
@@ -252,5 +254,5 @@ function makeDirs( toPath ) {
 
             resolve();
         });
-    })
+    });
 }

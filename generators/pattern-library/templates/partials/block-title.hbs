@@ -6,19 +6,20 @@
  */
 -->
 
+
 {{#if data.tags}}
 
-  {{#each data.tags as |tags| }}
+  {{#each data.tags as |tagObj| }}
 
-    {{#isEqual tags.tag 'title'}}
+    {{#isEqual tagObj.tag 'title'}}
 
-        <h3>{{ tags.description }}</h3>
+      <h3>{{ tagObj.value }}</h3>
 
-      {{/isEqual}}
+    {{/isEqual}}
 
-      {{#isEqual tags.tag 'description'}}
+    {{#isEqual tagObj.tag 'description'}}
 
-        <p class="sugar-file-desc">{{ tags.description }}</p>
+      <p class="sugar-file-desc">{{ tagObj.value }}</p>
 
     {{/isEqual}}
 

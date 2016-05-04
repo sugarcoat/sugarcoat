@@ -23,11 +23,11 @@
 
               <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
 
-              {{#each data.tags as |theTag| }}
+              {{#each data.tags as |tagObj| }}
 
-                {{#isEqual theTag.tag 'title' }}
+                {{#isEqual tagObj.tag 'title' }}
 
-                  {{ theTag.description }}
+                  {{ tagObj.value }}
 
                 {{/isEqual}}
 

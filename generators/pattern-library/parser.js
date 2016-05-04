@@ -4,18 +4,11 @@
 /*
     TODO Can this be refactored to not require a Constructor?
 */
-var util = require( 'util' );
-var _ = require( 'lodash' );
-
-var beautifyHTML = require( 'js-beautify' ).html;
-var commentParser = require( 'comment-parser' );
-var parserFunctions = commentParser.PARSERS;
 var log = require( '../../lib/logger' );
-
-var rModifier = /([:\.#][\w-]+\s)/;
-var rCommentBlock = /(<!--[\n|\s]*\/\*\*)/g;
-var rCommentSplit = /^\s*\*\//m;
-var rHtmlCommentSplit = /^\s*\*\/\n*\s*-->/m;
+var serializer = require( 'comment-serializer' );
+var mySerializer = serializer({ 
+    parsers: serializer.parsers()
+});
 
 function Parser( config ) {
 
@@ -24,132 +17,51 @@ function Parser( config ) {
 
 Parser.prototype = {
 
-    customParsers: {
-        parsers: [
-
-            parserFunctions.parse_tag,
-
-            function( str, data ) {
-
-                var string = str;
-                str = '';
-
-                if ( data.tag === 'modifier' ) {
-
-                    // var modifier = /([:\.#][\w-]+\s)/;
-                    var match = string.split( rModifier );
-
-                    if ( match.length > 1 ) {
-
-                        data.name = match[ 1 ];
-
-                        str = match[ 1 ];
-                    }
-                }
-
-                return {
-                    source: str,
-                    data: data
-                };
-            },
-            // parserFunctions.parse_type,
-            // parserFunctions.parse_name,
-            parserFunctions.parse_description
-        ]
-    },
-
     parseComment: function( currentFile, data, type, templateType ) {
-
-        var blockCount
-            , isHtmlComponent = false
-            ;
-
-        log.info( 'Parse', `"${currentFile}"` );
-
-        //test for html comment start, that will tell us it is an html file that we will be parsing
-        if ( data.indexOf( '<!--' ) > -1 ) {
-
-            isHtmlComponent = true;
-
-            //find out how many comment blocks there are
-            blockCount = ( ( data.match( rCommentBlock ) || [] ).length ) - 1;
+        
+        log.info( 'Parse', currentFile );
+                
+        var serialized = mySerializer( data );
+        
+        // serializer error handling
+        var hasErrors = serialized.some( function( comment ) {
+            
+            return comment.tags.some( function ( tag ) {
+                
+                return tag.error;
+            });
+        });
+        
+        if ( hasErrors ) {
+            
+            console.log( 'Errors' );
         }
-
-        //split the data at the beginning of the comment block
-        var comments = data.split( '/**' );
-
-        comments.shift();
-
-        //loop through each commentblock
-        for ( var i = 0; i < comments.length; i++ ) {
-
-            // split blocks into comment and code content
-            var block = isHtmlComponent ?
-                    comments[ i ].split( rHtmlCommentSplit ) : comments[ i ].split( rCommentSplit )
-                , toParse = '/**' + block[ 0 ] + ' */'
-                ;
-
-            // add add parsed comment to array
-            comments[ i ] = commentParser( toParse, this.customParsers )[ 0 ];
-
-            if ( isHtmlComponent ) {
-
-                //find out if there is a last opening html comment block
-                var lastCommentBlock = block[ 1 ].lastIndexOf( '<!--' );
-
-                // if there's a following comment block, remove the starting html comment
-                if ( lastCommentBlock > -1 && blockCount !== i ) {
-
-                    block[ 1 ] = block[ 1 ].slice( 0, lastCommentBlock );
-                }
+                
+        for ( var i = 0; i < serialized.length; i++ ) {
+            
+            if ( type === 'variable' ) {
+                
+                serialized[ i ].serializedCode = this.parseVarCode( serialized[ i ].context, currentFile );
             }
-            // check if tags has a example tag
-            else {
+            
+            var context = serialized[ i ].context;
+            
+            // check if context is html. it will have an ending comment block in it
+            var match = /-->\n*/.exec( context );
+            
+            if ( match ) {
+                
+                var html = context.substring( 4 );
 
-                var currentComments = comments[ i ].tags;
-
-                for ( var j = 0; j < currentComments.length; j++ ) {
-
-                    var currentComment = currentComments[ j ];
-
-                     // tag has an example description with html markup
-                    if ( currentComment.tag === 'example' ) {
-
-                        // beautify code
-                        currentComment.description = beautifyHTML( currentComment.description, { indent_size: 2 } );
-                    }
-                }
+                serialized[ i ].context = html ;
             }
+        }        
 
-            // add code to data obj as 'context'
-            comments[ i ].context = _.trim( block[ 1 ] );
-
-            // there is only 1 type, do not call out specifically until we have more than 1 type
-            if ( type ) {
-
-                var variableInfo = this.parseVarCode( comments[i].context, currentFile );
-
-                if ( templateType === 'section-typography' ) {
-
-                    //break down fonts into an array
-                    variableInfo.forEach( function( variableLine ){
-
-                        var fonts = variableLine.value;
-                        var values = fonts.match(/\'([\w\s]+)\'/g);
-                        variableLine.value = values;
-                    });
-                }
-
-                //add serializedCode to data obj as 'serializedCode'
-                comments[i].serializedCode = variableInfo;
-            }
-        }
-
-        return comments;
+        return serialized;
     },
 
     parseVarCode: function( code, path ) {
-
+        
         var infoArray = []
             , infoStrings = []
             ;
@@ -170,6 +82,15 @@ Parser.prototype = {
             var statmentSplit = usageSplit[0].split( ':' );
 
             if ( usageSplit[1] !== undefined ) {
+                
+                // check to see if comment has a leading space
+                var result = /\s(.*)/.exec( usageSplit[ 1 ]);
+                
+                if ( result && result.index === 0 ) {
+                    
+                    // remove leading space
+                    usageSplit[ 1 ] = usageSplit[ 1 ].substring( 1, usageSplit[ 1 ].length );
+                }
 
                 infoArray.push({
                     'variable': statmentSplit[0],

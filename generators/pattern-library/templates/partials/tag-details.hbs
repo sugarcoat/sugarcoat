@@ -10,32 +10,52 @@
 
   <dl>
 
-    {{#each this.tags as |theTag| }}
+    {{#each this.tags as |tagObj| }}
 
-      {{#notEqual theTag.tag 'example'}}
+      {{#notEqual tagObj.tag 'example'}}
 
-        {{#notEqual theTag.tag 'title'}}
+        {{#notEqual tagObj.tag 'title'}}
 
-          {{#notEqual theTag.tag 'description'}}
+          {{#notEqual tagObj.tag 'description'}}
 
             <dt>
-              {{ theTag.tag }}: 
+              {{ tagObj.tag }}: 
 
-              {{#if theTag.name}}
+              {{#if tagObj.valueParsed}}
               
-                <code>{{ theTag.name }}</code>
+                {{#each tagObj.valueParsed as |parsed|}}
+                  
+                  {{#isEqual parsed.type 'modifier'}}
+                
+                    <code>{{ parsed.value }}</code>
+                    
+                  {{/isEqual}}
+                  
+                {{/each}}
                 
               {{/if}}
             </dt>
 
             <dd>
-              {{#if theTag.optional}}
+                
+              {{#if tagObj.valueParsed}}
               
-                <i>(Optional)</i>
+                {{#each tagObj.valueParsed as |parsed|}}
+                  
+                  {{#isEqual parsed.type 'description'}}
+                
+                    <span class="sugar-tag-description">{{ parsed.value }}</span>
+                    
+                  {{/isEqual}}
+                  
+                {{/each}}
+                
+              {{ else }}
+              
+                <span class="sugar-tag-description">{{ tagObj.value }}</span>
                 
               {{/if}}
-
-              <span class="sugar-tag-description">{{ theTag.description }}</span>
+              
             </dd>
 
           {{/notEqual}}

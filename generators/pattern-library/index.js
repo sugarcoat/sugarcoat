@@ -12,6 +12,7 @@ var globber = require( '../../lib/globber' );
  *
  */
 module.exports = init;
+
 function init( config ) {
 
     config = configure( config );
@@ -78,7 +79,7 @@ function readSections( config ) {
                         path: file,
                         ext: path.parse( file ).ext.substring( 1 ),
                         src: src
-                    }
+                    };
 
                     resolve( section.files[ index ] );
                 });
