@@ -391,13 +391,23 @@ files: [
 
 # Code Comment Syntax #
 
-Sugarcoat adds some additional parsing options to [comment-parse](https://www.npmjs.com/package/comment-parser) in order to build the comment object. The following are reserved tags:
+Sugarcoat uses [comment-serializer](https://www.npmjs.com/package/comment-serializer) to build the comment object. In general, comment-serializer will convert an `@foo bar baz` statement into:
 
-  - **`@title`** This tag's value is displayed in the default navigation partial
+```js
+{
+  line: 0,
+  tag: 'foo',
+  value: 'bar baz',
+  valueParsed: []
+  source: '@foo bar baz'
+}
+```
+
+There are two reserved tag names that will notify comment-serializer to parse the value further, and output its results to `valueParsed`:
   
   - **`@example`** Takes a single or multiline code example
 
-  - **`@modifier`** Takes the following word and adds it as the `name` key in the tag object. This word can be prefixed with any of the following characters: **`:.#`**
+  - **`@modifier`** Takes the value and splits on the following word, separating the first word as the `type: modifier` and the following string as its `type: description` This modifier can contain any of the following characters: **`:.#-_`**
 
 **Comment Example**
 
@@ -417,36 +427,48 @@ Sugarcoat adds some additional parsing options to [comment-parse](https://www.np
 ```js
 { 
   line: 0,
-  description: '',
+  preface: ''
   source: '@title Tooltip\n@example\n <div class="tooltip">\n   <span class="tooltip-content">This is a tooltip</span>\n </div>\n@modifier .active enabled class on .tooltip',
   context: '',
-  tags: [ 
-    { 
+  tags: [
+    {
+      line: 32,
       tag: 'title',
-      description: 'Tooltip',
-      optional: false,
-      type: '',
-      name: '',
-      line: 3,
+      value: 'Tooltip',
+      valueParsed: [],
       source: '@title Tooltip'
     },
-    { 
+    {
+      line: 33,
       tag: 'example',
-      description: '<div class="tooltip">\n<span class="tooltip-content">This is a tooltip</span>\n</div>',
-      optional: false,
-      type: '',
-      name: '',
-      line: 4,
-      source: '@example\n<<div class="tooltip">\n<span class="tooltip-content">This is a tooltip</span>\n</div>' 
+      value: '\n  <div class="tooltip">\n  <span  class="tooltip-content">This is a tooltip</span>\n  </div>',
+      valueParsed: [
+        {
+          type: 'example',
+          value: '<div class="tooltip">\n <span class="tooltip-content">This is a tooltip</span>\n </div>'
+        },
+        {
+          type: 'description',
+          value: ''
+        }
+      ],
+      source: '@example\n<div class="tooltip">\n <span  class="tooltip-content">This is a tooltip</span>\n </div>'
     },
-    { 
+    {
+      line: 37,
       tag: 'modifier',
-      name: '.active ',
-      description: 'enabled class on .tooltip',
-      optional: false,
-      type: '',
-      line: 10,
-      source: '@modifier .active enabled class on .tooltip' 
+      value: '.active enabled class on .tooltip',
+      valueParsed: [
+        {
+          type: 'modifier',
+          value: '.active'
+        },
+        {
+          type: 'description',
+          value: 'enabled  class on .tooltip'
+        }
+      ],
+      source: '@modifier .active enabled class on .tooltip'
     }
   ]
 }
@@ -466,6 +488,7 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 /**
  * @title Some Component
  * @description This component has a description
+ * @dependencies /library/js/modules/some-component.js
  */
 -->
 <div class="some-component">
@@ -478,27 +501,30 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 ```js
 {
   line: 0,
-  description: '',
+  preface: '',
   source: '@title Some Component\n@description This component has an interesting description',
   context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n</div>',
-  tags: [ 
+  tags: [
     { 
+      line: 4,
       tag: 'title',
-      description: 'Some Component',
-      optional: false,
-      type: '',
-      name: '',
-      line: 2,
+      value: 'Some Component',
+      valueParsed: [],
       source: '@title Some Component'
     },
     { 
+      line: 5,
       tag: 'description',
-      description: 'This component has an interesting description',
-      optional: false,
-      type: '',
-      name: '',
-      line: 3,
+      value: 'This component has an interesting description',
+      valueParsed: [],
       source: '@description This component has an interesting description'
+    },
+    { 
+      line: 6,
+      tag: 'dependencies',
+      value: '/library/js/modules/some-component.js',
+      valueParsed: [],
+      source: '@dependencies /library/js/modules/some-component.js'
     }
   ]
 }
@@ -561,7 +587,7 @@ To register your own partials, add a directory path to the `template.partials` a
 
 - [ ] [More styling and better structuring of rendered sections](/../../issues/15)
 - [ ] [Robust example project](/../../issues/16)
-- [ ] [Consolidating code comment syntax strategy](/../../issues/4)
+- [x] [Consolidating code comment syntax strategy](/../../issues/4)
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
 - [ ] [Add automated tests](/../../issues/18)
 
