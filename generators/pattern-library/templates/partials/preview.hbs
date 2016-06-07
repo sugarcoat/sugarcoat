@@ -7,15 +7,13 @@
 -->
 <div class="sugar-preview-block">
   
-  {{#isEqual file.ext 'html'}}
+  {{~#isEqual file.ext 'html'}}
 
     <p class="sugar-example-text">Example:</p>
-
     <div class="sugar-preview">
-
       <div class="sugar-example">
         
-        {{{ this.context }}}
+{{{ this.context }}}
         
       </div>
       
@@ -23,16 +21,14 @@
 
     </div>
 
-  {{/isEqual}}
+  {{~/isEqual}}
 
-  {{#each this.tags as |tagObj| }}
+  {{~#each this.tags as |tagObj| }}
 
-    {{#isEqual tagObj.tag 'example'}}
+    {{~#isEqual tagObj.tag 'example'}}
 
       <p class="sugar-example-text">Example:</p>
-
       <div class="sugar-preview">
-
         <div class="sugar-example">
           
           {{{ tagObj.value }}}
@@ -43,8 +39,8 @@
 
       </div>
 
-    {{/isEqual}}
+    {{~/isEqual}}
   
-  {{/each}}
+  {{~/each}}
 
 </div>

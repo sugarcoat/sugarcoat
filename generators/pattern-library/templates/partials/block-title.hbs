@@ -7,22 +7,22 @@
 -->
 
 
-{{#if data.tags}}
+{{~#if data.tags}}
 
-  {{#each data.tags as |tagObj| }}
+  {{~#each data.tags as |tagObj| }}
 
-    {{#isEqual tagObj.tag 'title'}}
+    {{~#isEqual tagObj.tag 'title'}}
 
       <h3>{{ tagObj.value }}</h3>
 
-    {{/isEqual}}
+    {{~/isEqual}}
 
-    {{#isEqual tagObj.tag 'description'}}
+    {{~#isEqual tagObj.tag 'description'}}
 
       <p class="sugar-file-desc">{{ tagObj.value }}</p>
 
-    {{/isEqual}}
+    {{~/isEqual}}
 
-  {{/each}}
+  {{~/each}}
 
-{{/if}}
+{{~/if}}

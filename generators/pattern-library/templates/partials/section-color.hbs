@@ -6,15 +6,12 @@
  */
 -->
 <section id="{{toID title}}" class="sugar-section-color">
-
   <div class="sugar-section-wrapper">
-    
   <h2><a href="#{{toID title}}">{{ title }}</a></h2>
 
-    {{#each files as |file| }}
+    {{~#each files as |file| }}
     
       <div class="sugar-component">
-
         <div id="{{toID file.path @index}}">
 
           {{~#each file.data as |data| }}
@@ -24,38 +21,31 @@
             {{~#each data.serializedCode as |serialized| }}
 
               <div class="sugar-swatch-container">
-
                 <div class="sugar-color-swatch" style="background-color:{{ serialized.value }}"></div>
-              
-                  <pre class="sugar-swatch-var">{{ serialized.variable }}</pre><pre class="sugar-swatch-val">{{ serialized.value }}</pre>
+                <pre class="sugar-swatch-var">{{ serialized.variable }}</pre><pre class="sugar-swatch-val">{{ serialized.value }}</pre>
 
-                {{#if serialized.comment }}
+                {{~#if serialized.comment }}
 
                   <div class="sugar-color-comment">
-                    
                     <input type="checkbox" id="sugar-toggle-{{@index}}"></input>
                     <label for="sugar-toggle-{{@index}}">Info</label>
-                    
                     <p>{{ serialized.comment }}</p>
-                    
                   </div>
 
-                {{/if}}
+                {{~/if}}
 
               </div>
-
             {{/each }}
 
           {{~/each }}
 
         </div>
 
-        {{> file-path file=file}}
+        {{~> file-path file=file}}
     
       </div>
       
     {{~/each }}
 
   </div>
-
 </section>

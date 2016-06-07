@@ -8,7 +8,6 @@
 <body>
       
   <div class="sugar-page-wrapper">
-    
     <nav class="sugar-nav">
     
       {{> masthead this.settings }}
@@ -21,19 +20,17 @@
     
     <div class="sugar-main">
       
-      
       {{> masthead this.settings }}
       
-      {{#each this.sections as |section|}}
+      {{~#each this.sections as |section|}}
 
         {{> (lookup . 'template') }}
 
-      {{/each}}
+      {{~/each}}
 
       {{> footer}}
       
     </div>
-    
   </div>
 
 <script src="sugarcoat/js/sugar-nav.js"></script>

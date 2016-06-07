@@ -8,43 +8,39 @@
 
 <ul id="sugar-nav">
 
-  {{#each this as |section| }}
+  {{~#each this as |section| }}
 
     <li>
       <a class="sugar-nav-item" href="#{{toID section.title}}">{{ section.title }}</a>
-
       <ul>
 
-        {{#each section.files as |file| }}
+        {{~#each section.files as |file| }}
 
-          {{#each file.data as |data| }}
+          {{~#each file.data as |data| }}
 
-            <li>
+          <li>
+            <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
 
-              <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
+            {{~#each data.tags as |tagObj| }}
 
-              {{#each data.tags as |tagObj| }}
+              {{~#isEqual tagObj.tag 'title' }}
 
-                {{#isEqual tagObj.tag 'title' }}
+                {{ tagObj.value }}
 
-                  {{ tagObj.value }}
+              {{~/isEqual}}
 
-                {{/isEqual}}
+            {{~/each}}
 
-              {{/each}}
+            </a>
+          </li>
 
-              </a>
+          {{~/each}}
 
-            </li>
-
-          {{/each}}
-
-        {{/each}}
+        {{~/each}}
 
       </ul>
-
     </li>
 
-  {{/each}}
+  {{~/each}}
 
 </ul>

@@ -815,6 +815,7 @@ html {
   font-size: 12px;
   font-weight: bold;
   padding: 1px 3px;
+  border-color: #029dd5;
 }
 
 @media (min-width: 768px) {

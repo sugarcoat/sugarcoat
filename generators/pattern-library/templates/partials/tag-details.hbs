@@ -7,65 +7,56 @@
 -->
 
 <div class="sugar-tag-details">
-
   <dl>
 
-    {{#each this.tags as |tagObj| }}
+    {{~#each this.tags as |tagObj| }}
 
-      {{#notEqual tagObj.tag 'example'}}
+      {{~#notEqual tagObj.tag 'example'}}
 
-        {{#notEqual tagObj.tag 'title'}}
+        {{~#notEqual tagObj.tag 'title'}}
 
-          {{#notEqual tagObj.tag 'description'}}
-
+          {{~#notEqual tagObj.tag 'description'}}
             <dt>
               {{ tagObj.tag }}: 
-
+              
               {{#if tagObj.valueParsed}}
               
-                {{#each tagObj.valueParsed as |parsed|}}
-                  
+                {{~#each tagObj.valueParsed as |parsed|}}
                   {{#isEqual parsed.type 'modifier'}}
                 
                     <code>{{ parsed.value }}</code>
                     
                   {{/isEqual}}
-                  
-                {{/each}}
-                
+                {{~/each}}
               {{/if}}
             </dt>
-
             <dd>
                 
-              {{#if tagObj.valueParsed}}
+              {{~#if tagObj.valueParsed}}
               
-                {{#each tagObj.valueParsed as |parsed|}}
+                {{~#each tagObj.valueParsed as |parsed|}}
                   
-                  {{#isEqual parsed.type 'description'}}
+                  {{~#isEqual parsed.type 'description'}}
                 
                     <span class="sugar-tag-description">{{ parsed.value }}</span>
                     
-                  {{/isEqual}}
+                  {{~/isEqual}}
                   
-                {{/each}}
+                {{~/each}}
                 
-              {{ else }}
+              {{~ else }}
               
                 <span class="sugar-tag-description">{{ tagObj.value }}</span>
                 
-              {{/if}}
-              
+              {{~/if}}
+
             </dd>
+          {{~/notEqual}}
 
-          {{/notEqual}}
+        {{~/notEqual}}
 
-        {{/notEqual}}
-
-      {{/notEqual}}
+      {{~/notEqual}}
 
     {{/each}}
-
   </dl>
-
 </div>

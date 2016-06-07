@@ -6,31 +6,25 @@
  */
 -->
 <section id="{{toID title}}" class="sugar-section-variable">
-  
   <div class="sugar-section-wrapper">
-    
     <h2><a href="#{{toID title}}">{{ title }}</a></h2>
     
-    {{#each files as |file| }}
+    {{~#each files as |file| }}
   
       <div class="sugar-component" id="{{toID file.path @index}}">
       
-        {{#each file.data as |data| }}
+        {{~#each file.data as |data| }}
 
           {{> block-title data=data}}
 
-        {{/each}}
+        {{~/each}}
 
         <div class="sugar-table-container">
-          
-            <table class="sugar-var-table" >
-            
+            <table class="sugar-var-table">
               <thead>
-              
                 <th>Variable</th>
                 <th>Value</th>
                 <th>Comment</th>
-              
               </thead>
 
               {{~#each file.data as |data| }}
@@ -39,32 +33,26 @@
 
                   <tr>
                     <td><pre>{{ serialized.variable }}</pre></td>
-                    
                     <td><pre>{{ serialized.value }}</pre></td>
-                    
                     <td>
                       {{#if serialized.comment }}
-                      
                         <p>{{ serialized.comment }}</p>
-                      
                       {{/if}}
                     </td>
                   </tr>
 
-                {{/each}}
+                {{~/each}}
 
-              {{/each}}
+              {{~/each}}
             
             </table>
-          
           </div>
 
         {{> file-path file=file}}
       
       </div>
 
-    {{/each}}
+    {{~/each}}
     
   </div>
-
 </section>
