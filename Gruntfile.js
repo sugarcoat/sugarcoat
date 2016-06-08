@@ -3,18 +3,12 @@ module.exports = function ( grunt ) {
     /* Configure */
     grunt.initConfig({
         pkg: grunt.file.readJSON( 'package.json' ),
-        buildRoot: '/'
+        buildRoot: '/',
     });
 
     /* Load tasks */
     grunt.loadTasks( 'grunt' );
-
-    /* Task aliases */
-    grunt.registerTask( 'sassdev', 'Compile Sass files', [
-        'sass',
-        'autoprefixer'
-    ]);
     
-    // grunt.registerTask( 'watch', 'Watch Task', [ 'sassdev' ]);
+    grunt.registerTask( 'css', 'Pre and Post process CSS', [ 'postcss' ]);
 
 };

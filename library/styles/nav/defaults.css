@@ -1,20 +1,20 @@
 nav {
-    background-color: $bg-yellow-lt;
+    background-color: var(--bg-yellow-lt);
     padding: 15px;
     
-    h1 {
+    & h1 {
         margin: 0;
-        color: $accent-blue;
+        color: var(--accent-blue);
         display: inline-block;
     }
-    a {
+    & a {
         padding: 10px;
     }
-    ul {
+    & ul {
         display: inline-block;
         float: right;
     }
-    ul li {
+    & ul li {
         display: inline-block;
     }
 }
