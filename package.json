@@ -1,0 +1,53 @@
+{
+  "name": "sugarcoat-example",
+  "description": "Making UI documentation a bit sweeter ✨",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-sass": "^1.0.0"
+  },
+  "contributors": [
+    {
+      "name": "Ali Groening",
+      "url": "https://github.com/tisAliG"
+    },
+    {
+      "name": "Ryan Fitzer",
+      "url": "https://github.com/ryanfitzer"
+    },
+    {
+      "name": "Valerie Balcom",
+      "url": "https://github.com/vbalcom"
+    }
+  ],
+  "keywords": [
+    "sugar",
+    "coat",
+    "sugarcoat",
+    "docs",
+    "documentation",
+    "pattern",
+    "library",
+    "pattern library",
+    "patternlibrary",
+    "pattern-library",
+    "ui",
+    "ui library",
+    "uilibrary",
+    "ui-library",
+    "component",
+    "component library",
+    "componentlibrary",
+    "component-library",
+    "style",
+    "guide",
+    "style guide",
+    "styleguide",
+    "style-guide",
+    "comment",
+    "docblock",
+    "parse",
+    "parser",
+    "automated",
+    "assembler"
+  ]
+}
