@@ -1,10 +1,11 @@
 /**
  * @title Font Families
  */
-$font-body: 'Helvetica', Arial;
-$font-head: 'Arvo', Georgia; // Font Description
-$font-mono: 'Roboto Mono', 'Monospace';
-
+:root {
+    --font-mono: 'Roboto Mono', 'Monospace';
+    --font-body: 'Helvetica', Arial;
+    --font-head: 'Arvo', Georgia;
+}
 /**
  * 
  * @title Font Style, Header
@@ -12,9 +13,9 @@ $font-mono: 'Roboto Mono', 'Monospace';
  *
  */
 @mixin font-head {
-    font-family: $font-head;
-    color: $brand-red;
-//    font-size: 36px;
+    font-family: var(--font-head);
+    color: var(--brand-red);
+/*    font-size: 36px;*/
     font-weight: 700;
 }
 
@@ -25,8 +26,8 @@ $font-mono: 'Roboto Mono', 'Monospace';
  *
  */
 @mixin font-subhead {
-    font-family: $font-head;
-    color: $accent-red;
+    font-family: var(--font-head);
+    color: var(--accent-red);
     font-weight: 400;
 }
 
@@ -37,9 +38,9 @@ $font-mono: 'Roboto Mono', 'Monospace';
  *
  */
 @mixin font-label {
-    font-family: $font-mono;
+    font-family: var(--font-mono);
     text-transform: uppercase;
-    color: $accent-blue;
+    color: var(--accent-blue);
     letter-spacing: .1rem;
 }
 
@@ -50,9 +51,9 @@ $font-mono: 'Roboto Mono', 'Monospace';
  *
  */
 @mixin font-code {
-    font-family: $font-mono;
+    font-family: var(--font-mono);
     font-weight: normal;
-    background: $bg-yellow;
+    background: var(--bg-yellow);
     border-radius: 3px;
     padding: 3px 5px;
     display: inline-block;
@@ -77,16 +78,16 @@ code {
     @include font-code;
 }
 b {
-    font-family: $font-head;
+    font-family: var(--font-head);
     font-weight: 700;
 }
 a,
 a:visited {
-    color: $accent-blue;
+    color: var(--accent-blue);
     
     &:hover,
     &:focus,
     &:active {
-        color: $brand-red;
+        color: var(--brand-red);
     }
 }

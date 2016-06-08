@@ -1,6 +1,6 @@
 body {
-    font-family: $font-body;
-    color: $body-black;
+    font-family: var(--font-body);
+    color: var(--body-black);
     margin: 0;
 }
 ul, ol {
