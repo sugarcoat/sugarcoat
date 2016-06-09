@@ -4,10 +4,10 @@
  *
  */
 :root {
-    --brand-red: #703030;
-    --brand-grey: #2f343b;
+    --brand-red: #703030; /* Headlines */
+    --brand-grey: #2f343b; /* Links */
     --accent-red: #c77966;
-    --accent-blue: #7E827A;
+    --accent-grey: #7E827A;
     --bg-yellow: #e3cda4;
     --bg-yellow-lt: hsla(39,53%,80%,1);
     --body-black: #333;

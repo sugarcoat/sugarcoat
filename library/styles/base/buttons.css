@@ -1,0 +1,17 @@
+.cta,
+.cta {
+    @extend %font-label;
+    text-decoration: none;
+    color: white;
+    background-color: var(--brand-grey);
+    border-radius: 3px;
+    padding: 3px 10px;
+    border: 1px solid var(--brand-grey);
+    
+    &:focus,
+    &:active,
+    &:hover {
+        background-color: white;
+        color: var(--brand-grey);
+    }
+}

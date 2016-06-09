@@ -3,7 +3,7 @@
  */
 :root {
     --font-mono: 'Roboto Mono', 'Monospace';
-    --font-body: 'Helvetica', Arial;
+    --font-body: 'Helvetica', Arial; 
     --font-head: 'Arvo', Georgia;
 }
 /**
@@ -15,7 +15,6 @@
 %font-head {
     font-family: var(--font-head);
     color: var(--brand-red);
-/*    font-size: 36px;*/
     font-weight: 700;
 }
 
@@ -40,7 +39,7 @@
 %font-label {
     font-family: var(--font-mono);
     text-transform: uppercase;
-    color: var(--accent-blue);
+    color: var(--accent-grey);
     letter-spacing: .1rem;
 }
 
@@ -83,7 +82,7 @@ b {
 }
 a,
 a:visited {
-    color: var(--accent-blue);
+    color: var(--accent-grey);
     
     &:hover,
     &:focus,
