@@ -1,0 +1,40 @@
+.sugar-nav-open {
+    .sugar-main {
+        transform: none;
+    }
+    .sugar-nav-toggle {
+        transform: none;
+    }
+}
+.sugar-masthead {
+    padding-top: 0;
+    
+    h1 {
+        font-size: 2rem;
+    }
+}
+.sugar-main {
+    width: 75%;
+    margin: 0 0 0 25%;
+    padding: 0;
+    
+    section {
+        padding: 2rem;
+        border-bottom: $border;
+    }
+    .sugar-masthead {
+        display: none;
+    }
+    .sugar-type-container {
+        pre {
+        }
+        .sugar-var {
+            width: 35%;
+            float: left;
+            border-right: $border;
+        }
+        .sugar-val {
+            width: 65%;
+        }
+    }
+}
