@@ -75,37 +75,42 @@ Parser.prototype = {
             //LESS = @
             infoStrings = code.match(/(\@.*:.*)/g);
         }
+        
+        if ( path.indexOf( '.css' ) !== -1 ) {
+            //CSS = --
+            infoStrings = code.match(/(--.*:.*)/g);
+        }
 
         infoStrings.forEach( function( infoLine ) {
-
-            var usageSplit = infoLine.split( '//' );
-            var statmentSplit = usageSplit[0].split( ':' );
-
-            if ( usageSplit[1] !== undefined ) {
+            /*
+             * $var: #fff; //something
+             * $var: #000; /* etc **/
+            
+            var line = {}
+                , variableSplit = infoLine.split(':')
+                ;
+            
+            line.variable = variableSplit[ 0 ];
+            
+            var dashComment = variableSplit[ 1 ].split( '//' );
+            var starComment = variableSplit[ 1 ].split( '/*' );
+            
+            if ( dashComment[ 1 ] !== undefined ) {
                 
-                // check to see if comment has a leading space
-                var result = /\s(.*)/.exec( usageSplit[ 1 ]);
-                
-                if ( result && result.index === 0 ) {
-                    
-                    // remove leading space
-                    usageSplit[ 1 ] = usageSplit[ 1 ].substring( 1, usageSplit[ 1 ].length );
-                }
-
-                infoArray.push({
-                    'variable': statmentSplit[0],
-                    'value': statmentSplit[1],
-                    'comment': usageSplit[1]
-                });
+                line.value = dashComment[ 0 ].trim();
+                line.comment = dashComment[ 1 ].trim();
             }
-
+            else if ( starComment[ 1 ] !== undefined ) {
+                
+                line.value = starComment[ 0 ].trim();
+                line.comment = starComment[ 1 ].split( '*/' )[ 0 ].trim();
+            }
             else {
-
-                infoArray.push({
-                    'variable': statmentSplit[0],
-                    'value': statmentSplit[1]
-                });
+                
+                line.value = variableSplit[ 1 ].trim();
             }
+            
+            infoArray.push( line );
         });
 
         return infoArray;
