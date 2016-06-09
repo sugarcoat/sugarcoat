@@ -3,7 +3,9 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="sugarcoat/css/sugarcoat.css"></head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:300|Arvo:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="sugarcoat/css/sugarcoat.css">
+</head>
 <body>
       
   <div class="sugar-page-wrapper">
@@ -39,6 +41,36 @@
       </ul>
     </li>
     <li>
+      <a class="sugar-nav-item" href="#sugar-typography">Typography</a>
+      <ul>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-base-typography-css-0">
+                Font Families
+            </a>
+          </li>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-base-typography-css-1">
+                Font Style, Header
+            </a>
+          </li>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-base-typography-css-2">
+                Font Style, Sub header
+            </a>
+          </li>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-base-typography-css-3">
+                Font Style, Label
+            </a>
+          </li>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-base-typography-css-4">
+                Font Style, Monospace
+            </a>
+          </li>
+      </ul>
+    </li>
+    <li>
       <a class="sugar-nav-item" href="#sugar-variables">Variables</a>
       <ul>
           <li>
@@ -49,11 +81,26 @@
       </ul>
     </li>
     <li>
-      <a class="sugar-nav-item" href="#sugar-note">Note</a>
+      <a class="sugar-nav-item" href="#sugar-elements">Elements</a>
+      <ul>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-base-buttons-css-0">
+                Button
+            </a>
+          </li>
+      </ul>
+    </li>
+    <li>
+      <a class="sugar-nav-item" href="#sugar-components">Components</a>
       <ul>
           <li>
             <a class="sugar-nav-subitem" href="#sugar-library-styles-note-defaults-css-0">
                 Note
+            </a>
+          </li>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-feature-defaults-css-0">
+                Feature
             </a>
           </li>
       </ul>
@@ -155,6 +202,99 @@
         <!--
 /**
  *
+ * @title Partial for Typography component
+ *
+ */
+-->
+<section id="sugar-typography" class="sugar-section-type">
+  <div class="sugar-section-wrapper">
+    <h2><a href="#sugar-typography">Typography</a></h2>    
+      <div class="sugar-component">
+        <div id="sugar-library-styles-base-typography-css-0"><!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Font Families</h3>    
+            <div class="sugar-type-file">    
+                <div class="sugar-type-container">
+                  <div class="sugar-type-example">
+                    <p style="font-family: &#x27;Helvetica&#x27;, Arial;">The quick brown fox jumps over the lazy dog.</p>
+                  </div>
+                  <pre class="sugar-var">--font-body</pre><pre class="sugar-val">&#x27;Helvetica&#x27;, Arial;</pre>    
+                </div>    
+                <div class="sugar-type-container">
+                  <div class="sugar-type-example">
+                    <p style="font-family: &#x27;Arvo&#x27;, Georgia;">The quick brown fox jumps over the lazy dog.</p>
+                  </div>
+                  <pre class="sugar-var">--font-head</pre><pre class="sugar-val">&#x27;Arvo&#x27;, Georgia;</pre>    
+                </div>    
+                <div class="sugar-type-container">
+                  <div class="sugar-type-example">
+                    <p style="font-family: &#x27;Roboto Mono&#x27;, &#x27;Monospace&#x27;;">The quick brown fox jumps over the lazy dog.</p>
+                  </div>
+                  <pre class="sugar-var">--font-mono</pre><pre class="sugar-val">&#x27;Roboto Mono&#x27;, &#x27;Monospace&#x27;;</pre>    
+                    <p class="sugar-type-desc">For displaying labels and code</p>    
+                </div>    
+            </div><!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Font Style, Header</h3>
+      <p class="sugar-file-desc">Header links</p>    
+            <div class="sugar-type-file">    
+            </div><!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Font Style, Sub header</h3>
+      <p class="sugar-file-desc">Sub-section titles</p>    
+            <div class="sugar-type-file">    
+            </div><!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Font Style, Label</h3>
+      <p class="sugar-file-desc">Use for small label styles</p>    
+            <div class="sugar-type-file">    
+            </div><!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Font Style, Monospace</h3>
+      <p class="sugar-file-desc">Use for any code style declarations</p>    
+            <div class="sugar-type-file">    
+            </div>    
+        </div>
+    
+        <!--
+/**
+ *
+ * @title Partial for file paths
+ *
+ */
+-->
+<p class="sugar-file">File: <span class="sugar-path">library/styles/base/typography.css</span></p>      
+      </div>    
+  </div>
+</section>
+        <!--
+/**
+ *
  * @title Partial for Variables component
  *
  */
@@ -206,9 +346,105 @@
  */
 -->
 
-<section id="sugar-note" class="sugar-section-default">
+<section id="sugar-elements" class="sugar-section-default">
   <div class="sugar-section-wrapper">
-    <h2><a href="#sugar-note">Note</a></h2>      
+    <h2><a href="#sugar-elements">Elements</a></h2>      
+        <div id="sugar-library-styles-base-buttons-css-0" class="sugar-component">
+                                
+          <!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Button</h3>        
+          <!--
+/**
+ *
+ * @title Partial for Preview of component
+ *
+ */
+-->
+<div class="sugar-preview-block">
+      <p class="sugar-example-text">Example:</p>
+      <div class="sugar-preview">
+        <div class="sugar-example">
+          
+          <a class="btn" href="#">a.btn</a>
+          
+        </div>
+      
+        <pre>&lt;a class&#x3D;&quot;btn&quot; href&#x3D;&quot;#&quot;&gt;a.btn&lt;/a&gt;</pre>
+
+      </div>
+      <p class="sugar-example-text">Example:</p>
+      <div class="sugar-preview">
+        <div class="sugar-example">
+          
+          <button class="btn cta">button.btn.cta</button>
+          
+        </div>
+      
+        <pre>&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;</pre>
+
+      </div>
+</div>        
+          <!--
+/**
+ *
+ * @title Definition List partial for tags other than the example tag for default comment block 
+ *
+ */
+-->
+
+<div class="sugar-tag-details">
+  <dl>
+            <dt>
+              modifier: 
+              
+                
+                    <code>.cta</code>
+                    
+            </dt>
+            <dd>                
+                    <span class="sugar-tag-description">primary coloring</span>
+            </dd>
+            <dt>
+              modifier: 
+              
+            </dt>
+            <dd>              
+                <span class="sugar-tag-description">:hover transition animation on hover</span>
+            </dd>
+
+
+  </dl>
+</div>        
+          <!--
+/**
+ *
+ * @title Partial for file paths
+ *
+ */
+-->
+<p class="sugar-file">File: <span class="sugar-path">library/styles/base/buttons.css</span></p>      
+        </div>
+      
+    
+  </div>
+</section>
+        <!--
+/**
+ *
+ * @title Default comment block partial
+ *
+ */
+-->
+
+<section id="sugar-components" class="sugar-section-default">
+  <div class="sugar-section-wrapper">
+    <h2><a href="#sugar-components">Components</a></h2>      
         <div id="sugar-library-styles-note-defaults-css-0" class="sugar-component">
                                 
           <!--
@@ -278,6 +514,72 @@
  */
 -->
 <p class="sugar-file">File: <span class="sugar-path">library/styles/note/defaults.css</span></p>      
+        </div>
+      
+      
+        <div id="sugar-library-styles-feature-defaults-css-0" class="sugar-component">
+                                
+          <!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Feature</h3>
+      <p class="sugar-file-desc">Used for listing and displaying grid-like related content</p>        
+          <!--
+/**
+ *
+ * @title Partial for Preview of component
+ *
+ */
+-->
+<div class="sugar-preview-block">
+      <p class="sugar-example-text">Example:</p>
+      <div class="sugar-preview">
+        <div class="sugar-example">
+          
+          
+<div class="feature-item">
+ <img src="http://placehold.it/150x150/703030/ffffff">
+ <h3>Title</h3>
+ <p>Lorem Ipsum</p>
+</div>
+          
+        </div>
+      
+        <pre>
+&lt;div class&#x3D;&quot;feature-item&quot;&gt;
+ &lt;img src&#x3D;&quot;http://placehold.it/150x150/703030/ffffff&quot;&gt;
+ &lt;h3&gt;Title&lt;/h3&gt;
+ &lt;p&gt;Lorem Ipsum&lt;/p&gt;
+&lt;/div&gt;</pre>
+
+      </div>
+</div>        
+          <!--
+/**
+ *
+ * @title Definition List partial for tags other than the example tag for default comment block 
+ *
+ */
+-->
+
+<div class="sugar-tag-details">
+  <dl>
+
+
+  </dl>
+</div>        
+          <!--
+/**
+ *
+ * @title Partial for file paths
+ *
+ */
+-->
+<p class="sugar-file">File: <span class="sugar-path">library/styles/feature/defaults.css</span></p>      
         </div>
       
     

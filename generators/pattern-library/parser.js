@@ -80,6 +80,8 @@ Parser.prototype = {
             //CSS = --
             infoStrings = code.match(/(--.*:.*)/g);
         }
+        
+        if ( !infoStrings ) { return; }
 
         infoStrings.forEach( function( infoLine ) {
             /*
