@@ -11,10 +11,14 @@ module.exports = function( grunt ) {
             processors: [
                 require( 'postcss-import' )(),
                 require( 'postcss-url' )(),
-                require( 'postcss-comment/hookRequire')(),
+                
+                // pops placeholders to top of css
+                require( 'postcss-sass-extend' )(),
+                
+                // enables nesting, variables, autoprefixer
                 require( 'postcss-cssnext' )(),
                 // more plugins here.
-                // require('autoprefixer')({browsers: ['last 2 versions']}),
+                
                 require( 'postcss-browser-reporter' )(),
                 require( 'postcss-reporter' )()
             ]

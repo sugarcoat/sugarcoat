@@ -12,7 +12,7 @@
  * @description Header links
  *
  */
-@mixin font-head {
+%font-head {
     font-family: var(--font-head);
     color: var(--brand-red);
 /*    font-size: 36px;*/
@@ -25,7 +25,7 @@
  * @description Sub-section titles
  *
  */
-@mixin font-subhead {
+%font-subhead {
     font-family: var(--font-head);
     color: var(--accent-red);
     font-weight: 400;
@@ -37,7 +37,7 @@
  * @description Use for small label styles
  *
  */
-@mixin font-label {
+%font-label {
     font-family: var(--font-mono);
     text-transform: uppercase;
     color: var(--accent-blue);
@@ -50,7 +50,7 @@
  * @description Use for any code style declarations
  *
  */
-@mixin font-code {
+%font-code {
     font-family: var(--font-mono);
     font-weight: normal;
     background: var(--bg-yellow);
@@ -63,19 +63,19 @@
 }
 
 h1, h3 {
-    @include font-head;
+    @extend %font-head;
 }
 h2, h4 {
-    @include font-subhead;
+    @extend %font-subhead;
 }
 h5 {
-    @include font-label;
+    @extend %font-label;
 }
 p {
     line-height: 1.7rem;
 }
 code {
-    @include font-code;
+    @extend %font-code;
 }
 b {
     font-family: var(--font-head);
