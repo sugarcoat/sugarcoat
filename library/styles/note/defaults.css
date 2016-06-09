@@ -12,5 +12,5 @@
 .note {
     padding: 15px;
     margin: 15px;
-    @include backdrop;
+    @extend %backdrop;
 }
