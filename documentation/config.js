@@ -1,7 +1,12 @@
 var library = {
     settings: {
         dest: 'documentation',
-        title: 'Pattern Library'
+        title: 'Pattern Library',
+        template: {
+            partials: [
+                'documentation/template'
+            ]
+        }
     },
     sections: [
         {
@@ -11,13 +16,26 @@ var library = {
             template: 'section-color'
         },
         {
+            title: 'Typography',
+            files: 'library/styles/base/typography.css',
+            type: 'variable',
+            template: 'section-typography'
+        },
+        {
             title: 'Variables',
             files: 'library/styles/config/variables.css',
             type: 'variable'
         },
         {
-            title: 'Note',
-            files: 'library/styles/note/*.css'
+            title: 'Elements',
+            files: 'library/styles/base/buttons.css'
+        },
+        {
+            title: 'Components',
+            files: [
+                'library/styles/note/*.css',
+                'library/styles/feature/*.css'
+            ]
         }
     ]
 };

@@ -2,9 +2,9 @@
  * @title Font Families
  */
 :root {
-    --font-mono: 'Roboto Mono', 'Monospace';
     --font-body: 'Helvetica', Arial; 
     --font-head: 'Arvo', Georgia;
+    --font-mono: 'Roboto Mono', 'Monospace'; /*For displaying labels and code*/
 }
 /**
  * 
@@ -38,9 +38,7 @@
  */
 %font-label {
     font-family: var(--font-mono);
-    text-transform: uppercase;
     color: var(--accent-grey);
-    letter-spacing: .1rem;
 }
 
 /**
