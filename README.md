@@ -405,11 +405,13 @@ Sugarcoat uses [comment-serializer](https://www.npmjs.com/package/comment-serial
 }
 ```
 
-There are two reserved tag names that will notify comment-serializer to parse the value further, and output its results to `valueParsed`:
+There are three reserved tag names that will notify comment-serializer to parse the value further, and output its results to `valueParsed`:
   
   - **`@example`** Takes a single or multiline code example
 
-  - **`@modifier`** Takes the value and splits on the following word, separating the first word as the `type: modifier` and the following string as its `type: description` This modifier can contain any of the following characters: **`:.#-_`**
+  - **`@modifier`** Is used for a class modifier on a component. It takes the value and splits on the following word, separating the first word as the `type: modifier` and the following string as its `type: description` This modifier can contain any of the following characters: **`.-_`**
+
+  - **`@state`** Is used for state pseudo-classes such as `:hover`. Similar to `@modifier` it splits the state and following description. The state is expected to be prefixed with `:` with `type: modifier`
 
 **Comment Example**
 
@@ -421,6 +423,7 @@ There are two reserved tag names that will notify comment-serializer to parse th
  *    <span class="tooltip-content">This is a tooltip</span>
  *  </div>
  * @modifier .active enabled class on .tooltip
+ * @state :focus allows visual contrast for accessibility 
  */
 ```
 
@@ -471,6 +474,22 @@ There are two reserved tag names that will notify comment-serializer to parse th
         }
       ],
       source: '@modifier .active enabled class on .tooltip'
+    },
+    {
+      line: 38,
+      tag: 'state',
+      value: ':focus allows visual contrast for accessibility ',
+      valueParsed: [
+        {
+          type: 'state',
+          value: ':focus'
+        },
+        {
+          type: 'description',
+          value: 'allows visual contrast for accessibility'
+        }
+      ],
+      source: '@state :focus allows visual contrast for accessibility'
     }
   ]
 }
@@ -571,7 +590,7 @@ If you'd like to provide your own layout, provide a path in `template.layout` (r
 
 To register your own partials, add a directory path to the `template.partials` array (relative to `template.cwd`) in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided. 
 
-### Reserved Partial Names #
+### Reserved Partial Names ###
 
   - head
   - nav
@@ -581,14 +600,20 @@ To register your own partials, add a directory path to the `template.partials` a
   - section-variable
   - section-default
 
+# Example Library #
 
+To see an example of the pattern library running, navigate to the `./site` folder and run:
+
+    npm i
+    grunt css
+    sugarcoat documentation/config.js
 
 # Roadmap #
 
 ## v1.0.0 ##
 
-- [ ] [More styling and better structuring of rendered sections](/../../issues/15)
-- [ ] [Robust example project](/../../issues/16)
+- [x] [More styling and better structuring of rendered sections](/../../issues/15)
+- [x] [Robust example project](/../../issues/16)
 - [x] [Consolidating code comment syntax strategy](/../../issues/4)
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
 - [ ] [Add automated tests](/../../issues/18)

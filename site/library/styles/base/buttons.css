@@ -1,12 +1,12 @@
 /**
  * @title Button
  * @modifier .cta primary coloring
- * @modifier :hover transition animation on hover
+ * @state :hover transition animation on hover
  *
  * @example <a class="btn" href="#">a.btn</a>
  *
  * @example <button class="btn cta">button.btn.cta</button>
- * 
+ *
  */
 a.btn,
 .btn {
@@ -18,10 +18,10 @@ a.btn,
 
 a.cta,
 .cta {
-    
+
     color: white;
     background-color: var(--accent-grey);
-    
+
     &:focus,
     &:active,
     &:hover {

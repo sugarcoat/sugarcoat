@@ -1,6 +1,6 @@
 var library = {
     settings: {
-        dest: 'documentation',
+        dest: './documentation',
         title: 'Pattern Library',
         template: {
             partials: [

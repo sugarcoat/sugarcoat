@@ -2,51 +2,28 @@
  * @title Font Families
  */
 :root {
-    --font-body: 'Helvetica', Arial; 
+    --font-body: 'Helvetica', Arial;
     --font-head: 'Arvo', Georgia;
     --font-mono: 'Roboto Mono', 'Monospace'; /*For displaying labels and code*/
 }
-/**
- * 
- * @title Font Style, Header
- * @description Header links
- *
- */
+
 %font-head {
     font-family: var(--font-head);
     color: var(--brand-red);
     font-weight: 700;
 }
 
-/**
- * 
- * @title Font Style, Sub header
- * @description Sub-section titles
- *
- */
 %font-subhead {
     font-family: var(--font-head);
     color: var(--accent-red);
     font-weight: 400;
 }
 
-/**
- * 
- * @title Font Style, Label
- * @description Use for small label styles
- *
- */
 %font-label {
     font-family: var(--font-mono);
     color: var(--accent-grey);
 }
 
-/**
- * 
- * @title Font Style, Monospace
- * @description Use for any code style declarations
- *
- */
 %font-code {
     font-family: var(--font-mono);
     font-weight: normal;
@@ -81,7 +58,7 @@ b {
 a,
 a:visited {
     color: var(--accent-grey);
-    
+
     &:hover,
     &:focus,
     &:active {
