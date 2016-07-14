@@ -4,7 +4,6 @@
   "dependencies": {
     "autoprefixer": "^6.3.6",
     "grunt": "^1.0.1",
-    "grunt-contrib-sass": "^1.0.0",
     "grunt-postcss": "^0.8.0",
     "postcss": "^5.0.21",
     "postcss-browser-reporter": "^0.5.0",
