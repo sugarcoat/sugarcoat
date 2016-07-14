@@ -1,0 +1,58 @@
+.sugar-section-color {
+    .sugar-swatch-container {
+        width: calc(50% - 1rem);
+        position: relative;
+        float: left;
+        margin: 0 1rem 1rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        
+        &:hover {
+            .sugar-color-comment p,
+            .sugar-color-comment input[type=checkbox]:checked ~ p {
+                display: block;
+                z-index: 100;
+                position: absolute;
+                width: 80%;
+                left: 10%;
+                text-align: center;
+                margin-top: 10px;
+                top: auto;
+            }
+        }
+    }
+    .sugar-color-swatch {
+        background-color: #333333;
+        width: 100px;
+        border-radius: 0;
+        height: 100px;
+        width: 100%;
+        margin: 0;
+        position: relative;
+    }
+    pre {
+        padding-left: 1rem;
+        display: inline-block;
+        margin: 0;
+        float: left;   
+    }
+    .sugar-swatch-var {
+        border-right: $border;
+        flex: 1;
+    }
+    .sugar-swatch-val {
+        position: relative;
+        border: none;
+    }
+    .sugar-color-comment {
+        position: relative;
+        
+        input[type=checkbox] ~ label {
+            display: none;
+        }
+        input[type=checkbox]:checked ~ p {
+            display: none;
+        }
+        
+    }
+}

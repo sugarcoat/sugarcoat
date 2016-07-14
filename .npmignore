@@ -1,4 +1,5 @@
 generators/pattern-library/examples
+site
 node_modules
 .tm_properties
 *.sublime-project

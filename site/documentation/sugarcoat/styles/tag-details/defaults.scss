@@ -1,0 +1,31 @@
+.sugar-tag-details {
+	width: 100%;
+
+	dt {
+        @include font-cap();
+        letter-spacing: 0.3rem;
+        color: #999;
+		line-height: 30px;
+        
+        code {
+            font-weight: normal;
+            background-color: $red;
+            padding: 5px;
+            text-transform: none;
+            border-radius: 3px;
+            letter-spacing: 0;
+            color: #B98181;
+        }
+	}
+	dd {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        
+		.sugar-tag-description {
+			font-family: 'Helvetica';
+			font-size: 1rem; //16px
+			color: #666;
+			word-break: break-all;
+		}
+	}
+}

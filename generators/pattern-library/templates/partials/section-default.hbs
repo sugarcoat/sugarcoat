@@ -1,55 +1,32 @@
 <!--
 /**
  *
- * @title Default comment block template
+ * @title Default comment block partial
  *
  */
 -->
 
-<div id="{{toID title}}">
+<section id="{{toID title}}" class="sugar-section-default">
+  <div class="sugar-section-wrapper">
+    <h2><a href="#{{toID title}}">{{ title }}</a></h2>
 
-  <div class="furtive">
-
-    <h2>{{ title }}</h2>
-
-  </div>
-
-  {{#each files as |file| }}
-
-    {{#each file.data as |data| }}
-
-      <div id="{{toID file.path @index}}" class="sugar-comment-block">
-
-        <div class="furtive">
-
-          <dl class="desc">
-
-            {{#each data.tags as |theTag| }}
-
-              {{#notEqual theTag.tag 'example'}}
-
-                <dt>{{ theTag.tag }} <code>{{ theTag.name }}</code></dt>
-                <dd>{{#if theTag.optional}}<i>(Optional)</i> {{/if}}{{ theTag.description }}</dd>
-
-              {{/notEqual}}
-
-            {{/each}}
-
-            <dt>filepath</dt>
-            <dd>{{ file.path }}</dd>
-
-          </dl>
-
+    {{~#each files as |file| }}
+      {{#each file.data as |data| }}
+      
+        <div id="{{toID file.path @index}}" class="sugar-component">
+                                
+          {{> block-title data=data}}
+        
+          {{> preview file=file}}
+        
+          {{> tag-details file=file}}
+        
+          {{> file-path file=file}}
+      
         </div>
-
-      </div>
+      
+      {{/each}}
+    {{~/each}}
     
-    {{> preview file=file}}
-    
-    {{/each}}
-
-    
-
-  {{/each}}
-
-</div>
+  </div>
+</section>

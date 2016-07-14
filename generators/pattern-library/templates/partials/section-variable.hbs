@@ -1,36 +1,58 @@
-<div id="{{toID title}}">
-
-  <table class="variables furtive">
-    <thead>
-      <tr>
-        <th>Variable</th>
-        <th>Value</th>
-        <th>Comments</th>
-      </tr>
-    </thead>
-
-    {{#each files as |file| }}
-
-      <tbody id="{{toID file.path}}">
-
+<!--
+/**
+ *
+ * @title Partial for Variables component
+ *
+ */
+-->
+<section id="{{toID title}}" class="sugar-section-variable">
+  <div class="sugar-section-wrapper">
+    <h2><a href="#{{toID title}}">{{ title }}</a></h2>
+    
+    {{~#each files as |file| }}
+  
+      <div class="sugar-component" id="{{toID file.path @index}}">
+      
         {{~#each file.data as |data| }}
 
-          {{~#each data.serializedCode}}
-
-            <tr>
-              <td>{{ data.variable }}</td>
-              <td>{{ data.value }}</td>
-              <td>{{ data.comment }}</td>
-            </tr>
-
-          {{~/each}}
+          {{> block-title data=data}}
 
         {{~/each}}
 
+        <div class="sugar-table-container">
+            <table class="sugar-var-table">
+              <thead>
+                <th>Variable</th>
+                <th>Value</th>
+                <th>Comment</th>
+              </thead>
 
-      </tbody>
+              {{~#each file.data as |data| }}
 
-    {{/each}}
+                {{~#each data.serializedCode as |serialized| }}
 
-  </table>
-</div>
+                  <tr>
+                    <td><pre>{{ serialized.variable }}</pre></td>
+                    <td><pre>{{ serialized.value }}</pre></td>
+                    <td>
+                      {{#if serialized.comment }}
+                        <p>{{ serialized.comment }}</p>
+                      {{/if}}
+                    </td>
+                  </tr>
+
+                {{~/each}}
+
+              {{~/each}}
+            
+            </table>
+          </div>
+
+        {{> file-path file=file}}
+      
+      </div>
+
+    {{~/each}}
+    
+  </div>
+</section>

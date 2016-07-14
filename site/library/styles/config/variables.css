@@ -1,0 +1,8 @@
+/**
+ * 
+ * @title Variables
+ *
+ */
+:root {
+    --border: 1px solid var(--bg-yellow);
+}

@@ -1,4 +1,4 @@
-var fs = require( 'fs' )
+var fs = require( 'fs' );
 var util = require( 'util' );
 var path = require( 'path' );
 
@@ -22,7 +22,7 @@ module.exports = function ( config ) {
     .catch( function ( err ) {
         return err;
     });
-}
+};
 
 /*
     Tasks
@@ -73,7 +73,7 @@ function readPartials( config ) {
         .then( function ( data ) {
 
             return fileObj.src = data;
-        })
+        });
     });
 
     return Promise.all( partials )
@@ -114,7 +114,9 @@ function renderLayout( config ) {
     })
     .then( function () {
 
-        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src )
+        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
+                preventIndent: true
+            })
             , file = path.join( config.settings.dest, 'index.html' )
             , html = hbsCompiled( config )
             ;
@@ -256,5 +258,5 @@ function makeDirs( toPath ) {
 
             resolve();
         });
-    })
+    });
 }

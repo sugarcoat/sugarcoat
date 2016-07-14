@@ -1,0 +1,19 @@
+nav {
+    background-color: var(--bg-yellow-lt);
+    padding: 15px;
+}
+nav h1 {
+    margin: 0;
+    color: var(--brand-grey);
+    display: inline-block;
+}
+nav a {
+    padding: 10px;
+}
+nav ul {
+    display: inline-block;
+    float: right;
+}
+nav ul li {
+    display: inline-block;
+}

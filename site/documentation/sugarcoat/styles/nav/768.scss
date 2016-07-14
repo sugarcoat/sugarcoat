@@ -1,0 +1,17 @@
+/*
+ * 768.scss
+ */
+.sugar-nav-toggle {
+    display: none;
+}
+.sugar-nav {
+    width: 25%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    
+    .sugar-masthead {
+        display: block;
+    }
+}

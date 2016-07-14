@@ -1,44 +1,46 @@
-<nav class="furtive">
+<!--
+/**
+ *
+ * @title Partial for nav of all components
+ *
+ */
+-->
 
-  <ul>
+<ul id="sugar-nav">
 
-    {{#each this as |section| }}
+  {{~#each this as |section| }}
 
-      <li><a href="#{{toID section.title}}">{{ section.title }}</a>
+    <li>
+      <a class="sugar-nav-item" href="#{{toID section.title}}">{{ section.title }}</a>
+      <ul>
 
-        <ul>
+        {{~#each section.files as |file| }}
 
-          {{#each section.files as |file| }}
+          {{~#each file.data as |data| }}
 
-            {{#each file.data as |data| }}
+          <li>
+            <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
 
-              <li>
+            {{~#each data.tags as |tagObj| }}
 
-                <a href="#{{toID file.path @index }}">
+              {{~#isEqual tagObj.tag 'title' }}
 
-                {{#each data.tags as |theTag| }}
+                {{ tagObj.value }}
 
-                  {{#isEqual theTag.tag 'title' }}
+              {{~/isEqual}}
 
-                    {{ theTag.description }}
+            {{~/each}}
 
-                  {{/isEqual}}
+            </a>
+          </li>
 
-                {{/each}}
+          {{~/each}}
 
-                </a>
+        {{~/each}}
 
-              </li>
+      </ul>
+    </li>
 
-            {{/each}}
+  {{~/each}}
 
-          {{/each}}
-
-        </ul>
-
-      </li>
-
-    {{/each}}
-
-  </ul>
-</nav>
+</ul>

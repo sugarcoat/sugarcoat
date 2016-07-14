@@ -1,0 +1,11 @@
+body {
+    font-family: var(--font-body);
+    color: var(--body-black);
+    margin: 0;
+}
+ul, ol {
+    margin: 0;
+}
+section {
+    padding: 0 15px;
+}
