@@ -1,6 +1,6 @@
 {
   "name": "sugarcoat",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "description": "Making UI documentation a bit sweeter ✨",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.2",
@@ -55,6 +55,7 @@
     "sugarcoat",
     "docs",
     "documentation",
+    "docblock",
     "pattern",
     "library",
     "pattern library",
@@ -73,6 +74,7 @@
     "style guide",
     "styleguide",
     "style-guide",
+    "comment parser",
     "comment",
     "docblock",
     "parse",

@@ -128,6 +128,10 @@ function renderLayout( config ) {
 
             return html;
         });
+    })
+    .catch( function ( err ) {
+        log.error( 'Render', err );
+        return err;
     });
 }
 

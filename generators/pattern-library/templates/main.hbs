@@ -5,35 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   {{> head}}
 </head>
-<body>
-      
-  <div class="sugar-page-wrapper">
-    <nav class="sugar-nav">
-    
-      {{> masthead this.settings }}
-  
-      {{> nav this.sections }}
-      
-    </nav>
-  
-    <a class="sugar-nav-toggle">Toggle</a>
-    
-    <div class="sugar-main">
-      
-      {{> masthead this.settings }}
-      
-      {{~#each this.sections as |section|}}
+<body class="sugar-body">
 
-        {{> (lookup . 'template') }}
+{{> nav this.sections }}
 
-      {{~/each}}
+{{#each this.sections as |section|}}
 
-      {{> footer}}
-      
-    </div>
-  </div>
+  {{> (lookup . 'template') }}
 
-<script src="sugarcoat/js/sugar-nav.js"></script>
+{{/each}}
+
+{{> footer}}
 
 </body>
 </html>
