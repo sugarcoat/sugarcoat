@@ -10,10 +10,11 @@
 	.sugar-preview {
 		border: $border;
 		margin-bottom: 1rem;
-		
+
 		.sugar-example,
 		.sugar-example-code {
 			padding: 1.25rem 1.0rem;
+            overflow: hidden;
 		}
 	}
 }

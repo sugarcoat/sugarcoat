@@ -2,6 +2,7 @@
 	width: 100%;
 
 	.sugar-swatch-container {
+        box-sizing: border-box;
 		border: $border;
 		margin-bottom: 1.0rem;
         width: calc(100% - 30px);
@@ -34,12 +35,12 @@
         padding-left: 1rem;
         border-left: $border;
     }
-    
+
     .sugar-color-comment {
         width: 100%;
         position: absolute;
         top: 0;
-        
+
         p {
             display: none;
 
@@ -49,7 +50,7 @@
             background: black;
             color: white;
             padding: 1rem;
-            
+
             &:after {
                 content: '';
                 width: 0;
@@ -64,7 +65,7 @@
                 left: 50%;
             }
         }
-        
+
         input[type=checkbox] {
             display: none;
         }

@@ -1,22 +1,23 @@
 .sugar-section-variable {
 	width: 100%;
-    
+
     .sugar-table-container {
         overflow-x: scroll;
     }
-    
+
     .sugar-var-table {
-        
+        border-collapse: collapse;
+        border-spacing: 0;
         width: 100%;
         background: #f1f1f1;
         border-left: $border;
         border-right: $border;
         margin-bottom: 1rem;
-        
+
         thead {
             border: $border;
         }
-        
+
         th {
             @include font-cap();
             color: #999;

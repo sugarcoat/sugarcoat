@@ -27,6 +27,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
   - [Code Comment Syntax](#code-comment-syntax)
   - [Templating](#templating)
     - [Custom Templating](#custom-templating)
+  - [Example Library](#example-library)
   - [Roadmap](#roadmap)
 
 
@@ -36,7 +37,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 1. What does it look like?
 
-   Check out a simple example library [here](site/documentation/index.html)
+   Check out a simple example library on your local copy: [Example Library](#example-library). It's on the roadmap to update our github pages for a live demo!
 
 2. Can you parse css-preprocessor variables?
 
@@ -49,6 +50,10 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 4. Can I use my own template instead of the one that comes with Sugarcoat?
 
    Yes, you can use your own Handlebars template and partials. See the options [`template.layout`](#templatelayout) and [`template.partials`](#templatepartials) for more information.
+
+5. How do you handle style bleed?
+
+   For now, you'll need to prefix all your project style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector). It's on the roadmap to have sugarcoat prefix your files for you, and insert them into the head of your generated pattern library accordingly. Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown). 
 
 # Install #
 
@@ -578,7 +583,7 @@ Miscellaneous partials:
   - `nav` Outputs the main navigation - Lists `title` of each section object, nesting each comment object's `@title` tag. Used in the default `main.hbs` layout.
   
   - `head` Outputs links to Sugarcoat's default stylesheets.
-    - Roadmap: automatically add your project's css assets to the head partial. Currently, you have to add the files you want by manually replacing the head.hbs file.
+    - Roadmap: automatically add your project's css assets to the head partial. Currently, you have to add style files you want by manually replacing the head.hbs file.
   
   - `footer` Outputs links to JavaScript files.
     - Roadmap: Add optional syntax highlighting in the footer partial
@@ -607,8 +612,7 @@ To register your own partials, add a directory path to the `template.partials` a
 
 # Example Library #
 
-To see an example of the pattern library running, visit: [Example Pattern Library](site/documentation/index.html)
-Or, navigate to the `./site` folder in your local copy of sugarcoat and run:
+Navigate to the `./site` folder in your local copy of sugarcoat and run:
 
     npm i
     grunt css
@@ -624,6 +628,8 @@ Or, navigate to the `./site` folder in your local copy of sugarcoat and run:
 - [x] [Consolidating code comment syntax strategy](/../../issues/4)
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
 - [ ] [Add automated tests](/../../issues/18)
+- [ ] Update github pages
+- [ ] Consume your style assets, prefix them, and place them into `head.hbs`
 
 
 ## v?.0.0 ##

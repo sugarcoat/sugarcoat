@@ -9,7 +9,7 @@
     z-index: 150;
     cursor: pointer;
     transition: 0.35s linear transform;
-    
+
     &:before,
     &:after {
         content: '';
@@ -20,7 +20,7 @@
         background-color: black;
         transition: 0.35s linear all;
     }
-    
+
     &:after {
         top: 20px;
     }
@@ -30,18 +30,19 @@
 }
 .sugar-nav-open {
     .sugar-nav-toggle {
-        
+
         &:after {
             transform: translateY(5px);
             background-color: $blue;
         }
         &:before {
-            transform: translateY(-5px);            
+            transform: translateY(-5px);
             background-color: $blue;
         }
     }
 }
 .sugar-nav {
+    box-sizing: border-box;
     background-color: #f1f1f1;
     padding: 2rem;
     font-size: 14px;
@@ -53,15 +54,15 @@
     overflow-x: hidden;
     overflow-y: auto;
     transform: translate(0, 0); //make clickable
-    
+
     .sugar-masthead {
         display: none;
     }
-        
-    ul { 
+
+    ul {
         list-style: none;
         padding-left: 0;
-        
+
         li {
             margin-bottom: 1.6rem;
         }
@@ -104,7 +105,7 @@
             letter-spacing: 0;
             text-transform: none;
         }
-        ul li {        
+        ul li {
             margin-top: 1.4rem;
             margin-bottom: 0;
         }
