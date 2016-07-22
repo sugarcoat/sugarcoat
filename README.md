@@ -333,7 +333,7 @@ Type: `String`
 Optional: `true`
 Default: `default`
 
-If you'd like to parse a preprocessed stylesheet's variables, provide the `variable` option. This works with variables prefixed with `$`, `@`, or `--var()`.
+If you'd like to parse a preprocessed stylesheet's variables, provide the `variable` option. This works with variables prefixed with `$`, `@`, or `--`.
 
 ```js
 {
