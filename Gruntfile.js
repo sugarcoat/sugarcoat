@@ -14,7 +14,4 @@ module.exports = function ( grunt ) {
         'sass',
         'autoprefixer'
     ]);
-    
-    // grunt.registerTask( 'watch', 'Watch Task', [ 'sassdev' ]);
-
 };
