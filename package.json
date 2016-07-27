@@ -6,15 +6,17 @@
     "commander": "^2.9.0",
     "comment-serializer": "^0.2.3",
     "globby": "^5.0.0",
-    "grunt": "^1.0.1",
-    "grunt-autoprefixer": "^3.0.3",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-postcss": "^0.8.0",
     "handlebars": "^4.0.5",
     "lodash": "^4.13.1",
     "mkdirp": "^0.5.1",
     "npmlog": "^4.0.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+      "grunt": "^1.0.1",
+      "grunt-autoprefixer": "^3.0.3",
+      "grunt-contrib-sass": "^1.0.0",
+      "grunt-postcss": "^0.8.0"
   },
   "engines": {
     "node": ">= 4.0.0"
