@@ -40,6 +40,7 @@ body {
 		color: $blue;
         margin-bottom: 0.8rem;
         margin-top: 0.8rem;
+        clear: both;
 	}
     h2 a {
         text-decoration: none;
@@ -52,6 +53,9 @@ body {
 		color: #666666;
         margin-bottom: 0.7rem;
 	}
+    p {
+        font-family: 'Helvetica';
+    }
     .sugar-component {
         margin-bottom: 60px;
     }
@@ -61,8 +65,8 @@ body {
 		color: #666;
 	}
 	.sugar-file {
-		font-family: 'Helvetica Neue';
-		font-size: 0.8rem; //16px
+		font-family: 'Helvetica';
+		font-size: 14px;
 		color: #666666;
 		font-weight: bold;
         clear: both;

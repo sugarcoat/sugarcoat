@@ -3,11 +3,11 @@
     overflow: hidden;
 }
 .feature-item {
-    float: left;
+
     display: inline-block;
     width: calc(50% - 30px);
     text-align: center;
-    
+
     &:nth-child(odd) {
         padding-left: 0;
     }

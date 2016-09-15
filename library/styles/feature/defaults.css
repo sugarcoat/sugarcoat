@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @title Feature
  * @description Used for listing and displaying grid-like related content
  * @example
@@ -8,8 +8,15 @@
  *  <h3>Title</h3>
  *  <p>Lorem Ipsum</p>
  * </div>
+ * <div class="feature-item">
+ *  <img src="http://placehold.it/150x150/2f343b/ffffff">
+ *  <h3>Title</h3>
+ *  <p>Lorem Ipsum</p>
+ * </div>
  *
  */
 .feature-item {
     padding: 15px;
+    text-align: center;
+    vertical-align: top;
 }

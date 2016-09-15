@@ -1,14 +1,21 @@
 /**
- * 
- * @title Colors
+ *
+ * @title Primary Colors
  *
  */
 :root {
     --brand-red: #703030; /* Headlines */
-    --brand-grey: #2f343b; /* Links */
-    --accent-red: #c77966;
+    --brand-grey: #2F343B; /* Links */
+    --accent-red: #C77966;
     --accent-grey: #7E827A;
-    --bg-yellow: #e3cda4;
+}
+/**
+ *
+ * @title Secondary Colors
+ *
+ */
+:root {
+    --bg-yellow: #E3CDA4;
     --bg-yellow-lt: hsla(39,53%,80%,1);
     --body-black: #333;
 }

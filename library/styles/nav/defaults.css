@@ -9,6 +9,7 @@ nav h1 {
 }
 nav a {
     padding: 10px;
+    text-decoration: none;
 }
 nav ul {
     display: inline-block;
@@ -16,4 +17,5 @@ nav ul {
 }
 nav ul li {
     display: inline-block;
+    vertical-align: sub;
 }
