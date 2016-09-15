@@ -1,15 +1,22 @@
 /**
- * 
- * @title Colors
+ *
+ * @title Primary Colors
  *
  */
 .sugar-example :root { /* Headlines */ /* Links */
 }
 /**
- * 
+ *
+ * @title Secondary Colors
+ *
+ */
+/**
+ *
  * @title Variables
  *
  */
+.sugar-example :root { /* Used for form-type elements */
+}
 /**
  * 
  * @title Bordered element
@@ -18,7 +25,7 @@
  */
 .sugar-example .note {
     background-color: hsla(39,53%,80%,1);
-    border: 1px solid #e3cda4;
+    border: 1px solid #E3CDA4;
     border-radius: 5px;
 }
 /**
@@ -52,17 +59,17 @@
 }
 .sugar-example h2, .sugar-example h4 {
     font-family: 'Arvo', Georgia;
-    color: #c77966;
+    color: #C77966;
     font-weight: 400;
 }
-.sugar-example h5, .sugar-example a.btn, .sugar-example .btn {
+.sugar-example h5, .sugar-example a.btn, .sugar-example .btn, .sugar-example button {
     font-family: 'Roboto Mono', 'Monospace';
     color: #7E827A;
 }
 .sugar-example code {
     font-family: 'Roboto Mono', 'Monospace';
     font-weight: normal;
-    background: #e3cda4;
+    background: #E3CDA4;
     border-radius: 3px;
     padding: 3px 5px;
     display: inline-block;
@@ -110,15 +117,21 @@
  *
  */
 .sugar-example a.btn,
-.sugar-example .btn {
+.sugar-example .btn,
+.sugar-example button {
     text-decoration: none;
     border-radius: 3px;
     padding: 3px 10px;
+    border-style: none;
+    cursor: pointer;
+    color: white;
+    background-color: hsla(39,53%,80%,1);
+    font-size: 16px;
 }
 .sugar-example a.cta,
-.sugar-example .cta {
+.sugar-example .cta,
+.sugar-example button {
 
-    color: white;
     background-color: #7E827A
 }
 .sugar-example a.cta:focus,
@@ -126,8 +139,11 @@
     .sugar-example a.cta:hover,
     .sugar-example .cta:focus,
     .sugar-example .cta:active,
-    .sugar-example .cta:hover {
- background-color: #2f343b;
+    .sugar-example .cta:hover,
+    .sugar-example button:focus,
+    .sugar-example button:active,
+    .sugar-example button:hover {
+ background-color: #2F343B;
  color: white;
 }
 .sugar-example body {
@@ -147,7 +163,7 @@
 }
 .sugar-example section {
     text-align: left;
-    margin: 0 auto;
+    margin: 50px auto;
     width: 100%;
     max-width: 715px;
 }
@@ -158,11 +174,12 @@
 }
 .sugar-example nav h1 {
     margin: 0;
-    color: #2f343b;
+    color: #2F343B;
     display: inline-block;
 }
 .sugar-example nav a {
     padding: 10px;
+    text-decoration: none;
 }
 .sugar-example nav ul {
     display: inline-block;
@@ -170,9 +187,10 @@
 }
 .sugar-example nav ul li {
     display: inline-block;
+    vertical-align: sub;
 }
 /**
- * 
+ *
  * @title Feature
  * @description Used for listing and displaying grid-like related content
  * @example
@@ -181,10 +199,17 @@
  *  <h3>Title</h3>
  *  <p>Lorem Ipsum</p>
  * </div>
+ * <div class="feature-item">
+ *  <img src="http://placehold.it/150x150/2f343b/ffffff">
+ *  <h3>Title</h3>
+ *  <p>Lorem Ipsum</p>
+ * </div>
  *
  */
 .sugar-example .feature-item {
     padding: 15px;
+    text-align: center;
+    vertical-align: top;
 }
 @media (min-width: 745px) {
 .sugar-example .feature {
@@ -192,7 +217,7 @@
     overflow: hidden;
 }
 .sugar-example .feature-item {
-    float: left;
+
     display: inline-block;
     width: calc(50% - 30px);
     text-align: center;

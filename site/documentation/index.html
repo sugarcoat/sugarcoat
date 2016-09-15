@@ -36,7 +36,12 @@
       <ul>
           <li>
             <a class="sugar-nav-subitem" href="#sugar-library-styles-config-colors-css-0">
-                Colors
+                Primary Colors
+            </a>
+          </li>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-config-colors-css-1">
+                Secondary Colors
             </a>
           </li>
       </ul>
@@ -123,7 +128,7 @@
  *
  */
 -->
-      <h3>Colors</h3>
+      <h3>Primary Colors</h3>
               <div class="sugar-swatch-container">
                 <div class="sugar-color-swatch" style="background-color:#703030;"></div>
                 <pre class="sugar-swatch-var">--brand-red</pre><pre class="sugar-swatch-val">#703030;</pre>
@@ -135,8 +140,8 @@
               </div>
 
               <div class="sugar-swatch-container">
-                <div class="sugar-color-swatch" style="background-color:#2f343b;"></div>
-                <pre class="sugar-swatch-var">--brand-grey</pre><pre class="sugar-swatch-val">#2f343b;</pre>
+                <div class="sugar-color-swatch" style="background-color:#2F343B;"></div>
+                <pre class="sugar-swatch-var">--brand-grey</pre><pre class="sugar-swatch-val">#2F343B;</pre>
                   <div class="sugar-color-comment">
                     <input type="checkbox" id="sugar-toggle-1"></input>
                     <label for="sugar-toggle-1">Info</label>
@@ -145,8 +150,8 @@
               </div>
 
               <div class="sugar-swatch-container">
-                <div class="sugar-color-swatch" style="background-color:#c77966;"></div>
-                <pre class="sugar-swatch-var">--accent-red</pre><pre class="sugar-swatch-val">#c77966;</pre>
+                <div class="sugar-color-swatch" style="background-color:#C77966;"></div>
+                <pre class="sugar-swatch-var">--accent-red</pre><pre class="sugar-swatch-val">#C77966;</pre>
               </div>
 
               <div class="sugar-swatch-container">
@@ -154,9 +159,17 @@
                 <pre class="sugar-swatch-var">--accent-grey</pre><pre class="sugar-swatch-val">#7E827A;</pre>
               </div>
 
+            <!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Secondary Colors</h3>
               <div class="sugar-swatch-container">
-                <div class="sugar-color-swatch" style="background-color:#e3cda4;"></div>
-                <pre class="sugar-swatch-var">--bg-yellow</pre><pre class="sugar-swatch-val">#e3cda4;</pre>
+                <div class="sugar-color-swatch" style="background-color:#E3CDA4;"></div>
+                <pre class="sugar-swatch-var">--bg-yellow</pre><pre class="sugar-swatch-val">#E3CDA4;</pre>
               </div>
 
               <div class="sugar-swatch-container">
@@ -264,6 +277,13 @@
                     <td><pre>1px solid var(--bg-yellow);</pre></td>
                     <td>
                     </td>
+                  </tr>
+                  <tr>
+                    <td><pre>--pad</pre></td>
+                    <td><pre>3px 10px;</pre></td>
+                    <td>
+                        <p>Used for form-type elements</p>
+                    </td>
                   </tr>            
             </table>
           </div>
@@ -308,25 +328,25 @@
  */
 -->
 <div class="sugar-preview-block">
-      <p class="sugar-example-text">Example:</p>
+      <p class="sugar-example-text">Example</p>
       <div class="sugar-preview">
         <div class="sugar-example">
-          
+
           <a class="btn" href="#">a.btn</a>
-          
+
         </div>
-      
+
         <pre>&lt;a class&#x3D;&quot;btn&quot; href&#x3D;&quot;#&quot;&gt;a.btn&lt;/a&gt;</pre>
 
       </div>
-      <p class="sugar-example-text">Example:</p>
+      <p class="sugar-example-text">Example</p>
       <div class="sugar-preview">
         <div class="sugar-example">
-          
+
           <button class="btn cta">button.btn.cta</button>
-          
+
         </div>
-      
+
         <pre>&lt;button class&#x3D;&quot;btn cta&quot;&gt;button.btn.cta&lt;/button&gt;</pre>
 
       </div>
@@ -408,17 +428,17 @@
  */
 -->
 <div class="sugar-preview-block">
-      <p class="sugar-example-text">Example:</p>
+      <p class="sugar-example-text">Example</p>
       <div class="sugar-preview">
         <div class="sugar-example">
-          
+
           
 <p class="note">
  Lorem Ipsum
 </p>
-          
+
         </div>
-      
+
         <pre>
 &lt;p class&#x3D;&quot;note&quot;&gt;
  Lorem Ipsum
@@ -480,22 +500,32 @@
  */
 -->
 <div class="sugar-preview-block">
-      <p class="sugar-example-text">Example:</p>
+      <p class="sugar-example-text">Example</p>
       <div class="sugar-preview">
         <div class="sugar-example">
-          
+
           
 <div class="feature-item">
  <img src="http://placehold.it/150x150/703030/ffffff">
  <h3>Title</h3>
  <p>Lorem Ipsum</p>
 </div>
-          
+<div class="feature-item">
+ <img src="http://placehold.it/150x150/2f343b/ffffff">
+ <h3>Title</h3>
+ <p>Lorem Ipsum</p>
+</div>
+
         </div>
-      
+
         <pre>
 &lt;div class&#x3D;&quot;feature-item&quot;&gt;
  &lt;img src&#x3D;&quot;http://placehold.it/150x150/703030/ffffff&quot;&gt;
+ &lt;h3&gt;Title&lt;/h3&gt;
+ &lt;p&gt;Lorem Ipsum&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;feature-item&quot;&gt;
+ &lt;img src&#x3D;&quot;http://placehold.it/150x150/2f343b/ffffff&quot;&gt;
  &lt;h3&gt;Title&lt;/h3&gt;
  &lt;p&gt;Lorem Ipsum&lt;/p&gt;
 &lt;/div&gt;</pre>

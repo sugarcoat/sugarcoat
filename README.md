@@ -37,7 +37,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 1. What does it look like?
 
-   Check out a simple example library on your local copy: [Example Library](#example-library). It's on the roadmap to update our github pages for a live demo!
+   A [Sample Site](https://sapientnitrola.github.io/sugarcoat/) and its accompanying [Pattern Library](https://sapientnitrola.github.io/sugarcoat/documentation/index.html). These pages can be found on your local copy by following a short series of steps: [Example Library](#example-library).
 
 2. Can you parse css-preprocessor variables?
 
@@ -45,7 +45,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 3. Can I customize the default template that comes with Sugarcoat?
    
-   Absolutely. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once, those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
+   Absolutely. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
 
 4. Can I use my own template instead of the one that comes with Sugarcoat?
 
@@ -53,7 +53,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 5. How do you handle style bleed?
 
-   For now, you'll need to prefix all your project style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector). It's on the roadmap to have sugarcoat prefix your files for you, and insert them into the head of your generated pattern library accordingly. Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown). 
+   For now, you'll need to prefix all your project style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector) to handle our prefixing. It's on the roadmap to have sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
 
 # Install #
 
@@ -629,8 +629,9 @@ Navigate to the `./site` folder in your local copy of sugarcoat and run:
 - [x] [Consolidating code comment syntax strategy](/../../issues/4)
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
 - [ ] [Add automated tests](/../../issues/18)
-- [ ] Update github pages
+- [x] Update github pages
 - [ ] Consume your style assets, prefix them, and place them into `head.hbs`
+- [ ] Syntax Highlighting
 
 
 ## v?.0.0 ##

@@ -9,17 +9,23 @@
  *
  */
 a.btn,
-.btn {
+.btn,
+button {
     @extend %font-label;
     text-decoration: none;
     border-radius: 3px;
-    padding: 3px 10px;
+    padding: var(--pad);
+    border-style: none;
+    cursor: pointer;
+    color: white;
+    background-color: var(--bg-yellow-lt);
+    font-size: 16px;
 }
 
 a.cta,
-.cta {
+.cta,
+button {
 
-    color: white;
     background-color: var(--accent-grey);
 
     &:focus,

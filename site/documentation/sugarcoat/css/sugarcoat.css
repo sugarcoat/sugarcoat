@@ -61,13 +61,14 @@ body {
   color: #029dd5;
   margin-bottom: 0.8rem;
   margin-top: 0.8rem;
+  clear: both;
 }
-/* line 44, ../styles/base/defaults.scss */
+/* line 45, ../styles/base/defaults.scss */
 .sugar-main h2 a {
   text-decoration: none;
   color: #029dd5;
 }
-/* line 48, ../styles/base/defaults.scss */
+/* line 49, ../styles/base/defaults.scss */
 .sugar-main h3 {
   font-family: 'Helvetica';
   font-weight: lighter;
@@ -75,32 +76,36 @@ body {
   color: #666666;
   margin-bottom: 0.7rem;
 }
-/* line 55, ../styles/base/defaults.scss */
+/* line 56, ../styles/base/defaults.scss */
+.sugar-main p {
+  font-family: 'Helvetica';
+}
+/* line 59, ../styles/base/defaults.scss */
 .sugar-main .sugar-component {
   margin-bottom: 60px;
 }
-/* line 58, ../styles/base/defaults.scss */
+/* line 62, ../styles/base/defaults.scss */
 .sugar-main .sugar-file-desc {
   font-family: 'Helvetica';
   font-size: 1rem;
   color: #666;
 }
-/* line 63, ../styles/base/defaults.scss */
+/* line 67, ../styles/base/defaults.scss */
 .sugar-main .sugar-file {
-  font-family: 'Helvetica Neue';
-  font-size: 0.8rem;
+  font-family: 'Helvetica';
+  font-size: 14px;
   color: #666666;
   font-weight: bold;
   clear: both;
 }
-/* line 70, ../styles/base/defaults.scss */
+/* line 74, ../styles/base/defaults.scss */
 .sugar-main .sugar-file .sugar-path {
   font-family: 'Courier';
   font-weight: lighter;
   color: #B98181;
   word-break: break-all;
 }
-/* line 77, ../styles/base/defaults.scss */
+/* line 81, ../styles/base/defaults.scss */
 .sugar-main pre {
   box-sizing: border-box;
   padding: 1.5rem 1rem;
@@ -111,7 +116,7 @@ body {
   margin: 0;
   overflow-x: scroll;
 }
-/* line 88, ../styles/base/defaults.scss */
+/* line 92, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-container pre,
 .sugar-main .sugar-type-container .sugar-type-desc {
   width: 100%;
@@ -119,7 +124,7 @@ body {
   position: relative;
   padding: 1.6rem 1rem .8rem 1rem;
 }
-/* line 95, ../styles/base/defaults.scss */
+/* line 99, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-container pre:before,
 .sugar-main .sugar-type-container .sugar-type-desc:before {
   position: absolute;
@@ -133,22 +138,22 @@ body {
   font-size: 11px;
   color: #999;
 }
-/* line 106, ../styles/base/defaults.scss */
+/* line 110, ../styles/base/defaults.scss */
 .sugar-main .sugar-var:before {
   content: 'variable';
 }
-/* line 111, ../styles/base/defaults.scss */
+/* line 115, ../styles/base/defaults.scss */
 .sugar-main .sugar-val:before {
   content: 'value';
 }
-/* line 115, ../styles/base/defaults.scss */
+/* line 119, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-desc {
   background: #f1f1f1;
   margin: 0;
   width: 100%;
   color: #666;
 }
-/* line 121, ../styles/base/defaults.scss */
+/* line 125, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-desc:before {
   content: 'description';
 }
@@ -377,13 +382,14 @@ body {
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.3em;
+  font-size: 11px;
 }
-/* line 10, ../styles/preview/defaults.scss */
+/* line 11, ../styles/preview/defaults.scss */
 .sugar-preview-block .sugar-preview {
   border: 1px solid #e4e4e4;
   margin-bottom: 1rem;
 }
-/* line 14, ../styles/preview/defaults.scss */
+/* line 15, ../styles/preview/defaults.scss */
 .sugar-preview-block .sugar-preview .sugar-example,
 .sugar-preview-block .sugar-preview .sugar-example-code {
   padding: 1.25rem 1.0rem;
@@ -397,30 +403,30 @@ body {
 /* line 4, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dt {
   font-family: 'Helvetica';
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  letter-spacing: 0.3rem;
-  color: #999;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  text-transform: capitalize;
   line-height: 30px;
+  margin-bottom: 10px;
 }
-/* line 10, ../styles/tag-details/defaults.scss */
+/* line 13, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dt code {
   font-weight: normal;
-  background-color: #fff1f1;
+  background-color: #eee;
   padding: 5px;
   text-transform: none;
   border-radius: 3px;
   letter-spacing: 0;
-  color: #B98181;
+  color: #666;
+  font-size: 14px;
 }
-/* line 20, ../styles/tag-details/defaults.scss */
+/* line 24, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dd {
   margin-bottom: 1rem;
   margin-left: 1rem;
 }
-/* line 24, ../styles/tag-details/defaults.scss */
+/* line 28, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dd .sugar-tag-description {
   font-family: 'Helvetica';
   font-size: 1rem;
@@ -678,26 +684,27 @@ body {
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.3em;
+  font-size: 11px;
   color: #999;
   padding: .5rem 1rem;
   background-color: white;
   text-align: left;
 }
-/* line 28, ../styles/section-variable/defaults.scss */
+/* line 29, ../styles/section-variable/defaults.scss */
 .sugar-section-variable .sugar-var-table tr {
   border-bottom: 1px solid #e4e4e4;
   background-color: #f1f1f1;
 }
-/* line 32, ../styles/section-variable/defaults.scss */
+/* line 33, ../styles/section-variable/defaults.scss */
 .sugar-section-variable .sugar-var-table td {
   padding: 1rem;
 }
-/* line 35, ../styles/section-variable/defaults.scss */
+/* line 36, ../styles/section-variable/defaults.scss */
 .sugar-section-variable .sugar-var-table pre {
   padding: 0;
   overflow-x: auto;
 }
-/* line 39, ../styles/section-variable/defaults.scss */
+/* line 40, ../styles/section-variable/defaults.scss */
 .sugar-section-variable .sugar-var-table p {
   font-family: 'Helvetica';
   margin: 0;

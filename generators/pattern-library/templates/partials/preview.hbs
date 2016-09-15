@@ -6,17 +6,17 @@
  */
 -->
 <div class="sugar-preview-block">
-  
+
   {{~#isEqual file.ext 'html'}}
 
-    <p class="sugar-example-text">Example:</p>
+    <p class="sugar-example-text">Example</p>
     <div class="sugar-preview">
       <div class="sugar-example">
-        
+
 {{{ this.context }}}
-        
+
       </div>
-      
+
       <pre>{{ this.context }}</pre>
 
     </div>
@@ -27,20 +27,20 @@
 
     {{~#isEqual tagObj.tag 'example'}}
 
-      <p class="sugar-example-text">Example:</p>
+      <p class="sugar-example-text">Example</p>
       <div class="sugar-preview">
         <div class="sugar-example">
-          
+
           {{{ tagObj.value }}}
-          
+
         </div>
-      
+
         <pre>{{ tagObj.value }}</pre>
 
       </div>
 
     {{~/isEqual}}
-  
+
   {{~/each}}
 
 </div>

@@ -1,8 +1,9 @@
 /**
- * 
+ *
  * @title Variables
  *
  */
 :root {
     --border: 1px solid var(--bg-yellow);
+    --pad: 3px 10px; /* Used for form-type elements */
 }
