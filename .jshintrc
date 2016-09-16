@@ -1,10 +1,8 @@
 {
     "globals": {
-        "MGMRI": false,
         "dataElements": true,
         "define": false,
         "require": false,
-        "Modernizr": false,
         "matchMedia": false,
         "module": false,
         "Quad": false,
