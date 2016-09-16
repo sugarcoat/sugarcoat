@@ -1,21 +1,22 @@
 nav {
-    background-color: var(--bg-yellow-lt);
+    background-color: var(--bg-yellow);
     padding: 15px;
+    overflow: hidden;
 }
 nav h1 {
-    margin: 0;
     color: var(--brand-grey);
     display: inline-block;
+    margin: 4px;
 }
 nav a {
-    padding: 10px;
-    text-decoration: none;
+    display: block;
 }
 nav ul {
-    display: inline-block;
     float: right;
 }
 nav ul li {
     display: inline-block;
-    vertical-align: sub;
+}
+nav a img {
+    width: 10px;
 }

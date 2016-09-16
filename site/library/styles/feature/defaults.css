@@ -1,15 +1,13 @@
 /**
  *
  * @title Feature
- * @description Used for listing and displaying grid-like related content
+ * @description Used for listing chronological content. Numbers hide in small viewport
  * @example
  * <div class="feature-item">
- *  <img src="http://placehold.it/150x150/703030/ffffff">
  *  <h3>Title</h3>
  *  <p>Lorem Ipsum</p>
  * </div>
  * <div class="feature-item">
- *  <img src="http://placehold.it/150x150/2f343b/ffffff">
  *  <h3>Title</h3>
  *  <p>Lorem Ipsum</p>
  * </div>

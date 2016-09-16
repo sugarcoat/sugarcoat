@@ -10,10 +10,10 @@
     <h1>Sugarcoat</h1>
     <ul>
       <li>
-        <a href="https://www.npmjs.com/package/sugarcoat"><strong>@npm</strong></a>
+        <a class="btn" href="https://www.npmjs.com/package/sugarcoat">npm <img src="library/images/octicons-external-link.svg" stroke="blue"/></a>
       </li>
       <li>
-        <a href="https://github.com/SapientNitroLA/sugarcoat/"><strong>@github</strong></a>
+        <a class="btn" href="https://github.com/SapientNitroLA/sugarcoat/">github <img src="library/images/octicons-external-link.svg" /></a>
       </li>
       <li>
         <a class="btn cta" href="documentation/index.html">Pattern Library</a>
@@ -23,7 +23,7 @@
   <main>
 
     <section>
-      <h1>Making UI documentation a bit sweeter</h1>
+      <h1>Making UI documentation a bit sweeter &#10024;</h1>
       <p>
         <b>Sugarcoat</b> was created to enable developers to produce rich UI documentation easily and with minimal up-keep. Sugarcoat works by parsing project files for documentation comments (similar to JavaDoc, JSDoc, etc.) and generates HTML or JSON that is organized and easy to read. Sugarcoat allows developers and designers to access up-to-date previews of UI elements, page components, project specific colors and typography, all in one place.
       </p>
@@ -38,47 +38,42 @@
       <div class="feature">
 
         <div class="feature-item">
-          <img src="http://placehold.it/150x150/703030/ffffff">
           <h3>Universal Comment Styles</h3>
-          <p>Use the same commenting syntax (JSDoc) across all file types! If you're writing HTML, just wrap your comments in a standard HTML comment block</p>
+          <p>Use the same JSDoc commenting syntax across all file types. In HTML files, just wrap your comments in a standard HTML comment block. If you've got inline comments, Sugarcoat will ignore them.</p>
         </div>
 
         <div class="feature-item">
-          <img src="http://placehold.it/150x150/2f343b/ffffff">
           <h3>Easy-to-identify component states</h3>
-          <p>You can tell sugarcoat that there are modifier states in your css, right within your comment block! Sugarcoat will highlight them for extra readability</p>
+          <p>You can tell sugarcoat that there are modifier states in your css, right within your comment block! Sugarcoat will help highlight and display them for extra readability.</p>
         </div>
 
         <div class="feature-item">
-          <img src="http://placehold.it/150x150/2f343b/ffffff">
           <h3>Decide where your library lives</h3>
-          <p>Sugarcoat will never impose a folder structure on you</p>
+          <p>Sugarcoat will never impose a folder structure on you.</p>
         </div>
 
         <div class="feature-item">
-          <img src="http://placehold.it/150x150/703030/ffffff">
           <h3>Prefixed Variables? No Problem.</h3>
-          <p>Sugarcoat will still understand your variables if they're SCSS, LESS, or even CSSNext future specs</p>
+          <p>Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: <code>--my-var</code></p>
         </div>
 
         <div class="feature-item">
-          <img src="http://placehold.it/150x150/703030/ffffff">
           <h3>No Style Bleed</h3>
-          <p>No iFrames means no re-calculating dimensions for component example containers.</p>
+          <p>And iFrames means no re-calculating dimensions for component example containers.</p>
         </div>
 
         <div class="feature-item">
-          <img src="http://placehold.it/150x150/2f343b/ffffff">
-          <h3>More descriptions</h3>
-          <p>Coming soon...</p>
+          <h3>No weird comment delimiters</h3>
+          <p>Sugarcoat will parse <strong>all</strong> comment blocks in a specified file. But hey, if you like weird delimiters, you can customize those too!</p>
         </div>
-
       </div>
 
-      <p class="note">
-        Here's a note: Lorem ipsum dolor sit amet, consectetur <code>adipisicing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
-      </p>
-
+    </section>
+    <section>
+      <h2>Sample Comment</h2>
+      <p>The feature items above have a comment block in our codebase that would look like this:</p>
+      <script src="https://gist.github.com/vbalcom/b0fd14a9f6c56a517aff384ef2dd138a.js"></script>
+      <p><a class="btn cta" href="documentation/index.html#sugar-library-styles-feature-defaults-css-0">Pattern Library Output</a></p>
     </section>
   </main>
 </body>

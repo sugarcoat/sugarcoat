@@ -528,7 +528,7 @@ body {
   content: '=';
   position: absolute;
   font-size: 17px;
-  width: 20px;
+  width: 13px;
   height: 20px;
   background-color: #f1f1f1;
   padding: 0px 3px;
@@ -558,7 +558,6 @@ body {
   content: '—';
   font-size: 12px;
   font-weight: bold;
-  padding: 1px 3px;
   border-color: #029dd5;
 }
 

@@ -43,17 +43,17 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
    Yes, we're able to grab the variables from less, SASS, or regular CSS files. Just set the `type` option to `variable` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
 
-3. Can I customize the default template that comes with Sugarcoat?
+3. What comment structure do I need to use?
+
+   You can customize what delimiters Sugarcoat uses. By default, Sugarcoat will parse a JSDoc-style comment block `/** ... */`: [Code Comment Syntax](#code-comment-syntax).
+
+4. Can I customize the default template that comes with Sugarcoat?
    
    Absolutely. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
 
-4. Can I use my own template instead of the one that comes with Sugarcoat?
-
-   Yes, you can use your own Handlebars template and partials. See the options [`template.layout`](#templatelayout) and [`template.partials`](#templatepartials) for more information.
-
 5. How do you handle style bleed?
 
-   For now, you'll need to prefix all your project style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector) to handle our prefixing. It's on the roadmap to have sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+   For now, you'll need to prefix all your project style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector) to handle our prefixing. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
 
 # Install #
 

@@ -11,15 +11,20 @@
 a.btn,
 .btn,
 button {
-    @extend %font-label;
+    font-family: var(--font-body);
     text-decoration: none;
+    border: 1px solid var(--accent-grey);
     border-radius: 3px;
     padding: var(--pad);
-    border-style: none;
     cursor: pointer;
-    color: white;
-    background-color: var(--bg-yellow-lt);
+    color: var(--accent-grey);
     font-size: 16px;
+
+    &:focus,
+    &:active,
+    &:hover {
+        color: var(--brand-grey);
+    }
 }
 
 a.cta,
@@ -27,11 +32,13 @@ a.cta,
 button {
 
     background-color: var(--accent-grey);
+    color: white;
 
     &:focus,
     &:active,
     &:hover {
         background-color: var(--brand-grey);
+        border-color: var(--brand-grey);
         color: white;
     }
 }
