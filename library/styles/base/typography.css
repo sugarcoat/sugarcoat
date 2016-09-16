@@ -6,13 +6,12 @@
     --font-head: 'Arvo', Georgia;
     --font-mono: 'Roboto Mono', 'Monospace'; /*For displaying labels and code*/
 }
-
 %font-head {
     font-family: var(--font-head);
     color: var(--brand-red);
     font-weight: 700;
 }
-
+/* Here's a single line comment */
 %font-subhead {
     font-family: var(--font-head);
     color: var(--accent-red);
@@ -27,13 +26,14 @@
 %font-code {
     font-family: var(--font-mono);
     font-weight: normal;
-    background: var(--bg-yellow);
+    background: var(--accent-red);
     border-radius: 3px;
     padding: 3px 5px;
     display: inline-block;
     font-size: 12px;
     line-height: 1rem;
     vertical-align: top;
+    color: white;
 }
 
 h1, h3 {
@@ -50,6 +50,13 @@ p {
 }
 code {
     @extend %font-code;
+}
+pre {
+    text-align: left;
+    background-color: var(--brand-red);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
 }
 b {
     font-family: var(--font-head);

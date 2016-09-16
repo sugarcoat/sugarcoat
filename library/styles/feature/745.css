@@ -3,21 +3,18 @@
     overflow: hidden;
 }
 .feature-item {
-
-    display: inline-block;
-    width: calc(50% - 30px);
-    text-align: center;
-
-    &:nth-child(odd) {
-        padding-left: 0;
+    counter-increment: section;
+    text-align: left;
+    padding-left: 3rem;
+    & h3 {
+        margin-top: 0;
     }
-    &:nth-child(even) {
-        padding-right: 0;
-    }
-    img {
-        margin: 0 auto;
-    }
-    p {
-        text-align: left;
+    &:before {
+        content: counter(section);
+        font-family: var(--font-mono);
+        font-size: 36px;
+        color: var(--bg-yellow);
+        margin-left: -3rem;
+        position: absolute;
     }
 }
