@@ -85,12 +85,16 @@ body {
   margin-bottom: 60px;
 }
 /* line 62, ../styles/base/defaults.scss */
+.sugar-main .sugar-component > div {
+  clear: both;
+}
+/* line 66, ../styles/base/defaults.scss */
 .sugar-main .sugar-file-desc {
   font-family: 'Helvetica';
   font-size: 1rem;
   color: #666;
 }
-/* line 67, ../styles/base/defaults.scss */
+/* line 71, ../styles/base/defaults.scss */
 .sugar-main .sugar-file {
   font-family: 'Helvetica';
   font-size: 14px;
@@ -98,14 +102,14 @@ body {
   font-weight: bold;
   clear: both;
 }
-/* line 74, ../styles/base/defaults.scss */
+/* line 78, ../styles/base/defaults.scss */
 .sugar-main .sugar-file .sugar-path {
   font-family: 'Courier';
   font-weight: lighter;
   color: #B98181;
   word-break: break-all;
 }
-/* line 81, ../styles/base/defaults.scss */
+/* line 85, ../styles/base/defaults.scss */
 .sugar-main pre {
   box-sizing: border-box;
   padding: 1.5rem 1rem;
@@ -116,7 +120,7 @@ body {
   margin: 0;
   overflow-x: scroll;
 }
-/* line 92, ../styles/base/defaults.scss */
+/* line 96, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-container pre,
 .sugar-main .sugar-type-container .sugar-type-desc {
   width: 100%;
@@ -124,7 +128,7 @@ body {
   position: relative;
   padding: 1.6rem 1rem .8rem 1rem;
 }
-/* line 99, ../styles/base/defaults.scss */
+/* line 103, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-container pre:before,
 .sugar-main .sugar-type-container .sugar-type-desc:before {
   position: absolute;
@@ -138,22 +142,22 @@ body {
   font-size: 11px;
   color: #999;
 }
-/* line 110, ../styles/base/defaults.scss */
+/* line 114, ../styles/base/defaults.scss */
 .sugar-main .sugar-var:before {
   content: 'variable';
 }
-/* line 115, ../styles/base/defaults.scss */
+/* line 119, ../styles/base/defaults.scss */
 .sugar-main .sugar-val:before {
   content: 'value';
 }
-/* line 119, ../styles/base/defaults.scss */
+/* line 123, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-desc {
   background: #f1f1f1;
   margin: 0;
   width: 100%;
   color: #666;
 }
-/* line 125, ../styles/base/defaults.scss */
+/* line 129, ../styles/base/defaults.scss */
 .sugar-main .sugar-type-desc:before {
   content: 'description';
 }

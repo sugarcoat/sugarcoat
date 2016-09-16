@@ -58,6 +58,10 @@ body {
     }
     .sugar-component {
         margin-bottom: 60px;
+
+        > div {
+            clear: both;
+        }
     }
 	.sugar-file-desc {
 		font-family: 'Helvetica';

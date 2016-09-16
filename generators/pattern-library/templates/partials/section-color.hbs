@@ -10,11 +10,12 @@
   <h2><a href="#{{toID title}}">{{ title }}</a></h2>
 
     {{~#each files as |file| }}
-    
-      <div class="sugar-component">
-        <div id="{{toID file.path @index}}">
 
-          {{~#each file.data as |data| }}
+      <div class="sugar-component">
+
+        {{~#each file.data as |data| }}
+
+          <div id="{{toID file.path @index}}">
 
             {{> block-title data=data}}
 
@@ -37,14 +38,13 @@
               </div>
             {{/each }}
 
-          {{~/each }}
-
-        </div>
+          </div>
+        {{~/each }}
 
         {{~> file-path file=file}}
-    
+
       </div>
-      
+
     {{~/each }}
 
   </div>
