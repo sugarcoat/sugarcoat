@@ -67,6 +67,21 @@
       </ul>
     </li>
     <li>
+      <a class="sugar-nav-item" href="#sugar-mixins">Mixins</a>
+      <ul>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-config-mixins-css-0">
+                Bordered element
+            </a>
+          </li>
+          <li>
+            <a class="sugar-nav-subitem" href="#sugar-library-styles-config-mixins-css-1">
+                Retina Image
+            </a>
+          </li>
+      </ul>
+    </li>
+    <li>
       <a class="sugar-nav-item" href="#sugar-elements">Elements</a>
       <ul>
           <li>
@@ -311,6 +326,135 @@
  */
 -->
 
+<section id="sugar-mixins" class="sugar-section-default">
+  <div class="sugar-section-wrapper">
+    <h2><a href="#sugar-mixins">Mixins</a></h2>      
+        <div id="sugar-library-styles-config-mixins-css-0" class="sugar-component">
+                                
+          <!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Bordered element</h3>
+      <p class="sugar-file-desc">Grey backdrop for an element with borders</p>        
+          <!--
+/**
+ *
+ * @title Partial for Preview of component
+ *
+ */
+-->
+<div class="sugar-preview-block">
+</div>        
+          <!--
+/**
+ *
+ * @title Definition List partial for tags other than the example tag for default comment block
+ *
+ */
+-->
+
+<div class="sugar-tag-details">
+  <dl>
+
+            <dt>
+              usage:
+
+            </dt>
+            <dd>
+                <span class="sugar-tag-description">@extend %backdrop;</span>
+            </dd>
+  </dl>
+</div>        
+          <!--
+/**
+ *
+ * @title Partial for file paths
+ *
+ */
+-->
+<p class="sugar-file">File: <span class="sugar-path">library/styles/config/mixins.css</span></p>      
+        </div>
+      
+      
+        <div id="sugar-library-styles-config-mixins-css-1" class="sugar-component">
+                                
+          <!--
+/**
+ *
+ * @title Partial for Comment Block Titles
+ *
+ */
+-->
+      <h3>Retina Image</h3>
+      <p class="sugar-file-desc">Insert to render retina background image on element</p>        
+          <!--
+/**
+ *
+ * @title Partial for Preview of component
+ *
+ */
+-->
+<div class="sugar-preview-block">
+</div>        
+          <!--
+/**
+ *
+ * @title Definition List partial for tags other than the example tag for default comment block
+ *
+ */
+-->
+
+<div class="sugar-tag-details">
+  <dl>
+
+            <dt>
+              usage:
+
+            </dt>
+            <dd>
+                <span class="sugar-tag-description">.image-2x( $image, $width, $height );</span>
+            </dd>
+            <dt>
+              defaultHeight:
+
+            </dt>
+            <dd>
+                <span class="sugar-tag-description">50px</span>
+            </dd>
+            <dt>
+              defaultWidth:
+
+            </dt>
+            <dd>
+                <span class="sugar-tag-description">100px</span>
+            </dd>
+  </dl>
+</div>        
+          <!--
+/**
+ *
+ * @title Partial for file paths
+ *
+ */
+-->
+<p class="sugar-file">File: <span class="sugar-path">library/styles/config/mixins.css</span></p>      
+        </div>
+      
+    
+  </div>
+</section>
+        <!--
+/**
+ *
+ * @title Default comment block partial
+ *
+ */
+-->
+
 <section id="sugar-elements" class="sugar-section-default">
   <div class="sugar-section-wrapper">
     <h2><a href="#sugar-elements">Elements</a></h2>      
@@ -527,25 +671,29 @@
         <div class="sugar-example">
 
           
-<div class="feature-item">
- <h3>Title</h3>
- <p>Lorem Ipsum</p>
-</div>
-<div class="feature-item">
- <h3>Title</h3>
- <p>Lorem Ipsum</p>
+<div class="feature">
+ <div class="feature-item">
+  <h3>Title</h3>
+  <p>Lorem Ipsum</p>
+ </div>
+ <div class="feature-item">
+  <h3>Title</h3>
+  <p>Lorem Ipsum</p>
+ </div>
 </div>
 
         </div>
 
         <pre>
-&lt;div class&#x3D;&quot;feature-item&quot;&gt;
- &lt;h3&gt;Title&lt;/h3&gt;
- &lt;p&gt;Lorem Ipsum&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class&#x3D;&quot;feature-item&quot;&gt;
- &lt;h3&gt;Title&lt;/h3&gt;
- &lt;p&gt;Lorem Ipsum&lt;/p&gt;
+&lt;div class&#x3D;&quot;feature&quot;&gt;
+ &lt;div class&#x3D;&quot;feature-item&quot;&gt;
+  &lt;h3&gt;Title&lt;/h3&gt;
+  &lt;p&gt;Lorem Ipsum&lt;/p&gt;
+ &lt;/div&gt;
+ &lt;div class&#x3D;&quot;feature-item&quot;&gt;
+  &lt;h3&gt;Title&lt;/h3&gt;
+  &lt;p&gt;Lorem Ipsum&lt;/p&gt;
+ &lt;/div&gt;
 &lt;/div&gt;</pre>
 
       </div>

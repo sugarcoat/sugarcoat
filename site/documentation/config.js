@@ -27,6 +27,10 @@ var library = {
             type: 'variable'
         },
         {
+            title: 'Mixins',
+            files: 'library/styles/config/mixins.css'
+        },
+        {
             title: 'Elements',
             files: 'library/styles/base/buttons.css'
         },

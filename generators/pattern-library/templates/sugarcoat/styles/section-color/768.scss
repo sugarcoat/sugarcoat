@@ -6,7 +6,7 @@
         margin: 0 1rem 1rem 0;
         display: flex;
         flex-wrap: wrap;
-        
+
         &:hover {
             .sugar-color-comment p,
             .sugar-color-comment input[type=checkbox]:checked ~ p {
@@ -14,7 +14,7 @@
                 z-index: 100;
                 position: absolute;
                 width: 80%;
-                left: 10%;
+                left: 5%;
                 text-align: center;
                 margin-top: 10px;
                 top: auto;
@@ -34,7 +34,7 @@
         padding-left: 1rem;
         display: inline-block;
         margin: 0;
-        float: left;   
+        float: left;
     }
     .sugar-swatch-var {
         border-right: $border;
@@ -46,13 +46,13 @@
     }
     .sugar-color-comment {
         position: relative;
-        
+
         input[type=checkbox] ~ label {
             display: none;
         }
         input[type=checkbox]:checked ~ p {
             display: none;
         }
-        
+
     }
 }

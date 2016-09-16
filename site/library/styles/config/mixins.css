@@ -2,6 +2,7 @@
  *
  * @title Bordered element
  * @description Grey backdrop for an element with borders
+ * @usage @extend %backdrop;
  *
  */
 %backdrop {
@@ -14,7 +15,7 @@
  * @title Retina Image
  * @description Insert to render retina background image on element
  * @usage .image-2x( $image, $width, $height );
- * @default-height 50px
+ * @defaultHeight 50px
  * @defaultWidth 100px
  *
  */
