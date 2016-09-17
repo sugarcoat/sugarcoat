@@ -3,9 +3,9 @@
 */
 :root {
     --var1: red;
-    --var2: white; /* inline comment */
-    --var3: blue; // inline comment
-    --var4:     black;
-    --var5: gold; //no space inline comment
-    --var6: purple; /*no space inline comment*/
+    --var2:     white;
+    --var3: blue; /* inline comment */
+    --var4: black; /*no space inline comment*/
+    --var5: gold; // inline comment
+    --var6: purple; //no space inline comment
 }
