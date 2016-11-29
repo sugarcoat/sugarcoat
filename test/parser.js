@@ -24,13 +24,17 @@ suite( 'Parser: parseVarCode', function () {
                 {
                     title: 'SASS File',
                     files: './test/assert/parseVarCode.scss'
-                }
+                },
+								{
+									title: 'LESS File',
+									files: './test/assert/parseVarCode.less'
+								}
             ]
         };
         parse = parser( config );
     });
 
-    test( 'if the variable string "--var" is detected and parsed correctly in CSS', function () {
+    test( 'the variable string "--var" is detected and parsed correctly', function () {
 
         var path = config.sections[ 0 ].files;
 
@@ -84,7 +88,7 @@ suite( 'Parser: parseVarCode', function () {
         });
     });
 
-    test( 'if the variable string "$" is detected and parsed correctly in SCSS', function () {
+    test( 'the variable string "$" is detected and parsed correctly', function () {
 
         var path = config.sections[ 1 ].files;
 
@@ -123,6 +127,50 @@ suite( 'Parser: parseVarCode', function () {
 
             // 4 black var
             assert.equal( result[ 3 ].variable, '$var4', 'variable is set' );
+            assert.equal( result[ 3 ].value, 'black;', 'value is set' );
+            assert.equal( result[ 3 ].comment, 'inline comment', '// inline comment' );
+        });
+    });
+		
+    test( 'the variable string "@" is detected and parsed correctly', function () {
+
+        var path = config.sections[ 2 ].files;
+
+        var testPromise = new Promise( function( resolve, reject ) {
+
+            fs.readFile( path, 'utf-8', function( err, data ) {
+
+                if ( err ) return false;
+
+                var value = parse.parseVarCode( data, path );
+
+
+
+                return resolve( value );
+            });
+        });
+
+        return testPromise.then( function( result ) {
+
+            // general
+            assert.equal( Array.isArray( result ), true, 'returns an array' );
+            assert.equal( result.length, 4, 'parses 4 variables' );
+
+            // 1 red var
+            assert.equal( result[ 0 ].variable, '@var1', 'variable is set' );
+            assert.equal( result[ 0 ].value, 'red;', 'value is set' );
+
+            // 2 white var
+            assert.equal( result[ 1 ].variable, '@var2', 'variable is set' );
+            assert.equal( result[ 1 ].value, 'white;', 'value after tab(s) set' );
+
+            // 3 blue var
+            assert.equal( result[ 2 ].variable, '@var3', 'variable is set' );
+            assert.equal( result[ 2 ].value, 'blue;', 'value is set' );
+            assert.equal( result[ 2 ].comment, 'inline comment', '/* inline comment */' );
+
+            // 4 black var
+            assert.equal( result[ 3 ].variable, '@var4', 'variable is set' );
             assert.equal( result[ 3 ].value, 'black;', 'value is set' );
             assert.equal( result[ 3 ].comment, 'inline comment', '// inline comment' );
         });
