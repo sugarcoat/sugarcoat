@@ -3,6 +3,53 @@ var fs = require( 'fs' );
 
 var parser = require( '../generators/pattern-library/parser' );
 
+suite( 'Parser: parseComment', function () {
+
+    var parse
+        , code
+        , config
+        ;
+
+    setup( function () {
+        config = {
+            settings: {
+                dest: './documentation',
+                title: 'Pattern Library'
+            },
+            sections: [
+                {
+                    title: 'HTML File',
+                    files: './test/assert/parseComment.html'
+                }
+            ]
+        };
+        parse = parser( config );
+    });
+		
+		test( 'HTML comments are consumed and context applied is accurate', function() {
+			
+      var path = config.sections[ 0 ].files;
+
+      var testPromise = new Promise( function( resolve, reject ) {
+
+          fs.readFile( path, 'utf-8', function( err, data ) {
+
+              if ( err ) return false;
+
+              var value = parse.parseComment( path, data, config.sections[ 0 ].type, config.sections[ 0 ].template );
+
+              return resolve( value );
+          });
+      });
+
+      return testPromise.then( function( result ) {
+				
+      	assert.equal( result[ 0 ].context, '<p class="component">\n\tI\'m a component\n\t<!-- an inline comment -->\n</p>', 'following html comment block ignored from context');
+      });
+		});
+	}
+);
+
 suite( 'Parser: parseVarCode', function () {
 
     var parse
@@ -52,7 +99,7 @@ suite( 'Parser: parseVarCode', function () {
             });
         });
 
-        return testPromise.then( function( result ) {
+        return testPromise.then( function( result ) { 
 
             // general
             assert.equal( Array.isArray( result ), true, 'returns an array' );
