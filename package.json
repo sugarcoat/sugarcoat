@@ -18,10 +18,11 @@
     "grunt-autoprefixer": "^3.0.3",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-postcss": "^0.8.0",
+    "grunt-stylelint": "^0.6.0",
     "mocha": "^3.0.2"
   },
   "scripts": {
-      "test": "./node_modules/mocha/bin/mocha --ui tdd"
+    "test": "./node_modules/mocha/bin/mocha --ui tdd"
   },
   "engines": {
     "node": ">= 4.0.0"

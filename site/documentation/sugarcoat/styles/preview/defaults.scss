@@ -1,21 +1,20 @@
 .sugar-preview-block {
-	width: 100%;
+    width: 100%;
 
-	.sugar-example-text {
-		color: #999;
-		margin-bottom: 0.5rem;
+    .sugar-example-text {
+        color: #999;
+        margin-bottom: 0.5rem;
         @include font-cap();
         font-size: 11px;
-	}
+    }
 
-	.sugar-preview {
-		border: $border;
-		margin-bottom: 1rem;
+    .sugar-preview {
+        border: $border;
+        margin-bottom: 1rem;
 
-		.sugar-example,
-		.sugar-example-code {
-			padding: 1.25rem 1.0rem;
+        .sugar-example, .sugar-example-code {
+            padding: 1.25rem 1.0rem;
             overflow: hidden;
-		}
-	}
+        }
+    }
 }

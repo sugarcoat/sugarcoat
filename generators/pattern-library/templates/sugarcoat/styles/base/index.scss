@@ -1,8 +1,8 @@
 @import 'defaults.scss';
 
-@media( min-width: 768px ){
-	@import '768.scss';
+@media( min-width: 768px ) {
+    @import '768.scss';
 }
-@media( min-width: 1200px ){
-	@import '1200.scss';
+@media( min-width: 1200px ) {
+    @import '1200.scss';
 }

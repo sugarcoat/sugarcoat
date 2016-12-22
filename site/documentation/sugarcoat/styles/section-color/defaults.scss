@@ -34,76 +34,75 @@
         padding-left: 1rem;
         border-left: $border;
     }
+}
+.sugar-color-comment {
+    width: 100%;
+    position: absolute;
+    top: 0;
 
-    .sugar-color-comment {
-        width: 100%;
-        position: absolute;
-        top: 0;
+    p {
+        display: none;
 
-        p {
-            display: none;
+        margin: 0;
+        word-wrap: break-word;
+        @include font-cap();
+        background: black;
+        color: white;
+        padding: 1rem;
 
-            margin: 0;
-            word-wrap: break-word;
-            @include font-cap();
-            background: black;
-            color: white;
-            padding: 1rem;
-
-            &:after {
-                content: '';
-                width: 0;
-                height: 0;
-                border-left: 8px solid transparent;
-                border-right: 8px solid transparent;
-                border-bottom: 8px solid black;
-                position: absolute;
-                top: 0;
-                margin-left: -8px;
-                margin-top: -8px;
-                left: 50%;
-            }
-        }
-
-        input[type=checkbox] {
-            display: none;
-        }
-        input[type=checkbox] ~ label {
-            font-size: 0;
-        }
-        input[type=checkbox] ~ label:after {
-            content: '=';
+        &:after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid black;
             position: absolute;
-            font-size: 17px;
-            width: 13px;
-            height: 20px;
-            background-color: #f1f1f1;
-            padding: 0px 3px;
             top: 0;
-            left: -30px;
-            border: 1px solid #c3c3c3;
-            cursor: pointer;
-            color: white;
-            font-family: Helvetica;
-            font-weight: 300;
-            color: black;
-            line-height: 16px;
+            margin-left: -8px;
+            margin-top: -8px;
+            left: 50%;
         }
-        input[type=checkbox]:checked ~ p {
-        	display:block;
-            position: absolute;
-            z-index: 100;
-            top: 70px;
-            width: 80%;
-            left: 45px;
-            text-align: center;
-        }
-        input[type=checkbox]:checked ~label:after {
-            color: $blue;
-            content: '—';
-            font-size: 12px;
-            font-weight: bold;
-            border-color: $blue;
-        }
+    }
+
+    input[type=checkbox] {
+        display: none;
+    }
+    input[type=checkbox] ~ label {
+        font-size: 0;
+    }
+    input[type=checkbox] ~ label:after {
+        content: '=';
+        position: absolute;
+        font-size: 17px;
+        width: 13px;
+        height: 20px;
+        background-color: #f1f1f1;
+        padding: 0px 3px;
+        top: 0;
+        left: -30px;
+        border: 1px solid #c3c3c3;
+        cursor: pointer;
+        color: white;
+        font-family: Helvetica;
+        font-weight: 300;
+        color: black;
+        line-height: 16px;
+    }
+    input[type=checkbox]:checked ~ p {
+    	display:block;
+        position: absolute;
+        z-index: 100;
+        top: 70px;
+        width: 80%;
+        left: 45px;
+        text-align: center;
+    }
+    input[type=checkbox]:checked ~label:after {
+        color: $blue;
+        content: '—';
+        font-size: 12px;
+        font-weight: bold;
+        border-color: $blue;
     }
 }

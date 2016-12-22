@@ -26,16 +26,14 @@
     .sugar-masthead {
         display: none;
     }
-    .sugar-type-container {
-        pre {
-        }
-        .sugar-var {
-            width: 35%;
-            float: left;
-            border-right: $border;
-        }
-        .sugar-val {
-            width: 65%;
-        }
+}
+.sugar-type-container {
+    .sugar-var {
+        width: 35%;
+        float: left;
+        border-right: $border;
+    }
+    .sugar-val {
+        width: 65%;
     }
 }

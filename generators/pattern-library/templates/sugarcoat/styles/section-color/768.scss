@@ -1,26 +1,4 @@
 .sugar-section-color {
-    .sugar-swatch-container {
-        width: calc(50% - 1rem);
-        position: relative;
-        float: left;
-        margin: 0 1rem 1rem 0;
-        display: flex;
-        flex-wrap: wrap;
-
-        &:hover {
-            .sugar-color-comment p,
-            .sugar-color-comment input[type=checkbox]:checked ~ p {
-                display: block;
-                z-index: 100;
-                position: absolute;
-                width: 80%;
-                left: 5%;
-                text-align: center;
-                margin-top: 10px;
-                top: auto;
-            }
-        }
-    }
     .sugar-color-swatch {
         background-color: #333333;
         width: 100px;
@@ -44,15 +22,36 @@
         position: relative;
         border: none;
     }
-    .sugar-color-comment {
-        position: relative;
-
-        input[type=checkbox] ~ label {
-            display: none;
-        }
-        input[type=checkbox]:checked ~ p {
-            display: none;
-        }
-
+}
+.sugar-swatch-container {
+    width: calc(50% - 1rem);
+    position: relative;
+    float: left;
+    margin: 0 1rem 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+.sugar-swatch-container:hover {
+    .sugar-color-comment p,
+    .sugar-color-comment input[type=checkbox]:checked ~ p {
+        display: block;
+        z-index: 100;
+        position: absolute;
+        width: 80%;
+        left: 5%;
+        text-align: center;
+        margin-top: 10px;
+        top: auto;
     }
+}
+.sugar-color-comment {
+    position: relative;
+
+    input[type=checkbox] ~ label {
+        display: none;
+    }
+    input[type=checkbox]:checked ~ p {
+        display: none;
+    }
+
 }
