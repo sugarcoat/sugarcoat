@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * Variables
  *
  */
@@ -9,7 +9,7 @@ $red: #fff1f1;
 
 
 /**
- * 
+ *
  * Mixins
  *
  */
@@ -26,4 +26,39 @@ $red: #fff1f1;
     text-transform: uppercase;
     font-size: 14px;
     letter-spacing: 0.14em;
+}
+.sugar-btn-accordion {
+    font-size: 0;
+    width: 40px;
+    cursor: pointer;
+    transition: 0.35s linear transform;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 1px;
+        left: 7px;
+        background-color: black;
+        transition: 0.35s linear all;
+    }
+
+    &:after {
+        top: 20px;
+    }
+    &:before {
+        top: 30px;
+    }
+}
+.sugar-color-open .sugar-btn-accordion,
+.sugar-nav-open .sugar-btn-accordion {
+    &:after {
+        transform: translateY(5px);
+        background-color: $blue;
+    }
+    &:before {
+        transform: translateY(-5px);
+        background-color: $blue;
+    }
 }

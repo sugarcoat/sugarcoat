@@ -1,87 +1,55 @@
-.sugar-section-color {
-    width: 100%;
+.sugar-colors {
+    border-bottom: 1px solid #eee;
+    font-family: 'Helvetica';
+}
+.sugar-color {
+    overflow: hidden; //  margin-bottom:-20px;
+    border-top: 1px solid #eee;
+    position: relative;
+}
+.sugar-color-commented {
+    margin-bottom: -38px;
+    padding-bottom: 10px;
+    transition: 0.35s linear margin;
 
-    .sugar-swatch-container {
-        box-sizing: border-box;
-        border: $border;
-        margin-bottom: 1.0rem;
-        width: calc(100% - 30px);
-        margin-left: 30px;
-        position: relative;
-    }
-    .sugar-color-swatch {
-        width: 62px;
-        height: 62px;
-        border-radius: 50%;
+    .sugar-btn-accordion {
+        top: -5px;
+        right: 0px;
         position: absolute;
-        margin-left: -30px;
-        top: -1px;
     }
-    pre {
-        white-space: nowrap;
-        height: 60px;
-        padding-top: 1.2rem;
-        padding-left: 3rem;
-        overflow-y: auto;
-        padding-bottom: 0;
-    }
-    .sugar-swatch-val {
-        float: right;
-        top: 0;
-        position: absolute;
-        right: 0;
-        width: auto;
-        padding-left: 1rem;
-        border-left: $border;
-    }
-
+}
+.sugar-color-open.sugar-color-commented {
+    margin-bottom: 0px;
+}
+.sugar-color-swatch {
+    width: 70px;
+    height: 38px;
+    float: left;
+}
+.sugar-color-var {
+    width: calc(50% - 55px);
+    float: left;
+    padding: 10px;
+    background: white;
+}
+.sugar-color-val {
+    width: calc(50% - 55px);
+    float: left;
+    padding: 10px;
+    font-family: 'Courier';
+    font-size: 14px;
+    background: white;
+}
+.sugar-color-val:before {
+    content: 'VALUE';
+    @include font-cap;
+    background: #eee;
+    padding: 5px;
+    font-size: 10px;
 }
 .sugar-color-comment {
     width: 100%;
-    position: absolute;
-    top: 0;
-
-    input[type=checkbox] {
-        display: none;
-    }
-    input[type=checkbox] ~ label {
-        font-size: 0;
-    }
-    input[type=checkbox] ~
-    label:after {
-        content: '=';
-        position: absolute;
-        font-size: 17px;
-        width: 13px;
-        height: 20px;
-        background-color: #f1f1f1;
-        padding: 0px 3px;
-        top: 0;
-        left: -30px;
-        border: 1px solid #c3c3c3;
-        cursor: pointer;
-        color: white;
-        font-family: Helvetica;
-        font-weight: 300;
-        color: black;
-        line-height: 16px;
-    }
-    input[type=checkbox]:checked ~ p {
-        display: block;
-        position: absolute;
-        z-index: 100;
-        top: 70px;
-        width: 80%;
-        left: 45px;
-        text-align: center;
-    }
-    input[type=checkbox]:checked
-    ~label:after {
-        color: $blue;
-        content: '—';
-        font-size: 12px;
-        font-weight: bold;
-        border-color: $blue;
-    }
-
+    float: left;
+    padding-left: 80px;
+    padding-top: 10px;
 }
