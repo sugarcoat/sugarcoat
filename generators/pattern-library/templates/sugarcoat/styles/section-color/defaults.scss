@@ -14,7 +14,7 @@
 
     .sugar-btn-accordion {
         top: -5px;
-        right: 0px;
+        right: -10px;
         position: absolute;
     }
 }
@@ -27,6 +27,8 @@
     float: left;
 }
 .sugar-color-var {
+    font-family: 'Helvetica';
+    font-weight: lighter;
     width: calc(50% - 55px);
     float: left;
     padding: 10px;
