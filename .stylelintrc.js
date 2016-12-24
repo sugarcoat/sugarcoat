@@ -50,6 +50,9 @@ module.exports = {
         'declaration-no-important': true,
 
         // https://github.com/stylelint/stylelint/blob/master/src/rules/stylelint-disable-reason/README.md
-        'stylelint-disable-reason': 'always-after'
+        'stylelint-disable-reason': 'always-after',
+
+        //https://github.com/stylelint/stylelint/blob/master/src/rules/no-descending-specificity/README.md
+        'no-descending-specificity': true
     }
 };

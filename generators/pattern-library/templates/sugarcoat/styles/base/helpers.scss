@@ -51,7 +51,20 @@ $red: #fff1f1;
         top: 30px;
     }
 }
-.sugar-color-open .sugar-btn-accordion,
+.sugar-accordion-small {
+    height: 30px;
+
+    &:before,
+    &:after {
+        width: 18px;
+    }
+    &:after {
+        top: 22px;
+    }
+    &:before {
+        top: 28px;
+    }
+}
 .sugar-nav-open .sugar-btn-accordion {
     &:after {
         transform: translateY(5px);
@@ -59,6 +72,16 @@ $red: #fff1f1;
     }
     &:before {
         transform: translateY(-5px);
+        background-color: $blue;
+    }
+}
+.sugar-color-open .sugar-accordion-small {
+    &:after {
+        transform: translateY(3px);
+        background-color: $blue;
+    }
+    &:before {
+        transform: translateY(-3px);
         background-color: $blue;
     }
 }
