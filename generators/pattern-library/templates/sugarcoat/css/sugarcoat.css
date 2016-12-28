@@ -503,7 +503,7 @@ body {
 /* line 15, ../styles/section-color/defaults.scss */
 .sugar-color-commented .sugar-btn-accordion {
   top: -5px;
-  right: -10px;
+  right: 0px;
   position: absolute;
 }
 
@@ -533,7 +533,7 @@ body {
 .sugar-color-val {
   width: calc(50% - 55px);
   float: left;
-  padding: 10px;
+  padding: 8px;
   font-family: 'Courier';
   font-size: 14px;
   background: white;
@@ -550,9 +550,10 @@ body {
   background: #eee;
   padding: 5px;
   font-size: 10px;
+  display: inline-block;
 }
 
-/* line 52, ../styles/section-color/defaults.scss */
+/* line 53, ../styles/section-color/defaults.scss */
 .sugar-color-comment {
   width: 100%;
   float: left;
@@ -560,6 +561,35 @@ body {
   padding-top: 10px;
 }
 
+@media (min-width: 768px) {
+  /* line 1, ../styles/section-color/768.scss */
+  .sugar-color-commented {
+    padding: 0;
+    margin: 0;
+    transition: none;
+  }
+  /* line 6, ../styles/section-color/768.scss */
+  .sugar-color-commented .sugar-btn-accordion {
+    display: none;
+  }
+
+  /* line 10, ../styles/section-color/768.scss */
+  .sugar-color-open.sugar-color-commented {
+    margin-bottom: 0px;
+  }
+
+  /* line 13, ../styles/section-color/768.scss */
+  .sugar-color-val,
+  .sugar-color-var {
+    width: calc(33% - 40px);
+  }
+
+  /* line 17, ../styles/section-color/768.scss */
+  .sugar-color-comment {
+    width: calc(33% - 40px);
+    padding: 8px;
+  }
+}
 /* line 1, ../styles/section-typography/defaults.scss */
 .sugar-section-type {
   width: 100%;

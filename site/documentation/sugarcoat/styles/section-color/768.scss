@@ -1,0 +1,20 @@
+.sugar-color-commented {
+    padding: 0;
+    margin: 0;
+    transition: none;
+
+    .sugar-btn-accordion {
+        display: none;
+    }
+}
+.sugar-color-open.sugar-color-commented {
+    margin-bottom: 0px;
+}
+.sugar-color-val,
+.sugar-color-var {
+    width: calc(33% - 40px);
+}
+.sugar-color-comment {
+    width: calc(33% - 40px);
+    padding: 8px;
+}

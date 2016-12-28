@@ -22,7 +22,7 @@
             <div class="sugar-colors">
             {{~#each data.serializedCode as |serialized| }}
               <div class="sugar-color {{#if serialized.comment}}sugar-color-commented{{/if}}">
-                <div class="sugar-color-swatch" style="background-color: {{serialized.value}};">
+                <div class="sugar-color-swatch" style="background-color: {{serialized.value}}">
                 </div>
                 <div class="sugar-color-var">
                   {{ serialized.variable }}

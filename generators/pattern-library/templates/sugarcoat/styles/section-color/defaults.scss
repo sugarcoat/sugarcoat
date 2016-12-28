@@ -14,7 +14,7 @@
 
     .sugar-btn-accordion {
         top: -5px;
-        right: -10px;
+        right: 0px;
         position: absolute;
     }
 }
@@ -37,7 +37,7 @@
 .sugar-color-val {
     width: calc(50% - 55px);
     float: left;
-    padding: 10px;
+    padding: 8px;
     font-family: 'Courier';
     font-size: 14px;
     background: white;
@@ -48,6 +48,7 @@
     background: #eee;
     padding: 5px;
     font-size: 10px;
+    display: inline-block;
 }
 .sugar-color-comment {
     width: 100%;
