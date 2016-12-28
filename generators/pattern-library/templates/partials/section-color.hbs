@@ -19,24 +19,28 @@
 
             {{> block-title data=data}}
 
+            <div class="sugar-colors">
             {{~#each data.serializedCode as |serialized| }}
-
-              <div class="sugar-swatch-container">
-                <div class="sugar-color-swatch" style="background-color:{{ serialized.value }}"></div>
-                <pre class="sugar-swatch-var">{{ serialized.variable }}</pre><pre class="sugar-swatch-val">{{ serialized.value }}</pre>
-
-                {{~#if serialized.comment }}
-
-                  <div class="sugar-color-comment">
-                    <input type="checkbox" id="sugar-toggle-{{@index}}"></input>
-                    <label for="sugar-toggle-{{@index}}">Info</label>
-                    <p>{{ serialized.comment }}</p>
-                  </div>
-
-                {{~/if}}
-
+              <div class="sugar-color {{#if serialized.comment}}sugar-color-commented{{/if}}">
+                <div class="sugar-color-swatch" style="background-color: {{serialized.value}}">
+                </div>
+                <div class="sugar-color-var">
+                  {{ serialized.variable }}
+                </div>
+                <div class="sugar-color-val">
+                  {{ serialized.value }}
+                </div>
+                {{#if serialized.comment}}
+                <a class="sugar-btn-accordion sugar-accordion-small">
+                  Toggle
+                </a>
+                <div class="sugar-color-comment">
+                  {{ serialized.comment }}
+                </div>
+                {{/if}}
               </div>
             {{/each }}
+            </div>
 
           </div>
         {{~/each }}

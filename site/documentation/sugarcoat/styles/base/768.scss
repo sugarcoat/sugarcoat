@@ -1,18 +1,3 @@
-.sugar-nav-open {
-    .sugar-main {
-        transform: none;
-    }
-    .sugar-nav-toggle {
-        transform: none;
-    }
-}
-.sugar-masthead {
-    padding-top: 0;
-
-    h1 {
-        font-size: 2rem;
-    }
-}
 .sugar-main {
     width: 75%;
     margin: 0 0 0 25%;
@@ -23,19 +8,30 @@
         border-bottom: $border;
         box-sizing: border-box;
     }
-    .sugar-masthead {
-        display: none;
+}
+.sugar-masthead {
+    padding-top: 0;
+    display: none;
+
+    h1 {
+        font-size: 2rem;
     }
-    .sugar-type-container {
-        pre {
-        }
-        .sugar-var {
-            width: 35%;
-            float: left;
-            border-right: $border;
-        }
-        .sugar-val {
-            width: 65%;
-        }
+}
+.sugar-nav-open {
+    .sugar-main {
+        transform: none;
+    }
+    .sugar-nav-toggle {
+        transform: none;
+    }
+}
+.sugar-type-container {
+    .sugar-var {
+        width: 35%;
+        float: left;
+        border-right: $border;
+    }
+    .sugar-val {
+        width: 65%;
     }
 }

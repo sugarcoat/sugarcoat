@@ -1,15 +1,10 @@
-.sugar-nav {
-    
-//    padding-left: 15%;
+.sugar-nav ul,
+.sugar-nav .sugar-masthead {
+    width: 245px;
+    float: right;
 
-    ul,
-    .sugar-masthead {
-        width: 245px;
-        float: right;
-        
-        ul {
-            width: auto;
-            float: none;
-        }
+    ul {
+        width: auto;
+        float: none;
     }
 }

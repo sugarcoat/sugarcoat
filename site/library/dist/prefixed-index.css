@@ -21,6 +21,7 @@
  *
  * @title Bordered element
  * @description Grey backdrop for an element with borders
+ * @usage @extend %backdrop;
  *
  */
 .sugar-example .note {
@@ -32,7 +33,7 @@
  * @title Retina Image
  * @description Insert to render retina background image on element
  * @usage .image-2x( $image, $width, $height );
- * @default-height 50px
+ * @defaultHeight 50px
  * @defaultWidth 100px
  *
  */
@@ -215,13 +216,15 @@
  * @title Feature
  * @description Used for listing chronological content. Numbers hide in small viewport
  * @example
- * <div class="feature-item">
- *  <h3>Title</h3>
- *  <p>Lorem Ipsum</p>
- * </div>
- * <div class="feature-item">
- *  <h3>Title</h3>
- *  <p>Lorem Ipsum</p>
+ * <div class="feature">
+ *  <div class="feature-item">
+ *   <h3>Title</h3>
+ *   <p>Lorem Ipsum</p>
+ *  </div>
+ *  <div class="feature-item">
+ *   <h3>Title</h3>
+ *   <p>Lorem Ipsum</p>
+ *  </div>
  * </div>
  *
  */

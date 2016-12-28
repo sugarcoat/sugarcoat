@@ -18,6 +18,49 @@ body {
         width: 65px;
         border-radius: 100%;
     }
+
+}
+.sugar-main {
+    padding: 0 15px 2rem 60px;
+    background: white;
+    transition: 0.35s linear transform;
+    position: relative;
+
+    h2 {
+        font-family: 'Helvetica';
+        font-size: 2.25rem; //36px font-weight: bold;
+        color: $blue;
+        margin-bottom: 0.8rem;
+        margin-top: 0.8rem;
+        clear: both;
+    }
+    h2 a {
+        text-decoration: none;
+        color: $blue;
+    }
+    h3 {
+        font-family: 'Helvetica';
+        font-weight: lighter;
+        font-size: 1.5rem; //24px color: #666666;
+        margin-bottom: 0.7rem;
+    }
+    p {
+        font-family: 'Helvetica';
+    }
+    .sugar-file-desc {
+        font-family: 'Helvetica';
+        font-size: 1rem; //16px color: #666;
+    }
+    pre {
+        box-sizing: border-box;
+        padding: 1.5rem 1rem;
+        background-color: #f1f1f1;
+        font-family: 'Courier';
+        font-weight: lighter;
+        color: #666;
+        margin: 0;
+        overflow-x: scroll;
+    }
 }
 .sugar-nav-open {
     .sugar-main {
@@ -27,107 +70,63 @@ body {
         transform: translateX(245px);
     }
 }
-.sugar-main {
-    padding: 0 15px 2rem 60px;
-    background: white;
-    transition: 0.35s linear transform;
-    position: relative;
+.sugar-component {
+    margin-bottom: 60px;
 
-	h2 {
-		font-family: 'Helvetica';
-		font-size: 2.25rem; //36px
-		font-weight: bold;
-		color: $blue;
-        margin-bottom: 0.8rem;
-        margin-top: 0.8rem;
+    > div {
         clear: both;
-	}
-    h2 a {
-        text-decoration: none;
-        color: $blue;
     }
-	h3 {
-		font-family: 'Helvetica';
-		font-weight: lighter;
-		font-size: 1.5rem; //24px
-		color: #666666;
-        margin-bottom: 0.7rem;
-	}
-    p {
-        font-family: 'Helvetica';
-    }
-    .sugar-component {
-        margin-bottom: 60px;
 
-        > div {
-            clear: both;
-        }
-    }
-	.sugar-file-desc {
-		font-family: 'Helvetica';
-		font-size: 1rem; //16px
-		color: #666;
-	}
-	.sugar-file {
-		font-family: 'Helvetica';
-		font-size: 14px;
-		color: #666666;
-		font-weight: bold;
-        clear: both;
+}
+.sugar-file {
+    font-family: 'Helvetica';
+    font-size: 14px;
+    color: #666666;
+    font-weight: bold;
+    clear: both;
 
-		.sugar-path {
-			font-family: 'Courier';
-			font-weight: lighter;
-			color: #B98181;
-			word-break: break-all;
-		}
-	}
-	pre {
-        box-sizing: border-box;
-		padding: 1.5rem 1rem;
-		background-color: #f1f1f1;
-		font-family: 'Courier';
-		font-weight: lighter;
-		color: #666;
-		margin: 0;
-		overflow-x: scroll;
-	}
-    .sugar-type-container {
-        pre,
-        .sugar-type-desc {
-            width: 100%;
-            border-top: $border;
-            position: relative;
-            padding: 1.6rem 1rem .8rem 1rem;
-        }
-        pre:before,
-        .sugar-type-desc:before {
-            position: absolute;
-            top: 5px;
-            left: 8px;
-            @include font-cap();
-            font-size: 11px;
-            color: #999;
-        }
+    .sugar-path {
+        font-family: 'Courier';
+        font-weight: lighter;
+        color: #B98181;
+        word-break: break-all;
     }
-    .sugar-var {
-        &:before {
-            content: 'variable';
-        }
+
+}
+.sugar-type-desc {
+    background: #f1f1f1;
+    margin: 0;
+    width: 100%;
+    color: #666;
+
+    &:before {
+        content: 'description';
     }
-    .sugar-val {
-        &:before {
-            content: 'value';
-        }
-    }
+}
+.sugar-type-container {
+    pre,
     .sugar-type-desc {
-        background: #f1f1f1;
-        margin: 0;
         width: 100%;
-        color: #666;
-
-        &:before {
-            content: 'description';
-        }
+        border-top: $border;
+        position: relative;
+        padding: 1.6rem 1rem .8rem 1rem;
+    }
+    pre:before,
+    .sugar-type-desc:before {
+        position: absolute;
+        top: 5px;
+        left: 8px; @include font-cap();
+        font-size: 11px;
+        color: #999;
+    }
+}
+.sugar-var {
+    &:before {
+        content: 'variable';
+    }
+}
+.sugar-val {
+    &:before {
+        content: 'value';
     }
 }

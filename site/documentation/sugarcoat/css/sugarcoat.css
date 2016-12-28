@@ -1,14 +1,78 @@
-@charset "UTF-8";
 /**
- * 
+ *
  * Variables
  *
  */
 /**
- * 
+ *
  * Mixins
  *
  */
+/* line 30, ../styles/base/helpers.scss */
+.sugar-btn-accordion {
+  font-size: 0;
+  width: 40px;
+  cursor: pointer;
+  transition: 0.35s linear transform;
+}
+/* line 36, ../styles/base/helpers.scss */
+.sugar-btn-accordion:before, .sugar-btn-accordion:after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 1px;
+  left: 7px;
+  background-color: black;
+  transition: 0.35s linear all;
+}
+/* line 47, ../styles/base/helpers.scss */
+.sugar-btn-accordion:after {
+  top: 20px;
+}
+/* line 50, ../styles/base/helpers.scss */
+.sugar-btn-accordion:before {
+  top: 30px;
+}
+
+/* line 54, ../styles/base/helpers.scss */
+.sugar-accordion-small {
+  height: 30px;
+}
+/* line 57, ../styles/base/helpers.scss */
+.sugar-accordion-small:before, .sugar-accordion-small:after {
+  width: 18px;
+}
+/* line 61, ../styles/base/helpers.scss */
+.sugar-accordion-small:after {
+  top: 22px;
+}
+/* line 64, ../styles/base/helpers.scss */
+.sugar-accordion-small:before {
+  top: 28px;
+}
+
+/* line 69, ../styles/base/helpers.scss */
+.sugar-nav-open .sugar-btn-accordion:after {
+  transform: translateY(5px);
+  background-color: #029dd5;
+}
+/* line 73, ../styles/base/helpers.scss */
+.sugar-nav-open .sugar-btn-accordion:before {
+  transform: translateY(-5px);
+  background-color: #029dd5;
+}
+
+/* line 79, ../styles/base/helpers.scss */
+.sugar-color-open .sugar-accordion-small:after {
+  transform: translateY(3px);
+  background-color: #029dd5;
+}
+/* line 83, ../styles/base/helpers.scss */
+.sugar-color-open .sugar-accordion-small:before {
+  transform: translateY(-3px);
+  background-color: #029dd5;
+}
+
 /* line 1, ../styles/base/defaults.scss */
 body {
   margin: 0;
@@ -38,78 +102,43 @@ body {
 }
 
 /* line 23, ../styles/base/defaults.scss */
-.sugar-nav-open .sugar-main {
-  transform: translateX(245px);
-}
-/* line 26, ../styles/base/defaults.scss */
-.sugar-nav-open .sugar-nav-toggle {
-  transform: translateX(245px);
-}
-
-/* line 30, ../styles/base/defaults.scss */
 .sugar-main {
   padding: 0 15px 2rem 60px;
   background: white;
   transition: 0.35s linear transform;
   position: relative;
 }
-/* line 36, ../styles/base/defaults.scss */
+/* line 29, ../styles/base/defaults.scss */
 .sugar-main h2 {
   font-family: 'Helvetica';
   font-size: 2.25rem;
-  font-weight: bold;
   color: #029dd5;
   margin-bottom: 0.8rem;
   margin-top: 0.8rem;
   clear: both;
 }
-/* line 45, ../styles/base/defaults.scss */
+/* line 37, ../styles/base/defaults.scss */
 .sugar-main h2 a {
   text-decoration: none;
   color: #029dd5;
 }
-/* line 49, ../styles/base/defaults.scss */
+/* line 41, ../styles/base/defaults.scss */
 .sugar-main h3 {
   font-family: 'Helvetica';
   font-weight: lighter;
   font-size: 1.5rem;
-  color: #666666;
   margin-bottom: 0.7rem;
 }
-/* line 56, ../styles/base/defaults.scss */
+/* line 47, ../styles/base/defaults.scss */
 .sugar-main p {
   font-family: 'Helvetica';
 }
-/* line 59, ../styles/base/defaults.scss */
-.sugar-main .sugar-component {
-  margin-bottom: 60px;
-}
-/* line 62, ../styles/base/defaults.scss */
-.sugar-main .sugar-component > div {
-  clear: both;
-}
-/* line 66, ../styles/base/defaults.scss */
+/* line 50, ../styles/base/defaults.scss */
 .sugar-main .sugar-file-desc {
   font-family: 'Helvetica';
   font-size: 1rem;
-  color: #666;
 }
-/* line 71, ../styles/base/defaults.scss */
-.sugar-main .sugar-file {
-  font-family: 'Helvetica';
-  font-size: 14px;
-  color: #666666;
-  font-weight: bold;
-  clear: both;
-}
-/* line 78, ../styles/base/defaults.scss */
-.sugar-main .sugar-file .sugar-path {
-  font-family: 'Courier';
-  font-weight: lighter;
-  color: #B98181;
-  word-break: break-all;
-}
-/* line 85, ../styles/base/defaults.scss */
+/* line 54, ../styles/base/defaults.scss */
 .sugar-main pre {
   box-sizing: border-box;
   padding: 1.5rem 1rem;
@@ -120,17 +149,64 @@ body {
   margin: 0;
   overflow-x: scroll;
 }
+
+/* line 66, ../styles/base/defaults.scss */
+.sugar-nav-open .sugar-main {
+  transform: translateX(245px);
+}
+/* line 69, ../styles/base/defaults.scss */
+.sugar-nav-open .sugar-nav-toggle {
+  transform: translateX(245px);
+}
+
+/* line 73, ../styles/base/defaults.scss */
+.sugar-component {
+  margin-bottom: 60px;
+}
+/* line 76, ../styles/base/defaults.scss */
+.sugar-component > div {
+  clear: both;
+}
+
+/* line 81, ../styles/base/defaults.scss */
+.sugar-file {
+  font-family: 'Helvetica';
+  font-size: 14px;
+  color: #666666;
+  font-weight: bold;
+  clear: both;
+}
+/* line 88, ../styles/base/defaults.scss */
+.sugar-file .sugar-path {
+  font-family: 'Courier';
+  font-weight: lighter;
+  color: #B98181;
+  word-break: break-all;
+}
+
 /* line 96, ../styles/base/defaults.scss */
-.sugar-main .sugar-type-container pre,
-.sugar-main .sugar-type-container .sugar-type-desc {
+.sugar-type-desc {
+  background: #f1f1f1;
+  margin: 0;
+  width: 100%;
+  color: #666;
+}
+/* line 102, ../styles/base/defaults.scss */
+.sugar-type-desc:before {
+  content: 'description';
+}
+
+/* line 107, ../styles/base/defaults.scss */
+.sugar-type-container pre,
+.sugar-type-container .sugar-type-desc {
   width: 100%;
   border-top: 1px solid #e4e4e4;
   position: relative;
   padding: 1.6rem 1rem .8rem 1rem;
 }
-/* line 103, ../styles/base/defaults.scss */
-.sugar-main .sugar-type-container pre:before,
-.sugar-main .sugar-type-container .sugar-type-desc:before {
+/* line 114, ../styles/base/defaults.scss */
+.sugar-type-container pre:before,
+.sugar-type-container .sugar-type-desc:before {
   position: absolute;
   top: 5px;
   left: 8px;
@@ -142,69 +218,58 @@ body {
   font-size: 11px;
   color: #999;
 }
-/* line 114, ../styles/base/defaults.scss */
-.sugar-main .sugar-var:before {
+
+/* line 124, ../styles/base/defaults.scss */
+.sugar-var:before {
   content: 'variable';
 }
-/* line 119, ../styles/base/defaults.scss */
-.sugar-main .sugar-val:before {
-  content: 'value';
-}
-/* line 123, ../styles/base/defaults.scss */
-.sugar-main .sugar-type-desc {
-  background: #f1f1f1;
-  margin: 0;
-  width: 100%;
-  color: #666;
-}
+
 /* line 129, ../styles/base/defaults.scss */
-.sugar-main .sugar-type-desc:before {
-  content: 'description';
+.sugar-val:before {
+  content: 'value';
 }
 
 @media (min-width: 768px) {
-  /* line 2, ../styles/base/768.scss */
-  .sugar-nav-open .sugar-main {
-    transform: none;
-  }
-  /* line 5, ../styles/base/768.scss */
-  .sugar-nav-open .sugar-nav-toggle {
-    transform: none;
-  }
-
-  /* line 9, ../styles/base/768.scss */
-  .sugar-masthead {
-    padding-top: 0;
-  }
-  /* line 12, ../styles/base/768.scss */
-  .sugar-masthead h1 {
-    font-size: 2rem;
-  }
-
-  /* line 16, ../styles/base/768.scss */
+  /* line 1, ../styles/base/768.scss */
   .sugar-main {
     width: 75%;
     margin: 0 0 0 25%;
     padding: 0;
   }
-  /* line 21, ../styles/base/768.scss */
+  /* line 6, ../styles/base/768.scss */
   .sugar-main section {
     padding: 2rem;
     border-bottom: 1px solid #e4e4e4;
     box-sizing: border-box;
   }
-  /* line 26, ../styles/base/768.scss */
-  .sugar-main .sugar-masthead {
+
+  /* line 12, ../styles/base/768.scss */
+  .sugar-masthead {
+    padding-top: 0;
     display: none;
   }
-  /* line 32, ../styles/base/768.scss */
-  .sugar-main .sugar-type-container .sugar-var {
+  /* line 16, ../styles/base/768.scss */
+  .sugar-masthead h1 {
+    font-size: 2rem;
+  }
+
+  /* line 21, ../styles/base/768.scss */
+  .sugar-nav-open .sugar-main {
+    transform: none;
+  }
+  /* line 24, ../styles/base/768.scss */
+  .sugar-nav-open .sugar-nav-toggle {
+    transform: none;
+  }
+
+  /* line 29, ../styles/base/768.scss */
+  .sugar-type-container .sugar-var {
     width: 35%;
     float: left;
     border-right: 1px solid #e4e4e4;
   }
-  /* line 37, ../styles/base/768.scss */
-  .sugar-main .sugar-type-container .sugar-val {
+  /* line 34, ../styles/base/768.scss */
+  .sugar-type-container .sugar-val {
     width: 65%;
   }
 }
@@ -219,45 +284,12 @@ body {
   position: fixed;
   top: 0px;
   left: 0;
-  font-size: 0;
-  width: 40px;
   height: 100%;
   background-color: #f1f1f1;
   z-index: 150;
-  cursor: pointer;
-  transition: 0.35s linear transform;
-}
-/* line 13, ../styles/nav/defaults.scss */
-.sugar-nav-toggle:before, .sugar-nav-toggle:after {
-  content: '';
-  position: absolute;
-  width: 25px;
-  height: 1px;
-  left: 7px;
-  background-color: black;
-  transition: 0.35s linear all;
-}
-/* line 24, ../styles/nav/defaults.scss */
-.sugar-nav-toggle:after {
-  top: 20px;
-}
-/* line 27, ../styles/nav/defaults.scss */
-.sugar-nav-toggle:before {
-  top: 30px;
 }
 
-/* line 34, ../styles/nav/defaults.scss */
-.sugar-nav-open .sugar-nav-toggle:after {
-  transform: translateY(5px);
-  background-color: #029dd5;
-}
-/* line 38, ../styles/nav/defaults.scss */
-.sugar-nav-open .sugar-nav-toggle:before {
-  transform: translateY(-5px);
-  background-color: #029dd5;
-}
-
-/* line 44, ../styles/nav/defaults.scss */
+/* line 20, ../styles/nav/defaults.scss */
 .sugar-nav {
   box-sizing: border-box;
   background-color: #f1f1f1;
@@ -272,20 +304,21 @@ body {
   overflow-y: auto;
   transform: translate(0, 0);
 }
-/* line 58, ../styles/nav/defaults.scss */
+/* line 34, ../styles/nav/defaults.scss */
 .sugar-nav .sugar-masthead {
   display: none;
 }
-/* line 62, ../styles/nav/defaults.scss */
+
+/* line 38, ../styles/nav/defaults.scss */
 .sugar-nav ul {
   list-style: none;
   padding-left: 0;
 }
-/* line 66, ../styles/nav/defaults.scss */
+/* line 42, ../styles/nav/defaults.scss */
 .sugar-nav ul li {
   margin-bottom: 1.6rem;
 }
-/* line 69, ../styles/nav/defaults.scss */
+/* line 45, ../styles/nav/defaults.scss */
 .sugar-nav ul a {
   font-family: 'Helvetica';
   color: #666;
@@ -296,12 +329,30 @@ body {
   position: relative;
   transition: 0.2s ease color;
 }
-/* line 79, ../styles/nav/defaults.scss */
-.sugar-nav ul .sugar-nav-item.active {
+/* line 55, ../styles/nav/defaults.scss */
+.sugar-nav ul ul {
+  padding-left: 2rem;
+}
+/* line 58, ../styles/nav/defaults.scss */
+.sugar-nav ul ul a {
+  font-family: 'Helvetica';
+  font-weight: lighter;
+  letter-spacing: 0;
+  text-transform: none;
+}
+/* line 64, ../styles/nav/defaults.scss */
+.sugar-nav ul ul li {
+  margin-top: 1.4rem;
+  margin-bottom: 0;
+}
+
+/* line 69, ../styles/nav/defaults.scss */
+.sugar-nav-item.active {
   color: #029dd5;
 }
-/* line 82, ../styles/nav/defaults.scss */
-.sugar-nav ul .sugar-nav-subitem:before {
+
+/* line 72, ../styles/nav/defaults.scss */
+.sugar-nav-subitem:before {
   content: '';
   width: 10px;
   height: 10px;
@@ -312,29 +363,15 @@ body {
   top: 2px;
   transition: 0.5s ease-in background;
 }
-/* line 93, ../styles/nav/defaults.scss */
-.sugar-nav ul .sugar-nav-subitem.active:before {
+
+/* line 83, ../styles/nav/defaults.scss */
+.sugar-nav-subitem.active:before {
   background-color: #029dd5;
 }
-/* line 96, ../styles/nav/defaults.scss */
-.sugar-nav ul .sugar-nav-item:not(.active) + ul .active:before {
+
+/* line 86, ../styles/nav/defaults.scss */
+.sugar-nav-item:not(.active) + ul .active:before {
   background-color: transparent;
-}
-/* line 99, ../styles/nav/defaults.scss */
-.sugar-nav ul ul {
-  padding-left: 2rem;
-}
-/* line 102, ../styles/nav/defaults.scss */
-.sugar-nav ul ul a {
-  font-family: 'Helvetica';
-  font-weight: lighter;
-  letter-spacing: 0;
-  text-transform: none;
-}
-/* line 108, ../styles/nav/defaults.scss */
-.sugar-nav ul ul li {
-  margin-top: 1.4rem;
-  margin-bottom: 0;
 }
 
 @media (min-width: 768px) {
@@ -360,13 +397,13 @@ body {
   }
 }
 @media (min-width: 1200px) {
-  /* line 5, ../styles/nav/1200.scss */
+  /* line 1, ../styles/nav/1200.scss */
   .sugar-nav ul,
   .sugar-nav .sugar-masthead {
     width: 245px;
     float: right;
   }
-  /* line 10, ../styles/nav/1200.scss */
+  /* line 6, ../styles/nav/1200.scss */
   .sugar-nav ul ul,
   .sugar-nav .sugar-masthead ul {
     width: auto;
@@ -388,14 +425,15 @@ body {
   letter-spacing: 0.3em;
   font-size: 11px;
 }
-/* line 11, ../styles/preview/defaults.scss */
-.sugar-preview-block .sugar-preview {
+
+/* line 10, ../styles/preview/defaults.scss */
+.sugar-preview {
   border: 1px solid #e4e4e4;
   margin-bottom: 1rem;
 }
-/* line 15, ../styles/preview/defaults.scss */
-.sugar-preview-block .sugar-preview .sugar-example,
-.sugar-preview-block .sugar-preview .sugar-example-code {
+/* line 14, ../styles/preview/defaults.scss */
+.sugar-preview .sugar-example,
+.sugar-preview .sugar-example-code {
   padding: 1.25rem 1.0rem;
   overflow: hidden;
 }
@@ -415,7 +453,7 @@ body {
   margin-bottom: 10px;
 }
 /* line 13, ../styles/tag-details/defaults.scss */
-.sugar-tag-details dt code {
+.sugar-tag-details code {
   font-weight: normal;
   background-color: #eee;
   padding: 5px;
@@ -425,13 +463,13 @@ body {
   color: #666;
   font-size: 14px;
 }
-/* line 24, ../styles/tag-details/defaults.scss */
+/* line 23, ../styles/tag-details/defaults.scss */
 .sugar-tag-details dd {
   margin-bottom: 1rem;
   margin-left: 1rem;
 }
-/* line 28, ../styles/tag-details/defaults.scss */
-.sugar-tag-details dd .sugar-tag-description {
+/* line 27, ../styles/tag-details/defaults.scss */
+.sugar-tag-details .sugar-tag-description {
   font-family: 'Helvetica';
   font-size: 1rem;
   color: #666;
@@ -444,216 +482,145 @@ body {
 }
 
 /* line 1, ../styles/section-color/defaults.scss */
-.sugar-section-color {
-  width: 100%;
+.sugar-colors {
+  border-bottom: 1px solid #eee;
+  font-family: 'Helvetica';
 }
-/* line 4, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-container {
-  box-sizing: border-box;
-  border: 1px solid #e4e4e4;
-  margin-bottom: 1.0rem;
-  width: calc(100% - 30px);
-  margin-left: 30px;
+
+/* line 5, ../styles/section-color/defaults.scss */
+.sugar-color {
+  overflow: hidden;
+  border-top: 1px solid #eee;
   position: relative;
 }
-/* line 12, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-swatch {
-  width: 62px;
-  height: 62px;
-  border-radius: 50%;
+
+/* line 10, ../styles/section-color/defaults.scss */
+.sugar-color-commented {
+  margin-bottom: -38px;
+  padding-bottom: 10px;
+  transition: 0.35s linear margin;
+}
+/* line 15, ../styles/section-color/defaults.scss */
+.sugar-color-commented .sugar-btn-accordion {
+  top: -5px;
+  right: 0px;
   position: absolute;
-  margin-left: -30px;
-  top: -1px;
 }
-/* line 20, ../styles/section-color/defaults.scss */
-.sugar-section-color pre {
-  white-space: nowrap;
-  height: 60px;
-  padding-top: 1.2rem;
-  padding-left: 3rem;
-  overflow-y: auto;
-  padding-bottom: 0;
+
+/* line 21, ../styles/section-color/defaults.scss */
+.sugar-color-open.sugar-color-commented {
+  margin-bottom: 0px;
 }
-/* line 28, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-swatch-val {
-  float: right;
-  top: 0;
-  position: absolute;
-  /* z-index: 100; */
-  right: 0;
-  width: auto;
-  padding-left: 1rem;
-  border-left: 1px solid #e4e4e4;
+
+/* line 24, ../styles/section-color/defaults.scss */
+.sugar-color-swatch {
+  width: 70px;
+  height: 38px;
+  float: left;
 }
-/* line 39, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment {
-  width: 100%;
-  position: absolute;
-  top: 0;
+
+/* line 29, ../styles/section-color/defaults.scss */
+.sugar-color-var {
+  font-family: 'Helvetica';
+  font-weight: lighter;
+  width: calc(50% - 55px);
+  float: left;
+  padding: 10px;
+  background: white;
 }
-/* line 44, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment p {
-  display: none;
-  margin: 0;
-  word-wrap: break-word;
+
+/* line 37, ../styles/section-color/defaults.scss */
+.sugar-color-val {
+  width: calc(50% - 55px);
+  float: left;
+  padding: 8px;
+  font-family: 'Courier';
+  font-size: 14px;
+  background: white;
+}
+
+/* line 45, ../styles/section-color/defaults.scss */
+.sugar-color-val:before {
+  content: 'VALUE';
   font-family: 'Helvetica';
   font-weight: 300;
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.3em;
-  background: black;
-  color: white;
-  padding: 1rem;
+  background: #eee;
+  padding: 5px;
+  font-size: 10px;
+  display: inline-block;
 }
-/* line 54, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment p:after {
-  content: '';
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid black;
-  position: absolute;
-  top: 0;
-  margin-left: -8px;
-  margin-top: -8px;
-  left: 50%;
-}
-/* line 69, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox] {
-  display: none;
-}
-/* line 72, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox] ~ label {
-  font-size: 0;
-}
-/* line 75, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox] ~ label:after {
-  content: '=';
-  position: absolute;
-  font-size: 17px;
-  width: 13px;
-  height: 20px;
-  background-color: #f1f1f1;
-  padding: 0px 3px;
-  top: 0;
-  left: -30px;
-  border: 1px solid #c3c3c3;
-  cursor: pointer;
-  color: white;
-  font-family: Helvetica;
-  font-weight: 300;
-  color: black;
-  line-height: 16px;
-}
-/* line 93, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox]:checked ~ p {
-  display: block;
-  position: absolute;
-  z-index: 100;
-  top: 70px;
-  width: 80%;
-  left: 45px;
-  text-align: center;
-}
-/* line 102, ../styles/section-color/defaults.scss */
-.sugar-section-color .sugar-color-comment input[type=checkbox]:checked ~ label:after {
-  color: #029dd5;
-  content: '—';
-  font-size: 12px;
-  font-weight: bold;
-  border-color: #029dd5;
+
+/* line 53, ../styles/section-color/defaults.scss */
+.sugar-color-comment {
+  width: 100%;
+  float: left;
+  padding-left: 80px;
+  padding-top: 10px;
 }
 
 @media (min-width: 768px) {
-  /* line 2, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-swatch-container {
-    width: calc(50% - 1rem);
-    position: relative;
-    float: left;
-    margin: 0 1rem 1rem 0;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  /* line 11, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-swatch-container:hover .sugar-color-comment p,
-  .sugar-section-color .sugar-swatch-container:hover .sugar-color-comment input[type=checkbox]:checked ~ p {
-    display: block;
-    z-index: 100;
-    position: absolute;
-    width: 80%;
-    left: 5%;
-    text-align: center;
-    margin-top: 10px;
-    top: auto;
-  }
-  /* line 24, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-color-swatch {
-    background-color: #333333;
-    width: 100px;
-    border-radius: 0;
-    height: 100px;
-    width: 100%;
+  /* line 1, ../styles/section-color/768.scss */
+  .sugar-color-commented {
+    padding: 0;
     margin: 0;
-    position: relative;
+    transition: none;
   }
-  /* line 33, ../styles/section-color/768.scss */
-  .sugar-section-color pre {
-    padding-left: 1rem;
-    display: inline-block;
-    margin: 0;
-    float: left;
-  }
-  /* line 39, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-swatch-var {
-    border-right: 1px solid #e4e4e4;
-    flex: 1;
-  }
-  /* line 43, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-swatch-val {
-    position: relative;
-    border: none;
-  }
-  /* line 47, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-color-comment {
-    position: relative;
-  }
-  /* line 50, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-color-comment input[type=checkbox] ~ label {
+  /* line 6, ../styles/section-color/768.scss */
+  .sugar-color-commented .sugar-btn-accordion {
     display: none;
   }
-  /* line 53, ../styles/section-color/768.scss */
-  .sugar-section-color .sugar-color-comment input[type=checkbox]:checked ~ p {
-    display: none;
+
+  /* line 10, ../styles/section-color/768.scss */
+  .sugar-color-open.sugar-color-commented {
+    margin-bottom: 0px;
+  }
+
+  /* line 13, ../styles/section-color/768.scss */
+  .sugar-color-val,
+  .sugar-color-var {
+    width: calc(33% - 40px);
+  }
+
+  /* line 17, ../styles/section-color/768.scss */
+  .sugar-color-comment {
+    width: calc(33% - 40px);
+    padding: 8px;
   }
 }
 /* line 1, ../styles/section-typography/defaults.scss */
 .sugar-section-type {
   width: 100%;
 }
-/* line 13, ../styles/section-typography/defaults.scss */
-.sugar-section-type .sugar-type-file .sugar-type-container {
+
+/* line 5, ../styles/section-typography/defaults.scss */
+.sugar-type-file .sugar-type-container {
   border: 1px solid #e4e4e4;
   overflow: hidden;
   margin-bottom: 1rem;
 }
-/* line 18, ../styles/section-typography/defaults.scss */
-.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-example,
-.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code {
+
+/* line 11, ../styles/section-typography/defaults.scss */
+.sugar-type-example,
+.sugar-type-code {
   padding: 1.25rem 1.0rem;
 }
-/* line 22, ../styles/section-typography/defaults.scss */
-.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-example p {
+
+/* line 16, ../styles/section-typography/defaults.scss */
+.sugar-type-example p {
   margin: 0;
 }
-/* line 25, ../styles/section-typography/defaults.scss */
-.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code {
+
+/* line 20, ../styles/section-typography/defaults.scss */
+.sugar-type-code {
   background-color: #f1f1f1;
   white-space: nowrap;
   overflow-x: scroll;
 }
-/* line 30, ../styles/section-typography/defaults.scss */
-.sugar-section-type .sugar-type-file .sugar-type-container .sugar-type-code .sugar-type-code-snippet {
+/* line 25, ../styles/section-typography/defaults.scss */
+.sugar-type-code .sugar-type-code-snippet {
   font-family: 'Courier';
   margin-bottom: 0;
 }
@@ -666,8 +633,9 @@ body {
 .sugar-section-variable .sugar-table-container {
   overflow-x: scroll;
 }
+
 /* line 8, ../styles/section-variable/defaults.scss */
-.sugar-section-variable .sugar-var-table {
+.sugar-var-table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
@@ -677,11 +645,11 @@ body {
   margin-bottom: 1rem;
 }
 /* line 17, ../styles/section-variable/defaults.scss */
-.sugar-section-variable .sugar-var-table thead {
+.sugar-var-table thead {
   border: 1px solid #e4e4e4;
 }
 /* line 21, ../styles/section-variable/defaults.scss */
-.sugar-section-variable .sugar-var-table th {
+.sugar-var-table th {
   font-family: 'Helvetica';
   font-weight: 300;
   text-transform: uppercase;
@@ -694,21 +662,21 @@ body {
   text-align: left;
 }
 /* line 29, ../styles/section-variable/defaults.scss */
-.sugar-section-variable .sugar-var-table tr {
+.sugar-var-table tr {
   border-bottom: 1px solid #e4e4e4;
   background-color: #f1f1f1;
 }
 /* line 33, ../styles/section-variable/defaults.scss */
-.sugar-section-variable .sugar-var-table td {
+.sugar-var-table td {
   padding: 1rem;
 }
 /* line 36, ../styles/section-variable/defaults.scss */
-.sugar-section-variable .sugar-var-table pre {
+.sugar-var-table pre {
   padding: 0;
   overflow-x: auto;
 }
 /* line 40, ../styles/section-variable/defaults.scss */
-.sugar-section-variable .sugar-var-table p {
+.sugar-var-table p {
   font-family: 'Helvetica';
   margin: 0;
   color: #999999;

@@ -11,6 +11,7 @@ module.exports = function ( grunt ) {
 
     /* Task aliases */
     grunt.registerTask( 'sassdev', 'Compile Sass files', [
+        'stylelint',
         'sass',
         'autoprefixer'
     ]);

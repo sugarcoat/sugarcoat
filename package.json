@@ -13,10 +13,16 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "grunt": "^1.0.1",
     "grunt-autoprefixer": "^3.0.3",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-postcss": "^0.8.0"
+    "grunt-postcss": "^0.8.0",
+    "grunt-stylelint": "^0.6.0",
+    "mocha": "^3.0.2"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --ui tdd"
   },
   "engines": {
     "node": ">= 4.0.0"
@@ -49,35 +55,36 @@
     }
   ],
   "keywords": [
-    "sugar",
+    "assembler",
+    "automated",
+    "block",
     "coat",
-    "sugarcoat",
-    "docs",
-    "documentation",
-    "docblock",
-    "pattern",
-    "library",
-    "pattern library",
-    "patternlibrary",
-    "pattern-library",
-    "ui",
-    "ui library",
-    "uilibrary",
-    "ui-library",
-    "component",
-    "component library",
-    "componentlibrary",
-    "component-library",
-    "style",
-    "guide",
-    "style guide",
-    "styleguide",
-    "style-guide",
     "comment parser",
     "comment",
+    "component library",
+    "component",
+    "component-library",
+    "componentlibrary",
+    "docblock",
+    "docs",
+    "documentation",
+    "guide",
+    "library",
     "parse",
     "parser",
-    "automated",
-    "assembler"
+    "pattern library",
+    "pattern",
+    "pattern-library",
+    "patternlibrary",
+    "style guide",
+    "style",
+    "style-guide",
+    "styleguide",
+    "sugar",
+    "sugarcoat",
+    "ui library",
+    "ui",
+    "ui-library",
+    "uilibrary"
   ]
 }
