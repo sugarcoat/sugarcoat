@@ -5,7 +5,7 @@
  * Rules documentation: https://github.com/stylelint/stylelint/blob/master/docs/user-guide/rules.md
  */
 module.exports = {
-    ignoreFiles: 'generators/pattern-library/templates/sugarcoat/styles/base/normalize.scss',
+    ignoreFiles: 'generators/pattern-library/templates/styles/base/normalize.scss',
     'rules': {
 
         // https://github.com/stylelint/stylelint/tree/master/src/rules/indentation

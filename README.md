@@ -214,6 +214,14 @@ Default: `sugarcoat`
 
 An array of directory (not file) paths (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's assets, as well as your own, just include `sugarcoat` in the asset array.
 
+### `template.prefixSelectors` ###
+
+Type: `Boolean`
+Optional: `true`
+Default: `true`
+
+Sugarcoat will modify your stylesheets by prefixing all selectors in your [`template.assets`](#templateassets) array with `.sugar-example`, and placing the modified stylesheets into `head.hbs`. Should you decide to prefix your styles and [configure a custom `head.hbs`](#custom-templating) file yourself, set this option to `false`.
+
 **Advanced Example**
 
 ```js
