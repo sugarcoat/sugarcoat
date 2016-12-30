@@ -26,17 +26,6 @@ module.exports = function( grunt ) {
             },
             src: 'library/styles/index.css',
             dest: 'library/dist/index.css'
-        },
-        prefixed: {
-            options: {
-                processors: [
-                    require( 'postcss-prefix-selector' )({
-                        prefix: '.sugar-example'
-                    })
-                ]
-            },
-            src: 'library/dist/index.css',
-            dest: 'library/dist/prefixed-index.css'
         }
     });
 

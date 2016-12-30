@@ -22,6 +22,9 @@ defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
 defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
 
+defaults.settings.prefix = {};
+defaults.settings.prefix.selector = '.sugar-example';
+
 /**
  *
  */
@@ -32,12 +35,13 @@ function init( options ) {
         , config = _.merge( defaultsCopy, options )
         , settings = config.settings
         , template = settings.template
+        , prefix = settings.prefix
         ;
 
     // Configure the logger
     log.config( options.settings.log );
 
-    // **** ASSETS ****
+    // **** ASSETS (template) ****
 
     // Set Assets to an array
     if ( _.isEmpty( template.assets ) ) {
@@ -68,6 +72,13 @@ function init( options ) {
     // Add in the default assets
     if ( addDefaultAssets ) {
         template.assets.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
+    }
+
+    // **** ASSETS (prefix) ****
+    if ( !_.isEmpty( prefix.assets ) ) {
+        prefix.assets = prefix.assets.map( function ( dirPath ) {
+            return normalizeDirectory( dirPath, process.cwd() );
+        });
     }
 
 

@@ -9,6 +9,6 @@ module.exports = function ( grunt ) {
     /* Load tasks */
     grunt.loadTasks( 'grunt' );
 
-    grunt.registerTask( 'css', 'Pre and Post process CSS', [ 'postcss:foo', 'postcss:prefixed' ]);
+    grunt.registerTask( 'css', 'Pre and Post process CSS', [ 'postcss:foo' ]);
 
 };

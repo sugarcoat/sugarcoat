@@ -212,15 +212,23 @@ Type: `Array`
 Optional: `true`
 Default: `sugarcoat`
 
-An array of directory (not file) paths (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's assets, as well as your own, just include `sugarcoat` in the asset array.
+An array of directory (not file) paths (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array. Note that Sugarcoat **will not** modify any assets provided in this array.
 
-### `template.prefixSelectors` ###
+### `prefix.assets` ###
 
-Type: `Boolean`
+Type: `Array`
 Optional: `true`
-Default: `true`
+Default: `null`
 
-Sugarcoat will modify your stylesheets by prefixing all selectors in your [`template.assets`](#templateassets) array with `.sugar-example`, and placing the modified stylesheets into `head.hbs`. Should you decide to prefix your styles and [configure a custom `head.hbs`](#custom-templating) file yourself, set this option to `false`.
+An array of directory (not file) paths (relative to ?) to the stylesheets (.css) you wish Sugarcoat to prefix with a selector (scope) and insert into the `head.hbs` partial. Note that Sugarcoat **will** modify all assets provided in this array.
+
+### `prefix.selector` ###
+
+Type: `String`
+Optional: `true`
+Default: `.sugar-example`
+
+Defines the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector scope. 
 
 **Advanced Example**
 
@@ -246,9 +254,14 @@ Sugarcoat will modify your stylesheets by prefixing all selectors in your [`temp
       assets: [
         'sugarcoat',
         'js',
-        'styles',
         'images'
       ]
+    },
+    prefix: {
+      assets: [
+        'styles'
+      ],
+      selector: '.scope-styles'
     }
   },
   sections: [ <...> ]

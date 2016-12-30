@@ -2,9 +2,14 @@ var library = {
     settings: {
         dest: './documentation',
         title: 'Pattern Library',
-        template: {
-            partials: [
-                'documentation/template'
+        // template: {
+        //     partials: [
+        //         'documentation/template'
+        //     ]
+        // },
+        prefix: {
+            assets: [
+                'library/dist'
             ]
         }
     },
