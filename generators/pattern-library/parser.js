@@ -17,14 +17,14 @@ function Parser( config ) {
 
 Parser.prototype = {
 
-    parseComment: function( currentFile, data, type, templateType ) {
+    parseComment: function ( currentFile, data, type, templateType ) {
 
         log.info( 'Parse', currentFile );
 
         var serialized = mySerializer( data );
 
         // serializer error handling
-        var hasErrors = serialized.some( function( comment ) {
+        var hasErrors = serialized.some( function ( comment ) {
 
             return comment.tags.some( function ( tag ) {
 
@@ -53,14 +53,14 @@ Parser.prototype = {
 
                 var html = context.substring( 4 );
 
-                serialized[ i ].context = html ;
+                serialized[ i ].context = html;
             }
         }
 
         return serialized;
     },
 
-    parseVarCode: function( code, path ) {
+    parseVarCode: function ( code, path ) {
 
         var infoArray = []
             , infoStrings = []
@@ -72,18 +72,21 @@ Parser.prototype = {
         }
 
         if ( path.indexOf( '.less' ) !== -1 ) {
-            //LESS = @
+            // LESS = @
             infoStrings = code.match(/(\@.*:.*)/g);
         }
 
         if ( path.indexOf( '.css' ) !== -1 ) {
-            //CSS = --
+            // CSS = --
             infoStrings = code.match(/(--.*:.*)/g);
         }
 
-        if ( !infoStrings ) { return; }
+        if ( !infoStrings ) {
 
-        infoStrings.forEach( function( infoLine ) {
+            return;
+        }
+
+        infoStrings.forEach( function ( infoLine ) {
             /*
              * $var: #fff; //something
              * $var: #000; /* etc **/
@@ -119,6 +122,6 @@ Parser.prototype = {
     }
 };
 
-module.exports = function( config ) {
+module.exports = function ( config ) {
     return new Parser( config );
 };

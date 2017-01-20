@@ -4,6 +4,9 @@
 var lastId
     , lastId2
     , scrollTimeout
+    , document = document
+    , navigator = navigator
+    , window = window
     , outsideClick = document.querySelector( '.sugar-main' )
     , nav = document.querySelector( '.sugar-nav' )
     , primaryItems = document.querySelectorAll( '.sugar-nav-item' )
@@ -46,6 +49,7 @@ function scrollToEl( elem, pos ) {
     if ( Math.abs( y - pos ) < 2 ) {
 
         elem.scrollTop = pos;
+
         return;
     }
 
@@ -123,7 +127,7 @@ var primaryScrollItems = getHrefValues( primaryItems );
 var secondaryScrollItems = getHrefValues( secondaryItems );
 
 
-nav.addEventListener( 'click', function( e ) {
+nav.addEventListener( 'click', function ( e ) {
 
     if ( e.target.tagName === 'A' ) {
 
@@ -142,14 +146,14 @@ nav.addEventListener( 'click', function( e ) {
 });
 
 // scroll event to track active element on the page
-window.addEventListener( 'scroll', function( e ) {
+window.addEventListener( 'scroll', function ( e ) {
 
     changeActiveItem( primaryItems, primaryScrollItems, lastId, true );
     changeActiveItem( secondaryItems, secondaryScrollItems, lastId2, false );
 });
 
 // toggle function for mobile viewport
-navToggle.addEventListener( 'click', function( e ) {
+navToggle.addEventListener( 'click', function ( e ) {
 
     var classList = document.body.classList;
 
@@ -164,9 +168,9 @@ navToggle.addEventListener( 'click', function( e ) {
     }
 });
 
-accordions.forEach( function( el ) {
+accordions.forEach( function ( el ) {
 
-    el.addEventListener( 'click', function( e ) {
+    el.addEventListener( 'click', function ( e ) {
 
         var classList = e.target.parentNode.classList;
 
@@ -174,7 +178,7 @@ accordions.forEach( function( el ) {
             classList.remove( 'sugar-color-open' );
         }
         else {
-            classList.add( 'sugar-color-open' )
+            classList.add( 'sugar-color-open' );
         }
     });
 });

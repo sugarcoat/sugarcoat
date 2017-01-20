@@ -1,5 +1,4 @@
 var fs = require( 'fs' );
-var util = require( 'util' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
@@ -30,7 +29,7 @@ module.exports = function ( config ) {
 
 function globPartials( config ) {
 
-    var partials = config.settings.template.partials.map( function( dir ) {
+    var partials = config.settings.template.partials.map( function ( dir ) {
 
         return globber({
             src: [ path.join( dir.src, '**/*' ) ],
@@ -84,7 +83,7 @@ function readPartials( config ) {
 
 function registerPartials( config ) {
 
-    config.settings.template.partials.forEach( function( partial ) {
+    config.settings.template.partials.forEach( function ( partial ) {
 
         var isOverride = !!Handlebars.partials[ partial.name ]
             , msgNormal = `partial registered: "${partial.name}"`
@@ -122,7 +121,7 @@ function renderLayout( config ) {
             ;
 
         return writeFile( file, html )
-        .then( function() {
+        .then( function () {
 
             log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
@@ -131,6 +130,7 @@ function renderLayout( config ) {
     })
     .catch( function ( err ) {
         log.error( 'Render', err );
+
         return err;
     });
 }
@@ -183,6 +183,7 @@ function copyAssets( config ) {
     })
     .catch( function ( err ) {
         log.error( 'Render', err );
+
         return err;
     });
 }
@@ -204,7 +205,7 @@ function copy( fromPath, toPath ) {
             reader.on( 'error', reject );
             writer.on( 'error', reject );
 
-            writer.on( 'finish', function() {
+            writer.on( 'finish', function () {
 
                 resolve( [ fromPath, toPath ] );
             });
@@ -213,6 +214,7 @@ function copy( fromPath, toPath ) {
         })
         .catch( function ( err ) {
             log.error( 'Render', err );
+
             return err;
         });
     });
@@ -220,9 +222,9 @@ function copy( fromPath, toPath ) {
 
 function readFile( file ) {
 
-    return new Promise( function( resolve, reject ) {
+    return new Promise( function ( resolve, reject ) {
 
-        fs.readFile( file, 'utf8', function( err, data ) {
+        fs.readFile( file, 'utf8', function ( err, data ) {
 
             if ( err ) return reject( err );
 

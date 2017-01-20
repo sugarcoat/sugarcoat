@@ -1,6 +1,5 @@
 var fs = require( 'fs' );
 var path = require( 'path' );
-var util = require( 'util' );
 
 var parser = require( './parser' );
 var render = require( './render' );
@@ -20,6 +19,7 @@ function init( config ) {
     if (config.error) {
 
         log.error(config.error);
+
         return Promise.reject();
     }
 
@@ -38,12 +38,9 @@ function init( config ) {
     });
 }
 
-/**
- *
- */
 function globFiles( config ) {
 
-    var globArr = config.sections.map( function( section ) {
+    var globArr = config.sections.map( function ( section ) {
 
         return globber( section.files );
     });
@@ -51,7 +48,7 @@ function globFiles( config ) {
     return Promise.all( globArr )
     .then( function ( sections ) {
 
-        sections.forEach( function( section, index ) {
+        sections.forEach( function ( section, index ) {
 
             config.sections[ index ].files = section;
         });
@@ -60,9 +57,6 @@ function globFiles( config ) {
     });
 }
 
-/**
- *
- */
 function readSections( config ) {
 
     var promiseArr = config.sections.map( function ( section ) {
@@ -71,7 +65,7 @@ function readSections( config ) {
 
             return new Promise( function ( resolve, reject ) {
 
-                fs.readFile( file, 'utf8', function( err, src ) {
+                fs.readFile( file, 'utf8', function ( err, src ) {
 
                     if ( err ) return reject( err );
 
@@ -93,9 +87,6 @@ function readSections( config ) {
     });
 }
 
-/**
- *
- */
 function parseSections( config ) {
 
     var parse = parser( config );
@@ -111,9 +102,6 @@ function parseSections( config ) {
     return config;
 }
 
-/**
- *
- */
 function output( html, config ) {
 
     var type = config.settings.format
