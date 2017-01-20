@@ -275,7 +275,6 @@ config.rules[ 'stylistic-issues' ] = {
     'max-statements-per-line': 0,
     'new-cap': [ 2, { 'properties': false } ],
     'new-parens': 0,
-    // 'newline-after-var': 2,
     'newline-after-var': 0,
     'newline-before-return': 2,
     'newline-per-chained-call': 0,
