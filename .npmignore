@@ -4,3 +4,8 @@ node_modules
 .tm_properties
 *.sublime-project
 *.sublime-workspace
+.eslintrc.js
+.eslintignore
+.eslintrc
+.stylelintrc.js
+test
