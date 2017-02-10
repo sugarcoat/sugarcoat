@@ -233,7 +233,7 @@ Defines the selector to be used to prefix all assets from `prefix.assets`. Shoul
 **Advanced Example**
 
 ```js
-{
+module.exports = {
   settings: {
     dest: 'my/project/pattern-library',
     template: {
@@ -244,11 +244,13 @@ Defines the selector to be used to prefix all assets from `prefix.assets`. Shoul
           src: 'my-partials',
           options: {
             nodir: false
+          }
         },
         {
           src: 'my-other-partials',
           options: {
             nodir: false
+          }
         }
       ],
       assets: [
