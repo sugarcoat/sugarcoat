@@ -653,7 +653,7 @@ Navigate to the `./site` folder in your local copy of sugarcoat and run:
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
 - [ ] [Add automated tests](/../../issues/18)
 - [x] Update github pages
-- [ ] Consume your style assets, prefix them, and place them into `head.hbs`
+- [ ] [Consume your style assets, prefix them, and place them into `head.hbs`](/../../issues/25)
 - [ ] Syntax Highlighting
 
 

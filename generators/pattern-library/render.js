@@ -17,6 +17,7 @@ module.exports = function ( config ) {
     return globPartials( config )
     .then( readPartials )
     .then( registerPartials )
+    .then( globPrefixAssets )
     .then( copyAssets )
     .then( renderLayout )
     .catch( function ( err ) {
@@ -30,32 +31,9 @@ module.exports = function ( config ) {
 
 function globPartials( config ) {
 
-    var partials = config.settings.template.partials.map( function( dir ) {
-
-        return globber({
-            src: [ path.join( dir.src, '**/*' ) ],
-            options: dir.options
-        })
-        .then( function ( files ) {
-
-            return files.reduce( function ( collection, filePath ) {
-
-                collection.push({
-                    cwd: dir.src,
-                    file: filePath,
-                    name: path.relative( dir.src, filePath ).replace( path.parse( filePath ).ext, '' )
-                });
-
-                return collection;
-
-            }, [] );
-        });
-    });
-
-    return Promise.all( partials )
+    return globAssets( config.settings.template.partials )
     .then( function ( files ) {
 
-        // files = _.flatten( files );
         config.settings.template.partials = _.flatten( files );
 
         return config;
@@ -132,6 +110,21 @@ function renderLayout( config ) {
     .catch( function ( err ) {
         log.error( 'Render', err );
         return err;
+    });
+}
+
+function globPrefixAssets( config ) {
+
+    return globAssets( config.settings.prefix.assets )
+    .then( function( files ) {
+
+        config.settings.prefix.assets = _.flatten( files );
+
+        return config;
+    })
+    .catch( function ( err ) {
+
+        console.log( err.message );
     });
 }
 
@@ -259,4 +252,30 @@ function makeDirs( toPath ) {
             resolve();
         });
     });
+}
+
+function globAssets( assetArray ) {
+
+    var assets = assetArray.map( function( dir ) {
+
+        return globber({
+            src: [ path.join( dir.src, '**/*' ) ],
+            options: dir.options
+        })
+        .then( function ( files ) {
+
+            return files.reduce( function ( collection, filePath ) {
+
+                collection.push({
+                    cwd: dir.src,
+                    file: filePath,
+                    name: path.relative( dir.src, filePath ).replace( path.parse( filePath).ext, '' )
+                });
+
+                return collection;
+            }, [] );
+        });
+    });
+
+    return Promise.all( assets );
 }
