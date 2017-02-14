@@ -33,23 +33,23 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 ---
 
-# Features #
+# FAQ #
 
 1. What does it look like?
 
    A [Sample Site](https://sapientnitrola.github.io/sugarcoat/) and its accompanying [Pattern Library](https://sapientnitrola.github.io/sugarcoat/documentation/index.html). These pages can be found on your local copy by following a short series of steps: [Example Library](#example-library).
 
-2. Can you parse css-preprocessor variables?
+2. Which CSS variables can sugarcoat parse?
 
-   Yes, we're able to grab the variables from less, SASS, or regular CSS files. Just set the `type` option to `variable` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
+   Sugarcoat is able to parse variables from less, SASS, and even future specs like CSS variables. Just set the `type` option to `variable` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
 
 3. What comment structure do I need to use?
 
-   You can customize what delimiters Sugarcoat uses. By default, Sugarcoat will parse a JSDoc-style comment block `/** ... */`: [Code Comment Syntax](#code-comment-syntax).
+   You can customize what delimiters Sugarcoat uses. By default, Sugarcoat will parse a JSDoc-style comment block for all file types: [Code Comment Syntax](#code-comment-syntax). JS and CSS files will use the standard `/** ... */` comment, while HTML files will use the `<!-- ... -->` comment. 
 
 4. Can I customize the default template that comes with Sugarcoat?
    
-   Absolutely. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
+   Absolutely. The [`layout`](#templatelayout) option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
 
 5. How do you handle style bleed?
 
