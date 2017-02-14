@@ -10,7 +10,9 @@
     "lodash": "^4.13.1",
     "mkdirp": "^0.5.1",
     "npmlog": "^4.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "postcss": "^5.2.12",
+    "postcss-prefix-selector": "^1.5.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

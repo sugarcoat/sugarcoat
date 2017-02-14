@@ -1,1 +1,4 @@
 <link rel="stylesheet" type="text/css" href="sugarcoat/css/sugarcoat.css">
+{{#each this.settings.prefix.assets}}
+  <link rel="stylesheet" type="text/css" href="{{ prefixed }}">
+{{/each}}

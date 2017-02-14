@@ -4,6 +4,8 @@ var path = require( 'path' );
 
 var _ = require( 'lodash' );
 var mkdirp = require( 'mkdirp' );
+var postcss = require( 'postcss' );
+var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
@@ -18,6 +20,7 @@ module.exports = function ( config ) {
     .then( readPartials )
     .then( registerPartials )
     .then( globPrefixAssets )
+    .then( prefixAssets )
     .then( copyAssets )
     .then( renderLayout )
     .catch( function ( err ) {
@@ -39,7 +42,7 @@ function globPartials( config ) {
         return config;
     }).catch( function ( err ) {
 
-        console.log(err.message);
+        console.log( err.message );
     });
 }
 
@@ -119,13 +122,49 @@ function globPrefixAssets( config ) {
     .then( function( files ) {
 
         config.settings.prefix.assets = _.flatten( files );
-
         return config;
     })
     .catch( function ( err ) {
 
-        console.log( err.message );
+        log.error( 'Glob Prefix Assets', err );
     });
+}
+
+function prefixAssets( config ) {
+
+    var files = config.settings.prefix.assets.map( function ( file ) {
+
+        file.prefixed = `sugarcoat/css/prefixed-${file.name}.css`;
+
+        fs.readFile( file.file, function ( err ,css ) {
+
+            postcss()
+                .use( prefixer({
+                    prefix: config.settings.prefix.selector
+                }))
+                .process( css )
+                .then( makeDirs( path.join( config.settings.dest, file.prefixed ) ))
+                .then( function ( result ) {
+
+                    fs.writeFile( path.join( config.settings.dest, file.prefixed ), result.css, function() {
+
+                        log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+                        return result;
+                    });
+                });
+        });
+    });
+
+    return Promise.all( files )
+        .then( function () {
+
+            return config;
+        })
+        .catch( function ( err ) {
+
+            log.error( 'Prefix Assets', err );
+            return err;
+        });
 }
 
 function copyAssets( config ) {
