@@ -48,7 +48,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
    You can customize what delimiters Sugarcoat uses. By default, Sugarcoat will parse a JSDoc-style comment block `/** ... */`: [Code Comment Syntax](#code-comment-syntax).
 
 4. Can I customize the default template that comes with Sugarcoat?
-   
+
    Absolutely. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
 
 5. How do you handle style bleed?
@@ -130,7 +130,7 @@ Options:
   ]
 }
 ```
-  
+
 ## `settings` Object ##
 
 This object holds general configuration values.
@@ -184,24 +184,24 @@ Optional: `true`
 Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
 ### `template.cwd` ###
- 
-Type: `String`  
-Optional: `true`  
+
+Type: `String`
+Optional: `true`
 Default: Sugarcoat's theme directory
 
-The base path to which all `template` paths are relative. 
+The base path to which all `template` paths are relative.
 
 ### `template.layout` ###
 
-Type: `String`  
-Optional: `true`  
+Type: `String`
+Optional: `true`
 Default: `main.hbs` (provided by Sugarcoat).
 
 Path (relative to `template.cwd`) to the Handlebars layout that will define the layout of the site.
 
 ### `template.partials` ###
 
-Type: [Standardized File Format](#standardized-file-format)  
+Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 
 A standardized file format of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
@@ -220,7 +220,7 @@ Type: `Array`
 Optional: `true`
 Default: `null`
 
-An array of directory (not file) paths (relative to ?) to the stylesheets (.css) you wish Sugarcoat to prefix with a selector (scope) and insert into the `head.hbs` partial. Note that Sugarcoat **will** modify all assets provided in this array.
+An array of directory (not file) paths (relative to [`settings.cwd`](#cwd)) to the stylesheets (.css) you wish Sugarcoat to prefix with a selector (scope) and insert into the `head.hbs` partial. Note that Sugarcoat **will** modify all assets provided in this array.
 
 ### `prefix.selector` ###
 
@@ -228,7 +228,7 @@ Type: `String`
 Optional: `true`
 Default: `.sugar-example`
 
-Defines the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector scope. 
+Defines the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector scope.
 
 **Advanced Example**
 
@@ -279,15 +279,15 @@ Contains an `Array` of [Section Objects](#section-object)
 
 #### `title` ####
 
-Type: `String`  
-Optional: `false`  
+Type: `String`
+Optional: `false`
 
 Title of section.
 
 #### `files` ####
 
-Type: [Standardized File Format](#standardized-file-format)  
-Optional: `false`  
+Type: [Standardized File Format](#standardized-file-format)
+Optional: `false`
 
 File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching. You can also specify a negation pattern by using the `!` symbol at the beginning of the path.
 
@@ -315,7 +315,7 @@ Provide multiple paths/patterns:
 
 ```js
 {
-  title: 'Multiple Files',  
+  title: 'Multiple Files',
   files: [
     'my/project/styles/global/*',
     'my/project/styles/components/feedback.scss',
@@ -369,9 +369,9 @@ If you'd like to parse a preprocessed stylesheet's variables, provide the `varia
 
 #### `template` ####
 
-Type: `String`  
-Optional: `true`  
-Default: depends on the value of `type`  
+Type: `String`
+Optional: `true`
+Default: depends on the value of `type`
 
 The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. Two alternate variable renderings are available: `section-color` and `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`settings.template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
 
@@ -386,11 +386,11 @@ The default partial is `section-default`, or `section-variable` when the `type` 
 
 ## Standardized File Format ##
 
-Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Object`, `Array`. 
+Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Object`, `Array`.
 
 ### `String` ###
 
-The `string` format is a string of path to a file or directory. 
+The `string` format is a string of path to a file or directory.
 
 **Example**
 ```js
@@ -413,7 +413,7 @@ files: {
 
 ### `Array` ###
 
-The `array` format can be composed of `strings` or `objects` (or a mix of both). Use the same format for [`string`](#string) and [`object`](#object) as stated above.  
+The `array` format can be composed of `strings` or `objects` (or a mix of both). Use the same format for [`string`](#string) and [`object`](#object) as stated above.
 
 **Example**
 ```js
@@ -443,7 +443,7 @@ Sugarcoat uses [comment-serializer](https://www.npmjs.com/package/comment-serial
 ```
 
 There are three reserved tag names that will notify comment-serializer to parse the value further, and output its results to `valueParsed`:
-  
+
   - **`@example`** Takes a single or multiline code example
 
   - **`@modifier`** Is used for a class modifier on a component. It takes the value and splits on the following word, separating the first word as the `type: modifier` and the following string as its `type: description` This modifier can contain any of the following characters: **`.-_`**
@@ -460,14 +460,14 @@ There are three reserved tag names that will notify comment-serializer to parse 
  *    <span class="tooltip-content">This is a tooltip</span>
  *  </div>
  * @modifier .active enabled class on .tooltip
- * @state :focus allows visual contrast for accessibility 
+ * @state :focus allows visual contrast for accessibility
  */
 ```
 
 **Example of a Comment Object**
 
 ```js
-{ 
+{
   line: 0,
   preface: ''
   source: '@title Tooltip\n@example\n <div class="tooltip">\n   <span class="tooltip-content">This is a tooltip</span>\n </div>\n@modifier .active enabled class on .tooltip',
@@ -563,21 +563,21 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
   source: '@title Some Component\n@description This component has an interesting description',
   context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n</div>',
   tags: [
-    { 
+    {
       line: 4,
       tag: 'title',
       value: 'Some Component',
       valueParsed: [],
       source: '@title Some Component'
     },
-    { 
+    {
       line: 5,
       tag: 'description',
       value: 'This component has an interesting description',
       valueParsed: [],
       source: '@description This component has an interesting description'
     },
-    { 
+    {
       line: 6,
       tag: 'dependencies',
       value: '/library/js/modules/some-component.js',
@@ -594,21 +594,21 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 Sugarcoat provides a default layout for your pattern library, rendering each parsed comment object with one of the following partials:
 
   - `section-default` Default rendering of a comment object.
-  
-  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value. 
-  
+
+  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value.
+
   - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
-  
+
   - `section-typography` Renders when `template: 'section-typography'` is provided - Fonts and variable names with their examples.
 
 
 Miscellaneous partials:
 
   - `nav` Outputs the main navigation - Lists `title` of each section object, nesting each comment object's `@title` tag. Used in the default `main.hbs` layout.
-  
+
   - `head` Outputs links to Sugarcoat's default stylesheets.
     - Roadmap: automatically add your project's css assets to the head partial. Currently, you have to add style files you want by manually replacing the head.hbs file.
-  
+
   - `footer` Outputs links to JavaScript files.
     - Roadmap: Add optional syntax highlighting in the footer partial
 
@@ -618,11 +618,11 @@ Miscellaneous partials:
 
 **Custom Layout**
 
-If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object. 
+If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object.
 
 **Custom Partials**
 
-To register your own partials, add a directory path to the `template.partials` array (relative to `template.cwd`) in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided. 
+To register your own partials, add a directory path to the `template.partials` array (relative to `template.cwd`) in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided.
 
 ### Reserved Partial Names ###
 

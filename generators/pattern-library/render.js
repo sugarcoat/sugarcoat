@@ -41,15 +41,14 @@ module.exports = function ( config ) {
 
 function globPartials( config ) {
 
-    return globAssets( config.settings.template.partials )
-    .then( function ( files ) {
-
-        config.settings.template.partials = _.flatten( files );
+    return globFiles( config.settings.template.partials )
+    .then( function ( partials ) {
+        config.settings.template.partials = _.flatten( partials );
 
         return config;
     }).catch( function ( err ) {
 
-        console.log( err.message );
+        log.error( 'Glob Partials', err );
     });
 }
 
@@ -125,10 +124,10 @@ function renderLayout( config ) {
 
 function globPrefixAssets( config ) {
 
-    return globAssets( config.settings.prefix.assets )
-    .then( function( files ) {
+    return globFiles( config.settings.prefix.assets )
+    .then( function( assets ) {
 
-        config.settings.prefix.assets = _.flatten( files );
+        config.settings.prefix.assets = _.flatten( assets );
         return config;
     })
     .catch( function ( err ) {
@@ -176,52 +175,51 @@ function prefixAssets( config ) {
 
 function copyAssets( config ) {
 
-    var flattened = []
-        , dest = config.settings.dest
-        , assets = config.settings.template.assets
-        ;
+    var flattened = [];
 
-    var expand = assets.map( function ( assetObj ) {
+    var expand = config.settings.template.assets.map( function ( asset ) {
 
         return globber({
-            src: path.join( assetObj.src, '**/*' ),
-            options: assetObj.options
+            src: asset.src,
+            options: asset.options
         })
-        .then( function ( expandedPaths ) {
+        .then( function ( files ) {
 
-            assetObj.srcFiles = expandedPaths;
+            asset.srcFiles = files;
 
-            return assetObj.srcFiles.map( function ( assetPath ) {
+            return asset.srcFiles.map( function( assetPath ) {
 
                 var result = {
-                    from: path.resolve( assetObj.options.cwd, assetPath ),
-                    to: path.resolve( dest, path.relative( assetObj.options.cwd, assetPath ) )
+                    from: path.resolve( asset.options.cwd, assetPath ),
+                    to: path.resolve( config.settings.dest, path.relative( asset.options.cwd, assetPath ) )
                 };
 
                 flattened.push( result );
 
                 return result;
-            });
+            })
         });
     });
 
     return Promise.all( expand )
-    .then( function () {
+    .then( function() {
 
-        return Promise.all( flattened.map( function ( assetObj ) {
+        return Promise.all( flattened.map( function( asset ) {
 
-            return copy( assetObj.from, assetObj.to )
+
+            return copy( asset.from, asset.to )
             .then( function ( assetPaths ) {
 
-                return log.info( 'Render', `asset copied: "${ path.relative( dest, assetPaths[1] ) }"` );
-            });
-        }));
+                return log.info( 'Render', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
+            })
+        }))
     })
-    .then( function () {
+    .then( function() {
         return config;
     })
     .catch( function ( err ) {
-        log.error( 'Render', err );
+
+        log.error( 'Copy Assets', err );
         return err;
     });
 }
@@ -300,28 +298,28 @@ function makeDirs( toPath ) {
     });
 }
 
-function globAssets( assetArray ) {
+function globFiles( files ) {
 
-    var assets = assetArray.map( function( dir ) {
+    var globArray = files.map( function( file ) {
 
         return globber({
-            src: [ path.join( dir.src, '**/*' ) ],
-            options: dir.options
+            src: file.src,
+            options: file.options
         })
         .then( function ( files ) {
 
             return files.reduce( function ( collection, filePath ) {
 
                 collection.push({
-                    cwd: dir.src,
+                    cwd: file.src,
                     file: filePath,
-                    name: path.relative( dir.src, filePath ).replace( path.parse( filePath).ext, '' )
+                    name: path.basename( filePath, path.parse( filePath ).ext )
                 });
 
                 return collection;
-            }, [] );
-        });
+            }, []);
+        })
     });
 
-    return Promise.all( assets );
+    return Promise.all( globArray );
 }

@@ -9,9 +9,9 @@ var log = require( '../../lib/logger' );
  * Default configuration values
  */
 var defaults = {};
-var defaultAssets = 'sugarcoat';
+var defaultAssets = 'sugarcoat/**/*';
 var cwdTemplates = path.join( __dirname, 'templates' );
-var defaultPartials = path.join( cwdTemplates, 'partials' );
+var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
 
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
@@ -78,6 +78,7 @@ function init( options ) {
 
     if ( !_.isEmpty( prefix.assets ) ) {
         prefix.assets = prefix.assets.map( function ( dirPath ) {
+
             return normalizeDirectory( dirPath, process.cwd() );
         });
     }
