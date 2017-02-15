@@ -15,7 +15,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 # Index #
 
-  - [Features](#features)
+  - [FAQ](#faq)
   - [Install](#install)
   - [Usage](#usage)
     - [Module](#module)
@@ -49,11 +49,12 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 4. Can I customize the default template that comes with Sugarcoat?
    
-   Absolutely. The [`layout`](#templatelayout) option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
+   Absolutely. The [`layout`](#templatelayout) option in the [`settings` Object](#settings-object) enables you to define your own layout. You can also define your own partials and static assets in the [`settings` Object](#settings-object) to include in your layout. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for any section.
 
 5. How do you handle style bleed?
 
-   For now, you'll need to prefix all your project style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector) to handle our prefixing. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+   For now, you'll need to prefix all of your Sugarcoat style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector) to handle our prefixing. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+
 
 # Install #
 
@@ -96,7 +97,7 @@ sugarcoat [flags] <configuration file>
 Options:
 
   -h, --help     output usage information
-  -o --output    Write output to process.stdout
+  -o, --output    Write output to stdout
   -V, --version  output the version number
 ```
 
@@ -163,7 +164,7 @@ This is the path to which the `dest` path is relative.
 ### `dest` ###
 
 Type: `String`
-Optional: `true`
+Optional: `false`
 Default: `null`
 
 Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
@@ -175,6 +176,8 @@ Optional: `true`
 Default: `null`
 
 Format the return value from the Sugarcoat `Promise`. By default, the expanded `config` object is returned. Options are `'json'` and `'html'`. The `'json'` option simply runs `JSON.stringify` on the expanded `config` object. This is useful when using the `--output` flag in the CLI.
+
+Format will allow you to change the return value from the Sugarcoat `Promise`. When used with the `--output` flag in the CLI, Sugarcoat will give you the format you selected(`'json'` or `'html'`) directly in your CLI. If you are running Sugarcoat as a module, the return value from the Sugarcoat `Promise` will be the format you selected(`'json'` or `'html'`). *Note: This is best when used with the CLI's `--output` flag.*
 
 ### `log` ###
 
@@ -197,12 +200,13 @@ Type: `String`
 Optional: `true`  
 Default: `main.hbs` (provided by Sugarcoat).
 
-Path (relative to `template.cwd`) to the Handlebars layout that will define the layout of the site.
+Path (relative to `template.cwd`, if provided) to the Handlebars layout that will define the layout of the site.
 
 ### `template.partials` ###
 
 Type: [Standardized File Format](#standardized-file-format)  
 Optional: `true`
+Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
 
 A standardized file format of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
 
@@ -266,7 +270,7 @@ Title of section.
 Type: [Standardized File Format](#standardized-file-format)  
 Optional: `false`  
 
-File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching. You can also specify a negation pattern by using the `!` symbol at the beginning of the path.
+File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
 
 **Examples**
 
@@ -300,6 +304,7 @@ Provide multiple paths/patterns:
   ]
 }
 ```
+*`!` negates the match*
 
 Provide an object in order to specify options to pass to [globby](https://www.npmjs.com/package/globby):
 
@@ -632,6 +637,7 @@ Navigate to the `./site` folder in your local copy of sugarcoat and run:
 - [x] Update github pages
 - [ ] Consume your style assets, prefix them, and place them into `head.hbs`
 - [ ] Syntax Highlighting
+- [ ] [Remove Format option from settings object](../../issues/32)
 
 
 ## v?.0.0 ##
