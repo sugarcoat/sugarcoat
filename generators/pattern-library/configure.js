@@ -75,7 +75,7 @@ function init( options ) {
     }
 
     // **** ASSETS (prefix) ****
-    
+
     if ( !_.isEmpty( prefix.assets ) ) {
         prefix.assets = prefix.assets.map( function ( dirPath ) {
             return normalizeDirectory( dirPath, process.cwd() );

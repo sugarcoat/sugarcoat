@@ -19,8 +19,15 @@ module.exports = function ( config ) {
     return globPartials( config )
     .then( readPartials )
     .then( registerPartials )
-    .then( globPrefixAssets )
-    .then( prefixAssets )
+    .then( function( config ) {
+
+        if ( config.settings.prefix.assets ) {
+
+            return globPrefixAssets( config )
+            .then( prefixAssets );
+        }
+        else return config;
+    })
     .then( copyAssets )
     .then( renderLayout )
     .catch( function ( err ) {
