@@ -26,8 +26,8 @@ config.parserOptions = {
 config.env = {
     'es6': true,
     'node': true,
-    'mocha': true
-    // 'browser': true
+    'mocha': true,
+    'browser': true
 };
 
 /**

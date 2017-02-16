@@ -81,10 +81,7 @@ Parser.prototype = {
             infoStrings = code.match(/(--.*:.*)/g);
         }
 
-        if ( !infoStrings ) {
-
-            return;
-        }
+        if ( !infoStrings ) return;
 
         infoStrings.forEach( function ( infoLine ) {
             /*
