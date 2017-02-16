@@ -1,4 +1,3 @@
-var util = require( 'util' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
@@ -22,9 +21,6 @@ defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
 defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
 
-/**
- *
- */
 function init( options ) {
 
     var addDefaultAssets = false
@@ -82,9 +78,9 @@ function init( options ) {
     template.partials = template.partials || [];
 
     // If partials is empty or falsy, then set our defaults
-    if( _.isArray( template.partials ) ) {
+    if ( _.isArray( template.partials ) ) {
 
-        //normalize the contents of the array
+        // normalize the contents of the array
         template.partials = template.partials.map( function ( dirPath ) {
 
             return normalizeDirectory( dirPath, template.cwd );
@@ -92,11 +88,11 @@ function init( options ) {
     }
     else {
 
-        //use new function on it
+        // use new function on it
         template.partials = [ normalizeDirectory( template.partials, template.cwd ) ];
     }
 
-    //then add defaults on
+    // then add defaults on
     template.partials.unshift( normalizeDirectory( defaultPartials, template.cwd ) );
 
 
@@ -118,7 +114,7 @@ function init( options ) {
     return config;
 }
 
-function normalizeDirectory ( dir, cwd ) {
+function normalizeDirectory( dir, cwd ) {
 
     var theDir = dir.src || dir;
 

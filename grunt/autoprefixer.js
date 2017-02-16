@@ -3,7 +3,7 @@
  *
  * See all options: https://github.com/nDmitry/grunt-postcss
  */
-module.exports = function( grunt ) {
+module.exports = function ( grunt ) {
 
     grunt.config( 'autoprefixer', {
         options: {
@@ -14,6 +14,6 @@ module.exports = function( grunt ) {
             src: '../generators/pattern-library/templates/sugarcoat/css/**/*.css'
         }
     });
-    
+
     grunt.loadNpmTasks( 'grunt-autoprefixer' );
 };
