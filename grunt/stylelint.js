@@ -4,7 +4,7 @@
  * See all options: https://github.com/wikimedia/grunt-stylelint
  * Based on: https://github.com/stylelint/stylelint/
  */
-module.exports = function ( grunt ) {
+module.exports = function( grunt ) {
 
     grunt.config( 'stylelint', {
         lint: {

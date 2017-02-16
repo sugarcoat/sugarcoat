@@ -587,7 +587,7 @@ body {
   /* line 17, ../styles/section-color/768.scss */
   .sugar-color-comment {
     width: calc(33% - 40px);
-    padding: 10px;
+    padding: 8px;
   }
 }
 /* line 1, ../styles/section-typography/defaults.scss */

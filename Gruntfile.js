@@ -15,9 +15,4 @@ module.exports = function ( grunt ) {
         'sass',
         'autoprefixer'
     ]);
-
-    grunt.registerTask( 'lint', 'Lint all files', [
-        'eslint',
-        'stylelint'
-    ]);
 };
