@@ -33,27 +33,35 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 ---
 
-# FAQ #
+# Features #
 
-1. What does it look like?
+1. Universal Comment Styles
 
-   A [Sample Site](https://sapientnitrola.github.io/sugarcoat/) and its accompanying [Pattern Library](https://sapientnitrola.github.io/sugarcoat/documentation/index.html). These pages can be found on your local copy by following a short series of steps: [Example Library](#example-library).
+  Use the same JSDoc commenting syntax across all file types. In HTML files, just wrap your comments in a standard HTML comment block. If you've got inline comments, Sugarcoat will ignore them.
 
-2. Which CSS variables can sugarcoat parse?
+2. Easy-to-identify component states
 
-   Sugarcoat is able to parse variables from less, SASS, and even future specs like CSS variables. Just set the `type` option to `variable` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
+  You can tell sugarcoat that there are modifier states in your css, right within your comment block! Sugarcoat will help highlight and display them for extra readability.
 
-3. What comment structure do I need to use?
+3. You decide where your library lives
 
-   You can customize what delimiters Sugarcoat uses. By default, Sugarcoat will parse a JSDoc-style comment block for all file types: [Code Comment Syntax](#code-comment-syntax). JS and CSS files will use the standard `/** ... */` comment, while HTML files will use the `<!-- ... -->` comment. 
+  Sugarcoat will never impose a folder structure on you. 
 
-4. Can I customize the default template that comes with Sugarcoat?
-   
-   Absolutely. The [`layout`](#templatelayout) option in the [`settings` Object](#settings-object) enables you to define your own layout. You can also define your own partials and static assets in the [`settings` Object](#settings-object) to include in your layout. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for any section.
+4. Prefixed Variables? No Problem.
 
-5. How do you handle style bleed?
+  Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: `--my-var`.
 
-   For now, you'll need to prefix all of your Sugarcoat style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector) to handle our prefixing. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+5. No Style Bleed
+
+  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. For now, you'll need to prefix all of your own Sugarcoat style selectors with `.sugar-example`. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+
+6. No weird comment deliminters
+
+  Sugarcoat will parse *all* comment blocks (not inline comments) in a specified file. But hey, if you like weird delimiters, you can customize those too!
+
+7. Customizable Templates
+
+  Sugarcoat allows you to define your own assets, templates and partials.
 
 
 # Install #
@@ -97,7 +105,7 @@ sugarcoat [flags] <configuration file>
 Options:
 
   -h, --help     output usage information
-  -o, --output    Write output to stdout
+  -o, --output    Write output to process.stdout
   -V, --version  output the version number
 ```
 
