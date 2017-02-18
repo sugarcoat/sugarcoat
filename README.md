@@ -35,31 +35,35 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 # Features #
 
-1. Universal Comment Styles
+1. You decide where your library lives
 
-  Use the same JSDoc commenting syntax across all file types. In HTML files, just wrap your comments in a standard HTML comment block. If you've got inline comments, Sugarcoat will ignore them.
+  Sugarcoat will never impose a folder structure on you.
 
-2. Easy-to-identify component states
+2. No extra work
+
+  You don't have to create any extra files outside of your files for your pattern library. Just create your config and document your project files as you normally would.
+
+3. Universal Comment Styles
+
+  Use the same JSDoc commenting syntax across all file types. Just be sure to wrap your comments in a standard HTML comment block in your html files. And if you've got inline comments, Sugarcoat will ignore them.
+
+4. Easy-to-identify component states
 
   You can tell sugarcoat that there are modifier states in your css, right within your comment block! Sugarcoat will help highlight and display them for extra readability.
 
-3. You decide where your library lives
-
-  Sugarcoat will never impose a folder structure on you. 
-
-4. Prefixed Variables? No Problem.
+5. Variables Galore
 
   Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: `--my-var`.
 
-5. No Style Bleed
+6. No Style Bleed
 
   The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. For now, you'll need to prefix all of your own Sugarcoat style selectors with `.sugar-example`. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
 
-6. No weird comment deliminters
+7. No weird comment deliminters
 
   Sugarcoat will parse *all* comment blocks (not inline comments) in a specified file. But hey, if you like weird delimiters, you can customize those too!
 
-7. Customizable Templates
+8. Customizable Templates
 
   Sugarcoat allows you to define your own assets, templates and partials.
 
@@ -183,8 +187,6 @@ Type: `String`
 Optional: `true`
 Default: `null`
 
-Format the return value from the Sugarcoat `Promise`. By default, the expanded `config` object is returned. Options are `'json'` and `'html'`. The `'json'` option simply runs `JSON.stringify` on the expanded `config` object. This is useful when using the `--output` flag in the CLI.
-
 Format will allow you to change the return value from the Sugarcoat `Promise`. When used with the `--output` flag in the CLI, Sugarcoat will give you the format you selected(`'json'` or `'html'`) directly in your CLI. If you are running Sugarcoat as a module, the return value from the Sugarcoat `Promise` will be the format you selected(`'json'` or `'html'`). *Note: This is best when used with the CLI's `--output` flag.*
 
 ### `log` ###
@@ -229,7 +231,7 @@ An array of directory (not file) paths (relative to `template.cwd`) to the stati
 **Advanced Example**
 
 ```js
-{
+module.exports = {
   settings: {
     dest: 'my/project/pattern-library',
     template: {
@@ -240,11 +242,13 @@ An array of directory (not file) paths (relative to `template.cwd`) to the stati
           src: 'my-partials',
           options: {
             nodir: false
+          }
         },
         {
           src: 'my-other-partials',
           options: {
             nodir: false
+          }
         }
       ],
       assets: [
@@ -268,15 +272,15 @@ Contains an `Array` of [Section Objects](#section-object)
 
 #### `title` ####
 
-Type: `String`  
-Optional: `false`  
+Type: `String`
+Optional: `false`
 
 Title of section.
 
 #### `files` ####
 
-Type: [Standardized File Format](#standardized-file-format)  
-Optional: `false`  
+Type: [Standardized File Format](#standardized-file-format)
+Optional: `false`
 
 File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
 
@@ -304,7 +308,7 @@ Provide multiple paths/patterns:
 
 ```js
 {
-  title: 'Multiple Files',  
+  title: 'Multiple Files',
   files: [
     'my/project/styles/global/*',
     'my/project/styles/components/feedback.scss',
@@ -359,9 +363,9 @@ If you'd like to parse a preprocessed stylesheet's variables, provide the `varia
 
 #### `template` ####
 
-Type: `String`  
-Optional: `true`  
-Default: depends on the value of `type`  
+Type: `String`
+Optional: `true`
+Default: depends on the value of `type`
 
 The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. Two alternate variable renderings are available: `section-color` and `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`settings.template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
 
@@ -433,7 +437,7 @@ Sugarcoat uses [comment-serializer](https://www.npmjs.com/package/comment-serial
 ```
 
 There are three reserved tag names that will notify comment-serializer to parse the value further, and output its results to `valueParsed`:
-  
+
   - **`@example`** Takes a single or multiline code example
 
   - **`@modifier`** Is used for a class modifier on a component. It takes the value and splits on the following word, separating the first word as the `type: modifier` and the following string as its `type: description` This modifier can contain any of the following characters: **`.-_`**
@@ -457,7 +461,7 @@ There are three reserved tag names that will notify comment-serializer to parse 
 **Example of a Comment Object**
 
 ```js
-{ 
+{
   line: 0,
   preface: ''
   source: '@title Tooltip\n@example\n <div class="tooltip">\n   <span class="tooltip-content">This is a tooltip</span>\n </div>\n@modifier .active enabled class on .tooltip',
@@ -553,21 +557,21 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
   source: '@title Some Component\n@description This component has an interesting description',
   context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n</div>',
   tags: [
-    { 
+    {
       line: 4,
       tag: 'title',
       value: 'Some Component',
       valueParsed: [],
       source: '@title Some Component'
     },
-    { 
+    {
       line: 5,
       tag: 'description',
       value: 'This component has an interesting description',
       valueParsed: [],
       source: '@description This component has an interesting description'
     },
-    { 
+    {
       line: 6,
       tag: 'dependencies',
       value: '/library/js/modules/some-component.js',
@@ -584,21 +588,21 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 Sugarcoat provides a default layout for your pattern library, rendering each parsed comment object with one of the following partials:
 
   - `section-default` Default rendering of a comment object.
-  
+
   - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value. 
-  
+
   - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
-  
+
   - `section-typography` Renders when `template: 'section-typography'` is provided - Fonts and variable names with their examples.
 
 
 Miscellaneous partials:
 
   - `nav` Outputs the main navigation - Lists `title` of each section object, nesting each comment object's `@title` tag. Used in the default `main.hbs` layout.
-  
+
   - `head` Outputs links to Sugarcoat's default stylesheets.
     - Roadmap: automatically add your project's css assets to the head partial. Currently, you have to add style files you want by manually replacing the head.hbs file.
-  
+
   - `footer` Outputs links to JavaScript files.
     - Roadmap: Add optional syntax highlighting in the footer partial
 
@@ -608,7 +612,7 @@ Miscellaneous partials:
 
 **Custom Layout**
 
-If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object. 
+If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object.
 
 **Custom Partials**
 
