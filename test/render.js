@@ -17,6 +17,8 @@ var sugarcoat = require( '../index' );
 // suite( 'Render: renderLayout', function() {});
 suite( 'Render', function() {
 
+    var config;
+
     setup( function () {
         //.designated-prefix
         config = {
@@ -36,28 +38,37 @@ suite( 'Render', function() {
                 }
             ]
         }
-        // render = render( config );
-        // sugarcoat( config );
+
+        // sugarcoat( config )
+        // .then( function(){ done(); });
     });
 
-    test( 'Assets are prefixed as .sugar-example by default and the filename is prefixed with "prefixed-"', function() {
+    test( 'Assets are prefixed as .sugar-example by default and the filename is prefixed with "prefixed-"', function( done ) {
 
+        var setupFiles = [
+            {
+                fileName: './test/assert/prefixAssets-assert.css'
+            },
+            {
+                fileName: './test/assert/prefixAssets-assert.css'
+            }
+        ];
 
-        return sugarcoat( config )
-        .then( function( result ) {
-
-            fs.readFile( './test/assert/prefixAssets-assert.css', 'utf-8', function( err, data ) {
-                console.log( data );
-
-                if ( err ) {
-                    return false;
-                }
-                else {
+        sugarcoat( config ) //works
+        .then( function() {
+            return new Promise( function( resolve, reject ) {
+                return fs.readFile( setupFiles[ 0 ].fileName, 'utf-8', function( err, data ) {
                     console.log( data );
-                    return data;
-                }
-            });
+                    resolve( data );
+                });
+            })
+        })
+        .then( function() { //works
+            console.log( 'oh' );
+            assert.equal( true, true, 'its true');
+            done();
         });
+
     });
 });
 // suite( 'Render: prefixAssets', function() {});
