@@ -49,7 +49,8 @@ config.extends = [];
 
 config.globals = {
     'define': true,
-    'SNR': true
+    'SNR': true,
+    'log': true
 };
 /**
  * Rules
