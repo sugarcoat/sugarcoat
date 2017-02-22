@@ -15,7 +15,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 # Index #
 
-  - [FAQ](#faq)
+  - [Features](#features)
   - [Install](#install)
   - [Usage](#usage)
     - [Module](#module)
@@ -27,7 +27,6 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
   - [Code Comment Syntax](#code-comment-syntax)
   - [Templating](#templating)
     - [Custom Templating](#custom-templating)
-  - [Example Library](#example-library)
   - [Roadmap](#roadmap)
 
 
@@ -35,37 +34,29 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 # Features #
 
-1. You decide where your library lives
+1. Lives in your project seamlessly
 
-  Sugarcoat will never impose a folder structure on you.
+  Sugarcoat will never dictate your project. It will never force a file/project structure, nor will it ever make you have to create extra files for it to work. Sugarcoat will live within your project seamlessly.
 
-2. No extra work
+2. [Universal Comment Styles](#code-comment-syntax)
 
-  You don't have to create any extra files outside of your files for your pattern library. Just create your config and document your project files as you normally would.
+  Sugarcoat will parse *all* comment blocks in the file(s) you specify, excluding inline comments. You can use the same JSDoc commenting syntax across all file types. But if you don't want to use JSDoc syntax, you can specify your own delimiters.
 
-3. Universal Comment Styles
-
-  Use the same JSDoc commenting syntax across all file types. Just be sure to wrap your comments in a standard HTML comment block in your html files. And if you've got inline comments, Sugarcoat will ignore them.
-
-4. Easy-to-identify component states
+3. [Easy-to-identify component states](#code-comment-syntax)
 
   You can tell sugarcoat that there are modifier states in your css, right within your comment block! Sugarcoat will help highlight and display them for extra readability.
 
-5. Variables Galore
+4. [Variables Galore](#type)
 
   Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: `--my-var`.
 
-6. No Style Bleed
+5. No Style Bleed
 
   The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. For now, you'll need to prefix all of your own Sugarcoat style selectors with `.sugar-example`. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
 
-7. No weird comment deliminters
+6. [Customizable Templates](#custom-templating)
 
-  Sugarcoat will parse *all* comment blocks (not inline comments) in a specified file. But hey, if you like weird delimiters, you can customize those too!
-
-8. Customizable Templates
-
-  Sugarcoat allows you to define your own assets, templates and partials.
+  Sugarcoat allows you to define your own templates, partials and assets.
 
 
 # Install #
@@ -187,7 +178,7 @@ Type: `String`
 Optional: `true`
 Default: `null`
 
-Format will allow you to change the return value from the Sugarcoat `Promise`. When used with the `--output` flag in the CLI, Sugarcoat will give you the format you selected(`'json'` or `'html'`) directly in your CLI. If you are running Sugarcoat as a module, the return value from the Sugarcoat `Promise` will be the format you selected(`'json'` or `'html'`). *Note: This is best when used with the CLI's `--output` flag.*
+Format will allow you to change the return value from Sugarcoat's `Promise`. The two options are `'json'` or `'html'`. When used with the `--output` flag in the CLI, Sugarcoat will return the format you selected directly in your CLI. If you are running Sugarcoat as a module, the return value from the `Promise` will be the selected format. *Note: This is best when used with the CLI's `--output` flag.*
 
 ### `log` ###
 
@@ -316,7 +307,6 @@ Provide multiple paths/patterns:
   ]
 }
 ```
-*`!` negates the match*
 
 Provide an object in order to specify options to pass to [globby](https://www.npmjs.com/package/globby):
 
@@ -627,14 +617,6 @@ To register your own partials, add a directory path to the `template.partials` a
   - section-typography
   - section-variable
   - section-default
-
-# Example Library #
-
-Navigate to the `./site` folder in your local copy of sugarcoat and run:
-
-    npm i
-    grunt css
-    sugarcoat documentation/config.js
 
 
 # Roadmap #
