@@ -1,6 +1,5 @@
 var assert = require( 'chai' ).assert;
 var fs = require( 'fs-extra' );
-var fsp = require( 'fs-promise' );
 
 var sugarcoat = require( '../index' );
 
