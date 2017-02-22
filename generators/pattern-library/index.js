@@ -31,7 +31,8 @@ function init( config ) {
 
         log.info( 'Finished!' );
 
-        return output( html, config );
+        return html;
+
     })
     .catch( function ( err ) {
         log.error( err );
@@ -100,23 +101,4 @@ function parseSections( config ) {
     });
 
     return config;
-}
-
-function output( html, config ) {
-
-    var type = config.settings.format
-        , result = config
-        ;
-
-    if ( type === 'json' ) {
-
-        result = JSON.stringify( result );
-
-    }
-    else if ( type === 'html' ) {
-
-        result = html;
-    }
-
-    return result;
 }

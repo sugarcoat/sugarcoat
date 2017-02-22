@@ -15,7 +15,6 @@ var defaultPartials = path.join( cwdTemplates, 'partials' );
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
 defaults.settings.dest = null;
-defaults.settings.format = null;
 
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();

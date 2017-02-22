@@ -10,7 +10,7 @@ var patternLib = require( '../index' );
 
 program
     .usage( '[flags] <configuration file>' )
-    .option( '-o --output', 'Write output to process.stdout' )
+    .option( '--json', 'Convert html to JSON and write to process.stdout' )
     .description( pkg.description )
     .version( pkg.version )
     .parse( process.argv );
@@ -23,8 +23,14 @@ else {
 
     var config = require( path.join( process.cwd(), program.args[0] ) );
 
+    // If we run with --json flag, we need to stop sugarcoat from creating an HTML file
+
     patternLib( config ).then( function ( data ) {
 
-        if ( program.output && config.settings.format ) process.stdout.write( data );
+        if ( program.json ) {
+
+            data = JSON.stringify( data );
+            process.stdout.write( data );
+        }
     });
 }
