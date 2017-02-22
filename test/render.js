@@ -39,35 +39,17 @@ suite( 'Render', function() {
         };
 
         var setupFiles = [
-            {
-                fileName: './test/assert/prefixAssets-assertDefault.css'
-            },
-            {
-                fileName: './test/sugarcoat/sugarcoat/css/prefixed-prefixAssets.css'
-            }
+            './test/assert/prefixAssets-assertDefault.css',
+            './test/sugarcoat/sugarcoat/css/prefixed-prefixAssets.css'
         ];
-
-        function promiseAssets() {
-
-            return Promise.all( setupFiles.map( function( asset ) {
-
-                return new Promise( function( resolve, reject ) {
-
-                    fs.readFile( asset.fileName, 'utf-8', function( err, data ) {
-
-                        asset.data = data;
-                        resolve();
-                    });
-                });
-            }));
-        };
 
         sugarcoat( config )
         .then( function() {
 
-            return promiseAssets()
+            return Promise.all( setupFiles.map( readFile ))
             .then( function( assets ) {
-                assert.equal( setupFiles[ 0 ].data, setupFiles[ 1 ].data, 'prefixAssets-assertDefault.css matches');
+
+                assert.equal( assets[ 0 ], assets[ 1 ], 'prefixAssets-assertDefault.css matches');
                 done();
             });
         });
@@ -94,35 +76,16 @@ suite( 'Render', function() {
         };
 
         var setupFiles = [
-            {
-                fileName: './test/assert/prefixAssets-assert.css'
-            },
-            {
-                fileName: './test/sugarcoat/sugarcoat/css/prefixed-prefixAssets.css'
-            }
+            './test/assert/prefixAssets-assert.css',
+            './test/sugarcoat/sugarcoat/css/prefixed-prefixAssets.css'
         ];
-
-        function promiseAssets() {
-
-            return Promise.all( setupFiles.map( function( asset ) {
-
-                return new Promise( function( resolve, reject ) {
-
-                    fs.readFile( asset.fileName, 'utf-8', function( err, data ) {
-
-                        asset.data = data;
-                        resolve();
-                    });
-                });
-            }));
-        };
 
         sugarcoat( config )
         .then( function() {
 
-            return promiseAssets()
+            return Promise.all( setupFiles.map( readFile ))
             .then( function( assets ) {
-                assert.equal( setupFiles[ 0 ].data, setupFiles[ 1 ].data, 'prefixAssets-assert.css matches');
+                assert.equal( assets[ 0 ], assets[ 1 ], 'prefixAssets-assert.css matches');
                 done();
             });
         });
@@ -140,3 +103,16 @@ suite( 'Render', function() {
 });
 // suite( 'Render: prefixAssets', function() {});
 // suite( 'Render: copyAssets', function() {});
+
+function readFile( file ) {
+
+    return new Promise( function( resolve, reject ) {
+
+        fs.readFile( file, 'utf8', function( err, data ) {
+
+            if ( err ) return reject( err );
+
+            return resolve( data );
+        });
+    });
+}

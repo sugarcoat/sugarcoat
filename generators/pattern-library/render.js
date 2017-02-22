@@ -206,7 +206,6 @@ function copyAssets( config ) {
 
         return Promise.all( flattened.map( function( asset ) {
 
-
             return copy( asset.from, asset.to )
             .then( function ( assetPaths ) {
 
