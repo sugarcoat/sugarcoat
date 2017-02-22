@@ -5,6 +5,8 @@
   "dependencies": {
     "commander": "^2.9.0",
     "comment-serializer": "^0.2.3",
+    "fs-extra": "^2.0.0",
+    "fs-promise": "^2.0.0",
     "globby": "^5.0.0",
     "handlebars": "^4.0.5",
     "lodash": "^4.13.1",

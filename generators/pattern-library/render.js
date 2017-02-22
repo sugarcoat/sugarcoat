@@ -3,6 +3,7 @@ var util = require( 'util' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
+var fsp = require( 'fs-promise' );
 var mkdirp = require( 'mkdirp' );
 var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
@@ -145,19 +146,18 @@ function prefixAssets( config ) {
         fs.readFile( file.file, function ( err ,css ) {
 
             postcss()
-                .use( prefixer({
-                    prefix: config.settings.prefix.selector
-                }))
-                .process( css )
-                .then( makeDirs( path.join( config.settings.dest, file.prefixed ) ))
-                .then( function ( result ) {
+            .use( prefixer({
+                prefix: config.settings.prefix.selector
+            }))
+            .process( css )
+            .then( function ( result ) {
+                return writeFile( path.join( config.settings.dest, file.prefixed ), result.css )
+            })
+            .then( function ( result ) {
 
-                    fs.writeFile( path.join( config.settings.dest, file.prefixed ), result.css, function() {
-
-                        log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
-                        return result;
-                    });
-                });
+                log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+                return result;
+            });
         });
     });
 
