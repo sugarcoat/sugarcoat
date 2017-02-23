@@ -64,13 +64,13 @@ function readSections( config ) {
         return Promise.all( section.files.map( function ( file ) {
             return fsp.readFile( file );
         }))
-        .then( function( resolvedSections ) {
+        .then( ( resolvedSections ) => {
             return section.files.map( ( file, index ) => {
                 section.files[ index ] = {
                     path: file,
                     ext: path.parse( file ).ext.substring( 1 ),
                     src: resolvedSections[ index ]
-                }
+                };
             });
         });
     });

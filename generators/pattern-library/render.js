@@ -1,4 +1,3 @@
-var fs = require( 'fs' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
@@ -18,7 +17,7 @@ module.exports = function ( config ) {
     return globPartials( config )
     .then( readPartials )
     .then( registerPartials )
-    .then( function( config ) {
+    .then( config => {
 
         if ( config.settings.prefix.assets ) {
 
@@ -108,7 +107,7 @@ function renderLayout( config ) {
             ;
 
         return fsp.writeFile( file, html )
-        .then( function() {
+        .then( () => {
 
             log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
@@ -125,12 +124,12 @@ function renderLayout( config ) {
 function globPrefixAssets( config ) {
 
     return globFiles( config.settings.prefix.assets )
-    .then( function( assets ) {
-
+    .then( assets => {
         config.settings.prefix.assets = _.flatten( assets );
+
         return config;
     })
-    .catch( function ( err ) {
+    .catch( err => {
 
         log.error( 'Glob Prefix Assets', err );
     });
@@ -152,22 +151,22 @@ function prefixAssets( config ) {
             .process( data )
             .then( result => {
 
-                return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css )
+                return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css );
             })
             .then( result => {
-
                 log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+
                 return result;
             });
         });
     }))
-    .then( function ( data ) {
+    .then( () => {
 
         return config;
     })
-    .catch( function ( err ) {
-
+    .catch( ( err ) => {
         log.error( 'Prefix Assets', err );
+
         return err;
     });
 }
@@ -186,7 +185,7 @@ function copyAssets( config ) {
 
             asset.srcFiles = files;
 
-            return asset.srcFiles.map( function( assetPath ) {
+            return asset.srcFiles.map( assetPath => {
 
                 var result = {
                     from: path.resolve( asset.options.cwd, assetPath ),
@@ -196,28 +195,29 @@ function copyAssets( config ) {
                 flattened.push( result );
 
                 return result;
-            })
+            });
         });
     });
 
     return Promise.all( expand )
-    .then( function() {
+    .then( () => {
 
-        return Promise.all( flattened.map( function( asset ) {
+        return Promise.all( flattened.map( asset => {
 
             return fsp.copy( asset.from, asset.to )
-            .then( function ( assetPaths ) {
+            .then( assetPaths => {
 
                 return log.info( 'Render', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
-            })
-        }))
+            });
+        }));
     })
-    .then( function() {
+    .then( () => {
+
         return config;
     })
     .catch( function ( err ) {
-
         log.error( 'Copy Assets', err );
+
         return err;
     });
 }
@@ -227,7 +227,7 @@ function copyAssets( config ) {
 */
 function globFiles( files ) {
 
-    var globArray = files.map( function( file ) {
+    var globArray = files.map( file => {
 
         return globber({
             src: file.src,
@@ -245,7 +245,7 @@ function globFiles( files ) {
 
                 return collection;
             }, []);
-        })
+        });
     });
 
     return Promise.all( globArray );

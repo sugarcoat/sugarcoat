@@ -24,9 +24,6 @@ defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
 defaults.settings.prefix = {};
 defaults.settings.prefix.selector = '.sugar-example';
 
-/**
- *
- */
 function init( options ) {
 
     var addDefaultAssets = false
