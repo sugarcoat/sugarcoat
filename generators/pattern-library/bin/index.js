@@ -22,12 +22,13 @@ if ( !program.args.length ) {
 else {
 
     var config = require( path.join( process.cwd(), program.args[0] ) );
+    var json = false;
 
-    // If we run with --json flag, we need to stop sugarcoat from creating an HTML file
+    if ( program.json ) json = true;
 
-    patternLib( config ).then( function ( data ) {
+    patternLib( config, json ).then( function ( data ) {
 
-        if ( program.json ) {
+        if ( json ) {
 
             data = JSON.stringify( data );
             process.stdout.write( data );

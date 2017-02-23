@@ -6,13 +6,14 @@ var render = require( './render' );
 var log = require( '../../lib/logger' );
 var configure = require( './configure' );
 var globber = require( '../../lib/globber' );
+var templater = require( './templater' );
 
 /**
  *
  */
 module.exports = init;
 
-function init( config ) {
+function init( config, json ) {
 
     config = configure( config );
 
@@ -23,20 +24,44 @@ function init( config ) {
         return Promise.reject();
     }
 
-    return globFiles( config )
-    .then( readSections )
-    .then( parseSections )
-    .then( render )
-    .then( function ( html ) {
+    if ( json ) {
 
-        log.info( 'Finished!' );
+        return globFiles( config )
+        .then( readSections )
+        .then( parseSections )
+        .then( templater )
+        // .then( render )
+        .then( function ( html ) {
 
-        return html;
+            log.info( 'Finished!' );
 
-    })
-    .catch( function ( err ) {
-        log.error( err );
-    });
+            return html;
+
+        })
+        .catch( function ( err ) {
+            log.error( err );
+        });
+
+    }
+    else {
+
+        return globFiles( config )
+        .then( readSections )
+        .then( parseSections )
+        .then( templater )
+        .then( render )
+        .then( function ( html ) {
+
+            log.info( 'Finished!' );
+
+            return html;
+
+        })
+        .catch( function ( err ) {
+            log.error( err );
+        });
+    }
+
 }
 
 function globFiles( config ) {
