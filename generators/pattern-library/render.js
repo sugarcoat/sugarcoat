@@ -1,5 +1,4 @@
 var fs = require( 'fs' );
-var util = require( 'util' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
@@ -71,7 +70,7 @@ function readPartials( config ) {
 
 function registerPartials( config ) {
 
-    config.settings.template.partials.forEach( function( partial ) {
+    config.settings.template.partials.forEach( function ( partial ) {
 
         var isOverride = !!Handlebars.partials[ partial.name ]
             , msgNormal = `partial registered: "${partial.name}"`
@@ -118,6 +117,7 @@ function renderLayout( config ) {
     })
     .catch( function ( err ) {
         log.error( 'Render', err );
+
         return err;
     });
 }

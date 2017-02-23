@@ -17,9 +17,12 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^3.13.1",
+    "eslint-plugin-requirejs": "^3.1.1",
     "grunt": "^1.0.1",
     "grunt-autoprefixer": "^3.0.3",
     "grunt-contrib-sass": "^1.0.0",
+    "grunt-eslint": "^19.0.0",
     "grunt-postcss": "^0.8.0",
     "grunt-stylelint": "^0.6.0",
     "mocha": "^3.0.2"

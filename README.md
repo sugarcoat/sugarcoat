@@ -27,7 +27,6 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
   - [Code Comment Syntax](#code-comment-syntax)
   - [Templating](#templating)
     - [Custom Templating](#custom-templating)
-  - [Example Library](#example-library)
   - [Roadmap](#roadmap)
 
 
@@ -35,25 +34,30 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 # Features #
 
-1. What does it look like?
+1. Lives in your project seamlessly
 
-   A [Sample Site](https://sapientnitrola.github.io/sugarcoat/) and its accompanying [Pattern Library](https://sapientnitrola.github.io/sugarcoat/documentation/index.html). These pages can be found on your local copy by following a short series of steps: [Example Library](#example-library).
+  Sugarcoat will never dictate your project. It will never force a file/project structure, nor will it ever make you have to create extra files for it to work. Sugarcoat will live within your project seamlessly.
 
-2. Can you parse css-preprocessor variables?
+2. [Universal Comment Styles](#code-comment-syntax)
 
-   Yes, we're able to grab the variables from less, SASS, or regular CSS files. Just set the `type` option to `variable` in the appropriate `section` object within the `sections` array. See [`section.type`](#type) for more information.
+  Sugarcoat will parse *all* comment blocks in the file(s) you specify, excluding inline comments. You can use the same JSDoc commenting syntax across all file types. But if you don't want to use JSDoc syntax, you can specify your own delimiters.
 
-3. What comment structure do I need to use?
+3. [Easy-to-identify component states](#code-comment-syntax)
 
-   You can customize what delimiters Sugarcoat uses. By default, Sugarcoat will parse a JSDoc-style comment block `/** ... */`: [Code Comment Syntax](#code-comment-syntax).
+  You can tell sugarcoat that there are modifier states in your css, right within your comment block! Sugarcoat will help highlight and display them for extra readability.
 
-4. Can I customize the default template that comes with Sugarcoat?
+4. [Variables Galore](#type)
 
-   Absolutely. The `template` option in the [`settings` Object](#settings-object) enables you to define your own layout, partials and static assets. Once those are set, you can use the [`template`](#template) option in the [`section` Object](#section-object) which allows you to override the partial for a particular section.
+  Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: `--my-var`.
 
-5. How do you handle style bleed?
+5. No Style Bleed
 
-   For now, you'll need to prefix all your project style selectors with `.sugar-example`. In the example project, we're using [postcss-prefix-selector](https://github.com/jonathanong/postcss-prefix-selector) to handle our prefixing. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. For now, you'll need to prefix all of your own Sugarcoat style selectors with `.sugar-example`. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+
+6. [Customizable Templates](#custom-templating)
+
+  Sugarcoat allows you to define your own templates, partials and assets.
+
 
 # Install #
 
@@ -96,7 +100,7 @@ sugarcoat [flags] <configuration file>
 Options:
 
   -h, --help     output usage information
-  -o --output    Write output to process.stdout
+  -o, --output    Write output to process.stdout
   -V, --version  output the version number
 ```
 
@@ -163,7 +167,7 @@ This is the path to which the `dest` path is relative.
 ### `dest` ###
 
 Type: `String`
-Optional: `true`
+Optional: `false`
 Default: `null`
 
 Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
@@ -174,7 +178,7 @@ Type: `String`
 Optional: `true`
 Default: `null`
 
-Format the return value from the Sugarcoat `Promise`. By default, the expanded `config` object is returned. Options are `'json'` and `'html'`. The `'json'` option simply runs `JSON.stringify` on the expanded `config` object. This is useful when using the `--output` flag in the CLI.
+Format will allow you to change the return value from Sugarcoat's `Promise`. The two options are `'json'` or `'html'`. When used with the `--output` flag in the CLI, Sugarcoat will return the format you selected directly in your CLI. If you are running Sugarcoat as a module, the return value from the `Promise` will be the selected format. *Note: This is best when used with the CLI's `--output` flag.*
 
 ### `log` ###
 
@@ -197,12 +201,13 @@ Type: `String`
 Optional: `true`
 Default: `main.hbs` (provided by Sugarcoat).
 
-Path (relative to `template.cwd`) to the Handlebars layout that will define the layout of the site.
+Path (relative to `template.cwd`, if provided) to the Handlebars layout that will define the layout of the site.
 
 ### `template.partials` ###
 
 Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
+Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
 
 A standardized file format of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
 
@@ -256,6 +261,7 @@ module.exports = {
       assets: [
         'sugarcoat',
         'js',
+        'styles',
         'images'
       ]
     },
@@ -289,7 +295,7 @@ Title of section.
 Type: [Standardized File Format](#standardized-file-format)
 Optional: `false`
 
-File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching. You can also specify a negation pattern by using the `!` symbol at the beginning of the path.
+File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
 
 **Examples**
 
@@ -595,7 +601,7 @@ Sugarcoat provides a default layout for your pattern library, rendering each par
 
   - `section-default` Default rendering of a comment object.
 
-  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value.
+  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value. 
 
   - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
 
@@ -634,14 +640,6 @@ To register your own partials, add a directory path to the `template.partials` a
   - section-variable
   - section-default
 
-# Example Library #
-
-Navigate to the `./site` folder in your local copy of sugarcoat and run:
-
-    npm i
-    grunt css
-    sugarcoat documentation/config.js
-
 
 # Roadmap #
 
@@ -655,6 +653,7 @@ Navigate to the `./site` folder in your local copy of sugarcoat and run:
 - [x] Update github pages
 - [ ] [Consume your style assets, prefix them, and place them into `head.hbs`](/../../issues/25)
 - [ ] Syntax Highlighting
+- [ ] [Remove Format option from settings object](../../issues/32)
 
 
 ## v?.0.0 ##

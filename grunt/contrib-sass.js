@@ -3,7 +3,7 @@
  *
  * See all options: https://github.com/gruntjs/grunt-contrib-sass
  */
-module.exports = function( grunt ) {
+module.exports = function ( grunt ) {
 
     grunt.config( 'sass', {
         dist: {
@@ -24,7 +24,7 @@ module.exports = function( grunt ) {
                     ext: '.css'
                 }
             ],
-            rename: function( dest, src ) {
+            rename: function ( dest, src ) {
 
                 var path = require( 'path' )
                     , splitDirs = src.split( '/' )

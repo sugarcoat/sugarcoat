@@ -3,7 +3,6 @@
 /**
  * Command line interface for Sugarcoat.
  */
-var util = require( 'util' );
 var path = require( 'path' );
 var program = require( 'commander' );
 var pkg = require( '../../../package.json' );
