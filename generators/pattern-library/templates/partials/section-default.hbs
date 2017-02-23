@@ -6,27 +6,27 @@
  */
 -->
 
-<section id="{{toID title}}" class="sugar-section-default">
+<section id="{{toID title}}" class="sugar-section sugar-section-default">
   <div class="sugar-section-wrapper">
-    <h2><a href="#{{toID title}}">{{ title }}</a></h2>
+    <h2 class="sugar-h2"><a href="#{{toID title}}">{{ title }}</a></h2>
 
     {{~#each files as |file| }}
       {{#each file.data as |data| }}
-      
+
         <div id="{{toID file.path @index}}" class="sugar-component">
-                                
+
           {{> block-title data=data}}
-        
+
           {{> preview file=file}}
-        
+
           {{> tag-details file=file}}
-        
+
           {{> file-path file=file}}
-      
+
         </div>
-      
+
       {{/each}}
     {{~/each}}
-    
+
   </div>
 </section>
