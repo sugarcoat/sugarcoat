@@ -3,8 +3,6 @@ var util = require( 'util' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
-var fsp = require( 'fs-promise' );
-var mkdirp = require( 'mkdirp' );
 var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
@@ -12,6 +10,7 @@ var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
+var fsp = require( '../../lib/fs-promiser' );
 
 module.exports = function ( config ) {
 
@@ -57,7 +56,7 @@ function readPartials( config ) {
 
     var partials = config.settings.template.partials.map( function ( fileObj ) {
 
-        return readFile( fileObj.file )
+        return fsp.readFile( fileObj.file )
         .then( function ( data ) {
 
             return fileObj.src = data;
@@ -92,7 +91,7 @@ function registerPartials( config ) {
 
 function renderLayout( config ) {
 
-    return readFile( config.settings.template.layout )
+    return fsp.readFile( config.settings.template.layout )
     .then( function ( data ) {
 
         return config.settings.template.layout = {
@@ -109,7 +108,7 @@ function renderLayout( config ) {
             , html = hbsCompiled( config )
             ;
 
-        return writeFile( file, html )
+        return fsp.writeFile( file, html )
         .then( function() {
 
             log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
@@ -139,38 +138,38 @@ function globPrefixAssets( config ) {
 
 function prefixAssets( config ) {
 
-    var files = config.settings.prefix.assets.map( function ( file ) {
+    return Promise.all( config.settings.prefix.assets.map( file => {
 
         file.prefixed = `sugarcoat/css/prefixed-${file.name}.css`;
 
-        fs.readFile( file.file, function ( err ,css ) {
+        return  fsp.readFile( file.file )
+        .then( data => {
 
-            postcss()
+            return postcss()
             .use( prefixer({
                 prefix: config.settings.prefix.selector
             }))
-            .process( css )
-            .then( function ( result ) {
-                return writeFile( path.join( config.settings.dest, file.prefixed ), result.css )
+            .process( data )
+            .then( result => {
+
+                return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css )
             })
-            .then( function ( result ) {
+            .then( result => {
 
                 log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
                 return result;
             });
         });
+    }))
+    .then( function ( data ) {
+
+        return config;
+    })
+    .catch( function ( err ) {
+
+        log.error( 'Prefix Assets', err );
+        return err;
     });
-
-    return Promise.all( files )
-        .then( function () {
-
-            return config;
-        })
-        .catch( function ( err ) {
-
-            log.error( 'Prefix Assets', err );
-            return err;
-        });
 }
 
 function copyAssets( config ) {
@@ -206,7 +205,7 @@ function copyAssets( config ) {
 
         return Promise.all( flattened.map( function( asset ) {
 
-            return copy( asset.from, asset.to )
+            return fsp.copy( asset.from, asset.to )
             .then( function ( assetPaths ) {
 
                 return log.info( 'Render', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
@@ -226,77 +225,6 @@ function copyAssets( config ) {
 /*
     Utilities
 */
-function copy( fromPath, toPath ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        makeDirs( toPath )
-        .then( function () {
-
-            var reader = fs.createReadStream( fromPath )
-                , writer = fs.createWriteStream( toPath )
-                ;
-
-            reader.on( 'error', reject );
-            writer.on( 'error', reject );
-
-            writer.on( 'finish', function() {
-
-                resolve( [ fromPath, toPath ] );
-            });
-
-            reader.pipe( writer );
-        })
-        .catch( function ( err ) {
-            log.error( 'Render', err );
-            return err;
-        });
-    });
-}
-
-function readFile( file ) {
-
-    return new Promise( function( resolve, reject ) {
-
-        fs.readFile( file, 'utf8', function( err, data ) {
-
-            if ( err ) return reject( err );
-
-            return resolve( data );
-        });
-    });
-}
-
-function writeFile( file, contents ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        makeDirs( file )
-        .then( function () {
-
-            fs.writeFile( file, contents, function ( err ) {
-
-                if ( err ) return reject( err );
-
-                return resolve( file );
-            });
-        });
-    });
-}
-
-function makeDirs( toPath ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        mkdirp( path.parse( toPath ).dir, function ( err ) {
-
-            if ( err ) return reject( err );
-
-            resolve();
-        });
-    });
-}
-
 function globFiles( files ) {
 
     var globArray = files.map( function( file ) {

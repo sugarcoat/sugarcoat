@@ -2,6 +2,7 @@ var assert = require( 'chai' ).assert;
 var fs = require( 'fs-extra' );
 
 var sugarcoat = require( '../index' );
+var fsp = require( '../lib/fs-promiser' );
 
 /**
  *
@@ -33,6 +34,10 @@ suite( 'Render', function() {
                 {
                     title: 'CSS File',
                     files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
                 }
             ]
         };
@@ -45,7 +50,7 @@ suite( 'Render', function() {
         sugarcoat( config )
         .then( function() {
 
-            return Promise.all( setupFiles.map( readFile ))
+            return Promise.all( setupFiles.map( fsp.readFile ))
             .then( function( assets ) {
 
                 assert.equal( assets[ 0 ], assets[ 1 ], 'prefixAssets-assertDefault.css matches');
@@ -82,7 +87,7 @@ suite( 'Render', function() {
         sugarcoat( config )
         .then( function() {
 
-            return Promise.all( setupFiles.map( readFile ))
+            return Promise.all( setupFiles.map( fsp.readFile ))
             .then( function( assets ) {
                 assert.equal( assets[ 0 ], assets[ 1 ], 'prefixAssets-assert.css matches');
                 done();
@@ -102,16 +107,3 @@ suite( 'Render', function() {
 });
 // suite( 'Render: prefixAssets', function() {});
 // suite( 'Render: copyAssets', function() {});
-
-function readFile( file ) {
-
-    return new Promise( function( resolve, reject ) {
-
-        fs.readFile( file, 'utf8', function( err, data ) {
-
-            if ( err ) return reject( err );
-
-            return resolve( data );
-        });
-    });
-}
