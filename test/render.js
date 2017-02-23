@@ -4,14 +4,6 @@ var fs = require( 'fs-extra' );
 var sugarcoat = require( '../index' );
 var fsp = require( '../lib/fs-promiser' );
 
-/**
- *
- * consume assets (nested)
- * prefix assets (default and specified prefix)
- * output head.hbs (template verification?)
- *
- */
-
 // suite( 'Render: globPartials', function() { test( '', function() {});});
 // suite( 'Render: readPartials', function() {});
 // suite( 'Render: registerPartials', function() {});
@@ -105,5 +97,3 @@ suite( 'Render: File Prefixer', function() {
         });
     });
 });
-// suite( 'Render: prefixAssets', function() {});
-// suite( 'Render: copyAssets', function() {});
