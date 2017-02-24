@@ -205,27 +205,27 @@ Path (relative to `template.cwd`, if provided) to the Handlebars layout that wil
 
 ### `template.partials` ###
 
-Type: Array of [Standardized File Format](#standardized-file-format)
+Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
 
-File(s) (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
+Partial file(s) (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
 
 ### `template.assets` ###
 
-Type: `Array` of [Standardized File Format](#standardized-file-format)
+Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `sugarcoat`
 
-An array of file(s) (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array. Note that Sugarcoat **will not** modify any assets provided in this array.
+Static asset file(s) (relative to `template.cwd`) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array. Note that Sugarcoat **will not** modify any assets provided in this array.
 
 ### `prefix.assets` ###
 
-Type: `Array` of [Standardized File Format](#standardized-file-format)
+Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `null`
 
-An array of file(s) (relative to [`settings.cwd`](#cwd)) to the stylesheets (.css) you wish Sugarcoat to prefix (scope) with a selector and import into the `head.hbs` partial. Note that Sugarcoat **will** modify all assets provided in this array.
+Stylesheet (`.css`) file(s) (relative to `settings.cwd`) you wish Sugarcoat to prefix with a selector. The newly scoped stylesheets will be imported into Sugarcoat's `head.hbs` partial. Note: Sugarcoat does not modify the original assets.
 
 ### `prefix.selector` ###
 
@@ -292,7 +292,7 @@ Title of section.
 
 #### `files` ####
 
-Type: Array of [Standardized File Format](#standardized-file-format)
+Type: [Standardized File Format](#standardized-file-format)
 Optional: `false`
 
 File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
