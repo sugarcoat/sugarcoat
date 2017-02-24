@@ -601,7 +601,7 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 
 # Templating #
 
-Sugarcoat provides a default layout for your pattern library, rendering each parsed comment object with one of the following partials:
+Sugarcoat will render each parsed comment object with one of the below partials. The partial will always be the [`template`](#template) string in a Sections object.
 
   - `section-default` Default rendering of a comment object.
 
@@ -612,42 +612,52 @@ Sugarcoat provides a default layout for your pattern library, rendering each par
   - `section-typography` Renders when `template: 'section-typography'` is provided - Fonts and variable names with their examples.
 
 
-Miscellaneous partials:
+The following partials are helpers:
 
   - `nav` Outputs the main navigation - Lists `title` of each section object, nesting each comment object's `@title` tag. Used in the default `main.hbs` layout.
 
-  - `head` Outputs links to Sugarcoat's default stylesheets.
-    - Roadmap: automatically add your project's css assets to the head partial. Currently, you have to add style files you want by manually replacing the head.hbs file.
+  - `head` Outputs links to Sugarcoat's default stylesheets, and any modified assets from `prefix.assets`
+
+  - 'masthead' Renders your project `settings.title` and `settings.graphic` if provided.
 
   - `footer` Outputs links to JavaScript files.
     - Roadmap: Add optional syntax highlighting in the footer partial
 
-  - 'preview' outputs the example within your code comment block and a code block of the example code.
+  - `tag-details`, `file-path`, `block-title` Render data within Sugarcoat's `section-*` partials.
 
-## Custom Templating ##
-
-**[Custom Layout](#templatelayout)t**
-
-If you'd like to provide your own layout, provide a path to `template.layout`.
-
-**[Custom Partials](#templatepartials)**
-
-To register your own partials, see [`template.partials`](#templatepartials). If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided.
-
-**[Scoping Stylesheets](#prefixassets)**
-
-Sugarcoat can prefix your assets with a selector of your choosing. Should your project provide a scoping process, be sure to include a custom `head.hbs` partial with your modified stylesheets linked.
 
 ### Reserved Partial Names ###
 
   - head
   - nav
+  - masthead
   - footer
+  - preview
+  - tag-details
+  - file-path
+  - block-title
   - section-color
   - section-typography
   - section-variable
   - section-default
 
+## Custom Templating ##
+
+The following options will help to enable your custom Sugarcoat template. None are required.
+
+  - [template.layout](#templatelayout): Replace `main.hbs`
+  - [template.partials](#templatepartials): Create new and/or override existing partials
+  - [template.assets](#templateassets): Copy assets from your project
+  - [prefix.assets](#prefixassets): Sugarcoat can prefix your assets with a selector of your choosing. Should your project provide a scoping process, be sure to include a custom `head.hbs` partial with your modified stylesheets linked.
+  - [prefix.selector](#prefixselector): Manage selector for prefixing
+
+**Handlebars Helpers**
+
+The following are included helpers that Sugarcoat has already registered to its instance of Handlebars.
+
+  - `isEqual [string] [string]` Compares two strings. If true, block is rendered
+  - `notEqual [string] [string]` Compares two strings. If false, block is rendered
+  - `toID [string]` Appends @index while within a loop to the string provided
 
 # Roadmap #
 
@@ -659,7 +669,7 @@ Sugarcoat can prefix your assets with a selector of your choosing. Should your p
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
 - [ ] [Add automated tests](/../../issues/18)
 - [x] Update github pages
-- [ ] [Consume your style assets, prefix them, and place them into `head.hbs`](/../../issues/25)
+- [x] [Consume your style assets, prefix them, and place them into `head.hbs`](/../../issues/25)
 - [ ] Syntax Highlighting
 - [ ] [Remove Format option from settings object](../../issues/32)
 
