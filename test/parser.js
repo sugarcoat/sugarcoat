@@ -6,11 +6,10 @@ var parser = require( '../generators/pattern-library/parser' );
 suite( 'Parser: parseComment', function () {
 
     var parse
-        , code
         , config
         ;
 
-    setup( function () {
+    setup( () => {
         config = {
             settings: {
                 dest: './documentation',
@@ -25,39 +24,35 @@ suite( 'Parser: parseComment', function () {
         };
         parse = parser( config );
     });
-		
-		test( 'HTML comments are consumed and context applied is accurate', function() {
-			
-      var path = config.sections[ 0 ].files;
 
-      var testPromise = new Promise( function( resolve, reject ) {
+    test( 'HTML comments are consumed and context applied is accurate', () => {
 
-          fs.readFile( path, 'utf-8', function( err, data ) {
+        var path = config.sections[ 0 ].files;
 
-              if ( err ) return false;
+        var testPromise = new Promise( ( resolve, reject ) => {
 
-              var value = parse.parseComment( path, data, config.sections[ 0 ].type, config.sections[ 0 ].template );
+            fs.readFile( path, 'utf-8', ( err, data ) => {
+                if ( err ) return false;
+                var value = parse.parseComment( path, data, config.sections[ 0 ].type, config.sections[ 0 ].template );
 
-              return resolve( value );
-          });
-      });
+                return resolve( value );
+            });
+        });
 
-      return testPromise.then( function( result ) {
-				
-      	assert.equal( result[ 0 ].context, '<p class="component">\n\tI\'m a component\n\t<!-- an inline comment -->\n</p>', 'following html comment block ignored from context');
-      });
-		});
-	}
-);
+        return testPromise.then( result => {
 
-suite( 'Parser: parseVarCode', function () {
+            assert.equal( result[ 0 ].context, '<p class="component">\n\tI\'m a component\n\t<!-- an inline comment -->\n</p>', 'following html comment block ignored from context');
+        });
+    });
+});
+
+suite( 'Parser: parseVarCode', () => {
 
     var parse
-        , code
         , config
         ;
 
-    setup( function () {
+    setup( () => {
         config = {
             settings: {
                 dest: './documentation',
@@ -72,34 +67,31 @@ suite( 'Parser: parseVarCode', function () {
                     title: 'SASS File',
                     files: './test/assert/parseVarCode.scss'
                 },
-								{
-									title: 'LESS File',
-									files: './test/assert/parseVarCode.less'
-								}
+                {
+                    title: 'LESS File',
+                    files: './test/assert/parseVarCode.less'
+                }
             ]
         };
         parse = parser( config );
     });
 
-    test( 'the variable string "--var" is detected and parsed correctly', function () {
+    test( 'the variable string "--var" is detected and parsed correctly', () => {
 
         var path = config.sections[ 0 ].files;
 
-        var testPromise = new Promise( function( resolve, reject ) {
+        var testPromise = new Promise( ( resolve, reject ) =>{
 
-            fs.readFile( path, 'utf-8', function( err, data ) {
+            fs.readFile( path, 'utf-8', ( err, data ) => {
 
                 if ( err ) return false;
-
                 var value = parse.parseVarCode( data, path );
-
-
 
                 return resolve( value );
             });
         });
 
-        return testPromise.then( function( result ) { 
+        return testPromise.then( result => {
 
             // general
             assert.equal( Array.isArray( result ), true, 'returns an array' );
@@ -135,25 +127,22 @@ suite( 'Parser: parseVarCode', function () {
         });
     });
 
-    test( 'the variable string "$" is detected and parsed correctly', function () {
+    test( 'the variable string "$" is detected and parsed correctly', () => {
 
         var path = config.sections[ 1 ].files;
 
-        var testPromise = new Promise( function( resolve, reject ) {
+        var testPromise = new Promise( ( resolve, reject ) => {
 
-            fs.readFile( path, 'utf-8', function( err, data ) {
+            fs.readFile( path, 'utf-8', ( err, data ) => {
 
                 if ( err ) return false;
-
                 var value = parse.parseVarCode( data, path );
-
-
 
                 return resolve( value );
             });
         });
 
-        return testPromise.then( function( result ) {
+        return testPromise.then( result => {
 
             // general
             assert.equal( Array.isArray( result ), true, 'returns an array' );
@@ -178,26 +167,23 @@ suite( 'Parser: parseVarCode', function () {
             assert.equal( result[ 3 ].comment, 'inline comment', '// inline comment' );
         });
     });
-		
-    test( 'the variable string "@" is detected and parsed correctly', function () {
+
+    test( 'the variable string "@" is detected and parsed correctly', () => {
 
         var path = config.sections[ 2 ].files;
 
-        var testPromise = new Promise( function( resolve, reject ) {
+        var testPromise = new Promise( ( resolve, reject ) => {
 
-            fs.readFile( path, 'utf-8', function( err, data ) {
+            fs.readFile( path, 'utf-8', ( err, data ) => {
 
                 if ( err ) return false;
-
                 var value = parse.parseVarCode( data, path );
-
-
 
                 return resolve( value );
             });
         });
 
-        return testPromise.then( function( result ) {
+        return testPromise.then( result => {
 
             // general
             assert.equal( Array.isArray( result ), true, 'returns an array' );
