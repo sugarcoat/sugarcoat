@@ -26,8 +26,13 @@ config.parserOptions = {
 config.env = {
     'es6': true,
     'node': true,
+<<<<<<< HEAD
     'mocha': true
     // 'browser': true
+=======
+    'mocha': true,
+    'browser': true
+>>>>>>> baa91f9a25380ace284d0495b7a271dc9fc5dd03
 };
 
 /**
@@ -49,7 +54,12 @@ config.extends = [];
 
 config.globals = {
     'define': true,
+<<<<<<< HEAD
     'SNR': true
+=======
+    'SNR': true,
+    'log': true
+>>>>>>> baa91f9a25380ace284d0495b7a271dc9fc5dd03
 };
 /**
  * Rules
