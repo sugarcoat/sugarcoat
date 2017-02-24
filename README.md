@@ -199,33 +199,37 @@ The base path to which all `template` paths are relative.
 
 Type: `String`
 Optional: `true`
-Default: `main.hbs` (provided by Sugarcoat).
+Default: `main.hbs` (provided by Sugarcoat)
+Relative: `template.cwd`
 
-Path (relative to `template.cwd`, if provided) to the Handlebars layout that will define the layout of the site.
+Path to the Handlebars layout that will define the layout of the site.
 
 ### `template.partials` ###
 
 Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
+Relative: `template.cwd`
 
-Partial file(s) (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
+Partial file(s) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
 
 ### `template.assets` ###
 
 Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `sugarcoat`
+Relative: `template.cwd`
 
-Static asset file(s) (relative to `template.cwd`) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
+Static asset file(s) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
 
 ### `prefix.assets` ###
 
 Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `null`
+Relative: `settings.cwd`
 
-CSS file(s) (relative to `settings.cwd`) you wish Sugarcoat to prefix with a selector. The newly scoped stylesheets will be placed into a `<link>` tag in Sugarcoat's `head.hbs` partial.
+CSS file(s) you wish Sugarcoat to prefix with a selector. The newly scoped stylesheets will be placed into a `<link>` tag in Sugarcoat's `head.hbs` partial.
 
 ### `prefix.selector` ###
 
@@ -624,11 +628,11 @@ Miscellaneous partials:
 
 **[Custom Layou](#templatelayout)t**
 
-If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object.
+If you'd like to provide your own layout, provide a path to `template.layout`.
 
 **[Custom Partials](#templatepartials)**
 
-To register your own partials, see `template.partials` in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided.
+To register your own partials, see [`template.partials`](#templatepartials). If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided.
 
 **[Scoping Stylesheets](#prefixassets)**
 
