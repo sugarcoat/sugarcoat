@@ -15,7 +15,8 @@ module.exports = function ( grunt ) {
             'generators/pattern-library/**/*.js',
             'grunt/*.js',
             'Gruntfile.js',
-            '!generators/pattern-library/examples/**/*.js'
+            '!generators/pattern-library/examples/**/*.js',
+            'test/*.js'
         ]
     });
 

@@ -31,8 +31,10 @@ module.exports = {
         // https://github.com/stylelint/stylelint/blob/master/src/rules/block-no-empty/README.md
         'block-no-empty': true,
 
-        // https://github.com/stylelint/stylelint/blob/master/src/rules/block-no-single-line/README.md
-        'block-no-single-line': true,
+        // https://stylelint.io/user-guide/rules/block-opening-brace-newline-after/#always
+        'block-opening-brace-newline-after': 'always',
+        // https://stylelint.io/user-guide/rules/block-closing-brace-newline-before/#always
+        'block-closing-brace-newline-before': 'always',
 
         // https://github.com/stylelint/stylelint/blob/master/src/rules/selector-max-compound-selectors/README.md
         'selector-max-compound-selectors': [
@@ -48,9 +50,6 @@ module.exports = {
 
         // https://github.com/stylelint/stylelint/blob/master/src/rules/declaration-no-important/README.md
         'declaration-no-important': true,
-
-        // https://github.com/stylelint/stylelint/blob/master/src/rules/stylelint-disable-reason/README.md
-        'stylelint-disable-reason': 'always-after',
 
         //https://github.com/stylelint/stylelint/blob/master/src/rules/no-descending-specificity/README.md
         'no-descending-specificity': true

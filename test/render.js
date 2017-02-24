@@ -8,9 +8,9 @@ var fsp = require( '../lib/fs-promiser' );
 // suite( 'Render: readPartials', function() {});
 // suite( 'Render: registerPartials', function() {});
 // suite( 'Render: renderLayout', function() {});
-suite( 'Render: File Prefixer', function() {
+suite( 'Render: File Prefixer', () => {
 
-    test( 'By default, assets are prefixed as .sugar-example. Output file is prefixed with "prefixed-"', function( done ) {
+    test( 'By default, assets are prefixed as .sugar-example. Output file is prefixed with "prefixed-"',  done => {
 
         var config = {
             settings: {
@@ -28,7 +28,7 @@ suite( 'Render: File Prefixer', function() {
                 },
                 {
                     title: 'CSS File 2',
-                    files: './test/assert/parseVarCode.css',
+                    files: './test/assert/parseVarCode.css'
 
                 }
             ]
@@ -40,10 +40,10 @@ suite( 'Render: File Prefixer', function() {
         ];
 
         sugarcoat( config )
-        .then( function() {
+        .then( () => {
 
             return Promise.all( setupFiles.map( fsp.readFile ))
-            .then( function( assets ) {
+            .then( assets => {
 
                 assert.equal( assets[ 0 ], assets[ 1 ], 'prefixAssets-assertDefault.css matches');
                 done();
@@ -51,7 +51,7 @@ suite( 'Render: File Prefixer', function() {
         });
     });
 
-    test( 'Prefixed output should use the selector designated in the config: `prefix.selector`', function( done ) {
+    test( 'Prefixed output should use the selector designated in the config: `prefix.selector`', done => {
 
         var config = {
             settings: {
@@ -77,19 +77,19 @@ suite( 'Render: File Prefixer', function() {
         ];
 
         sugarcoat( config )
-        .then( function() {
+        .then( () => {
 
             return Promise.all( setupFiles.map( fsp.readFile ))
-            .then( function( assets ) {
+            .then(  assets => {
                 assert.equal( assets[ 0 ], assets[ 1 ], 'prefixAssets-assert.css matches');
                 done();
             });
         });
     });
 
-    teardown( function ( done ) {
+    teardown( done => {
 
-        fs.remove( './test/sugarcoat', function ( err ) {
+        fs.remove( './test/sugarcoat', err => {
 
             if ( err ) return console.error( err );
 
