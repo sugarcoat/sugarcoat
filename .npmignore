@@ -3,7 +3,6 @@
 .tm_properties
 .eslintrc.js
 .eslintignore
-.eslintrc
 .stylelintrc.js
 Gruntfile.js
 test
