@@ -4,6 +4,9 @@
 var lastId
     , lastId2
     , scrollTimeout
+    , document = document
+    , navigator = navigator
+    , window = window
     , outsideClick = document.querySelector( '.sugar-main' )
     , nav = document.querySelector( '.sugar-nav' )
     , primaryItems = document.querySelectorAll( '.sugar-nav-item' )
