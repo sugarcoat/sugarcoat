@@ -50,9 +50,9 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
   Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: `--my-var`.
 
-5. No Style Bleed
+5. [No Style Bleed](#prefixassets)
 
-  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. For now, you'll need to prefix all of your own Sugarcoat style selectors with `.sugar-example`. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. To ensure that your project styles don't bleed, you can provide Sugarcoat with an array of assets for it to prefix. *Note: We chose not to use iframes because of their unpredictible resizing (such as a custom dropdown)*
 
 6. [Customizable Templates](#custom-templating)
 
@@ -205,27 +205,27 @@ Path (relative to `template.cwd`, if provided) to the Handlebars layout that wil
 
 ### `template.partials` ###
 
-Type: [Standardized File Format](#standardized-file-format)
+Type: Array of [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
 
-A standardized file format of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
+File(s) (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
 
 ### `template.assets` ###
 
-Type: `Array`
+Type: `Array` of [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `sugarcoat`
 
-An array of directory (not file) paths (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array. Note that Sugarcoat **will not** modify any assets provided in this array.
+An array of file(s) (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array. Note that Sugarcoat **will not** modify any assets provided in this array.
 
 ### `prefix.assets` ###
 
-Type: `Array`
+Type: `Array` of [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `null`
 
-An array of directory (not file) paths (relative to [`settings.cwd`](#cwd)) to the stylesheets (.css) you wish Sugarcoat to prefix with a selector (scope) and insert into the `head.hbs` partial. Note that Sugarcoat **will** modify all assets provided in this array.
+An array of file(s) (relative to [`settings.cwd`](#cwd)) to the stylesheets (.css) you wish Sugarcoat to prefix (scope) with a selector and import into the `head.hbs` partial. Note that Sugarcoat **will** modify all assets provided in this array.
 
 ### `prefix.selector` ###
 
@@ -292,7 +292,7 @@ Title of section.
 
 #### `files` ####
 
-Type: [Standardized File Format](#standardized-file-format)
+Type: Array of [Standardized File Format](#standardized-file-format)
 Optional: `false`
 
 File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
@@ -601,7 +601,7 @@ Sugarcoat provides a default layout for your pattern library, rendering each par
 
   - `section-default` Default rendering of a comment object.
 
-  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value. 
+  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value.
 
   - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
 
