@@ -5,6 +5,7 @@
 .eslintignore
 .eslintrc
 .stylelintrc.js
+Gruntfile.js
 test
 grunt
 generators/pattern-library/design
