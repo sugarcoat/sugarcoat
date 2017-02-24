@@ -6,6 +6,9 @@ var render = require( './render' );
 var log = require( '../../lib/logger' );
 var configure = require( './configure' );
 var globber = require( '../../lib/globber' );
+var templater = require( './templater' );
+
+// var util = require( 'util' );
 
 /**
  *
@@ -23,42 +26,10 @@ function init( config ) {
         return Promise.reject();
     }
 
-    // if ( config.settings.dest === null ) {
-
-    //     // Don't render
-    //     return globFiles( config )
-    //     .then( readSections )
-    //     .then( parseSections )
-    //     .then( function ( html ) {
-
-    //         log.info( 'Finished!' );
-
-    //         return html;
-    //     })
-    //     .catch( function ( err ) {
-    //         log.error( err );
-    //     });
-    // }
-    // else {
-
-    //     return globFiles( config )
-    //     .then( readSections )
-    //     .then( parseSections )
-    //     .then( render )
-    //     .then( function ( html ) {
-
-    //         log.info( 'Finished!' );
-
-    //         return html;
-    //     })
-    //     .catch( function ( err ) {
-    //         log.error( err );
-    //     });
-    // }
-
     return globFiles( config )
     .then( readSections )
     .then( parseSections )
+    .then( templater )
     .then( renderOnDest )
     .then( function ( html ) {
 
@@ -137,10 +108,10 @@ function parseSections( config ) {
 
 function renderOnDest( config ) {
 
+    // console.log(util.inspect( config, { depth: 7, colors: true } ) );
     if ( config.settings.dest !== null ) {
 
-        console.log('test');
-        render( config );
+        return render( config );
 
     }
     else {
