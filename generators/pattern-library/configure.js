@@ -1,7 +1,6 @@
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
-
 var log = require( '../../lib/logger' );
 
 /**
@@ -14,7 +13,7 @@ var defaultPartials = path.join( cwdTemplates, 'partials' );
 
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
-defaults.settings.dest = null;
+// defaults.settings.dest = null;
 
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
@@ -98,7 +97,12 @@ function init( options ) {
     // **** SETTINGS ****
 
     if ( settings.dest ) {
+
         settings.dest = path.resolve( settings.cwd, settings.dest );
+    }
+    else {
+
+        config.error = 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.';
     }
 
     // **** SECTIONS ****
@@ -107,6 +111,14 @@ function init( options ) {
 
         if ( !section.template ) {
             section.template = `section-${ section.type || 'default' }`;
+        }
+
+        if ( !section.title ) {
+            config.error = 'Title is required. Please add a `title` option to all of the section objects.';
+        }
+
+        if ( !section.files ) {
+            config.error = 'Files is required. Please add a `files` option to all of the section objects';
         }
     });
 
