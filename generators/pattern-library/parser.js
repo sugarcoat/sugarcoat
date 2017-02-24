@@ -81,16 +81,8 @@ Parser.prototype = {
             infoStrings = code.match(/(--.*:.*)/g);
         }
 
-<<<<<<< HEAD
-        if ( !infoStrings ) {
-
-            return;
-        }
-
-=======
         if ( !infoStrings ) return;
 
->>>>>>> baa91f9a25380ace284d0495b7a271dc9fc5dd03
         infoStrings.forEach( function ( infoLine ) {
             /*
              * $var: #fff; //something

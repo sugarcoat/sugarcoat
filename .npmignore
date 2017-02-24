@@ -1,11 +1,10 @@
-generators/pattern-library/examples
-site
-node_modules
-.tm_properties
 *.sublime-project
 *.sublime-workspace
+.tm_properties
 .eslintrc.js
 .eslintignore
 .eslintrc
 .stylelintrc.js
+site
 test
+generators/pattern-library/examples
