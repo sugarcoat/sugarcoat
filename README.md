@@ -52,7 +52,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 5. [No Style Bleed](#prefixassets)
 
-  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. To ensure that your project styles don't bleed, you can provide Sugarcoat with an array of assets for it to prefix. *Note: We chose not to use iframes because of their unpredictible resizing (such as a custom dropdown)*
+  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. To ensure that your project styles don't bleed, you can provide Sugarcoat with an array of assets for it to prefix. Note: We chose not to use iframes because of their unpredictible resizing (such as a custom dropdown)
 
 6. [Customizable Templates](#custom-templating)
 
@@ -217,7 +217,7 @@ Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `sugarcoat`
 
-Static asset file(s) (relative to `template.cwd`) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array. Note that Sugarcoat **will not** modify any assets provided in this array.
+Static asset file(s) (relative to `template.cwd`) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
 
 ### `prefix.assets` ###
 
@@ -225,7 +225,7 @@ Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `null`
 
-Stylesheet (`.css`) file(s) (relative to `settings.cwd`) you wish Sugarcoat to prefix with a selector. The newly scoped stylesheets will be imported into Sugarcoat's `head.hbs` partial. Note: Sugarcoat does not modify the original assets.
+CSS file(s) (relative to `settings.cwd`) you wish Sugarcoat to prefix with a selector. The newly scoped stylesheets will be placed into a `<link>` tag in Sugarcoat's `head.hbs` partial.
 
 ### `prefix.selector` ###
 
@@ -279,7 +279,7 @@ module.exports = {
 
 ## `sections` Array ##
 
-Contains an `Array` of [Section Objects](#section-object)
+Contains an `Array` of [Section Objects](#sectionobject)
 
 ### Section Object ###
 
@@ -379,7 +379,7 @@ Type: `String`
 Optional: `true`
 Default: depends on the value of `type`
 
-The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. Two alternate variable renderings are available: `section-color` and `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`settings.template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
+The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. Two alternate variable renderings are available: `section-color` and `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`settings.template.partials`](#templatepartials)). For more information on this, see [Custom Templating](#custom-templating).
 
 ```js
 {
@@ -622,13 +622,17 @@ Miscellaneous partials:
 
 ## Custom Templating ##
 
-**Custom Layout**
+**[Custom Layou](#templatelayout)t**
 
 If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object.
 
-**Custom Partials**
+**[Custom Partials](#templatepartials)**
 
-To register your own partials, add a directory path to the `template.partials` array (relative to `template.cwd`) in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided.
+To register your own partials, see `template.partials` in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided.
+
+**[Scoping Stylesheets](#prefixassets)**
+
+Sugarcoat can prefix your assets with a selector of your choosing. Should your project provide a scoping process, be sure to include a custom `head.hbs` partial with your modified stylesheets linked.
 
 ### Reserved Partial Names ###
 
