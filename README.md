@@ -211,7 +211,7 @@ Optional: `true`
 Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
 Relative: `template.cwd`
 
-Partial file(s) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
+Partial file(s) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat.
 
 ### `template.assets` ###
 
