@@ -626,7 +626,7 @@ Miscellaneous partials:
 
 ## Custom Templating ##
 
-**[Custom Layou](#templatelayout)t**
+**[Custom Layout](#templatelayout)t**
 
 If you'd like to provide your own layout, provide a path to `template.layout`.
 
