@@ -16,17 +16,50 @@ function init( config ) {
 
     config = configure( config );
 
-    if (config.error) {
+    if ( config.error ) {
 
-        log.error(config.error);
+        log.error( config.error );
 
         return Promise.reject();
     }
 
+    // if ( config.settings.dest === null ) {
+
+    //     // Don't render
+    //     return globFiles( config )
+    //     .then( readSections )
+    //     .then( parseSections )
+    //     .then( function ( html ) {
+
+    //         log.info( 'Finished!' );
+
+    //         return html;
+    //     })
+    //     .catch( function ( err ) {
+    //         log.error( err );
+    //     });
+    // }
+    // else {
+
+    //     return globFiles( config )
+    //     .then( readSections )
+    //     .then( parseSections )
+    //     .then( render )
+    //     .then( function ( html ) {
+
+    //         log.info( 'Finished!' );
+
+    //         return html;
+    //     })
+    //     .catch( function ( err ) {
+    //         log.error( err );
+    //     });
+    // }
+
     return globFiles( config )
     .then( readSections )
     .then( parseSections )
-    .then( render )
+    .then( renderOnDest )
     .then( function ( html ) {
 
         log.info( 'Finished!' );
@@ -100,4 +133,18 @@ function parseSections( config ) {
     });
 
     return config;
+}
+
+function renderOnDest( config ) {
+
+    if ( config.settings.dest !== null ) {
+
+        console.log('test');
+        render( config );
+
+    }
+    else {
+
+        return config;
+    }
 }

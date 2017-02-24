@@ -96,9 +96,15 @@ function init( options ) {
 
     // **** SETTINGS ****
 
-    if ( settings.dest ) {
+    if ( settings.dest && settings.dest === 'none' ) {
+
+        settings.dest = null;
+
+    }
+    else if ( settings.dest ) {
 
         settings.dest = path.resolve( settings.cwd, settings.dest );
+
     }
     else {
 
