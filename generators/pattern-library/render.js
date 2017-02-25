@@ -1,10 +1,14 @@
-var fs = require( 'fs' );
 var path = require( 'path' );
 
-var mkdirp = require( 'mkdirp' );
+// var _ = require( 'lodash' );
+// var postcss = require( 'postcss' );
+// var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 
 var log = require( '../../lib/logger' );
+
+// var globber = require( '../../lib/globber' );
+var fsp = require( '../../lib/fs-promiser' );
 
 module.exports = function ( config ) {
 
@@ -20,7 +24,7 @@ module.exports = function ( config ) {
 
 function renderLayout( config ) {
 
-    return readFile( config.settings.template.layout )
+    return fsp.readFile( config.settings.template.layout )
     .then( function ( data ) {
 
         return config.settings.template.layout = {
@@ -37,8 +41,8 @@ function renderLayout( config ) {
             , html = hbsCompiled( config )
             ;
 
-        return writeFile( file, html )
-        .then( function () {
+        return fsp.writeFile( file, html )
+        .then( () => {
 
             log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
@@ -49,52 +53,5 @@ function renderLayout( config ) {
         log.error( 'Render', err );
 
         return err;
-    });
-}
-
-/*
-    Utilities
-*/
-
-function readFile( file ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        fs.readFile( file, 'utf8', function ( err, data ) {
-
-            if ( err ) return reject( err );
-
-            return resolve( data );
-        });
-    });
-}
-
-function writeFile( file, contents ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        makeDirs( file )
-        .then( function () {
-
-            fs.writeFile( file, contents, function ( err ) {
-
-                if ( err ) return reject( err );
-
-                return resolve( file );
-            });
-        });
-    });
-}
-
-function makeDirs( toPath ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        mkdirp( path.parse( toPath ).dir, function ( err ) {
-
-            if ( err ) return reject( err );
-
-            resolve();
-        });
     });
 }

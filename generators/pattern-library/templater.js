@@ -1,13 +1,17 @@
-var fs = require( 'fs' );
+// var fs = require( 'fs' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
-var mkdirp = require( 'mkdirp' );
+var postcss = require( 'postcss' );
+var prefixer = require( 'postcss-prefix-selector' );
+// var mkdirp = require( 'mkdirp' );
 var Handlebars = require( 'handlebars' );
 var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
+var fsp = require( '../../lib/fs-promiser' );
+
 
 module.exports = function ( config ) {
 
@@ -16,6 +20,15 @@ module.exports = function ( config ) {
     return globPartials( config )
     .then( readPartials )
     .then( registerPartials )
+    .then( config => {
+
+        if ( config.settings.prefix.assets ) {
+
+            return globPrefixAssets( config )
+            .then( prefixAssets );
+        }
+        else return config;
+    })
     .then( copyAssets )
     .catch( function ( err ) {
         return err;
@@ -26,39 +39,67 @@ module.exports = function ( config ) {
     Tasks
 */
 
-function globPartials( config ) {
+function copyAssets( config ) {
 
-    var partials = config.settings.template.partials.map( function ( dir ) {
+    var flattened = [];
+
+    var expand = config.settings.template.assets.map( function ( asset ) {
 
         return globber({
-            src: [ path.join( dir.src, '**/*' ) ],
-            options: dir.options
+            src: asset.src,
+            options: asset.options
         })
         .then( function ( files ) {
 
-            return files.reduce( function ( collection, filePath ) {
+            asset.srcFiles = files;
 
-                collection.push({
-                    cwd: dir.src,
-                    file: filePath,
-                    name: path.relative( dir.src, filePath ).replace( path.parse( filePath ).ext, '' )
-                });
+            return asset.srcFiles.map( assetPath => {
 
-                return collection;
+                var result = {
+                    from: path.resolve( asset.options.cwd, assetPath ),
+                    to: path.resolve( config.settings.dest, path.relative( asset.options.cwd, assetPath ) )
+                };
 
-            }, [] );
+                flattened.push( result );
+
+                return result;
+            });
         });
     });
 
-    return Promise.all( partials )
-    .then( function ( files ) {
+    return Promise.all( expand )
+    .then( () => {
 
-        config.settings.template.partials = _.flatten( files );
+        return Promise.all( flattened.map( asset => {
+
+            return fsp.copy( asset.from, asset.to )
+            .then( assetPaths => {
+
+                return log.info( 'Templater', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
+            });
+        }));
+    })
+    .then( () => {
+
+        return config;
+    })
+    .catch( function ( err ) {
+        log.error( 'Copy Assets', err );
+
+        return err;
+    });
+}
+
+function globPartials( config ) {
+
+    return globFiles( config.settings.template.partials )
+    .then( function ( partials ) {
+        config.settings.template.partials = _.flatten( partials );
 
         return config;
     }).catch( function ( err ) {
 
-        console.log(err.message);
+        log.error( 'Glob Partials', err );
     });
 }
 
@@ -66,7 +107,7 @@ function readPartials( config ) {
 
     var partials = config.settings.template.partials.map( function ( fileObj ) {
 
-        return readFile( fileObj.file )
+        return fsp.readFile( fileObj.file )
         .then( function ( data ) {
 
             return fileObj.src = data;
@@ -93,119 +134,87 @@ function registerPartials( config ) {
 
         Handlebars.registerPartial( partial.name, partial.src );
 
-        log.info( 'Template', msg );
+        log.info( 'Templater', msg );
     });
 
     return config;
 }
 
-function copyAssets( config ) {
+function globPrefixAssets( config ) {
 
-    var flattened = []
-        , dest = config.settings.dest !== null ? config.settings.dest : config.settings.cwd
-        , assets = config.settings.template.assets
-        ;
+    return globFiles( config.settings.prefix.assets )
+    .then( assets => {
+        config.settings.prefix.assets = _.flatten( assets );
 
-    var expand = assets.map( function ( assetObj ) {
+        return config;
+    })
+    .catch( err => {
 
-        return globber({
-            src: path.join( assetObj.src, '**/*' ),
-            options: assetObj.options
-        })
-        .then( function ( expandedPaths ) {
+        log.error( 'Glob Prefix Assets', err );
+    });
+}
 
-            assetObj.srcFiles = expandedPaths;
+function prefixAssets( config ) {
 
-            return assetObj.srcFiles.map( function ( assetPath ) {
+    return Promise.all( config.settings.prefix.assets.map( file => {
 
-                var result = {
-                    from: path.resolve( assetObj.options.cwd, assetPath ),
-                    to: path.resolve( dest, path.relative( assetObj.options.cwd, assetPath ) )
-                };
+        file.prefixed = `sugarcoat/css/prefixed-${file.name}.css`;
 
-                flattened.push( result );
+        return  fsp.readFile( file.file )
+        .then( data => {
+
+            return postcss()
+            .use( prefixer({
+                prefix: config.settings.prefix.selector
+            }))
+            .process( data )
+            .then( result => {
+
+                return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css );
+            })
+            .then( result => {
+                log.info( 'Templater', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
 
                 return result;
             });
         });
-    });
+    }))
+    .then( () => {
 
-    return Promise.all( expand )
-    .then( function () {
-
-        return Promise.all( flattened.map( function ( assetObj ) {
-
-            return copy( assetObj.from, assetObj.to )
-            .then( function ( assetPaths ) {
-
-                return log.info( 'Template', `asset copied: "${ path.relative( dest, assetPaths[1] ) }"` );
-            });
-        }));
-    })
-    .then( function () {
         return config;
     })
-    .catch( function ( err ) {
-        log.error( 'Template', err );
+    .catch( ( err ) => {
+        log.error( 'Prefix Assets', err );
 
         return err;
     });
 }
 
 /*
-    Utilities
-*/
-function copy( fromPath, toPath ) {
+    Utils
+ */
+function globFiles( files ) {
 
-    return new Promise( function ( resolve, reject ) {
+    var globArray = files.map( file => {
 
-        makeDirs( toPath )
-        .then( function () {
-
-            var reader = fs.createReadStream( fromPath )
-                , writer = fs.createWriteStream( toPath )
-                ;
-
-            reader.on( 'error', reject );
-            writer.on( 'error', reject );
-
-            writer.on( 'finish', function () {
-
-                resolve( [ fromPath, toPath ] );
-            });
-
-            reader.pipe( writer );
+        return globber({
+            src: file.src,
+            options: file.options
         })
-        .catch( function ( err ) {
-            log.error( 'Template', err );
+        .then( function ( files ) {
 
-            return err;
+            return files.reduce( function ( collection, filePath ) {
+
+                collection.push({
+                    cwd: file.src,
+                    file: filePath,
+                    name: path.basename( filePath, path.parse( filePath ).ext )
+                });
+
+                return collection;
+            }, []);
         });
     });
-}
 
-function readFile( file ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        fs.readFile( file, 'utf8', function ( err, data ) {
-
-            if ( err ) return reject( err );
-
-            return resolve( data );
-        });
-    });
-}
-
-function makeDirs( toPath ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        mkdirp( path.parse( toPath ).dir, function ( err ) {
-
-            if ( err ) return reject( err );
-
-            resolve();
-        });
-    });
+    return Promise.all( globArray );
 }

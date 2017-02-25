@@ -16,7 +16,7 @@ module.exports = function ( grunt ) {
             files: [
                 {
                     expand: true,
-                    cwd: 'generators/pattern-library/templates/sugarcoat/styles',
+                    cwd: 'generators/pattern-library/templates/styles',
                     src: [
                         '*.scss'
                     ],

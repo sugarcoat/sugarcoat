@@ -9,7 +9,7 @@
 
   {{~#isEqual file.ext 'html'}}
 
-    <p class="sugar-example-text">Example</p>
+    <p class="sugar-example-text sugar-p">Example</p>
     <div class="sugar-preview">
       <div class="sugar-example">
 
@@ -17,7 +17,7 @@
 
       </div>
 
-      <pre>{{ this.context }}</pre>
+      <pre class="sugar-pre">{{ this.context }}</pre>
 
     </div>
 
@@ -27,7 +27,7 @@
 
     {{~#isEqual tagObj.tag 'example'}}
 
-      <p class="sugar-example-text">Example</p>
+      <p class="sugar-example-text sugar-p">Example</p>
       <div class="sugar-preview">
         <div class="sugar-example">
 
@@ -35,7 +35,7 @@
 
         </div>
 
-        <pre>{{ tagObj.value }}</pre>
+        <pre class="sugar-pre">{{ tagObj.value }}</pre>
 
       </div>
 

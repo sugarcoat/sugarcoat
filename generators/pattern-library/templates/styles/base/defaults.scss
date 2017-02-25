@@ -26,7 +26,7 @@ body {
     transition: 0.35s linear transform;
     position: relative;
 
-    h2 {
+    .sugar-h2 {
         font-family: 'Helvetica';
         font-size: 2.25rem; //36px font-weight: bold;
         color: $blue;
@@ -34,24 +34,24 @@ body {
         margin-top: 0.8rem;
         clear: both;
     }
-    h2 a {
+    .sugar-h2 a {
         text-decoration: none;
         color: $blue;
     }
-    h3 {
+    .sugar-h3 {
         font-family: 'Helvetica';
         font-weight: lighter;
         font-size: 1.5rem; //24px color: #666666;
         margin-bottom: 0.7rem;
     }
-    p {
+    .sugar-p {
         font-family: 'Helvetica';
     }
     .sugar-file-desc {
         font-family: 'Helvetica';
         font-size: 1rem; //16px color: #666;
     }
-    pre {
+    .sugar-pre {
         box-sizing: border-box;
         padding: 1.5rem 1rem;
         background-color: #f1f1f1;
