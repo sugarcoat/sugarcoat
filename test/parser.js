@@ -40,7 +40,6 @@ suite( 'Parser: parseComment', function () {
         });
 
         return testPromise.then( result => {
-
             assert.equal( result[ 0 ].context, '<p class="component">\n\tI\'m a component\n\t<!-- an inline comment -->\n</p>', 'following html comment block ignored from context');
         });
     });
@@ -208,4 +207,4 @@ suite( 'Parser: parseVarCode', () => {
             assert.equal( result[ 3 ].comment, 'inline comment', '// inline comment' );
         });
     });
-} );
+});

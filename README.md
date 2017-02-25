@@ -50,9 +50,9 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
   Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: `--my-var`.
 
-5. No Style Bleed
+5. [No Style Bleed](#prefixassets)
 
-  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. For now, you'll need to prefix all of your own Sugarcoat style selectors with `.sugar-example`. It's on the roadmap to have Sugarcoat prefix your files for you based on a default or custom selector, and insert your stylesheets into the head of your generated pattern library accordingly. *Note: We chose not to use iframes because we didn't want to resize different iframes as you interacted with a component with varying height (such as a custom dropdown).*
+  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. To ensure that your project styles don't bleed, you can provide Sugarcoat with an array of assets for it to prefix. Note: We chose not to use iframes because of their unpredictible resizing (such as a custom dropdown)
 
 6. [Customizable Templates](#custom-templating)
 
@@ -134,7 +134,7 @@ Options:
   ]
 }
 ```
-  
+
 ## `settings` Object ##
 
 This object holds general configuration values.
@@ -188,36 +188,56 @@ Optional: `true`
 Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
 ### `template.cwd` ###
- 
-Type: `String`  
-Optional: `true`  
+
+Type: `String`
+Optional: `true`
 Default: Sugarcoat's theme directory
 
-The base path to which all `template` paths are relative. 
+The base path to which all `template` paths are relative.
 
 ### `template.layout` ###
 
-Type: `String`  
-Optional: `true`  
-Default: `main.hbs` (provided by Sugarcoat).
+Type: `String`
+Optional: `true`
+Default: `main.hbs` (provided by Sugarcoat)
+Relative: `template.cwd`
 
-Path (relative to `template.cwd`, if provided) to the Handlebars layout that will define the layout of the site.
+Path to the Handlebars layout that will define the layout of the site.
 
 ### `template.partials` ###
 
-Type: [Standardized File Format](#standardized-file-format)  
+Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
+Relative: `template.cwd`
 
-A standardized file format of one or more directory (not file) paths (relative to `template.cwd`) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat. If you choose to include an object or an array of objects, you must include a `src` and `options`. If you do not choose to include options through an object, Sugarcoat will default it's glob options to `nodir: true`.
+Partial file(s) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat.
 
 ### `template.assets` ###
 
-Type: `Array`
+Type: [Standardized File Format](#standardized-file-format)
 Optional: `true`
 Default: `sugarcoat`
+Relative: `template.cwd`
 
-An array of directory (not file) paths (relative to `template.cwd`) to the static assets to copy to `settings.dest`. If you would like to use Sugarcoat's assets, as well as your own, just include `sugarcoat` in the asset array.
+Static asset file(s) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
+
+### `prefix.assets` ###
+
+Type: [Standardized File Format](#standardized-file-format)
+Optional: `true`
+Default: `null`
+Relative: `settings.cwd`
+
+CSS file(s) you wish Sugarcoat to prefix with a selector. The newly scoped stylesheets will be placed into a `<link>` tag in Sugarcoat's `head.hbs` partial.
+
+### `prefix.selector` ###
+
+Type: `String`
+Optional: `true`
+Default: `.sugar-example`
+
+Defines the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector scope.
 
 **Advanced Example**
 
@@ -248,6 +268,12 @@ module.exports = {
         'styles',
         'images'
       ]
+    },
+    prefix: {
+      assets: [
+        'styles'
+      ],
+      selector: '.scope-styles'
     }
   },
   sections: [ <...> ]
@@ -257,7 +283,7 @@ module.exports = {
 
 ## `sections` Array ##
 
-Contains an `Array` of [Section Objects](#section-object)
+Contains an `Array` of [Section Objects](#sectionobject)
 
 ### Section Object ###
 
@@ -357,7 +383,7 @@ Type: `String`
 Optional: `true`
 Default: depends on the value of `type`
 
-The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. Two alternate variable renderings are available: `section-color` and `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`settings.template.partials`](#template-partials)). For more information on this, see [Custom Templating](#custom-templating).
+The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. Two alternate variable renderings are available: `section-color` and `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`settings.template.partials`](#templatepartials)). For more information on this, see [Custom Templating](#custom-templating).
 
 ```js
 {
@@ -370,11 +396,11 @@ The default partial is `section-default`, or `section-variable` when the `type` 
 
 ## Standardized File Format ##
 
-Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Object`, `Array`. 
+Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Object`, `Array`.
 
 ### `String` ###
 
-The `string` format is a string of path to a file or directory. 
+The `string` format is a string of path to a file or directory.
 
 **Example**
 ```js
@@ -397,7 +423,7 @@ files: {
 
 ### `Array` ###
 
-The `array` format can be composed of `strings` or `objects` (or a mix of both). Use the same format for [`string`](#string) and [`object`](#object) as stated above.  
+The `array` format can be composed of `strings` or `objects` (or a mix of both). Use the same format for [`string`](#string) and [`object`](#object) as stated above.
 
 **Example**
 ```js
@@ -444,7 +470,7 @@ There are three reserved tag names that will notify comment-serializer to parse 
  *    <span class="tooltip-content">This is a tooltip</span>
  *  </div>
  * @modifier .active enabled class on .tooltip
- * @state :focus allows visual contrast for accessibility 
+ * @state :focus allows visual contrast for accessibility
  */
 ```
 
@@ -575,49 +601,63 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 
 # Templating #
 
-Sugarcoat provides a default layout for your pattern library, rendering each parsed comment object with one of the following partials:
+Sugarcoat will render each parsed comment object with one of the below partials. The partial will always be the [`template`](#template) string in a Sections object.
 
   - `section-default` Default rendering of a comment object.
 
-  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value. 
+  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value.
 
   - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
 
   - `section-typography` Renders when `template: 'section-typography'` is provided - Fonts and variable names with their examples.
 
 
-Miscellaneous partials:
+The following partials are helpers:
 
   - `nav` Outputs the main navigation - Lists `title` of each section object, nesting each comment object's `@title` tag. Used in the default `main.hbs` layout.
 
-  - `head` Outputs links to Sugarcoat's default stylesheets.
-    - Roadmap: automatically add your project's css assets to the head partial. Currently, you have to add style files you want by manually replacing the head.hbs file.
+  - `head` Outputs links to Sugarcoat's default stylesheets, and any modified assets from `prefix.assets`
+
+  - 'masthead' Renders your project `settings.title` and `settings.graphic` if provided.
 
   - `footer` Outputs links to JavaScript files.
     - Roadmap: Add optional syntax highlighting in the footer partial
 
-  - 'preview' outputs the example within your code comment block and a code block of the example code.
+  - `tag-details`, `file-path`, `block-title` Render data within Sugarcoat's `section-*` partials.
 
-## Custom Templating ##
-
-**Custom Layout**
-
-If you'd like to provide your own layout, provide a path in `template.layout` (relative to `template.cwd`) in the `settings` object.
-
-**Custom Partials**
-
-To register your own partials, add a directory path to the `template.partials` array (relative to `template.cwd`) in the `settings` object. If you provide a partial that uses a reserved name, Sugarcoat will use your partial instead of the one provided. 
 
 ### Reserved Partial Names ###
 
   - head
   - nav
+  - masthead
   - footer
+  - preview
+  - tag-details
+  - file-path
+  - block-title
   - section-color
   - section-typography
   - section-variable
   - section-default
 
+## Custom Templating ##
+
+The following options will help to enable your custom Sugarcoat template. None are required.
+
+  - [template.layout](#templatelayout): Replace `main.hbs`
+  - [template.partials](#templatepartials): Create new and/or override existing partials
+  - [template.assets](#templateassets): Copy assets from your project
+  - [prefix.assets](#prefixassets): Sugarcoat can prefix your assets with a selector of your choosing. Should your project provide a scoping process, be sure to include a custom `head.hbs` partial with your modified stylesheets linked.
+  - [prefix.selector](#prefixselector): Manage selector for prefixing
+
+**Handlebars Helpers**
+
+The following are included helpers that Sugarcoat has already registered to its instance of Handlebars.
+
+  - `isEqual [string] [string]` Compares two strings. If true, block is rendered
+  - `notEqual [string] [string]` Compares two strings. If false, block is rendered
+  - `toID [string]` Appends @index while within a loop to the string provided
 
 # Roadmap #
 
@@ -629,7 +669,7 @@ To register your own partials, add a directory path to the `template.partials` a
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
 - [ ] [Add automated tests](/../../issues/18)
 - [x] Update github pages
-- [ ] Consume your style assets, prefix them, and place them into `head.hbs`
+- [x] [Consume your style assets, prefix them, and place them into `head.hbs`](/../../issues/25)
 - [ ] Syntax Highlighting
 - [ ] [Remove Format option from settings object](../../issues/32)
 

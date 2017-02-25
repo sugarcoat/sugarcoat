@@ -34,7 +34,7 @@ Parser.prototype = {
 
         if ( hasErrors ) {
 
-            console.log( 'Errors', hasErrors );
+            log.error( hasErrors );
         }
 
         for ( var i = 0; i < serialized.length; i++ ) {

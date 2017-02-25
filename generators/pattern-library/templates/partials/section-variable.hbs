@@ -5,14 +5,14 @@
  *
  */
 -->
-<section id="{{toID title}}" class="sugar-section-variable">
+<section id="{{toID title}}" class="sugar-section sugar-section-variable">
   <div class="sugar-section-wrapper">
-    <h2><a href="#{{toID title}}">{{ title }}</a></h2>
-    
+    <h2 class="sugar-h2"><a href="#{{toID title}}">{{ title }}</a></h2>
+
     {{~#each files as |file| }}
-  
+
       <div class="sugar-component" id="{{toID file.path @index}}">
-      
+
         {{~#each file.data as |data| }}
 
           {{> block-title data=data}}
@@ -44,15 +44,15 @@
                 {{~/each}}
 
               {{~/each}}
-            
+
             </table>
           </div>
 
         {{> file-path file=file}}
-      
+
       </div>
 
     {{~/each}}
-    
+
   </div>
 </section>

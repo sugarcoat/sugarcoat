@@ -1,13 +1,14 @@
-var fs = require( 'fs' );
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
-var mkdirp = require( 'mkdirp' );
+var postcss = require( 'postcss' );
+var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
+var fsp = require( '../../lib/fs-promiser' );
 
 module.exports = function ( config ) {
 
@@ -16,6 +17,15 @@ module.exports = function ( config ) {
     return globPartials( config )
     .then( readPartials )
     .then( registerPartials )
+    .then( config => {
+
+        if ( config.settings.prefix.assets ) {
+
+            return globPrefixAssets( config )
+            .then( prefixAssets );
+        }
+        else return config;
+    })
     .then( copyAssets )
     .then( renderLayout )
     .catch( function ( err ) {
@@ -29,38 +39,14 @@ module.exports = function ( config ) {
 
 function globPartials( config ) {
 
-    var partials = config.settings.template.partials.map( function ( dir ) {
-
-        return globber({
-            src: [ path.join( dir.src, '**/*' ) ],
-            options: dir.options
-        })
-        .then( function ( files ) {
-
-            return files.reduce( function ( collection, filePath ) {
-
-                collection.push({
-                    cwd: dir.src,
-                    file: filePath,
-                    name: path.relative( dir.src, filePath ).replace( path.parse( filePath ).ext, '' )
-                });
-
-                return collection;
-
-            }, [] );
-        });
-    });
-
-    return Promise.all( partials )
-    .then( function ( files ) {
-
-        // files = _.flatten( files );
-        config.settings.template.partials = _.flatten( files );
+    return globFiles( config.settings.template.partials )
+    .then( function ( partials ) {
+        config.settings.template.partials = _.flatten( partials );
 
         return config;
     }).catch( function ( err ) {
 
-        console.log(err.message);
+        log.error( 'Glob Partials', err );
     });
 }
 
@@ -68,7 +54,7 @@ function readPartials( config ) {
 
     var partials = config.settings.template.partials.map( function ( fileObj ) {
 
-        return readFile( fileObj.file )
+        return fsp.readFile( fileObj.file )
         .then( function ( data ) {
 
             return fileObj.src = data;
@@ -103,7 +89,7 @@ function registerPartials( config ) {
 
 function renderLayout( config ) {
 
-    return readFile( config.settings.template.layout )
+    return fsp.readFile( config.settings.template.layout )
     .then( function ( data ) {
 
         return config.settings.template.layout = {
@@ -120,8 +106,8 @@ function renderLayout( config ) {
             , html = hbsCompiled( config )
             ;
 
-        return writeFile( file, html )
-        .then( function () {
+        return fsp.writeFile( file, html )
+        .then( () => {
 
             log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
@@ -135,28 +121,75 @@ function renderLayout( config ) {
     });
 }
 
+function globPrefixAssets( config ) {
+
+    return globFiles( config.settings.prefix.assets )
+    .then( assets => {
+        config.settings.prefix.assets = _.flatten( assets );
+
+        return config;
+    })
+    .catch( err => {
+
+        log.error( 'Glob Prefix Assets', err );
+    });
+}
+
+function prefixAssets( config ) {
+
+    return Promise.all( config.settings.prefix.assets.map( file => {
+
+        file.prefixed = `sugarcoat/css/prefixed-${file.name}.css`;
+
+        return  fsp.readFile( file.file )
+        .then( data => {
+
+            return postcss()
+            .use( prefixer({
+                prefix: config.settings.prefix.selector
+            }))
+            .process( data )
+            .then( result => {
+
+                return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css );
+            })
+            .then( result => {
+                log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+
+                return result;
+            });
+        });
+    }))
+    .then( () => {
+
+        return config;
+    })
+    .catch( ( err ) => {
+        log.error( 'Prefix Assets', err );
+
+        return err;
+    });
+}
+
 function copyAssets( config ) {
 
-    var flattened = []
-        , dest = config.settings.dest
-        , assets = config.settings.template.assets
-        ;
+    var flattened = [];
 
-    var expand = assets.map( function ( assetObj ) {
+    var expand = config.settings.template.assets.map( function ( asset ) {
 
         return globber({
-            src: path.join( assetObj.src, '**/*' ),
-            options: assetObj.options
+            src: asset.src,
+            options: asset.options
         })
-        .then( function ( expandedPaths ) {
+        .then( function ( files ) {
 
-            assetObj.srcFiles = expandedPaths;
+            asset.srcFiles = files;
 
-            return assetObj.srcFiles.map( function ( assetPath ) {
+            return asset.srcFiles.map( assetPath => {
 
                 var result = {
-                    from: path.resolve( assetObj.options.cwd, assetPath ),
-                    to: path.resolve( dest, path.relative( assetObj.options.cwd, assetPath ) )
+                    from: path.resolve( asset.options.cwd, assetPath ),
+                    to: path.resolve( config.settings.dest, path.relative( asset.options.cwd, assetPath ) )
                 };
 
                 flattened.push( result );
@@ -167,22 +200,23 @@ function copyAssets( config ) {
     });
 
     return Promise.all( expand )
-    .then( function () {
+    .then( () => {
 
-        return Promise.all( flattened.map( function ( assetObj ) {
+        return Promise.all( flattened.map( asset => {
 
-            return copy( assetObj.from, assetObj.to )
-            .then( function ( assetPaths ) {
+            return fsp.copy( asset.from, asset.to )
+            .then( assetPaths => {
 
-                return log.info( 'Render', `asset copied: "${ path.relative( dest, assetPaths[1] ) }"` );
+                return log.info( 'Render', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
             });
         }));
     })
-    .then( function () {
+    .then( () => {
+
         return config;
     })
     .catch( function ( err ) {
-        log.error( 'Render', err );
+        log.error( 'Copy Assets', err );
 
         return err;
     });
@@ -191,74 +225,28 @@ function copyAssets( config ) {
 /*
     Utilities
 */
-function copy( fromPath, toPath ) {
+function globFiles( files ) {
 
-    return new Promise( function ( resolve, reject ) {
+    var globArray = files.map( file => {
 
-        makeDirs( toPath )
-        .then( function () {
-
-            var reader = fs.createReadStream( fromPath )
-                , writer = fs.createWriteStream( toPath )
-                ;
-
-            reader.on( 'error', reject );
-            writer.on( 'error', reject );
-
-            writer.on( 'finish', function () {
-
-                resolve( [ fromPath, toPath ] );
-            });
-
-            reader.pipe( writer );
+        return globber({
+            src: file.src,
+            options: file.options
         })
-        .catch( function ( err ) {
-            log.error( 'Render', err );
+        .then( function ( files ) {
 
-            return err;
+            return files.reduce( function ( collection, filePath ) {
+
+                collection.push({
+                    cwd: file.src,
+                    file: filePath,
+                    name: path.basename( filePath, path.parse( filePath ).ext )
+                });
+
+                return collection;
+            }, []);
         });
     });
-}
 
-function readFile( file ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        fs.readFile( file, 'utf8', function ( err, data ) {
-
-            if ( err ) return reject( err );
-
-            return resolve( data );
-        });
-    });
-}
-
-function writeFile( file, contents ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        makeDirs( file )
-        .then( function () {
-
-            fs.writeFile( file, contents, function ( err ) {
-
-                if ( err ) return reject( err );
-
-                return resolve( file );
-            });
-        });
-    });
-}
-
-function makeDirs( toPath ) {
-
-    return new Promise( function ( resolve, reject ) {
-
-        mkdirp( path.parse( toPath ).dir, function ( err ) {
-
-            if ( err ) return reject( err );
-
-            resolve();
-        });
-    });
+    return Promise.all( globArray );
 }

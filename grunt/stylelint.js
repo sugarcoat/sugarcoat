@@ -20,11 +20,11 @@ module.exports = function ( grunt ) {
             files: [
                 {
                     expand: true,
-                    cwd: 'generators/pattern-library/templates/sugarcoat',
+                    cwd: 'generators/pattern-library/templates',
                     src: [
                         'styles/**/*.scss'
                     ],
-                    dest: 'generators/pattern-library/templates/sugarcoat',
+                    dest: 'generators/pattern-library/templates',
                     ext: 'styles/**/*.css'
                 }
             ]

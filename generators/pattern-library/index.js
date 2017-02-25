@@ -1,4 +1,3 @@
-var fs = require( 'fs' );
 var path = require( 'path' );
 
 var parser = require( './parser' );
@@ -6,6 +5,7 @@ var render = require( './render' );
 var log = require( '../../lib/logger' );
 var configure = require( './configure' );
 var globber = require( '../../lib/globber' );
+var fsp = require( '../../lib/fs-promiser' );
 
 /**
  *
@@ -61,24 +61,18 @@ function readSections( config ) {
 
     var promiseArr = config.sections.map( function ( section ) {
 
-        return Promise.all( section.files.map( function ( file, index ) {
-
-            return new Promise( function ( resolve, reject ) {
-
-                fs.readFile( file, 'utf8', function ( err, src ) {
-
-                    if ( err ) return reject( err );
-
-                    section.files[ index ] = {
-                        path: file,
-                        ext: path.parse( file ).ext.substring( 1 ),
-                        src: src
-                    };
-
-                    resolve( section.files[ index ] );
-                });
+        return Promise.all( section.files.map( function ( file ) {
+            return fsp.readFile( file );
+        }))
+        .then( ( resolvedSections ) => {
+            return section.files.map( ( file, index ) => {
+                section.files[ index ] = {
+                    path: file,
+                    ext: path.parse( file ).ext.substring( 1 ),
+                    src: resolvedSections[ index ]
+                };
             });
-        }));
+        });
     });
 
     return Promise.all( promiseArr )
