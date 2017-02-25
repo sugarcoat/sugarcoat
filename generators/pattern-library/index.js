@@ -8,8 +8,6 @@ var globber = require( '../../lib/globber' );
 var log = require( '../../lib/logger' );
 var fsp = require( '../../lib/fs-promiser' );
 
-// var util = require( 'util' );
-
 /**
  *
  */

@@ -1,13 +1,10 @@
-// var fs = require( 'fs' );
 var path = require( 'path' );
-
 var _ = require( 'lodash' );
 var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
-// var mkdirp = require( 'mkdirp' );
 var Handlebars = require( 'handlebars' );
-var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
+var hbsHelpers = require( '../../lib/handlebars-helpers' );
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
 var fsp = require( '../../lib/fs-promiser' );
