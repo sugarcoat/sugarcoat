@@ -68,8 +68,6 @@ npm install --save sugarcoat
 
 # Usage #
 
-## Module ##
-
 The Sugarcoat module takes a `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data.
 
 ```js
@@ -83,28 +81,6 @@ sugarcoat( config ).then( function( data ) {
     console.log( data );
 });
 ```
-
-## CLI ##
-
-You can also install `sugarcoat` globally (via `npm install -g`). The `sugarcoat` command takes a path to a configuration file which must export the configuration object via `module.exports`.
-
-```bash
-sugarcoat './my/config.js'
-```
-
-**Usage**
-
-```bash
-sugarcoat [flags] <configuration file>
-
-Options:
-
-  -h, --help     output usage information
-  -o, --output    Write output to process.stdout
-  -V, --version  output the version number
-```
-
-
 
 # Configuration #
 
@@ -171,14 +147,6 @@ Optional: `false`
 Default: `null`
 
 Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
-
-### `format` ###
-
-Type: `String`
-Optional: `true`
-Default: `null`
-
-Format will allow you to change the return value from Sugarcoat's `Promise`. The two options are `'json'` or `'html'`. When used with the `--output` flag in the CLI, Sugarcoat will return the format you selected directly in your CLI. If you are running Sugarcoat as a module, the return value from the `Promise` will be the selected format. *Note: This is best when used with the CLI's `--output` flag.*
 
 ### `log` ###
 
@@ -671,7 +639,7 @@ The following are included helpers that Sugarcoat has already registered to its 
 - [x] Update github pages
 - [x] [Consume your style assets, prefix them, and place them into `head.hbs`](/../../issues/25)
 - [ ] Syntax Highlighting
-- [ ] [Remove Format option from settings object](../../issues/32)
+- [x] [Remove Format option from settings object](../../issues/32)
 
 
 ## v?.0.0 ##
