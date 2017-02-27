@@ -100,7 +100,6 @@ function parseSections( config ) {
 
 function renderOnDest( config ) {
 
-    // console.log(util.inspect( config, { depth: 7, colors: true } ) );
     if ( config.settings.dest !== null ) {
 
         return render( config );

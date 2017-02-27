@@ -4,11 +4,7 @@ var fs = require( 'fs-extra' );
 var sugarcoat = require( '../index' );
 var fsp = require( '../lib/fs-promiser' );
 
-// suite( 'Render: globPartials', function() { test( '', function() {});});
-// suite( 'Render: readPartials', function() {});
-// suite( 'Render: registerPartials', function() {});
-// suite( 'Render: renderLayout', function() {});
-suite( 'Render: File Prefixer', () => {
+suite( 'Templater: File Prefixer', () => {
 
     test( 'By default, assets are prefixed as .sugar-example. Output file is prefixed with "prefixed-"',  done => {
 

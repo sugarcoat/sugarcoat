@@ -180,7 +180,7 @@ function prefixAssets( config ) {
 
         return config;
     })
-    .catch( ( err ) => {
+    .catch( err => {
         log.error( 'Prefix Assets', err );
 
         return err;
@@ -188,7 +188,7 @@ function prefixAssets( config ) {
 }
 
 /*
-    Utils
+    Utilities
  */
 function globFiles( files ) {
 
@@ -198,9 +198,9 @@ function globFiles( files ) {
             src: file.src,
             options: file.options
         })
-        .then( function ( files ) {
+        .then( files => {
 
-            return files.reduce( function ( collection, filePath ) {
+            return files.reduce( ( collection, filePath ) => {
 
                 collection.push({
                     cwd: file.src,
@@ -210,6 +210,10 @@ function globFiles( files ) {
 
                 return collection;
             }, []);
+        })
+        .catch( err => {
+
+            return err;
         });
     });
 
