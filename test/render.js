@@ -4,4 +4,4 @@
 // var sugarcoat = require( '../index' );
 // var fsp = require( '../lib/fs-promiser' );
 
-// suite( 'Templater: renderLayout', function() {});
+// suite( 'Render: renderLayout', function() {});
