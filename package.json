@@ -3,7 +3,6 @@
   "version": "0.6.0",
   "description": "Making UI documentation a bit sweeter ✨",
   "dependencies": {
-    "commander": "^2.9.0",
     "comment-serializer": "^0.2.3",
     "fs-extra": "^2.0.0",
     "globby": "^6.1.0",
