@@ -8,9 +8,14 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 **Note**: This is still a [work in-progress](#v100). Please file an issue if you encounter any issues or think a feature should be added.
 
-![Screenshot 3](generators/pattern-library/design/screenshot-3.png)
+![Screenshot Colors](generators/pattern-library/design/screen-shot-colors.png)
 
-![Screenshot 1](generators/pattern-library/design/screenshot-1.png)
+![Screenshot Typography](generators/pattern-library/design/screen-shot-typography.png)
+
+![Screenshot Variables](generators/pattern-library/design/screen-shot-variables.png)
+
+![Screenshot Components](generators/pattern-library/design/screen-shot-components.png)
+
 
 
 # Index #
@@ -114,8 +119,6 @@ Options:
 ```js
 {
   settings: {
-    title: 'My Pattern Library',
-    graphic: 'my/project/library/images/logo.jpg',
     dest: 'my/project/pattern-library'
   },
   sections: [
@@ -169,6 +172,7 @@ This is the path to which the `dest` path is relative.
 Type: `String`
 Optional: `false`
 Default: `null`
+Relative: `settings.cwd`
 
 Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
 
@@ -244,7 +248,9 @@ Defines the selector to be used to prefix all assets from `prefix.assets`. Shoul
 ```js
 module.exports = {
   settings: {
+    title: 'My Pattern Library',
     dest: 'my/project/pattern-library',
+    graphic: 'my/project/library/images/logo.jpg',
     template: {
       cwd: 'my/project/templates',
       layout: 'my-custom-layout.hbs',
@@ -283,7 +289,7 @@ module.exports = {
 
 ## `sections` Array ##
 
-Contains an `Array` of [Section Objects](#sectionobject)
+Contains an `Array` of [Section Objects](#sectionobject).
 
 ### Section Object ###
 
@@ -300,66 +306,6 @@ Type: [Standardized File Format](#standardized-file-format)
 Optional: `false`
 
 File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
-
-**Examples**
-
-Provide a single path:
-
-```js
-{
-  title: 'Single File',
-  files: 'my/project/styles/components/feedback.scss'
-}
-```
-
-Match all files in a directory:
-
-```js
-{
-  title: 'Multiple Files',
-  files: 'my/project/styles/base/*'
-}
-```
-
-Provide multiple paths/patterns:
-
-```js
-{
-  title: 'Multiple Files',
-  files: [
-    'my/project/styles/global/*',
-    'my/project/styles/components/feedback.scss',
-    '!my/project/styles/global/colors.scss'
-  ]
-}
-```
-
-Provide an object in order to specify options to pass to [globby](https://www.npmjs.com/package/globby):
-
-```js
-{
-  title: 'Multiple Files',
-  files: {
-    src: String|Object|Array,
-    options: Object
-  }
-}
-```
-
-Provide an array of objects:
-
-```js
-{
-  title: 'Multiple Files',
-  files: [
-    {
-      src: String|Object|Array,
-      options: Object
-    },
-    {...}
-  ]
-}
-```
 
 #### `type` ####
 
@@ -474,7 +420,7 @@ There are three reserved tag names that will notify comment-serializer to parse 
  */
 ```
 
-**Example of a Comment Object**
+**Comment Object Example**
 
 ```js
 {
@@ -621,7 +567,6 @@ The following partials are helpers:
   - 'masthead' Renders your project `settings.title` and `settings.graphic` if provided.
 
   - `footer` Outputs links to JavaScript files.
-    - Roadmap: Add optional syntax highlighting in the footer partial
 
   - `tag-details`, `file-path`, `block-title` Render data within Sugarcoat's `section-*` partials.
 

@@ -147,7 +147,7 @@ body {
   font-weight: lighter;
   color: #666;
   margin: 0;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 /* line 66, ../../styles/base/defaults.scss */
@@ -599,7 +599,7 @@ body {
 .sugar-type-file .sugar-type-container {
   border: 1px solid #e4e4e4;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 /* line 11, ../../styles/section-typography/defaults.scss */
@@ -631,7 +631,7 @@ body {
 }
 /* line 4, ../../styles/section-variable/defaults.scss */
 .sugar-section-variable .sugar-table-container {
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 /* line 8, ../../styles/section-variable/defaults.scss */
