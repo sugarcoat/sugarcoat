@@ -436,6 +436,10 @@ body {
   padding: 1.25rem 1.0rem;
   overflow: hidden;
 }
+/* line 20, ../../styles/preview/defaults.scss */
+.sugar-preview .sugar-pre {
+  padding: 1.5rem 1rem;
+}
 
 /* line 1, ../../styles/tag-details/defaults.scss */
 .sugar-tag-details {
