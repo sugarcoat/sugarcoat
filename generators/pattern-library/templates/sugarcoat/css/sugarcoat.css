@@ -677,12 +677,14 @@ body {
 .sugar-var-table pre {
   padding: 0;
   overflow-x: auto;
+  font-size: 16px;
+  color: #666;
 }
-/* line 40, ../../styles/section-variable/defaults.scss */
+/* line 42, ../../styles/section-variable/defaults.scss */
 .sugar-var-table p {
   font-family: 'Helvetica';
   margin: 0;
-  color: #999999;
+  color: #999;
 }
 
 /*# sourceMappingURL=sugarcoat.css.map */
