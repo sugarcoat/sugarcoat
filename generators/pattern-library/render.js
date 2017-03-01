@@ -82,7 +82,7 @@ function copyAssets( config ) {
             return fsp.copy( asset.from, asset.to )
             .then( assetPaths => {
 
-                return log.info( 'Templater', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
+                return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
             });
         }));
     })
@@ -141,7 +141,7 @@ function registerPartials( config ) {
 
         Handlebars.registerPartial( partial.name, partial.src );
 
-        log.info( 'Templater', msg );
+        log.info( 'Render', msg );
     });
 
     return config;
@@ -180,7 +180,7 @@ function prefixAssets( config ) {
                 return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css );
             })
             .then( result => {
-                log.info( 'Templater', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+                log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
 
                 return result;
             });
