@@ -3,7 +3,6 @@ var path = require( 'path' );
 var parser = require( './parser' );
 var render = require( './render' );
 var configure = require( './configure' );
-var templater = require( './templater' );
 var globber = require( '../../lib/globber' );
 var log = require( '../../lib/logger' );
 var fsp = require( '../../lib/fs-promiser' );
@@ -38,8 +37,7 @@ function init( config ) {
     return globFiles( config )
     .then( readSections )
     .then( parseSections )
-    .then( templater )
-    .then( renderOnDest )
+    .then( render )
     .then( function ( html ) {
 
         log.info( 'Finished!' );
@@ -107,16 +105,4 @@ function parseSections( config ) {
     });
 
     return config;
-}
-
-function renderOnDest( config ) {
-
-    if ( config.settings.dest !== null ) {
-        return render( config );
-
-    }
-    else {
-
-        return config;
-    }
 }

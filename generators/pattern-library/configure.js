@@ -14,7 +14,6 @@ var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
 
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
-// defaults.settings.dest = null;
 
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
@@ -34,7 +33,7 @@ function init( options ) {
         ;
 
     // Configure the logger
-    log.config( options.settings.log );
+    log.config( config.settings.log );
 
     // **** ASSETS (template) ****
 
