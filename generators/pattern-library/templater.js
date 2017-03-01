@@ -38,7 +38,9 @@ module.exports = function ( config ) {
 
 function copyAssets( config ) {
 
-    var flattened = [];
+    var flattened = []
+        , dest = config.settings.dest !== null ? config.settings.dest : config.settings.cwd
+        ;
 
     var expand = config.settings.template.assets.map( function ( asset ) {
 
@@ -54,7 +56,7 @@ function copyAssets( config ) {
 
                 var result = {
                     from: path.resolve( asset.options.cwd, assetPath ),
-                    to: path.resolve( config.settings.dest, path.relative( asset.options.cwd, assetPath ) )
+                    to: path.resolve( dest, path.relative( asset.options.cwd, assetPath ) )
                 };
 
                 flattened.push( result );
@@ -72,7 +74,7 @@ function copyAssets( config ) {
             return fsp.copy( asset.from, asset.to )
             .then( assetPaths => {
 
-                return log.info( 'Templater', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
+                return log.info( 'Templater', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
             });
         }));
     })

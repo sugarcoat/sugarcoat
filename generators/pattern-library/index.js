@@ -28,7 +28,7 @@ function init( config ) {
     .then( readSections )
     .then( parseSections )
     .then( templater )
-    .then( render )
+    .then( renderOnDest )
     .then( function ( html ) {
 
         log.info( 'Finished!' );
@@ -96,4 +96,16 @@ function parseSections( config ) {
     });
 
     return config;
+}
+
+function renderOnDest( config ) {
+
+    if ( config.settings.dest !== null ) {
+        return render( config );
+
+    }
+    else {
+
+        return config;
+    }
 }

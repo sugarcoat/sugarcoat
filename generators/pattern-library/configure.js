@@ -121,7 +121,7 @@ function init( options ) {
     }
     else {
 
-        config.error = 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.';
+        config.error.settings.dest = 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.';
     }
 
     // **** SECTIONS ****
@@ -133,11 +133,11 @@ function init( options ) {
         }
 
         if ( !section.title ) {
-            config.error = 'Title is required. Please add a `title` option to all of the section objects.';
+            config.error.sections.title = `Title is required. Please add a 'title' option to: ${section}`;
         }
 
         if ( !section.files ) {
-            config.error = 'Files is required. Please add a `files` option to all of the section objects';
+            config.error.sections.files = `Files is required. Please add a 'files' option to: ${section}`;
         }
     });
 
