@@ -8,6 +8,7 @@ var globber = require( '../../lib/globber' );
 var log = require( '../../lib/logger' );
 var fsp = require( '../../lib/fs-promiser' );
 
+
 /**
  *
  */
@@ -19,7 +20,17 @@ function init( config ) {
 
     if ( config.error ) {
 
-        log.error( config.error );
+        // TODO: rename i. i is either `settings` object or `sections` object
+        for ( var i in config.error ) {
+
+            for ( var errObj in config.error[ i ] ) {
+
+                var key = config.error[ i ][ errObj ].key;
+                var msg = config.error[ i ][ errObj ].msg;
+
+                log.error( `Configure: ${i}.${key}`, msg );
+            }
+        }
 
         return Promise.reject();
     }

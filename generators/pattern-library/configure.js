@@ -2,6 +2,7 @@ var path = require( 'path' );
 
 var _ = require( 'lodash' );
 var log = require( '../../lib/logger' );
+var util = require( 'util' );
 
 /**
  * Default configuration values
@@ -121,23 +122,42 @@ function init( options ) {
     }
     else {
 
-        config.error.settings.dest = 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.';
+        config.error = config.error || {};
+        config.error.settings = config.error.settings || [];
+        config.error.settings.push({
+            'key': 'dest',
+            'msg': 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
+        });
     }
 
     // **** SECTIONS ****
 
     config.sections.forEach( function ( section ) {
 
+        var loggedSection = util.inspect( section, { depth: 7, colors: true } );
+
         if ( !section.template ) {
             section.template = `section-${ section.type || 'default' }`;
         }
 
         if ( !section.title ) {
-            config.error.sections.title = `Title is required. Please add a 'title' option to: ${section}`;
+
+            config.error = config.error || {};
+            config.error.sections = config.error.sections || [];
+            config.error.sections.push({
+                'key': 'title',
+                'msg': `Title is required. Please add a 'title' option to: ${loggedSection}`
+            });
         }
 
         if ( !section.files ) {
-            config.error.sections.files = `Files is required. Please add a 'files' option to: ${section}`;
+
+            config.error = config.error || {};
+            config.error.sections = config.error.sections || [];
+            config.error.sections.push({
+                'key': 'files',
+                'msg': `Files is required. Please add a 'files' option to: ${loggedSection}`
+            });
         }
     });
 
