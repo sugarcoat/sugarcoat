@@ -564,7 +564,7 @@ The following partials are helpers:
 
   - `head` Outputs links to Sugarcoat's default stylesheets, and any modified assets from `prefix.assets`
 
-  - 'masthead' Renders your project `settings.title` and `settings.graphic` if provided.
+  - `masthead` Renders your project `settings.title` and `settings.graphic` if provided.
 
   - `footer` Outputs links to JavaScript files.
 
@@ -590,11 +590,11 @@ The following partials are helpers:
 
 The following options will help to enable your custom Sugarcoat template. None are required.
 
-  - [template.layout](#templatelayout): Replace `main.hbs`
-  - [template.partials](#templatepartials): Create new and/or override existing partials
-  - [template.assets](#templateassets): Copy assets from your project
-  - [prefix.assets](#prefixassets): Sugarcoat can prefix your assets with a selector of your choosing. Should your project provide a scoping process, be sure to include a custom `head.hbs` partial with your modified stylesheets linked.
-  - [prefix.selector](#prefixselector): Manage selector for prefixing
+  - `[template.layout](#templatelayout)`: Replace `main.hbs`
+  - `[template.partials](#templatepartials)`: Create new and/or override existing partials
+  - `[template.assets](#templateassets)`: Copy assets from your project
+  - `[prefix.assets](#prefixassets)`: Sugarcoat can prefix your assets with a selector of your choosing. Should your project provide a scoping process, be sure to include a custom `head.hbs` partial with your modified stylesheets linked.
+  - `[prefix.selector](#prefixselector)`: Manage selector for prefixing
 
 **Handlebars Helpers**
 
@@ -602,25 +602,25 @@ The following are included helpers that Sugarcoat has already registered to its 
 
   - `isEqual [string] [string]` Compares two strings. If true, block is rendered
   - `notEqual [string] [string]` Compares two strings. If false, block is rendered
-  - `toID [string]` Appends @index while within a loop to the string provided
+  - `toID [string]` Appends `@index` while within a loop to the string provided
 
 # Roadmap #
 
 ## v1.0.0 ##
 
-- [x] [More styling and better structuring of rendered sections](/../../issues/15)
-- [x] [Robust example project](/../../issues/16)
-- [x] [Consolidating code comment syntax strategy](/../../issues/4)
-- [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects](/../../issues/17)
+- [x] [More styling and better structuring of rendered sections]
+- [x] [Robust example project]
+- [x] [Consolidating code comment syntax strategy]
+- [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects]
+- [x] [Consume your style assets, prefix them, and place them into `head.hbs`]
 - [ ] [Add automated tests](/../../issues/18)
-- [x] Update github pages
-- [x] [Consume your style assets, prefix them, and place them into `head.hbs`](/../../issues/25)
+- [ ] Update github pages
 - [ ] Syntax Highlighting
 - [ ] [Remove Format option from settings object](../../issues/32)
 
 
 ## v?.0.0 ##
 
+- [x] Ability to add custom tags [comment-parser](https://github.com/ryanfitzer/comment-serializer)
 - [ ] More refactoring of modules (functional, Promises)
-- [ ] Ability to add custom tags (custom parser functions)
 - [ ] Add support for JavaScript modules and components (React)
