@@ -9,6 +9,7 @@ var log = require( '../../lib/logger' );
  */
 var defaults = {};
 var defaultAssets = 'sugarcoat/**/*';
+var defaultAssetStr = 'sugarcoat';
 var cwdTemplates = path.join( __dirname, 'templates' );
 var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
 
@@ -52,12 +53,12 @@ function init( options ) {
     }
 
     // Add in the default assets
-    if ( _.includes( template.assets, defaultAssets ) ) {
+    if ( _.includes( template.assets, defaultAssetStr ) ) {
 
         addDefaultAssets = true;
 
         // Get the sugarcoat string out of the array
-        _.pull( template.assets, defaultAssets );
+        _.pull( template.assets, defaultAssetStr );
     }
 
     // Convert remaining array pieces into a file object

@@ -141,7 +141,6 @@ body {
 /* line 54, ../../styles/base/defaults.scss */
 .sugar-main .sugar-pre {
   box-sizing: border-box;
-  padding: 1.5rem 1rem;
   background-color: #f1f1f1;
   font-family: 'Courier';
   font-weight: lighter;
@@ -150,25 +149,25 @@ body {
   overflow-x: auto;
 }
 
-/* line 66, ../../styles/base/defaults.scss */
+/* line 65, ../../styles/base/defaults.scss */
 .sugar-nav-open .sugar-main {
   transform: translateX(245px);
 }
-/* line 69, ../../styles/base/defaults.scss */
+/* line 68, ../../styles/base/defaults.scss */
 .sugar-nav-open .sugar-nav-toggle {
   transform: translateX(245px);
 }
 
-/* line 73, ../../styles/base/defaults.scss */
+/* line 72, ../../styles/base/defaults.scss */
 .sugar-component {
   margin-bottom: 60px;
 }
-/* line 76, ../../styles/base/defaults.scss */
+/* line 75, ../../styles/base/defaults.scss */
 .sugar-component > div {
   clear: both;
 }
 
-/* line 81, ../../styles/base/defaults.scss */
+/* line 80, ../../styles/base/defaults.scss */
 .sugar-file {
   font-family: 'Helvetica';
   font-size: 14px;
@@ -176,7 +175,7 @@ body {
   font-weight: bold;
   clear: both;
 }
-/* line 88, ../../styles/base/defaults.scss */
+/* line 87, ../../styles/base/defaults.scss */
 .sugar-file .sugar-path {
   font-family: 'Courier';
   font-weight: lighter;
@@ -184,19 +183,19 @@ body {
   word-break: break-all;
 }
 
-/* line 96, ../../styles/base/defaults.scss */
+/* line 95, ../../styles/base/defaults.scss */
 .sugar-type-desc {
   background: #f1f1f1;
   margin: 0;
   width: 100%;
   color: #666;
 }
-/* line 102, ../../styles/base/defaults.scss */
+/* line 101, ../../styles/base/defaults.scss */
 .sugar-type-desc:before {
   content: 'description';
 }
 
-/* line 107, ../../styles/base/defaults.scss */
+/* line 106, ../../styles/base/defaults.scss */
 .sugar-type-container pre,
 .sugar-type-container .sugar-type-desc {
   width: 100%;
@@ -204,7 +203,7 @@ body {
   position: relative;
   padding: 1.6rem 1rem .8rem 1rem;
 }
-/* line 114, ../../styles/base/defaults.scss */
+/* line 113, ../../styles/base/defaults.scss */
 .sugar-type-container pre:before,
 .sugar-type-container .sugar-type-desc:before {
   position: absolute;
@@ -219,12 +218,12 @@ body {
   color: #999;
 }
 
-/* line 124, ../../styles/base/defaults.scss */
+/* line 123, ../../styles/base/defaults.scss */
 .sugar-var:before {
   content: 'variable';
 }
 
-/* line 129, ../../styles/base/defaults.scss */
+/* line 128, ../../styles/base/defaults.scss */
 .sugar-val:before {
   content: 'value';
 }
