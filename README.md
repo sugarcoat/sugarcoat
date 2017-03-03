@@ -340,7 +340,7 @@ Throughout Sugarcoat we use a standardized format for files. This format allows 
 
 ### `String` ###
 
-The `string` format is a string of a path or a [pattern (Globby)](https://github.com/sindresorhus/globby#globbing-patterns).
+The `string` format is a string to a path or of a [pattern (Globby)](https://github.com/sindresorhus/globby#globbing-patterns).
 
 **Example**
 ```js
