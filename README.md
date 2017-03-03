@@ -36,7 +36,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 ---
 
-# Features #
+# Features✨ #
 
 1. Lives in your project seamlessly
 
