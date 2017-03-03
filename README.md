@@ -8,14 +8,11 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 **Note**: This is still a [work in-progress](#v100). Please file an issue if you encounter any issues or think a feature should be added.
 
-![Screenshot Colors](generators/pattern-library/design/screen-shot-colors.png)
+![Screenshot Colors](generators/pattern-library/design/colors.png)
 
-![Screenshot Typography](generators/pattern-library/design/screen-shot-typography.png)
+![Screenshot Variables](generators/pattern-library/design/variables.png)
 
-![Screenshot Variables](generators/pattern-library/design/screen-shot-variables.png)
-
-![Screenshot Components](generators/pattern-library/design/screen-shot-components.png)
-
+![Screenshot Components](generators/pattern-library/design/components.png)
 
 
 # Index #
@@ -32,6 +29,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
   - [Code Comment Syntax](#code-comment-syntax)
   - [Templating](#templating)
     - [Custom Templating](#custom-templating)
+  - [Example Site](#example-site)
   - [Roadmap](#roadmap)
 
 
@@ -603,6 +601,15 @@ The following are included helpers that Sugarcoat has already registered to its 
   - `isEqual [string] [string]` Compares two strings. If true, block is rendered
   - `notEqual [string] [string]` Compares two strings. If false, block is rendered
   - `toID [string]` Appends `@index` while within a loop to the string provided
+
+
+# Example Site #
+
+Want to see sugarcoat in action?
+
+  - [Example Project](https://sugarcoat.github.io/sugarcoat-example-project/)
+  - [Example Project Pattern Library](https://sugarcoat.github.io/sugarcoat-example-project/documentation/index.html)
+  - [Github](https://github.com/sugarcoat/sugarcoat-example-project)
 
 # Roadmap #
 
