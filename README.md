@@ -24,6 +24,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
     - [CLI](#cli)
   - [Configuration](#configuration)
     - [`settings` Object](#settings-object)
+    - [Advanced `settings` Example](#advanced-settings-example)
     - [`sections` Array](#sections-array)
     - [Standardized File Format](#standardized-file-format)
   - [Code Comment Syntax](#code-comment-syntax)
@@ -127,7 +128,7 @@ Options:
     {
       title: 'UI Kit',
       files: [
-        'my/project/library/styles/global/*.scss',
+        'my/project/library/styles/global/**/*.scss',
         'my/project/library/styles/components/feedback.scss',
         '!my/project/library/styles/global/typography.scss'
       ]
@@ -241,7 +242,7 @@ Default: `.sugar-example`
 
 Defines the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector scope.
 
-**Advanced Example**
+##Advanced Settings Example##
 
 ```js
 module.exports = {
@@ -253,12 +254,7 @@ module.exports = {
       cwd: 'my/project/templates',
       layout: 'my-custom-layout.hbs',
       partials: [
-        {
-          src: 'my-partials',
-          options: {
-            nodir: false
-          }
-        },
+        'partials/folder/*.hbs',
         {
           src: 'my-other-partials',
           options: {
@@ -275,7 +271,7 @@ module.exports = {
     },
     prefix: {
       assets: [
-        'styles'
+        'styles/**/*'
       ],
       selector: '.scope-styles'
     }
@@ -344,11 +340,11 @@ Throughout Sugarcoat we use a standardized format for files. This format allows 
 
 ### `String` ###
 
-The `string` format is a string of path to a file or directory.
+The `string` format is a string of a path or a [pattern (Globby)](https://github.com/sindresorhus/globby#globbing-patterns).
 
 **Example**
 ```js
-files: 'my/project/js'
+files: 'my/project/js/*'
 ```
 
 ### `Object` ###
@@ -358,7 +354,7 @@ The `object` format is an object composed of a property of `src` and optionaly a
 **Example**
 ```js
 files: {
-  src: 'my/project/js',
+  src: 'my/project/js/main.js',
   options: {
     nodir: true
   }
@@ -372,7 +368,7 @@ The `array` format can be composed of `strings` or `objects` (or a mix of both).
 **Example**
 ```js
 files: [
-  'my/project/js',
+  'my/project/js/main.js',
   {
     src: 'my/project/styles',
     options: {
@@ -403,6 +399,11 @@ There are three reserved tag names that will notify comment-serializer to parse 
   - **`@modifier`** Is used for a class modifier on a component. It takes the value and splits on the following word, separating the first word as the `type: modifier` and the following string as its `type: description` This modifier can contain any of the following characters: **`.-_`**
 
   - **`@state`** Is used for state pseudo-classes such as `:hover`. Similar to `@modifier` it splits the state and following description. The state is expected to be prefixed with `:` with `type: modifier`
+
+If you would like to include a custom tag in your comment block, you can pass a custom parser into [comment-serializer](https://github.com/ryanfitzer/comment-serializer#custom-tag-parsers)
+
+Sugarcoat takes the source code that follows a comment (up until the next comment), and applies it to the `context` key of the comment object.
+
 
 **Comment Example**
 
@@ -485,8 +486,6 @@ There are three reserved tag names that will notify comment-serializer to parse 
   ]
 }
 ```
-
-Sugarcoat takes the source code that follows a comment (up until the next comment), and applies it to the `context` key of the comment object.
 
 
 **HTML**
@@ -601,6 +600,10 @@ The following are included helpers that Sugarcoat has already registered to its 
   - `isEqual [string] [string]` Compares two strings. If true, block is rendered
   - `notEqual [string] [string]` Compares two strings. If false, block is rendered
   - `toID [string]` Appends `@index` while within a loop to the string provided
+
+**Custom Comment Tag**
+
+Should you want Sugarcoat to parse a comment block tag in a different way, you can customize its parsing in [comment-serializer](https://github.com/ryanfitzer/comment-serializer#custom-tag-parsers)
 
 
 # Example Site #
