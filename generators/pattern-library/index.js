@@ -17,24 +17,32 @@ function init( config ) {
 
     config = configure( config );
 
-    if ( config.error ) {
+    if ( Array.isArray( config ) ) {
 
-        // TODO: rename i. i is either `settings` object or `sections` object
-        for ( var i in config.error ) {
+        // for ( var errObj in config ) {
 
-            for ( var errObj in config.error[ i ] ) {
+        //     var key = config[ errObj ].key;
+        //     var msg = config[ errObj ].msg;
 
-                var key = config.error[ i ][ errObj ].key;
-                var msg = config.error[ i ][ errObj ].msg;
+        //     log.error( `Configure: ${key}`, msg );
+        // }
 
-                log.error( `Configure: ${i}.${key}`, msg );
+        return Promise.reject( config )
+        .then( () => {}, config => {
+
+            for ( var errObj in config ) {
+
+                var key = config[ errObj ].key;
+                var msg = config[ errObj ].msg;
+
+                log.error( `Configure: ${key}`, msg );
             }
-        }
-
-        return Promise.reject();
+        });
     }
 
+
     return globFiles( config )
+    .then( globFiles )
     .then( readSections )
     .then( parseSections )
     .then( render )

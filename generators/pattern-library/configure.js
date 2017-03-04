@@ -30,6 +30,7 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
+        , error
         ;
 
     // Configure the logger
@@ -121,10 +122,9 @@ function init( options ) {
     }
     else {
 
-        config.error = config.error || {};
-        config.error.settings = config.error.settings || [];
-        config.error.settings.push({
-            'key': 'dest',
+        error = error || [];
+        error.push({
+            'key': 'settings.dest',
             'msg': 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
         });
     }
@@ -141,26 +141,30 @@ function init( options ) {
 
         if ( !section.title ) {
 
-            config.error = config.error || {};
-            config.error.sections = config.error.sections || [];
-            config.error.sections.push({
-                'key': 'title',
+            error = error || [];
+            error.push({
+                'key': 'sections.title',
                 'msg': `Title is required. Please add a 'title' option to: ${loggedSection}`
             });
         }
 
         if ( !section.files ) {
 
-            config.error = config.error || {};
-            config.error.sections = config.error.sections || [];
-            config.error.sections.push({
-                'key': 'files',
+            error = error || [];
+            error.push({
+                'key': 'sections.files',
                 'msg': `Files is required. Please add a 'files' option to: ${loggedSection}`
             });
         }
     });
 
-    return config;
+
+    if ( error ) {
+
+        return error;
+
+    }
+    else return config;
 }
 
 function normalizeDirectory( dir, cwd ) {
