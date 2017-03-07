@@ -144,7 +144,7 @@ function init( options ) {
             error = error || [];
             error.push({
                 'key': 'sections.title',
-                'msg': `Title is required. Please add a 'title' option to: ${loggedSection}`
+                'msg': `Title is required. Please add a 'title' option to: \n${loggedSection}`
             });
         }
 
@@ -153,7 +153,7 @@ function init( options ) {
             error = error || [];
             error.push({
                 'key': 'sections.files',
-                'msg': `Files is required. Please add a 'files' option to: ${loggedSection}`
+                'msg': `Files is required. Please add a 'files' option to: \n${loggedSection}`
             });
         }
     });
@@ -161,10 +161,19 @@ function init( options ) {
 
     if ( error ) {
 
+        for ( var errObj in error ) {
+
+            var key = error[ errObj ].key;
+            var msg = error[ errObj ].msg;
+
+            log.error( `Configure: ${key}`, msg );
+        }
+
         return error;
 
     }
-    else return config;
+
+    return config;
 }
 
 function normalizeDirectory( dir, cwd ) {
