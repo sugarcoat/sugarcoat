@@ -144,7 +144,7 @@ function init( options ) {
             error = error || [];
             error.push({
                 'key': 'sections.title',
-                'msg': `Title is required. Please add a 'title' option to: \n${loggedSection}`
+                'msg': `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
             });
         }
 
@@ -153,7 +153,7 @@ function init( options ) {
             error = error || [];
             error.push({
                 'key': 'sections.files',
-                'msg': `Files is required. Please add a 'files' option to: \n${loggedSection}`
+                'msg': `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
             });
         }
     });
