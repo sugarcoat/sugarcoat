@@ -40,27 +40,23 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 1. Lives in your project seamlessly
 
-  Sugarcoat will never dictate your project. It will never force a file/project structure, nor will it ever make you have to create extra files for it to work. Sugarcoat will live within your project seamlessly.
+  Sugarcoat will never force a file/project structure on you, nor make you create extra files for it to work.
 
-2. [Universal Comment Styles](#code-comment-syntax)
+2. [Universal Comment Syntax](#code-comment-syntax)
 
-  Sugarcoat will parse *all* comment blocks in the file(s) you specify, excluding inline comments. You can use the same JSDoc commenting syntax across all file types. But if you don't want to use JSDoc syntax, you can specify your own delimiters.
+  Sugarcoat parses all **comment blocks** in the file(s) you specify with JSDoc commenting syntax. Or you can specify your own delimiters.
 
 3. [Easy-to-identify component states](#code-comment-syntax)
 
-  You can tell sugarcoat that there are modifier states in your css, right within your comment block! Sugarcoat will help highlight and display them for extra readability.
+  If you declare CSS modifier states within your comment block, Sugarcoat will highlight and display them in your pattern library for extra readability.
 
 4. [Variables Galore](#type)
 
-  Sugarcoat will still understand your variables if they're SCSS, LESS, or even future specs: `--my-var`.
+  Sugarcoat will understand your variables if they're SCSS, LESS, or [CSS Custom Property](https://www.w3.org/TR/css-variables/#defining-variables)
 
-5. [No Style Bleed](#prefixassets)
+5. [Customizable Layout](#custom-templating)
 
-  The styles that come out of the box with Sugarcoat will not allow for any bleeding of styles into your components or modules. To ensure that your project styles don't bleed, you can provide Sugarcoat with an array of assets for it to prefix. Note: We chose not to use iframes because of their unpredictible resizing (such as a custom dropdown)
-
-6. [Customizable Templates](#custom-templating)
-
-  Sugarcoat allows you to define your own templates, partials and assets.
+  Sugarcoat allows you to define your own layout, partials and assets.
 
 
 # Install #
@@ -72,12 +68,12 @@ npm install --save sugarcoat
 
 # Usage #
 
-## Module ##
+## Module API ##
 
-The Sugarcoat module takes a `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data.
+The Sugarcoat module takes a `config` object and returns a `Promise`. The Promise resolves to the original `config` object, expanded to contain the data from your parsed sections.
 
 ```js
-var sugarcoat = require( 'sugarcoat' );
+const sugarcoat = require( 'sugarcoat' );
 
 sugarcoat( config );
 
@@ -90,13 +86,13 @@ sugarcoat( config ).then( function( data ) {
 
 ## CLI ##
 
-You can also install `sugarcoat` globally (via `npm install -g`). The `sugarcoat` command takes a path to a configuration file which must export the configuration object via `module.exports`.
+You can also install the Sugarcoat command globally (via `npm install -g sugarcoat`). The `sugarcoat` command takes a path to a configuration file which must export the configuration object.
 
 ```bash
-sugarcoat './my/config.js'
+sugarcoat 'path/to/config.js'
 ```
 
-**Usage**
+**Options**
 
 ```bash
 sugarcoat [flags] <configuration file>
@@ -104,9 +100,7 @@ sugarcoat [flags] <configuration file>
 Options:
 
   -h, --help     output usage information
-  -o, --output    Write output to process.stdout
   -V, --version  output the version number
-```
 
 
 
@@ -118,21 +112,20 @@ Options:
 ```js
 {
   settings: {
-    dest: 'my/project/pattern-library'
+    dest: 'path/to/dest'
   },
   sections: [
     {
-      title: 'Components',
-      files: 'my/project/components/*.html'
-    },
-    {
-      title: 'UI Kit',
+      title: 'Base',
       files: [
-        'my/project/library/styles/global/**/*.scss',
-        'my/project/library/styles/components/feedback.scss',
-        '!my/project/library/styles/global/typography.scss'
+        'path/to/styles/typography/*.css'
+        'path/to/styles/variables/*.css'
       ]
-    }
+    },
+		{
+			title: 'UI',
+			files: 'path/to/styles/molecules/**/*.css'
+		}
   ]
 }
 ```
@@ -141,69 +134,69 @@ Options:
 
 This object holds general configuration values.
 
-
-### `title` ###
-
-Type: `String`
-Optional: `true`
-Default: `null`
-
-This is the title of your pattern library. It will be displayed in the rendered version of Sugarcoat.
-
-### `graphic` ###
-
-Type: 'String'
-Optional: `true`
-Default: `null`
-
-This is the path to an image that can be the logo or letterhead for your pattern library. It will be displayd in the rendered version of Sugarcoat.
-
 ### `cwd` ###
 
-Type: `String`
-Optional: `true`
-Default: `process.cwd()`
+  - Type: `String`
+  - Optional: `true`
+  - Default: `process.cwd()`
 
-This is the path to which the `dest` path is relative.
+Path to which `dest` is relative.
 
 ### `dest` ###
 
-Type: `String`
-Optional: `false`
-Default: `null`
-Relative: `settings.cwd`
+  - Type: `String`
+  - Optional: `false`
+  - Default: `null`
+  - Relative: `settings.cwd`
 
 Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
 
-### `format` ###
+### `graphic` ###
 
-Type: `String`
-Optional: `true`
-Default: `null`
+  - Type: `String`
+  - Optional: `true`
+  - Default: `null`
 
-Format will allow you to change the return value from Sugarcoat's `Promise`. The two options are `'json'` or `'html'`. When used with the `--output` flag in the CLI, Sugarcoat will return the format you selected directly in your CLI. If you are running Sugarcoat as a module, the return value from the `Promise` will be the selected format. *Note: This is best when used with the CLI's `--output` flag.*
+Path to the image to be rendered in the heading of your pattern library.
 
 ### `log` ###
 
-Type: `Object`
-Optional: `true`
+  - Type: `Object`
+  - Optional: `true`
 
 Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
+### `prefix.assets` ###
+
+  - Type: [Standardized File Format](#standardized-file-format)
+  - Optional: `true`
+  - Default: `null`
+  - Relative: `settings.cwd`
+
+CSS file(s) you wish Sugarcoat to prefix with a selector. The newly prefixed stylesheets will be placed in your document in the order you declare them.
+
+### `prefix.selector` ###
+
+  - Type: `String`
+  - Optional: Yes
+  - Default: `.sugar-example`
+
+Define the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector prefix.
+
 ### `template.cwd` ###
 
-Type: `String`
-Optional: `true`
-Default: Sugarcoat's theme directory
+  - Type: `String`
+  - Optional: `true`
+  - Default: Sugarcoat's theme directory
 
 The base path to which all `template` paths are relative.
 
 ### `template.layout` ###
 
-Type: `String`
-Optional: `true`
-Default: `main.hbs` (provided by Sugarcoat)
-Relative: `template.cwd`
+  - Type: `String`
+  - Optional: `true`
+  - Default: `main.hbs` (provided by Sugarcoat)
+  - Relative: `template.cwd`
 
 Path to the Handlebars layout that will define the layout of the site.
 
@@ -225,22 +218,14 @@ Relative: `template.cwd`
 
 Static asset file(s) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
 
-### `prefix.assets` ###
+### `title` ###
 
-Type: [Standardized File Format](#standardized-file-format)
-Optional: `true`
-Default: `null`
-Relative: `settings.cwd`
+  - Type: `String`
+  - Optional: `true`
+  - Default: `null`
 
-CSS file(s) you wish Sugarcoat to prefix with a selector. The newly scoped stylesheets will be placed into a `<link>` tag in Sugarcoat's `head.hbs` partial.
+The value displayed as the heading of your pattern library.
 
-### `prefix.selector` ###
-
-Type: `String`
-Optional: `true`
-Default: `.sugar-example`
-
-Defines the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector scope.
 
 ##Advanced Settings Example##
 
