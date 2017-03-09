@@ -233,7 +233,7 @@ Contains an `Array` of [Section Objects](#section-object).
 
 ### Section Object ###
 
-[TODO]
+Each section object in the sections array is rendered as a category. Each comment block within all files in your section object is rendered as a subcategory. You can modify the `mode` Sugarcoat uses to parse the files in your section object, as well as the `template` it uses to render the parsed data.
 
 ### `files` ###
 
@@ -250,7 +250,6 @@ File(s) to parse for [documentation comments](#code-comment-syntax). Sugarcoat u
 
 Heading of the section.
 
-
 ### `mode` & `template`###
 
 #### `mode` ####
@@ -265,18 +264,18 @@ By default, all files are parsed only for their comment blocks. By using `'varia
 
   - Required: No
   - Type: `String`
-  - Default: `section-default`
+  - Default: `'section-default'`
 
 The default partial name used to display parsed comments is `section-default`. If `mode` is provided, the default partial name used is `section-variable`. `mode` has two alternate variable renderings available: `section-color` and `section-typography`. If you'd like this section to use a custom partial, provide its name to this option. Be sure to register your custom partial in [settings.template.partials`](#templatepartials). For more information on this, see [Custom Templating](#custom-templating).
 
-**`mode` & `template` relationships**
+**Relationship Table**
 
-| Mode        | Template             | Description |
-|-------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 'undefined' | 'section-default'    | Default |
-| 'variable'  | 'section-variable'   | Parses file for variables depending on the stylesheet's file extension. Renders as a simple table. Inline comments are treated as the variable's description |
-| 'variable'  | 'section-color'      | Parses file for variables depending on the stylesheet's file extension. Renders variables into color swatches. Inline comments are treated as the variable's description |
-| 'variable'  | 'section-typography' | Parses file for variables depending on the stylesheet's file extension. Renders variables into typography examples. Inline comments are treated as the variable's description |
+| `mode`     | Default `template` | Alternate `template` | Description       |
+|------------|--------------------|----------------------|-------------------|
+| undefined  | 'section-default'  |                      | Parse comment block only |
+| 'variable' | 'section-variable' |                      | Parse file content for variables and renders a simple table. Inline comments are treated as the variable's description. Groups of variables can be divided in a file by a comment block. |
+| 'variable' |                    | 'section-color'      | Same as 'section-variable', except variables are rendered as swatches |
+| 'variable' |                    | 'section-typography' | Same as 'section-variable', except font-family styles are applied to sample text |
 
 
 **Examples**
@@ -291,7 +290,7 @@ Parse all variables in my file:
 }
 ```
 
-Parse all variables in my file. Render them using the 'section-color' partial.
+Parse all variables in my file and render them using the 'section-color' partial:
 
 ```js
 {
