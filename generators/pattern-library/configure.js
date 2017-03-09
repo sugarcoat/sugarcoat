@@ -17,6 +17,7 @@ defaults.settings = {};
 defaults.settings.cwd = process.cwd();
 defaults.settings.dest = null;
 defaults.settings.format = null;
+defaults.settings.title = 'Pattern Library';
 
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
@@ -120,8 +121,12 @@ function init( options ) {
 
     config.sections.forEach( function ( section ) {
 
+        if ( !section.mode ) {
+            section.mode = undefined;
+        }
+
         if ( !section.template ) {
-            section.template = `section-${ section.type || 'default' }`;
+            section.template = `section-${ section.mode || 'default' }`;
         }
     });
 

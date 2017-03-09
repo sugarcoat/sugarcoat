@@ -17,7 +17,7 @@ function Parser( config ) {
 
 Parser.prototype = {
 
-    parseComment: function ( currentFile, data, type, templateType ) {
+    parseComment: function ( currentFile, data, mode, templateType ) {
 
         log.info( 'Parse', currentFile );
 
@@ -39,7 +39,7 @@ Parser.prototype = {
 
         for ( var i = 0; i < serialized.length; i++ ) {
 
-            if ( type === 'variable' ) {
+            if ( mode === 'variable' ) {
 
                 serialized[ i ].serializedCode = this.parseVarCode( serialized[ i ].context, currentFile );
             }

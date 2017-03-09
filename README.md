@@ -101,7 +101,7 @@ Options:
 
   -h, --help     output usage information
   -V, --version  output the version number
-
+```
 
 
 # Configuration #
@@ -122,10 +122,10 @@ Options:
         'path/to/styles/variables/*.css'
       ]
     },
-		{
-			title: 'UI',
-			files: 'path/to/styles/molecules/**/*.css'
-		}
+    {
+      title: 'UI',
+      files: 'path/to/styles/molecules/**/*.css'
+    }
   ]
 }
 ```
@@ -136,16 +136,16 @@ This object holds general configuration values.
 
 ### `cwd` ###
 
+  - Required: No
   - Type: `String`
-  - Optional: `true`
   - Default: `process.cwd()`
 
 Path to which `dest` is relative.
 
 ### `dest` ###
 
+  - Required: Yes
   - Type: `String`
-  - Optional: `false`
   - Default: `null`
   - Relative: `settings.cwd`
 
@@ -153,48 +153,48 @@ Directory to which Sugarcoat will output the results. This path is relative to `
 
 ### `graphic` ###
 
+  - Required: No
   - Type: `String`
-  - Optional: `true`
   - Default: `null`
 
 Path to the image to be rendered in the heading of your pattern library.
 
 ### `log` ###
 
+  - Required: No
   - Type: `Object`
-  - Optional: `true`
 
 Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
 
 ### `prefix.assets` ###
 
+  - Required: No
   - Type: [Standardized File Format](#standardized-file-format)
-  - Optional: `true`
   - Default: `null`
-  - Relative: `settings.cwd`
+  - Relative: [`settings.cwd`](#cwd)
 
-CSS file(s) you wish Sugarcoat to prefix with a selector. The newly prefixed stylesheets will be placed in your document in the order you declare them.
+CSS file(s) you wish Sugarcoat to prefix with `prefix.selector`. The newly prefixed stylesheets will be placed in your document in the order you declare them.
 
 ### `prefix.selector` ###
 
+  - Required: No
   - Type: `String`
-  - Optional: Yes
   - Default: `.sugar-example`
 
-Define the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [custom pattern library templates](#custom-templating), they can designate their own selector prefix.
+Define the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [pattern library templates](#custom-templating), they can designate their own selector prefix.
 
 ### `template.cwd` ###
 
+  - Required: No
   - Type: `String`
-  - Optional: `true`
   - Default: Sugarcoat's theme directory
 
 The base path to which all `template` paths are relative.
 
 ### `template.layout` ###
 
+  - Required: No
   - Type: `String`
-  - Optional: `true`
   - Default: `main.hbs` (provided by Sugarcoat)
   - Relative: `template.cwd`
 
@@ -202,113 +202,79 @@ Path to the Handlebars layout that will define the layout of the site.
 
 ### `template.partials` ###
 
-Type: [Standardized File Format](#standardized-file-format)
-Optional: `true`
-Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
-Relative: `template.cwd`
+  - Required: No
+  - Type: [Standardized File Format](#standardized-file-format)
+  - Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
+  - Relative: `template.cwd`
 
 Partial file(s) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat.
 
 ### `template.assets` ###
 
-Type: [Standardized File Format](#standardized-file-format)
-Optional: `true`
-Default: `sugarcoat`
-Relative: `template.cwd`
+  - Required: No
+  - Type: [Standardized File Format](#standardized-file-format)
+  - Default: `sugarcoat`
+  - Relative: `template.cwd`
 
 Static asset file(s) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
 
 ### `title` ###
 
+  - Required: No
   - Type: `String`
-  - Optional: `true`
-  - Default: `null`
+  - Default: 'Pattern Library'
 
 The value displayed as the heading of your pattern library.
 
 
-##Advanced Settings Example##
-
-```js
-module.exports = {
-  settings: {
-    title: 'My Pattern Library',
-    dest: 'my/project/pattern-library',
-    graphic: 'my/project/library/images/logo.jpg',
-    template: {
-      cwd: 'my/project/templates',
-      layout: 'my-custom-layout.hbs',
-      partials: [
-        'partials/folder/*.hbs',
-        {
-          src: 'my-other-partials',
-          options: {
-            nodir: false
-          }
-        }
-      ],
-      assets: [
-        'sugarcoat',
-        'js',
-        'styles',
-        'images'
-      ]
-    },
-    prefix: {
-      assets: [
-        'styles/**/*'
-      ],
-      selector: '.scope-styles'
-    }
-  },
-  sections: [ <...> ]
-}
-```
-
-
 ## `sections` Array ##
 
-Contains an `Array` of [Section Objects](#sectionobject).
+Contains an `Array` of [Section Objects](#section-object).
 
 ### Section Object ###
 
-#### `title` ####
-
-Type: `String`
-Optional: `false`
-
-Title of section.
+[TODO]
 
 #### `files` ####
 
-Type: [Standardized File Format](#standardized-file-format)
-Optional: `false`
+  - Required: Yes
+  - Type: [Standardized File Format](#standardized-file-format)
 
-File(s) that contain documentation comments you would like to be parsed. Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
+File(s) to parse for [documentation comments](#code-comment-syntax). Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
 
-#### `type` ####
 
-Type: `String`
-Optional: `true`
-Default: `default`
+#### `title` ####
 
-If you'd like to parse a preprocessed stylesheet's variables, provide the `variable` option. This works with variables prefixed with `$`, `@`, or `--`.
+  - Required: Yes
+  - Type: `String`
+
+Heading of the section.
+
+
+#### `mode` ####
+
+  - Required: No
+  - Type: `String`
+  - Default: `undefined`
+
+By default, all files are parsed only for their comment blocks. By using `'variable'` mode, Sugarcoat will parse your stylesheet's variable declarations as well. This works with variables prefixed with `$`, `@`, or `--`, depending on the stylesheet's file extension.
+
 
 ```js
 {
     title: 'Project Defaults',
     files: 'my/project/styles/global/vars.scss',
-    type: 'variable'
+    mode: 'variable'
 }
 ```
 
 #### `template` ####
 
-Type: `String`
-Optional: `true`
-Default: depends on the value of `type`
+  - Required: No
+  - Type: `String`
+  - Default: `section-default`
 
-The default partial is `section-default`, or `section-variable` when the `type` property is `variable`. Two alternate variable renderings are available: `section-color` and `section-typography`. If you'd like to designate your own partial, provide its name (must first be registered in [`settings.template.partials`](#templatepartials)). For more information on this, see [Custom Templating](#custom-templating).
+The default partial name used to display parsed comments is `section-default`. If `mode` is provided, the default partial name used is `section-variable`. `mode` has two alternate variable renderings available: `section-color` and `section-typography`. If you'd like this section to use a custom partial, provide its name to this option. Be sure to register your custom partial in [settings.template.partials`](#templatepartials). For more information on this, see [Custom Templating](#custom-templating).
 
 ```js
 {
@@ -321,41 +287,27 @@ The default partial is `section-default`, or `section-variable` when the `type` 
 
 ## Standardized File Format ##
 
-Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Object`, `Array`.
+Throughout Sugarcoat we use a standardized format for files. This format allows the user to express a file in three different ways: `String`, `Array`, and `Object`.
 
 ### `String` ###
 
-The `string` format is a string to a path or of a [pattern (Globby)](https://github.com/sindresorhus/globby#globbing-patterns).
+A path or pattern [(Globby)](https://github.com/sindresorhus/globby#globbing-patterns) to a location.
 
 **Example**
 ```js
-files: 'my/project/js/*'
-```
-
-### `Object` ###
-
-The `object` format is an object composed of a property of `src` and optionaly a property of `options`. The property `src` is a string that is the path to the file or directory. The property `options` is an object with options that will be passed along to [globby](https://www.npmjs.com/package/globby).
-
-**Example**
-```js
-files: {
-  src: 'my/project/js/main.js',
-  options: {
-    nodir: true
-  }
-}
+files: 'path/to/js/*'
 ```
 
 ### `Array` ###
 
-The `array` format can be composed of `strings` or `objects` (or a mix of both). Use the same format for [`string`](#string) and [`object`](#object) as stated above.
+Provide a series of Standardized File Formats ([`Strings`](#string) and/or [`Objects`](#object)).
 
 **Example**
 ```js
 files: [
-  'my/project/js/main.js',
+  'path/to/main.js',
   {
-    src: 'my/project/styles',
+    src: 'path/to/main.js',
     options: {
       nodir: true
     }
@@ -363,36 +315,26 @@ files: [
 ]
 ```
 
-# Code Comment Syntax #
+### `Object` ###
 
-Sugarcoat uses [comment-serializer](https://www.npmjs.com/package/comment-serializer) to build the comment object. In general, comment-serializer will convert an `@foo bar baz` statement into:
+Provide more globbing options in addition to the standardized patterns. See [Globby](https://github.com/sindresorhus/globby).
 
+
+**Example**
 ```js
-{
-  line: 0,
-  tag: 'foo',
-  value: 'bar baz',
-  valueParsed: []
-  source: '@foo bar baz'
+files: {
+  src: 'path/to/main.js',
+  options: {
+    nodir: true
+  }
 }
 ```
 
-There are three reserved tag names that will notify comment-serializer to parse the value further, and output its results to `valueParsed`:
+# Code Comment Syntax #
 
-  - **`@example`** Takes a single or multiline code example
+Sugarcoat uses [comment-serializer](https://www.npmjs.com/package/comment-serializer) to parse your file comments. Here is an example of the default syntax:
 
-  - **`@modifier`** Is used for a class modifier on a component. It takes the value and splits on the following word, separating the first word as the `type: modifier` and the following string as its `type: description` This modifier can contain any of the following characters: **`.-_`**
-
-  - **`@state`** Is used for state pseudo-classes such as `:hover`. Similar to `@modifier` it splits the state and following description. The state is expected to be prefixed with `:` with `type: modifier`
-
-If you would like to include a custom tag in your comment block, you can pass a custom parser into [comment-serializer](https://github.com/ryanfitzer/comment-serializer#custom-tag-parsers)
-
-Sugarcoat takes the source code that follows a comment (up until the next comment), and applies it to the `context` key of the comment object.
-
-
-**Comment Example**
-
-```
+```css
 /**
  * @title Tooltip
  * @example
@@ -404,78 +346,23 @@ Sugarcoat takes the source code that follows a comment (up until the next commen
  */
 ```
 
-**Comment Object Example**
 
-```js
-{
-  line: 0,
-  preface: ''
-  source: '@title Tooltip\n@example\n <div class="tooltip">\n   <span class="tooltip-content">This is a tooltip</span>\n </div>\n@modifier .active enabled class on .tooltip',
-  context: '',
-  tags: [
-    {
-      line: 32,
-      tag: 'title',
-      value: 'Tooltip',
-      valueParsed: [],
-      source: '@title Tooltip'
-    },
-    {
-      line: 33,
-      tag: 'example',
-      value: '\n  <div class="tooltip">\n  <span  class="tooltip-content">This is a tooltip</span>\n  </div>',
-      valueParsed: [
-        {
-          type: 'example',
-          value: '<div class="tooltip">\n <span class="tooltip-content">This is a tooltip</span>\n </div>'
-        },
-        {
-          type: 'description',
-          value: ''
-        }
-      ],
-      source: '@example\n<div class="tooltip">\n <span  class="tooltip-content">This is a tooltip</span>\n </div>'
-    },
-    {
-      line: 37,
-      tag: 'modifier',
-      value: '.active enabled class on .tooltip',
-      valueParsed: [
-        {
-          type: 'modifier',
-          value: '.active'
-        },
-        {
-          type: 'description',
-          value: 'enabled  class on .tooltip'
-        }
-      ],
-      source: '@modifier .active enabled class on .tooltip'
-    },
-    {
-      line: 38,
-      tag: 'state',
-      value: ':focus allows visual contrast for accessibility ',
-      valueParsed: [
-        {
-          type: 'state',
-          value: ':focus'
-        },
-        {
-          type: 'description',
-          value: 'allows visual contrast for accessibility'
-        }
-      ],
-      source: '@state :focus allows visual contrast for accessibility'
-    }
-  ]
-}
-```
+Sugarcoat will parse any tag it finds into a key/value pair. For example: `@tag value`.
+
+The exception being the following three reserved tags that are demonstrated in the above example:
+
+  - **`@example`** Takes a single or multiline code example.
+
+  - **`@modifier`** Used for a class modifier on a component: `@modifier <selector> <description>`.
+
+  - **`@state`** Used for state pseudo-classes such as `:hover`: `@state :<pseudo-class> <description>`.
+
+If you would like to include a custom tag in your comment block, you can pass a custom parser into [comment-serializer](https://github.com/ryanfitzer/comment-serializer#custom-tag-parsers).
 
 
 **HTML**
 
-For html files, Sugarcoat uses the same comment style. Since HTML doesn't support this style you'll need to wrap your documentation comments with an HTML-style comment. This is to maintain consistency.
+For html files, Sugarcoat uses the same comment style. Since HTML doesn't support this style you'll need to wrap your documentation comments with an HTML-style comment.
 
 **Comment Example (html)**
 
@@ -484,7 +371,7 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 /**
  * @title Some Component
  * @description This component has a description
- * @dependencies /library/js/modules/some-component.js
+ * @dependencies /path/to/some-component.js
  */
 -->
 <div class="some-component">
@@ -492,112 +379,6 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
 </div>
 ```
 
-**Comment Object**
-
-```js
-{
-  line: 0,
-  preface: '',
-  source: '@title Some Component\n@description This component has an interesting description',
-  context: '\n<div class="some-component">\n  <span>I\'m a Component!</span>\n</div>',
-  tags: [
-    {
-      line: 4,
-      tag: 'title',
-      value: 'Some Component',
-      valueParsed: [],
-      source: '@title Some Component'
-    },
-    {
-      line: 5,
-      tag: 'description',
-      value: 'This component has an interesting description',
-      valueParsed: [],
-      source: '@description This component has an interesting description'
-    },
-    {
-      line: 6,
-      tag: 'dependencies',
-      value: '/library/js/modules/some-component.js',
-      valueParsed: [],
-      source: '@dependencies /library/js/modules/some-component.js'
-    }
-  ]
-}
-```
-
-
-# Templating #
-
-Sugarcoat will render each parsed comment object with one of the below partials. The partial will always be the [`template`](#template) string in a Sections object.
-
-  - `section-default` Default rendering of a comment object.
-
-  - `section-variable` Renders when `type: 'variable'` is provided - A list of variables and its associated value.
-
-  - `section-color` Renders when `template: 'section-color'` is provided - A list of color swatches with the associated variable name and color.
-
-  - `section-typography` Renders when `template: 'section-typography'` is provided - Fonts and variable names with their examples.
-
-
-The following partials are helpers:
-
-  - `nav` Outputs the main navigation - Lists `title` of each section object, nesting each comment object's `@title` tag. Used in the default `main.hbs` layout.
-
-  - `head` Outputs links to Sugarcoat's default stylesheets, and any modified assets from `prefix.assets`
-
-  - `masthead` Renders your project `settings.title` and `settings.graphic` if provided.
-
-  - `footer` Outputs links to JavaScript files.
-
-  - `tag-details`, `file-path`, `block-title` Render data within Sugarcoat's `section-*` partials.
-
-
-### Reserved Partial Names ###
-
-  - head
-  - nav
-  - masthead
-  - footer
-  - preview
-  - tag-details
-  - file-path
-  - block-title
-  - section-color
-  - section-typography
-  - section-variable
-  - section-default
-
-## Custom Templating ##
-
-The following options will help to enable your custom Sugarcoat template. None are required.
-
-  - `[template.layout](#templatelayout)`: Replace `main.hbs`
-  - `[template.partials](#templatepartials)`: Create new and/or override existing partials
-  - `[template.assets](#templateassets)`: Copy assets from your project
-  - `[prefix.assets](#prefixassets)`: Sugarcoat can prefix your assets with a selector of your choosing. Should your project provide a scoping process, be sure to include a custom `head.hbs` partial with your modified stylesheets linked.
-  - `[prefix.selector](#prefixselector)`: Manage selector for prefixing
-
-**Handlebars Helpers**
-
-The following are included helpers that Sugarcoat has already registered to its instance of Handlebars.
-
-  - `isEqual [string] [string]` Compares two strings. If true, block is rendered
-  - `notEqual [string] [string]` Compares two strings. If false, block is rendered
-  - `toID [string]` Appends `@index` while within a loop to the string provided
-
-**Custom Comment Tag**
-
-Should you want Sugarcoat to parse a comment block tag in a different way, you can customize its parsing in [comment-serializer](https://github.com/ryanfitzer/comment-serializer#custom-tag-parsers)
-
-
-# Example Site #
-
-Want to see sugarcoat in action?
-
-  - [Example Project](https://sugarcoat.github.io/sugarcoat-example-project/)
-  - [Example Project Pattern Library](https://sugarcoat.github.io/sugarcoat-example-project/documentation/index.html)
-  - [Github](https://github.com/sugarcoat/sugarcoat-example-project)
 
 # Roadmap #
 
@@ -609,9 +390,10 @@ Want to see sugarcoat in action?
 - [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects]
 - [x] [Consume your style assets, prefix them, and place them into `head.hbs`]
 - [ ] [Add automated tests](/../../issues/18)
-- [ ] Update github pages
-- [ ] Syntax Highlighting
 - [ ] [Remove Format option from settings object](../../issues/32)
+- [ ] Custom Templating
+- [ ] Refine settings object
+- [ ] Syntax Highlighting
 
 
 ## v?.0.0 ##
