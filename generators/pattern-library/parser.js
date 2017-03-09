@@ -24,9 +24,9 @@ Parser.prototype = {
         var serialized = mySerializer( data );
 
         // serializer error handling
-        var hasErrors = serialized.some( function ( comment ) {
+        var hasErrors = serialized.some( comment => {
 
-            return comment.tags.some( function ( tag ) {
+            return comment.tags.some( tag => {
 
                 return tag.error;
             });
@@ -38,7 +38,7 @@ Parser.prototype = {
         }
 
         for ( var i = 0; i < serialized.length; i++ ) {
-            console.log( mode );
+
             if ( mode === 'variable' ) {
 
                 serialized[ i ].serializedCode = this.parseVarCode( serialized[ i ].context, currentFile );
@@ -83,7 +83,7 @@ Parser.prototype = {
 
         if ( !infoStrings ) return;
 
-        infoStrings.forEach( function ( infoLine ) {
+        infoStrings.forEach( ( infoLine ) => {
             /*
              * $var: #fff; //something
              * $var: #000; /* etc **/
@@ -114,12 +114,11 @@ Parser.prototype = {
 
             infoArray.push( line );
         });
-        console.log( infoArray );
 
         return infoArray;
     }
 };
 
-module.exports = function ( config ) {
+module.exports = config => {
     return new Parser( config );
 };

@@ -63,7 +63,7 @@ function init( options ) {
     }
 
     // Convert remaining array pieces into a file object
-    template.assets = template.assets.map( function ( dirPath ) {
+    template.assets = template.assets.map( dirPath => {
         return normalizeDirectory( dirPath, template.cwd );
     });
 
@@ -75,7 +75,7 @@ function init( options ) {
     // **** ASSETS (prefix) ****
 
     if ( !_.isEmpty( prefix.assets ) ) {
-        prefix.assets = prefix.assets.map( function ( dirPath ) {
+        prefix.assets = prefix.assets.map( dirPath => {
 
             return normalizeDirectory( dirPath, process.cwd() );
         });
@@ -96,7 +96,7 @@ function init( options ) {
     if ( _.isArray( template.partials ) ) {
 
         // normalize the contents of the array
-        template.partials = template.partials.map( function ( dirPath ) {
+        template.partials = template.partials.map( dirPath => {
 
             return normalizeDirectory( dirPath, template.cwd );
         });
@@ -119,7 +119,7 @@ function init( options ) {
 
     // **** SECTIONS ****
 
-    config.sections.forEach( function ( sectionObject ) {
+    config.sections.forEach( sectionObject => {
 
         if ( !sectionObject.mode ) {
             sectionObject.mode = undefined;
@@ -129,8 +129,6 @@ function init( options ) {
             sectionObject.template = `section-${ sectionObject.mode || 'default' }`;
         }
     });
-
-    console.log( config );
 
     return config;
 }
