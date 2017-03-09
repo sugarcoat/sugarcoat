@@ -24,10 +24,11 @@ suite( 'Configure: Settings', () => {
         sugarcoat( configMissingDest )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out when a dest is not supplied.');
             done();
         }, data => {
 
-            assert.isArray( data, 'Sugarcoat returns an array.' );
+            assert.isArray( data, 'Sugarcoat returns an array when we are missing a dest.' );
             assert.propertyVal( data[0], 'key', 'settings.dest', 'We have dest in the error array');
             done();
         });
@@ -56,9 +57,19 @@ suite( 'Configure: Settings', () => {
         sugarcoat( configNoDest )
         .then( data => {
 
-            assert.isNull( data.settings.dest, 'The destination was set to null' );
-            assert.isFalse( fs.existsSync( path.relative( data.settings.cwd, 'index.html' ) ), 'Sugarcoat did not create a index.html file.' );
-            done();
+            var index = data.settings.dest !== null ? path.resolve( data.settings.cwd, `${data.settings.dest}/index.html` ) : `${data.settings.cwd}/index.html`;
+
+            fs.access( index, fs.constants.F_OK, ( err ) => {
+                var exists;
+
+                if ( !err ) {
+                    exists = true;
+                }
+                else exists = false;
+
+                assert.isFalse( exists, 'Sugarcoat did not create a index.html file.' );
+                done();
+            });
         });
     });
 
@@ -80,8 +91,7 @@ suite( 'Configure: Sections', () => {
 
         var configMissingOnlyTitle = {
             settings: {
-                dest: './test/documentation',
-                title: 'Pattern Library'
+                dest: './test/documentation'
             },
             sections: [
                 {
@@ -93,6 +103,7 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingOnlyTitle )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
         }, data => {
 
@@ -120,6 +131,7 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingTitleDest )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
         }, data => {
 
@@ -140,7 +152,7 @@ suite( 'Configure: Sections', () => {
         });
     });
 
-    test( 'Title is set to be required. Title errored out when all required options were not supplied.', done => {
+    test.only( 'Title is set to be required. Title errored out when all required options were not supplied.', done => {
 
         var configMissingTitleFiles = {
             sections: []
@@ -149,6 +161,7 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingTitleFiles )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
         }, data => {
 
@@ -188,6 +201,7 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingtwoTitles )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
         }, data => {
 
@@ -223,6 +237,7 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingOneFiles )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
         }, data => {
 
@@ -251,6 +266,7 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingTwoFiles )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
         }, data => {
 
@@ -279,6 +295,7 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingTitleFiles )
         .then( data => {
 
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
         }, data => {
 

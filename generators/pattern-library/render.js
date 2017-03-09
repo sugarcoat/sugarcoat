@@ -30,7 +30,11 @@ module.exports = function ( config ) {
 
         if ( config.settings.dest !== null ) {
 
-            return renderLayout( config );
+            return renderLayout(config)
+            .then( () => {
+
+                return config;
+            });
 
         }
         else return config;

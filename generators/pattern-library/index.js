@@ -24,15 +24,14 @@ function init( config ) {
     }
 
     return globFiles( config )
-    .then( globFiles )
     .then( readSections )
     .then( parseSections )
     .then( render )
-    .then( function ( html ) {
+    .then( function ( config ) {
 
         log.info( 'Finished!' );
 
-        return html;
+        return config;
     })
     .catch( function ( err ) {
         log.error( err );

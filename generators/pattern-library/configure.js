@@ -30,7 +30,7 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
-        , error
+        , error = []
         ;
 
     // Configure the logger
@@ -122,10 +122,9 @@ function init( options ) {
     }
     else {
 
-        error = error || [];
         error.push({
-            'key': 'settings.dest',
-            'msg': 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
+            key: 'settings.dest',
+            msg: 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
         });
     }
 
@@ -141,25 +140,23 @@ function init( options ) {
 
         if ( !section.title ) {
 
-            error = error || [];
             error.push({
-                'key': 'sections.title',
-                'msg': `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
+                key: 'sections.title',
+                msg: `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
             });
         }
 
         if ( !section.files ) {
 
-            error = error || [];
             error.push({
-                'key': 'sections.files',
-                'msg': `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
+                key: 'sections.files',
+                msg: `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
             });
         }
     });
 
 
-    if ( error ) {
+    if ( error.length ) {
 
         for ( var errObj in error ) {
 

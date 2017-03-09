@@ -1,4 +1,4 @@
-# Sugarcoat # 
+# Sugarcoat #
 
 [![NPM version](https://badge.fury.io/js/sugarcoat.svg)](https://www.npmjs.com/package/sugarcoat) [![Dependency Status](https://david-dm.org/sapientnitrola/sugarcoat.svg)](https://david-dm.org/sapientnitrola/sugarcoat)
 
@@ -146,7 +146,7 @@ Type: `String`
 Optional: `false`
 Default: `null`
 
-Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
+Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist. If given the option 'none', Sugarcoat will not output a rendered pattern library. 
 
 ### `log` ###
 
