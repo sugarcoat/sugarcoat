@@ -38,7 +38,7 @@ Parser.prototype = {
         }
 
         for ( var i = 0; i < serialized.length; i++ ) {
-
+            console.log( mode );
             if ( mode === 'variable' ) {
 
                 serialized[ i ].serializedCode = this.parseVarCode( serialized[ i ].context, currentFile );
@@ -114,6 +114,7 @@ Parser.prototype = {
 
             infoArray.push( line );
         });
+        console.log( infoArray );
 
         return infoArray;
     }

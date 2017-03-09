@@ -89,7 +89,7 @@ function parseSections( config ) {
 
         section.files.map( function ( file, index ) {
 
-            section.files[ index ].data = parse.parseComment( file.path, file.src, section.type, section.template );
+            section.files[ index ].data = parse.parseComment( file.path, file.src, section.mode, section.template );
         });
     });
 

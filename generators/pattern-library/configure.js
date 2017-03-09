@@ -119,16 +119,18 @@ function init( options ) {
 
     // **** SECTIONS ****
 
-    config.sections.forEach( function ( section ) {
+    config.sections.forEach( function ( sectionObject ) {
 
-        if ( !section.mode ) {
-            section.mode = undefined;
+        if ( !sectionObject.mode ) {
+            sectionObject.mode = undefined;
         }
 
-        if ( !section.template ) {
-            section.template = `section-${ section.mode || 'default' }`;
+        if ( !sectionObject.template ) {
+            sectionObject.template = `section-${ sectionObject.mode || 'default' }`;
         }
     });
+
+    console.log( config );
 
     return config;
 }
