@@ -251,7 +251,9 @@ File(s) to parse for [documentation comments](#code-comment-syntax). Sugarcoat u
 Heading of the section.
 
 
-#### `mode` ####
+#### `mode` & `template`####
+
+**`mode`**
 
   - Required: No
   - Type: `String`
@@ -259,16 +261,7 @@ Heading of the section.
 
 By default, all files are parsed only for their comment blocks. By using `'variable'` mode, Sugarcoat will parse your stylesheet's variable declarations as well. This works with variables prefixed with `$`, `@`, or `--`, depending on the stylesheet's file extension.
 
-
-```js
-{
-    title: 'Project Defaults',
-    files: 'my/project/styles/global/vars.scss',
-    mode: 'variable'
-}
-```
-
-#### `template` ####
+**`template`**
 
   - Required: No
   - Type: `String`
@@ -276,14 +269,39 @@ By default, all files are parsed only for their comment blocks. By using `'varia
 
 The default partial name used to display parsed comments is `section-default`. If `mode` is provided, the default partial name used is `section-variable`. `mode` has two alternate variable renderings available: `section-color` and `section-typography`. If you'd like this section to use a custom partial, provide its name to this option. Be sure to register your custom partial in [settings.template.partials`](#templatepartials). For more information on this, see [Custom Templating](#custom-templating).
 
+**`mode` & `template` relationships**
+
+| Mode        | Template             | Description                                                                                                                                                  |
+|-------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 'undefined' | 'section-default'    | Default                                                                                                                                                      |
+| 'variable'  | 'section-variable'   | Parses file for variables depending on the stylesheet's file extension. Renders as a simple table. Inline comments are treated as the variable's description |
+| 'variable'  | 'section-color'      | Renders variables into color swatches.                                                                                                                       |
+| 'variable'  | 'section-typography' | Renders variables into typography examples                                                                                                                   |
+
+
+**examples**
+
+Parse all variables in my file:
+
+```js
+{
+    title: 'Project Defaults',
+    files: 'path/to/global/vars.scss',
+    mode: 'variable'
+}
+```
+
+Parse all variables in my file. Render them using the 'section-color' partial.
+
 ```js
 {
     title: 'Colors',
-    files: 'my/project/styles/global/colors.scss',
+    files: 'path/to/global/colors.scss',
     type: 'variable',
     template: 'section-color'
 }
 ```
+
 
 ## Standardized File Format ##
 
