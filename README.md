@@ -235,7 +235,7 @@ Contains an `Array` of [Section Objects](#section-object).
 
 [TODO]
 
-#### `files` ####
+### `files` ###
 
   - Required: Yes
   - Type: [Standardized File Format](#standardized-file-format)
@@ -243,7 +243,7 @@ Contains an `Array` of [Section Objects](#section-object).
 File(s) to parse for [documentation comments](#code-comment-syntax). Sugarcoat uses [globby](https://www.npmjs.com/package/globby) to enable pattern matching.
 
 
-#### `title` ####
+### `title` ###
 
   - Required: Yes
   - Type: `String`
@@ -251,9 +251,9 @@ File(s) to parse for [documentation comments](#code-comment-syntax). Sugarcoat u
 Heading of the section.
 
 
-#### `mode` & `template`####
+### `mode` & `template`###
 
-**`mode`**
+#### `mode` ####
 
   - Required: No
   - Type: `String`
@@ -261,7 +261,7 @@ Heading of the section.
 
 By default, all files are parsed only for their comment blocks. By using `'variable'` mode, Sugarcoat will parse your stylesheet's variable declarations as well. This works with variables prefixed with `$`, `@`, or `--`, depending on the stylesheet's file extension.
 
-**`template`**
+#### `template` ####
 
   - Required: No
   - Type: `String`
@@ -271,15 +271,15 @@ The default partial name used to display parsed comments is `section-default`. I
 
 **`mode` & `template` relationships**
 
-| Mode        | Template             | Description                                                                                                                                                  |
+| Mode        | Template             | Description |
 |-------------|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 'undefined' | 'section-default'    | Default                                                                                                                                                      |
+| 'undefined' | 'section-default'    | Default |
 | 'variable'  | 'section-variable'   | Parses file for variables depending on the stylesheet's file extension. Renders as a simple table. Inline comments are treated as the variable's description |
-| 'variable'  | 'section-color'      | Renders variables into color swatches.                                                                                                                       |
-| 'variable'  | 'section-typography' | Renders variables into typography examples                                                                                                                   |
+| 'variable'  | 'section-color'      | Parses file for variables depending on the stylesheet's file extension. Renders variables into color swatches. Inline comments are treated as the variable's description |
+| 'variable'  | 'section-typography' | Parses file for variables depending on the stylesheet's file extension. Renders variables into typography examples. Inline comments are treated as the variable's description |
 
 
-**examples**
+**Examples**
 
 Parse all variables in my file:
 
