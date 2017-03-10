@@ -395,26 +395,3 @@ For html files, Sugarcoat uses the same comment style. Since HTML doesn't suppor
   <span>I'm a Component!</span>
 </div>
 ```
-
-
-# Roadmap #
-
-## v1.0.0 ##
-
-- [x] [More styling and better structuring of rendered sections]
-- [x] [Robust example project]
-- [x] [Consolidating code comment syntax strategy]
-- [x] [Standardize file syntax in `settings` to align with the `file` syntax in section objects]
-- [x] [Consume your style assets, prefix them, and place them into `head.hbs`]
-- [ ] [Add automated tests](/../../issues/18)
-- [ ] [Remove Format option from settings object](../../issues/32)
-- [ ] Custom Templating
-- [ ] Refine settings object
-- [ ] Syntax Highlighting
-
-
-## v?.0.0 ##
-
-- [x] Ability to add custom tags [comment-parser](https://github.com/ryanfitzer/comment-serializer)
-- [ ] More refactoring of modules (functional, Promises)
-- [ ] Add support for JavaScript modules and components (React)
