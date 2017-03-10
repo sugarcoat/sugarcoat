@@ -28,7 +28,7 @@ module.exports = function ( config ) {
     })
     .then( copyAssets )
     .then( renderLayout )
-    .catch( function ( err ) {
+    .catch( err => {
         return err;
     });
 };
@@ -40,11 +40,11 @@ module.exports = function ( config ) {
 function globPartials( config ) {
 
     return globFiles( config.settings.template.partials )
-    .then( function ( partials ) {
+    .then( partials => {
         config.settings.template.partials = _.flatten( partials );
 
         return config;
-    }).catch( function ( err ) {
+    }).catch( err => {
 
         log.error( 'Glob Partials', err );
     });
@@ -52,24 +52,24 @@ function globPartials( config ) {
 
 function readPartials( config ) {
 
-    var partials = config.settings.template.partials.map( function ( fileObj ) {
+    var partials = config.settings.template.partials.map( fileObj => {
 
         return fsp.readFile( fileObj.file )
-        .then( function ( data ) {
+        .then( data => {
 
             return fileObj.src = data;
         });
     });
 
     return Promise.all( partials )
-    .then( function () {
+    .then( () => {
         return config;
     });
 }
 
 function registerPartials( config ) {
 
-    config.settings.template.partials.forEach( function ( partial ) {
+    config.settings.template.partials.forEach( partial => {
 
         var isOverride = !!Handlebars.partials[ partial.name ]
             , msgNormal = `partial registered: "${partial.name}"`
@@ -90,14 +90,14 @@ function registerPartials( config ) {
 function renderLayout( config ) {
 
     return fsp.readFile( config.settings.template.layout )
-    .then( function ( data ) {
+    .then( data => {
 
         return config.settings.template.layout = {
             src: data,
             file: config.settings.template.layout
         };
     })
-    .then( function () {
+    .then( () => {
 
         var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
                 preventIndent: true
@@ -114,7 +114,7 @@ function renderLayout( config ) {
             return html;
         });
     })
-    .catch( function ( err ) {
+    .catch( err => {
         log.error( 'Render', err );
 
         return err;
@@ -175,13 +175,13 @@ function copyAssets( config ) {
 
     var flattened = [];
 
-    var expand = config.settings.template.assets.map( function ( asset ) {
+    var expand = config.settings.template.assets.map( asset => {
 
         return globber({
             src: asset.src,
             options: asset.options
         })
-        .then( function ( files ) {
+        .then( files => {
 
             asset.srcFiles = files;
 
@@ -215,7 +215,7 @@ function copyAssets( config ) {
 
         return config;
     })
-    .catch( function ( err ) {
+    .catch( err => {
         log.error( 'Copy Assets', err );
 
         return err;
@@ -233,9 +233,9 @@ function globFiles( files ) {
             src: file.src,
             options: file.options
         })
-        .then( function ( files ) {
+        .then( files => {
 
-            return files.reduce( function ( collection, filePath ) {
+            return files.reduce( ( collection, filePath ) => {
 
                 collection.push({
                     cwd: file.src,

@@ -27,28 +27,28 @@ function init( config ) {
     .then( readSections )
     .then( parseSections )
     .then( render )
-    .then( function ( html ) {
+    .then( html => {
 
         log.info( 'Finished!' );
 
         return output( html, config );
     })
-    .catch( function ( err ) {
+    .catch( err => {
         log.error( err );
     });
 }
 
 function globFiles( config ) {
 
-    var globArr = config.sections.map( function ( section ) {
+    var globArr = config.sections.map( section => {
 
         return globber( section.files );
     });
 
     return Promise.all( globArr )
-    .then( function ( sections ) {
+    .then( sections => {
 
-        sections.forEach( function ( section, index ) {
+        sections.forEach( ( section, index ) => {
 
             config.sections[ index ].files = section;
         });
@@ -59,9 +59,9 @@ function globFiles( config ) {
 
 function readSections( config ) {
 
-    var promiseArr = config.sections.map( function ( section ) {
+    var promiseArr = config.sections.map( section => {
 
-        return Promise.all( section.files.map( function ( file ) {
+        return Promise.all( section.files.map( file => {
             return fsp.readFile( file );
         }))
         .then( ( resolvedSections ) => {
@@ -76,7 +76,7 @@ function readSections( config ) {
     });
 
     return Promise.all( promiseArr )
-    .then( function () {
+    .then( () => {
         return config;
     });
 }
@@ -85,11 +85,11 @@ function parseSections( config ) {
 
     var parse = parser( config );
 
-    config.sections.forEach( function ( section ) {
+    config.sections.forEach( section => {
 
-        section.files.map( function ( file, index ) {
+        section.files.map( ( file, index ) => {
 
-            section.files[ index ].data = parse.parseComment( file.path, file.src, section.type, section.template );
+            section.files[ index ].data = parse.parseComment( file.path, file.src, section.mode, section.template );
         });
     });
 
