@@ -349,8 +349,6 @@ files: {
 
 # Code Comment Syntax #
 
-Sugarcoat uses [comment-serializer](https://www.npmjs.com/package/comment-serializer) to parse your file comments. Here is an example of the default syntax:
-
 ```css
 /**
  * @title Tooltip
@@ -373,8 +371,6 @@ The exception being the following three reserved tags that are demonstrated in t
   - **`@modifier`** Used for a class modifier on a component: `@modifier <selector> <description>`.
 
   - **`@state`** Used for state pseudo-classes such as `:hover`: `@state :<pseudo-class> <description>`.
-
-If you would like to include a custom tag in your comment block, you can pass a custom parser into [comment-serializer](https://github.com/ryanfitzer/comment-serializer#custom-tag-parsers).
 
 
 **HTML**
