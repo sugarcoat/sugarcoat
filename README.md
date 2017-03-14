@@ -28,8 +28,6 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
     - [`sections` Array](#sections-array)
     - [Standardized File Format](#standardized-file-format)
   - [Code Comment Syntax](#code-comment-syntax)
-  - [Templating](#templating)
-    - [Custom Templating](#custom-templating)
   - [Example Site](#example-site)
   - [Roadmap](#roadmap)
 
@@ -53,10 +51,6 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 4. [Variables Galore](#type)
 
   Sugarcoat will understand your variables if they're SCSS, LESS, or [CSS Custom Property](https://www.w3.org/TR/css-variables/#defining-variables)
-
-5. [Customizable Layout](#custom-templating)
-
-  Sugarcoat allows you to define your own layout, partials and assets.
 
 
 # Install #
@@ -175,49 +169,6 @@ Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/np
 
 CSS file(s) you wish Sugarcoat to prefix with `prefix.selector`. The newly prefixed stylesheets will be placed in your document in the order you declare them.
 
-### `prefix.selector` ###
-
-  - Required: No
-  - Type: `String`
-  - Default: `.sugar-example`
-
-Define the selector to be used to prefix all assets from `prefix.assets`. Should a user choose to develop their own [pattern library templates](#custom-templating), they can designate their own selector prefix.
-
-### `template.cwd` ###
-
-  - Required: No
-  - Type: `String`
-  - Default: Sugarcoat's theme directory
-
-The base path to which all `template` paths are relative.
-
-### `template.layout` ###
-
-  - Required: No
-  - Type: `String`
-  - Default: `main.hbs` (provided by Sugarcoat)
-  - Relative: `template.cwd`
-
-Path to the Handlebars layout that will define the layout of the site.
-
-### `template.partials` ###
-
-  - Required: No
-  - Type: [Standardized File Format](#standardized-file-format)
-  - Default: See [templating](#templating) for a list of Sugarcoat's provided partials.
-  - Relative: `template.cwd`
-
-Partial file(s) to register with Handlebars. If any partials use a [reserved name](#reserved-partial-names), the respective partial will override the one provided by Sugarcoat.
-
-### `template.assets` ###
-
-  - Required: No
-  - Type: [Standardized File Format](#standardized-file-format)
-  - Default: `sugarcoat`
-  - Relative: `template.cwd`
-
-Static asset file(s) to copy to `settings.dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
-
 ### `title` ###
 
   - Required: No
@@ -266,7 +217,7 @@ By default, all files are parsed only for their comment blocks. By using `'varia
   - Type: `String`
   - Default: `'section-default'`
 
-The default partial name used to display parsed comments is `section-default`. If `mode` is provided, the default partial name used is `section-variable`. `mode` has two alternate variable renderings available: `section-color` and `section-typography`. If you'd like this section to use a custom partial, provide its name to this option. Be sure to register your custom partial in [settings.template.partials`](#templatepartials). For more information on this, see [Custom Templating](#custom-templating).
+The default partial name used to display parsed comments is `section-default`. If `mode` is provided, the default partial name used is `section-variable`. `mode` has two alternate variable renderings available: `section-color` and `section-typography`.
 
 **Relationship Table**
 
