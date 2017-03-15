@@ -10,7 +10,7 @@
   <div class="sugar-section-wrapper">
     <h2 class="sugar-h2"><a href="#{{toID title}}">{{ title }}</a></h2>
 
-    {{~#each files as |file| }}
+    {{#each files as |file| }}
       {{#each data}}
 
         <div id="{{toID file.path @index}}" class="sugar-component">
@@ -89,7 +89,7 @@
         </div>
 
       {{/each}}
-    {{~/each}}
+    {{/each}}
 
   </div>
 </section>
