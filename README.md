@@ -201,7 +201,7 @@ File(s) to parse for [documentation comments](#code-comment-syntax). Sugarcoat u
 
 Heading of the section.
 
-### `mode` & `template`###
+### `mode` & `template` ###
 
 #### `mode` ####
 
