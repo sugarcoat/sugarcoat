@@ -24,7 +24,11 @@ defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
 defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
 
-defaults.settings.partials = {
+defaults.template = {};
+defaults.template.layout = path.join( cwdTemplates, 'main.hbs' );
+defaults.template.selectorPrefix = '.sugar-example';
+defaults.template.helpers = require( '../../lib/handlebars-helpers.js' );
+defaults.template.partials = {
     'block-title': `${defaultPartialsDir}/block-title.hbs`,
     'footer': `${defaultPartialsDir}/footer.hbs`,
     'head': `${defaultPartialsDir}/head.hbs`,
@@ -36,8 +40,6 @@ defaults.settings.partials = {
 };
 
 defaults.settings.prefix = {};
-defaults.template = {};
-defaults.template.selectorPrefix = '.sugar-example';
 
 function init( options ) {
 
@@ -98,13 +100,15 @@ function init( options ) {
     // **** LAYOUT ****
 
     // Resolve all paths
-    template.layout = path.resolve( template.cwd, template.layout );
+    template.layout = path.resolve( process.cwd(), template.layout );
+
+    config.template.layout = path.resolve( process.cwd(), config.template.layout );
 
 
     // **** PARTIALS ****
-    Object.keys( settings.partials ).forEach( ( key, index ) => {
+    Object.keys( config.template.partials ).forEach( ( key, index ) => {
 
-        settings.partials[ key ] = normalizeDirectory( settings.partials[ key ], process.cwd() );
+        config.template.partials[ key ] = normalizeDirectory( config.template.partials[ key ], process.cwd() );
     });
 
     // **** SETTINGS ****

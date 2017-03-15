@@ -4,7 +4,6 @@ var _ = require( 'lodash' );
 var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
-var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
@@ -12,7 +11,7 @@ var fsp = require( '../../lib/fs-promiser' );
 
 module.exports = function ( config ) {
 
-    Handlebars.registerHelper( hbsHelpers );
+    Handlebars.registerHelper( config.template.helpers );
 
     return registerPartials( config )
     .then( config => {
@@ -38,9 +37,9 @@ function registerPartials( config ) {
 
     var promisePartials = [];
 
-    Object.keys( config.settings.partials ).forEach( key => {
+    Object.keys( config.template.partials ).forEach( key => {
 
-        promisePartials.push( fsp.readFile( config.settings.partials[ key ].src )
+        promisePartials.push( fsp.readFile( config.template.partials[ key ].src )
         .then( data => {
 
             Handlebars.registerPartial( key, data );
@@ -62,17 +61,17 @@ function registerPartials( config ) {
 }
 function renderLayout( config ) {
 
-    return fsp.readFile( config.settings.template.layout )
+    return fsp.readFile( config.template.layout )
     .then( data => {
 
-        return config.settings.template.layout = {
+        return config.template.layout = {
             src: data,
-            file: config.settings.template.layout
+            file: config.template.layout
         };
     })
     .then( () => {
 
-        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
+        var hbsCompiled = Handlebars.compile( config.template.layout.src, {
                 preventIndent: true
             })
             , file = path.join( config.settings.dest, 'index.html' )
