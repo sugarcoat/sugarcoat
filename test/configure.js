@@ -152,6 +152,39 @@ suite( 'Configure: Sections', () => {
         });
     });
 
+    test( 'Section array is set to be required. Section array errored out when not supplied.', done => {
+
+        var configMissingTitleFiles = {
+            settings: {
+                dest: './test/documentation'
+            }
+        };
+
+        sugarcoat( configMissingTitleFiles )
+        .then( data => {
+
+            console.log('failed success');
+            assert.isArray( data, 'Sugarcoat should be erroring out.' );
+            done();
+        }, data => {
+
+            assert.isArray( data, 'Sugarcoat returns an array.' );
+
+            for ( var errorObj in data ) {
+
+                var key = data[ errorObj ].key;
+
+                if ( key === 'sections' ) {
+
+                    assert.propertyVal( data[ errorObj ], 'key', 'sections', 'A section array of one or more objects is required. Please add a section object to the sections array.' );
+                    break;
+                }
+            }
+
+            done();
+        });
+    });
+
     test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', done => {
 
         var configMissingTitleFiles = {
@@ -178,39 +211,6 @@ suite( 'Configure: Sections', () => {
                 if ( key === 'sections' ) {
 
                     assert.propertyVal( data[ errorObj ], 'key', 'sections', 'Section objects are required in the sections array. Please add a section object to the section array.' );
-                    break;
-                }
-            }
-
-            done();
-        });
-    });
-
-    test( 'Section array is set to be required. Section array errored out when not supplied.', done => {
-
-        var configMissingTitleFiles = {
-            settings: {
-                dest: './test/documentation'
-            }
-        };
-
-        sugarcoat( configMissingTitleFiles )
-        .then( data => {
-
-            console.log('failed success');
-            assert.isArray( data, 'Sugarcoat should be erroring out.' );
-            done();
-        }, data => {
-
-            assert.isArray( data, 'Sugarcoat returns an array.' );
-
-            for ( var errorObj in data ) {
-
-                var key = data[ errorObj ].key;
-
-                if ( key === 'sections' ) {
-
-                    assert.propertyVal( data[ errorObj ], 'key', 'sections', 'A section array of one or more objects is required. Please add a section object to the sections array.' );
                     break;
                 }
             }
