@@ -36,7 +36,8 @@ defaults.settings.partials = {
 };
 
 defaults.settings.prefix = {};
-defaults.settings.prefix.selector = '.sugar-example';
+defaults.template = {};
+defaults.template.selectorPrefix = '.sugar-example';
 
 function init( options ) {
 

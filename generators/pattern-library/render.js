@@ -119,7 +119,7 @@ function prefixAssets( config ) {
 
             return postcss()
             .use( prefixer({
-                prefix: config.settings.prefix.selector
+                prefix: config.template.selectorPrefix
             }))
             .process( data )
             .then( result => {
