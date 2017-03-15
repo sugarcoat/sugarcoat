@@ -3,31 +3,33 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <title>{{ this.settings.title }}</title>
+  <title>{{ settings.title }}</title>
   {{> head}}
 </head>
 <body>
 
   <div class="sugar-page-wrapper">
-    <nav class="sugar-nav">
 
-      {{> masthead this.settings }}
-
-      {{> nav this.sections }}
-
-    </nav>
+    {{> nav }}
 
     <a class="sugar-btn-accordion sugar-nav-toggle">Toggle</a>
 
     <div class="sugar-main">
 
-      {{> masthead this.settings }}
+      <div class="sugar-masthead">
+        {{#if settings.graphic }}
+        	<img src="{{ settings.graphic }}" />
+        {{/if}}
+        {{~#if settings.title }}
+        	<h1>{{ settings.title }}</h1>
+        {{~/if}}
+      </div>
 
-      {{~#each this.sections as |section|}}
+      {{#each sections as |section|}}
 
         {{> (lookup . 'template') }}
 
-      {{~/each}}
+      {{/each}}
 
       {{> footer}}
 

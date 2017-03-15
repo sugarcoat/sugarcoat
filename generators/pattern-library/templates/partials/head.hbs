@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="sugarcoat/css/sugarcoat.css">
-{{#if this.settings.prefix.assets}}
-{{#each this.settings.prefix.assets}}
-  <link rel="stylesheet" type="text/css" href="{{ prefixed }}">
-{{/each}}
+{{#if settings.prefix.assets}}
+  {{#each settings.prefix.assets}}
+    <link rel="stylesheet" type="text/css" href="{{ prefixed }}">
+  {{/each}}
 {{/if}}
