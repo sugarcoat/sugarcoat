@@ -104,11 +104,11 @@ function copyAssets( config ) {
 function globPartials( config ) {
 
     return globFiles( config.settings.template.partials )
-    .then( function ( partials ) {
+    .then( partials => {
         config.settings.template.partials = _.flatten( partials );
 
         return config;
-    }).catch( function ( err ) {
+    }).catch( err => {
 
         log.error( 'Glob Partials', err );
     });
@@ -116,24 +116,24 @@ function globPartials( config ) {
 
 function readPartials( config ) {
 
-    var partials = config.settings.template.partials.map( function ( fileObj ) {
+    var partials = config.settings.template.partials.map( fileObj => {
 
         return fsp.readFile( fileObj.file )
-        .then( function ( data ) {
+        .then( data => {
 
             return fileObj.src = data;
         });
     });
 
     return Promise.all( partials )
-    .then( function () {
+    .then( () => {
         return config;
     });
 }
 
 function registerPartials( config ) {
 
-    config.settings.template.partials.forEach( function ( partial ) {
+    config.settings.template.partials.forEach( partial => {
 
         var isOverride = !!Handlebars.partials[ partial.name ]
             , msgNormal = `partial registered: "${partial.name}"`

@@ -33,7 +33,7 @@ suite( 'Parser: parseComment', function () {
 
             fs.readFile( path, 'utf-8', ( err, data ) => {
                 if ( err ) return false;
-                var value = parse.parseComment( path, data, config.sections[ 0 ].type, config.sections[ 0 ].template );
+                var value = parse.parseComment( path, data, config.sections[ 0 ].mode, config.sections[ 0 ].template );
 
                 return resolve( value );
             });

@@ -9,11 +9,13 @@ var util = require( 'util' );
  */
 var defaults = {};
 var defaultAssets = 'sugarcoat/**/*';
+var defaultAssetStr = 'sugarcoat';
 var cwdTemplates = path.join( __dirname, 'templates' );
 var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
 
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
+defaults.settings.title = 'Pattern Library';
 
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
@@ -51,16 +53,16 @@ function init( options ) {
     }
 
     // Add in the default assets
-    if ( _.includes( template.assets, defaultAssets ) ) {
+    if ( _.includes( template.assets, defaultAssetStr ) ) {
 
         addDefaultAssets = true;
 
         // Get the sugarcoat string out of the array
-        _.pull( template.assets, defaultAssets );
+        _.pull( template.assets, defaultAssetStr );
     }
 
     // Convert remaining array pieces into a file object
-    template.assets = template.assets.map( function ( dirPath ) {
+    template.assets = template.assets.map( dirPath => {
         return normalizeDirectory( dirPath, template.cwd );
     });
 
@@ -72,7 +74,7 @@ function init( options ) {
     // **** ASSETS (prefix) ****
 
     if ( !_.isEmpty( prefix.assets ) ) {
-        prefix.assets = prefix.assets.map( function ( dirPath ) {
+        prefix.assets = prefix.assets.map( dirPath => {
 
             return normalizeDirectory( dirPath, process.cwd() );
         });
@@ -93,7 +95,7 @@ function init( options ) {
     if ( _.isArray( template.partials ) ) {
 
         // normalize the contents of the array
-        template.partials = template.partials.map( function ( dirPath ) {
+        template.partials = template.partials.map( dirPath => {
 
             return normalizeDirectory( dirPath, template.cwd );
         });
@@ -150,15 +152,19 @@ function init( options ) {
         }
         else {
 
-            config.sections.forEach( function ( section ) {
+            config.sections.forEach( sectionObject => {
 
-                var loggedSection = util.inspect( section, { depth: 7, colors: true } );
+                var loggedSection = util.inspect( sectionObject, { depth: 7, colors: true } );
 
-                if ( !section.template ) {
-                    section.template = `section-${ section.type || 'default' }`;
+                if ( !sectionObject.mode ) {
+                    sectionObject.mode = undefined;
                 }
 
-                if ( !section.title ) {
+                if ( !sectionObject.template ) {
+                    sectionObject.template = `section-${ sectionObject.mode || 'default' }`;
+                }
+
+                if ( !sectionObject.title ) {
 
                     error.push({
                         key: 'sections.title',
@@ -166,7 +172,7 @@ function init( options ) {
                     });
                 }
 
-                if ( !section.files ) {
+                if ( !sectionObject.files ) {
 
                     error.push({
                         key: 'sections.files',
