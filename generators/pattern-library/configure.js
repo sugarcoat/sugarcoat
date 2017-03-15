@@ -12,6 +12,7 @@ var defaultAssets = 'sugarcoat/**/*';
 var defaultAssetStr = 'sugarcoat';
 var cwdTemplates = path.join( __dirname, 'templates' );
 var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
+var defaultPartialsDir = path.join( cwdTemplates, 'partials' );
 
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
@@ -22,6 +23,17 @@ defaults.settings.title = 'Pattern Library';
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();
 defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
+
+defaults.settings.partials = {
+    'block-title': `${defaultPartialsDir}/block-title.hbs`,
+    'footer': `${defaultPartialsDir}/footer.hbs`,
+    'head': `${defaultPartialsDir}/head.hbs`,
+    'nav': `${defaultPartialsDir}/nav.hbs`,
+    'section-color': `${defaultPartialsDir}/section-color.hbs`,
+    'section-default': `${defaultPartialsDir}/section-default.hbs`,
+    'section-typography': `${defaultPartialsDir}/section-typography.hbs`,
+    'section-variable': `${defaultPartialsDir}/section-variable.hbs`
+};
 
 defaults.settings.prefix = {};
 defaults.settings.prefix.selector = '.sugar-example';
@@ -89,27 +101,10 @@ function init( options ) {
 
 
     // **** PARTIALS ****
+    Object.keys( settings.partials ).forEach( ( key, index ) => {
 
-    template.partials = template.partials || [];
-
-    // If partials is empty or falsy, then set our defaults
-    if ( _.isArray( template.partials ) ) {
-
-        // normalize the contents of the array
-        template.partials = template.partials.map( dirPath => {
-
-            return normalizeDirectory( dirPath, template.cwd );
-        });
-    }
-    else {
-
-        // use new function on it
-        template.partials = [ normalizeDirectory( template.partials, template.cwd ) ];
-    }
-
-    // then add defaults on
-    template.partials.unshift( normalizeDirectory( defaultPartials, template.cwd ) );
-
+        settings.partials[ key ] = normalizeDirectory( settings.partials[ key ], process.cwd() );
+    });
 
     // **** SETTINGS ****
 

@@ -14,9 +14,7 @@ module.exports = function ( config ) {
 
     Handlebars.registerHelper( hbsHelpers );
 
-    return globPartials( config )
-    .then( readPartials )
-    .then( registerPartials )
+    return registerPartials( config )
     .then( config => {
 
         if ( config.settings.prefix.assets ) {
@@ -36,57 +34,32 @@ module.exports = function ( config ) {
 /*
     Tasks
 */
-
-function globPartials( config ) {
-
-    return globFiles( config.settings.template.partials )
-    .then( partials => {
-        config.settings.template.partials = _.flatten( partials );
-
-        return config;
-    }).catch( err => {
-
-        log.error( 'Glob Partials', err );
-    });
-}
-
-function readPartials( config ) {
-
-    var partials = config.settings.template.partials.map( fileObj => {
-
-        return fsp.readFile( fileObj.file )
-        .then( data => {
-
-            return fileObj.src = data;
-        });
-    });
-
-    return Promise.all( partials )
-    .then( () => {
-        return config;
-    });
-}
-
 function registerPartials( config ) {
 
-    config.settings.template.partials.forEach( partial => {
+    var promisePartials = [];
 
-        var isOverride = !!Handlebars.partials[ partial.name ]
-            , msgNormal = `partial registered: "${partial.name}"`
-            , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
-            , msg = isOverride ? msgOverride : msgNormal
-            ;
+    Object.keys( config.settings.partials ).forEach( key => {
 
-        if ( isOverride ) Handlebars.unregisterPartial( partial.name );
+        promisePartials.push( fsp.readFile( config.settings.partials[ key ].src )
+        .then( data => {
 
-        Handlebars.registerPartial( partial.name, partial.src );
+            Handlebars.registerPartial( key, data );
 
-        log.info( 'Render', msg );
+            log.info( 'Render', `partial registered: ${ key }` );
+        })
+        .catch( err => {
+            log.error( 'Render: Register Partials', err );
+
+            return err;
+        }));
     });
 
-    return config;
-}
+    return Promise.all( promisePartials )
+    .then( () => {
 
+        return config;
+    });
+}
 function renderLayout( config ) {
 
     return fsp.readFile( config.settings.template.layout )
