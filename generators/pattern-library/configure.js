@@ -130,31 +130,52 @@ function init( options ) {
 
     // **** SECTIONS ****
 
-    config.sections.forEach( function ( section ) {
+    if ( !config.sections ) {
 
-        var loggedSection = util.inspect( section, { depth: 7, colors: true } );
+        error.push({
+            key: 'section',
+            msg: 'A section array of one or more objects is required. Please add a section object to the sections array.'
+        });
 
-        if ( !section.template ) {
-            section.template = `section-${ section.type || 'default' }`;
-        }
+    }
+    else {
 
-        if ( !section.title ) {
-
-            error.push({
-                key: 'sections.title',
-                msg: `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
-            });
-        }
-
-        if ( !section.files ) {
+        if ( config.sections.length < 0 || !config.sections.length ) {
 
             error.push({
-                key: 'sections.files',
-                msg: `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
+                key: 'section',
+                msg: 'Section objects are required in the sections array. Please add a section object to the section array.'
+            });
+
+        }
+        else {
+
+            config.sections.forEach( function ( section ) {
+
+                var loggedSection = util.inspect( section, { depth: 7, colors: true } );
+
+                if ( !section.template ) {
+                    section.template = `section-${ section.type || 'default' }`;
+                }
+
+                if ( !section.title ) {
+
+                    error.push({
+                        key: 'sections.title',
+                        msg: `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
+                    });
+                }
+
+                if ( !section.files ) {
+
+                    error.push({
+                        key: 'sections.files',
+                        msg: `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
+                    });
+                }
             });
         }
-    });
-
+    }
 
     if ( error.length ) {
 
