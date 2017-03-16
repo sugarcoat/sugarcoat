@@ -20,10 +20,6 @@ defaults.settings.dest = null;
 defaults.settings.format = null;
 defaults.settings.title = 'Pattern Library';
 
-defaults.settings.template = {};
-defaults.settings.template.cwd = process.cwd();
-defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
-
 defaults.template = {};
 defaults.template.layout = path.join( cwdTemplates, 'main.hbs' );
 defaults.template.selectorPrefix = '.sugar-example';
@@ -57,34 +53,34 @@ function init( options ) {
     // **** ASSETS (template) ****
 
     // Set Assets to an array
-    if ( _.isEmpty( template.assets ) ) {
+    if ( _.isEmpty( config.copy ) ) {
 
-        template.assets = [ defaultAssets ];
+        config.copy = [ defaultAssets ];
     }
 
     // Set Assets to an array
-    if ( !_.isArray( template.assets ) ) {
+    if ( !_.isArray( config.copy ) ) {
 
-        template.assets = [ template.assets ];
+        config.copy = [ config.copy ];
     }
 
     // Add in the default assets
-    if ( _.includes( template.assets, defaultAssetStr ) ) {
+    if ( _.includes( config.copy, defaultAssetStr ) ) {
 
         addDefaultAssets = true;
 
         // Get the sugarcoat string out of the array
-        _.pull( template.assets, defaultAssetStr );
+        _.pull( config.copy, defaultAssetStr );
     }
 
     // Convert remaining array pieces into a file object
-    template.assets = template.assets.map( dirPath => {
-        return normalizeDirectory( dirPath, template.cwd );
+    config.copy = config.copy.map( dirPath => {
+        return normalizeDirectory( dirPath, process.cwd() );
     });
 
     // Add in the default assets
     if ( addDefaultAssets ) {
-        template.assets.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
+        config.copy.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
     }
 
     // **** ASSETS (prefix) ****
@@ -98,10 +94,7 @@ function init( options ) {
 
 
     // **** LAYOUT ****
-
     // Resolve all paths
-    template.layout = path.resolve( process.cwd(), template.layout );
-
     config.template.layout = path.resolve( process.cwd(), config.template.layout );
 
 

@@ -147,7 +147,7 @@ function copyAssets( config ) {
 
     var flattened = [];
 
-    var expand = config.settings.template.assets.map( asset => {
+    var expand = config.copy.map( asset => {
 
         return globber({
             src: asset.src,
