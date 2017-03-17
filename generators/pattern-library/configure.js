@@ -17,7 +17,11 @@ defaults.settings = {};
 defaults.settings.cwd = process.cwd();
 defaults.settings.dest = null;
 defaults.settings.format = null;
-defaults.settings.title = 'Pattern Library';
+
+defaults.display = {};
+defaults.display.graphic = null;
+defaults.display.headingText = null;
+defaults.display.title = 'Pattern Library';
 
 defaults.settings.template = {};
 defaults.settings.template.cwd = process.cwd();

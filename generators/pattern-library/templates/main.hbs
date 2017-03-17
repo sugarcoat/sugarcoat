@@ -3,7 +3,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <title>{{ this.settings.title }}</title>
+  <title>{{ display.title }}</title>
   {{> head}}
 </head>
 <body>
@@ -11,7 +11,7 @@
   <div class="sugar-page-wrapper">
     <nav class="sugar-nav">
 
-      {{> masthead this.settings }}
+      {{> masthead }}
 
       {{> nav this.sections }}
 
