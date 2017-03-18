@@ -19,7 +19,7 @@ module.exports = function ( config ) {
     .then( registerPartials )
     .then( config => {
 
-        if ( config.settings.prefix.assets ) {
+        if ( config.include.css ) {
 
             return globPrefixAssets( config )
             .then( prefixAssets );
@@ -123,9 +123,9 @@ function renderLayout( config ) {
 
 function globPrefixAssets( config ) {
 
-    return globFiles( config.settings.prefix.assets )
+    return globFiles( config.include.css )
     .then( assets => {
-        config.settings.prefix.assets = _.flatten( assets );
+        config.include.css = _.flatten( assets );
 
         return config;
     })
@@ -137,7 +137,7 @@ function globPrefixAssets( config ) {
 
 function prefixAssets( config ) {
 
-    return Promise.all( config.settings.prefix.assets.map( file => {
+    return Promise.all( config.include.css.map( file => {
 
         file.prefixed = `sugarcoat/css/prefixed-${file.name}.css`;
 
@@ -146,7 +146,7 @@ function prefixAssets( config ) {
 
             return postcss()
             .use( prefixer({
-                prefix: config.settings.prefix.selector
+                prefix: config.template.prefixSelector
             }))
             .process( data )
             .then( result => {
