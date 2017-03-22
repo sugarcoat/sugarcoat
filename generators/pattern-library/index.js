@@ -29,6 +29,7 @@ function init( config ) {
     .then( render )
     .then( config => {
 
+        // console.log('html', html);
         log.info( 'Finished!' );
 
         return config;
