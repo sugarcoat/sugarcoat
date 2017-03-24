@@ -7,6 +7,8 @@ var globber = require( '../../lib/globber' );
 var log = require( '../../lib/logger' );
 var fsp = require( '../../lib/fs-promiser' );
 
+// var util = require( 'util' );
+
 /**
  *
  */
@@ -14,14 +16,26 @@ module.exports = init;
 
 function init( config ) {
 
-    config = configure( config );
+    try {
 
-    if ( Array.isArray( config ) ) {
+        config = configure( config );
 
-        return new Promise( function ( resolve, reject ) {
-            return reject( config );
+    }
+    catch ( err ) {
+
+        return Promise.reject( err ).then( () => {}, ( err ) => {
+
+            return log.error( err );
         });
     }
+    // console.log(config);
+
+    // if ( Array.isArray( config ) ) {
+
+    //     return new Promise( function ( resolve, reject ) {
+    //         return reject( config );
+    //     });
+    // }
 
     return globFiles( config )
     .then( readSections )
