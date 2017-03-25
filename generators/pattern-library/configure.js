@@ -32,7 +32,7 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
-        // , error
+        , error = []
         ;
 
     // Configure the logger
@@ -124,21 +124,30 @@ function init( options ) {
     }
     else {
 
-        throw new Error( 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.' );
+        error.push({
+            key: 'settings.dest',
+            msg: 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
+        });
     }
 
     // **** SECTIONS ****
 
     if ( !config.sections ) {
 
-        throw new Error( 'A section array of one or more objects is required. Please add a section object to the sections array.' );
+        error.push({
+            key: 'section',
+            msg: 'A section array of one or more objects is required. Please add a section object to the sections array.'
+        });
 
     }
     else {
 
         if ( config.sections.length < 0 || !config.sections.length ) {
 
-            throw new Error( 'Section objects are required in the sections array. Please add a section object to the section array.' );
+            error.push({
+                key: 'section',
+                msg: 'Section objects are required in the sections array. Please add a section object to the section array.'
+            });
 
         }
         else {
@@ -148,41 +157,45 @@ function init( options ) {
                 var loggedSection = util.inspect( sectionObject, { depth: 7, colors: true } );
 
                 if ( !sectionObject.mode ) {
-
                     sectionObject.mode = undefined;
                 }
 
                 if ( !sectionObject.template ) {
-
                     sectionObject.template = `section-${ sectionObject.mode || 'default' }`;
                 }
 
                 if ( !sectionObject.title ) {
 
-                    throw new Error( `Title is required. Please add a 'title' option to section object: \n${loggedSection}` );
+                    error.push({
+                        key: 'sections.title',
+                        msg: `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
+                    });
                 }
 
                 if ( !sectionObject.files ) {
 
-                    throw new Error( `Files is required. Please add a 'files' option to section object: \n${loggedSection}` );
+                    error.push({
+                        key: 'sections.files',
+                        msg: `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
+                    });
                 }
             });
         }
     }
 
-    // if ( error.length ) {
+    if ( error.length ) {
 
-    //     for ( var errObj in error ) {
+        for ( var errObj in error ) {
 
-    //         var key = error[ errObj ].key;
-    //         var msg = error[ errObj ].msg;
+            var key = error[ errObj ].key;
+            var msg = error[ errObj ].msg;
 
-    //         log.error( `Configure: ${key}`, msg );
-    //     }
+            log.error( `Configure: ${key}`, msg );
+        }
 
-    //     return error;
+        return error;
 
-    // }
+    }
 
     return config;
 }
