@@ -1,8 +1,8 @@
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
-
 var log = require( '../../lib/logger' );
+var util = require( 'util' );
 
 /**
  * Default configuration values
@@ -15,8 +15,6 @@ var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
 
 defaults.settings = {};
 defaults.settings.cwd = process.cwd();
-defaults.settings.dest = null;
-defaults.settings.format = null;
 defaults.settings.title = 'Pattern Library';
 
 defaults.settings.template = {};
@@ -34,10 +32,11 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
+        , error = []
         ;
 
     // Configure the logger
-    log.config( options.settings.log );
+    log.config( config.settings.log );
 
     // **** ASSETS (template) ****
 
@@ -113,22 +112,90 @@ function init( options ) {
 
     // **** SETTINGS ****
 
-    if ( settings.dest ) {
+    if ( settings.dest && settings.dest === 'none' ) {
+
+        settings.dest = null;
+
+    }
+    else if ( settings.dest ) {
+
         settings.dest = path.resolve( settings.cwd, settings.dest );
+
+    }
+    else {
+
+        error.push({
+            key: 'settings.dest',
+            msg: 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
+        });
     }
 
     // **** SECTIONS ****
 
-    config.sections.forEach( sectionObject => {
+    if ( !config.sections ) {
 
-        if ( !sectionObject.mode ) {
-            sectionObject.mode = undefined;
+        error.push({
+            key: 'section',
+            msg: 'A section array of one or more objects is required. Please add a section object to the sections array.'
+        });
+
+    }
+    else {
+
+        if ( config.sections.length < 0 || !config.sections.length ) {
+
+            error.push({
+                key: 'section',
+                msg: 'Section objects are required in the sections array. Please add a section object to the section array.'
+            });
+
+        }
+        else {
+
+            config.sections.forEach( sectionObject => {
+
+                var loggedSection = util.inspect( sectionObject, { depth: 7, colors: true } );
+
+                if ( !sectionObject.mode ) {
+                    sectionObject.mode = undefined;
+                }
+
+                if ( !sectionObject.template ) {
+                    sectionObject.template = `section-${ sectionObject.mode || 'default' }`;
+                }
+
+                if ( !sectionObject.title ) {
+
+                    error.push({
+                        key: 'sections.title',
+                        msg: `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
+                    });
+                }
+
+                if ( !sectionObject.files ) {
+
+                    error.push({
+                        key: 'sections.files',
+                        msg: `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
+                    });
+                }
+            });
+        }
+    }
+
+    if ( error.length ) {
+
+        for ( var errObj in error ) {
+
+            var key = error[ errObj ].key;
+            var msg = error[ errObj ].msg;
+
+            log.error( `Configure: ${key}`, msg );
         }
 
-        if ( !sectionObject.template ) {
-            sectionObject.template = `section-${ sectionObject.mode || 'default' }`;
-        }
-    });
+        return error;
+
+    }
 
     return config;
 }

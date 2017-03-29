@@ -62,9 +62,7 @@ npm install --save sugarcoat
 
 # Usage #
 
-## Module API ##
-
-The Sugarcoat module takes a `config` object and returns a `Promise`. The Promise resolves to the original `config` object, expanded to contain the data from your parsed sections.
+The Sugarcoat module takes a `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data.
 
 ```js
 const sugarcoat = require( 'sugarcoat' );
@@ -77,26 +75,6 @@ sugarcoat( config ).then( function( data ) {
     console.log( data );
 });
 ```
-
-## CLI ##
-
-You can also install the Sugarcoat command globally (via `npm install -g sugarcoat`). The `sugarcoat` command takes a path to a configuration file which must export the configuration object.
-
-```bash
-sugarcoat 'path/to/config.js'
-```
-
-**Options**
-
-```bash
-sugarcoat [flags] <configuration file>
-
-Options:
-
-  -h, --help     output usage information
-  -V, --version  output the version number
-```
-
 
 # Configuration #
 
@@ -143,7 +121,7 @@ Path to which `dest` is relative.
   - Default: `null`
   - Relative: `settings.cwd`
 
-Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist.
+Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist. If given the option 'none', Sugarcoat will not output a rendered pattern library. 
 
 ### `graphic` ###
 
