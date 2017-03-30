@@ -38,10 +38,12 @@ function init( config ) {
     // }
 
     // First, add errors array to config
-    // config = config.
+    config.errors = [];
+
 
     // run configure on config
     config = configure( config );
+    // console.log( 'config', config );
 
     // if we have errors in the array, reject and handoff those errors
     if ( config.errors.length ) {
@@ -56,7 +58,6 @@ function init( config ) {
     .then( render )
     .then( config => {
 
-        // console.log('html', html);
         log.info( 'Finished!' );
 
         return config;

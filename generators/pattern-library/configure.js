@@ -32,7 +32,7 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
-        // , error
+        , errors = config.errors
         ;
 
     // Configure the logger
@@ -124,21 +124,21 @@ function init( options ) {
     }
     else {
 
-        throw new Error( 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.' );
+        errors.push( new Error( 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.' ) );
     }
 
     // **** SECTIONS ****
 
     if ( !config.sections ) {
 
-        throw new Error( 'A section array of one or more objects is required. Please add a section object to the sections array.' );
+        errors.push( new Error( 'A section array of one or more objects is required. Please add a section object to the sections array.' ) );
 
     }
     else {
 
         if ( config.sections.length < 0 || !config.sections.length ) {
 
-            throw new Error( 'Section objects are required in the sections array. Please add a section object to the section array.' );
+            errors.push( new Error( 'Section objects are required in the sections array. Please add a section object to the section array.' ) );
 
         }
         else {
@@ -159,30 +159,16 @@ function init( options ) {
 
                 if ( !sectionObject.title ) {
 
-                    throw new Error( `Title is required. Please add a 'title' option to section object: \n${loggedSection}` );
+                    errors.push( new Error( `Title is required. Please add a 'title' option to section object: \n${loggedSection}` ) );
                 }
 
                 if ( !sectionObject.files ) {
 
-                    throw new Error( `Files is required. Please add a 'files' option to section object: \n${loggedSection}` );
+                    errors.push( new Error( `Files is required. Please add a 'files' option to section object: \n${loggedSection}` ) );
                 }
             });
         }
     }
-
-    // if ( error.length ) {
-
-    //     for ( var errObj in error ) {
-
-    //         var key = error[ errObj ].key;
-    //         var msg = error[ errObj ].msg;
-
-    //         log.error( `Configure: ${key}`, msg );
-    //     }
-
-    //     return error;
-
-    // }
 
     return config;
 }
