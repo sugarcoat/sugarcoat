@@ -7,8 +7,6 @@ var globber = require( '../../lib/globber' );
 var log = require( '../../lib/logger' );
 var fsp = require( '../../lib/fs-promiser' );
 
-// var util = require( 'util' );
-
 /**
  *
  */
@@ -16,38 +14,16 @@ module.exports = init;
 
 function init( config ) {
 
-    // try {
-
-    //     config = configure( config );
-
-    // }
-    // catch ( err ) {
-
-    //     return Promise.reject( err ).then( () => {}, ( err ) => {
-
-    //         return log.error( err );
-    //     });
-    // }
-    // console.log(config);
-
-    // if ( Array.isArray( config ) ) {
-
-    //     return new Promise( function ( resolve, reject ) {
-    //         return reject( config );
-    //     });
-    // }
-
     // First, add errors array to config
     config.errors = [];
 
-
-    // run configure on config
     config = configure( config );
-    // console.log( 'config', config );
 
-    // if we have errors in the array, reject and handoff those errors
+    // If we have errors in the array, reject and handoff those errors to the user
     if ( config.errors.length ) {
+
         return new Promise( ( resolve, reject ) => {
+
             return reject( config.errors );
         });
     }
