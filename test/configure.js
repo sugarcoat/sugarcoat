@@ -29,7 +29,12 @@ suite( 'Configure: Settings', () => {
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array when we are missing a dest.' );
-            assert.propertyVal( data[0], 'key', 'settings.dest', 'We have dest in the error array');
+
+            data.forEach( ( errorObj, index ) => {
+
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
+
             done();
         });
 
@@ -109,10 +114,10 @@ suite( 'Configure: Sections', () => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
-            if ( data.length === 1 ) {
+            data.forEach( ( errorObj, index ) => {
 
-                assert.propertyVal( data[0], 'key', 'sections.title', 'We have sections.title in the error array.' );
-            }
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
 
             done();
         });
@@ -137,16 +142,10 @@ suite( 'Configure: Sections', () => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
-            for ( var errorObj in data ) {
+            data.forEach( ( errorObj, index ) => {
 
-                var key = data[ errorObj ].key;
-
-                if ( key === 'sections.title' ) {
-
-                    assert.propertyVal( data[ errorObj ], 'key', 'sections.title', 'We have sections.title in the error array.' );
-                    break;
-                }
-            }
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
 
             done();
         });
@@ -163,23 +162,18 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingTitleFiles )
         .then( data => {
 
-            console.log('failed success');
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
+
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
-            for ( var errorObj in data ) {
+            data.forEach( ( errorObj, index ) => {
 
-                var key = data[ errorObj ].key;
-
-                if ( key === 'sections' ) {
-
-                    assert.propertyVal( data[ errorObj ], 'key', 'sections', 'A section array of one or more objects is required. Please add a section object to the sections array.' );
-                    break;
-                }
-            }
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
 
             done();
         });
@@ -197,23 +191,18 @@ suite( 'Configure: Sections', () => {
         sugarcoat( configMissingTitleFiles )
         .then( data => {
 
-            console.log('failed success');
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
+
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
-            for ( var errorObj in data ) {
+            data.forEach( ( errorObj, index ) => {
 
-                var key = data[ errorObj ].key;
-
-                if ( key === 'sections' ) {
-
-                    assert.propertyVal( data[ errorObj ], 'key', 'sections', 'Section objects are required in the sections array. Please add a section object to the section array.' );
-                    break;
-                }
-            }
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
 
             done();
         });
@@ -239,20 +228,17 @@ suite( 'Configure: Sections', () => {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
+
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
-            for ( var errorObj in data ) {
+            data.forEach( ( errorObj, index ) => {
 
-                var key = data[ errorObj ].key;
-
-                if ( key === 'sections.files' ) {
-
-                    assert.propertyVal( data[ errorObj ], 'key', 'sections.title', 'We have sections.title in the error array.' );
-                }
-            }
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
 
             done();
         });
@@ -275,11 +261,18 @@ suite( 'Configure: Sections', () => {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
+
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array when missing a dest.' );
-            assert.propertyVal( data[0], 'key', 'sections.files', 'We have sections.files in the error array' );
+
+            data.forEach( ( errorObj, index ) => {
+
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
+
             done();
         });
     });
@@ -304,22 +297,19 @@ suite( 'Configure: Sections', () => {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
+
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array when missing a dest.' );
 
-            assert.notEqual( configMissingTwoFiles.sections[0].title, configMissingTwoFiles.sections[1].title, 'we have two different objects.' );
+            assert.notEqual( configMissingTwoFiles.sections[0].title, configMissingTwoFiles.sections[1].title, 'We have two different objects.' );
 
-            for ( var errorObj in data.sections ) {
+            data.forEach( ( errorObj, index ) => {
 
-                var key = data[ errorObj ].key;
-
-                if ( key === 'sections.files' ) {
-
-                    assert.propertyVal( data[ errorObj ], 'key', 'sections.files', 'We have sections.title in the error array.' );
-                }
-            }
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
 
             done();
         });
