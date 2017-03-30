@@ -16,18 +16,18 @@ module.exports = init;
 
 function init( config ) {
 
-    try {
+    // try {
 
-        config = configure( config );
+    //     config = configure( config );
 
-    }
-    catch ( err ) {
+    // }
+    // catch ( err ) {
 
-        return Promise.reject( err ).then( () => {}, ( err ) => {
+    //     return Promise.reject( err ).then( () => {}, ( err ) => {
 
-            return log.error( err );
-        });
-    }
+    //         return log.error( err );
+    //     });
+    // }
     // console.log(config);
 
     // if ( Array.isArray( config ) ) {
@@ -36,6 +36,19 @@ function init( config ) {
     //         return reject( config );
     //     });
     // }
+
+    // First, add errors array to config
+    // config = config.
+
+    // run configure on config
+    config = configure( config );
+
+    // if we have errors in the array, reject and handoff those errors
+    if ( config.errors.length ) {
+        return new Promise( ( resolve, reject ) => {
+            return reject( config.errors );
+        });
+    }
 
     return globFiles( config )
     .then( readSections )
