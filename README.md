@@ -62,7 +62,9 @@ npm install --save sugarcoat
 
 # Usage #
 
+
 The Sugarcoat module takes a `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data. If there are any errors within Sugarcoat, it will send those errors as `Error` objects in an array back to the user. The user can then handle those errors as needed.
+
 
 ```js
 const sugarcoat = require( 'sugarcoat' );
@@ -183,7 +185,7 @@ File(s) to parse for [documentation comments](#code-comment-syntax). Sugarcoat u
 
 Heading of the section.
 
-### `mode` & `template`###
+### `mode` & `template` ###
 
 #### `mode` ####
 

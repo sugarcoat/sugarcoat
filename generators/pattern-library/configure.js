@@ -160,6 +160,7 @@ function init( options ) {
                 if ( !sectionObject.title ) {
 
                     errors.push( new Error( `Title is required. Please add a 'title' option to section object: \n${loggedSection}` ) );
+
                 }
 
                 if ( !sectionObject.files ) {

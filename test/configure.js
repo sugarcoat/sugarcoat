@@ -35,6 +35,7 @@ suite( 'Configure: Settings', () => {
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
             });
 
+
             done();
         });
 
