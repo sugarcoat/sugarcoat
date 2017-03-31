@@ -6,7 +6,7 @@ var sugarcoat = require( '../index' );
 
 suite( 'Configure: Settings', () => {
 
-    test( 'Destination is set to be required. Destination errored out when not supplied.', (done) => {
+    test( 'Destination is set to be required. Destination errored out when not supplied.', done => {
 
         var configMissingDest = {
             sections: [
@@ -38,7 +38,6 @@ suite( 'Configure: Settings', () => {
 
             done();
         });
-
     });
 
     test( 'Destination can be set to none. No index file is created.', done => {
@@ -76,6 +75,89 @@ suite( 'Configure: Settings', () => {
                 assert.isFalse( exists, 'Sugarcoat did not create a index.html file.' );
                 done();
             });
+        });
+    });
+
+    test( 'In order to use prefix.selector, prefix.assets must be supplied.', done => {
+
+        var configNoPrefixedAssets = {
+            settings: {
+                dest: './test/documentation',
+                prefix: {
+                    selector: 'blah'
+                }
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+
+                }
+            ]
+        };
+
+        sugarcoat( configNoPrefixedAssets )
+        .then( data => {
+
+            assert.isArray( data, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+            done();
+        }, data => {
+
+            assert.isArray( data, 'Sugarcoat returns an array when missing prefix.assets.');
+
+            data.forEach( ( errorObj, index ) => {
+
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
+
+            done();
+        });
+    });
+
+    test( 'In order to use prefix.selector, template options must be supplied.', done => {
+
+        var configNoPrefixedAssets = {
+            settings: {
+                dest: './test/documentation',
+                prefix: {
+                    assets: [
+                        './test/assert/parseVarCode.css'
+                    ],
+                    selector: 'blah'
+                }
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+
+                }
+            ]
+        };
+
+        sugarcoat( configNoPrefixedAssets )
+        .then( data => {
+
+            assert.isArray( data, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+            done();
+        }, data => {
+
+            assert.isArray( data, 'Sugarcoat returns an array when missing prefix.assets.');
+
+            data.forEach( ( errorObj, index ) => {
+
+                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+            });
+
+            done();
         });
     });
 
