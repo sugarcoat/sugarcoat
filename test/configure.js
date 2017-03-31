@@ -73,6 +73,7 @@ suite( 'Configure: Settings', () => {
                 else exists = false;
 
                 assert.isFalse( exists, 'Sugarcoat did not create a index.html file.' );
+
                 done();
             });
         });
@@ -124,9 +125,6 @@ suite( 'Configure: Settings', () => {
             settings: {
                 dest: './test/documentation',
                 prefix: {
-                    assets: [
-                        './test/assert/parseVarCode.css'
-                    ],
                     selector: 'blah'
                 }
             },
@@ -148,6 +146,7 @@ suite( 'Configure: Settings', () => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array when missing prefix.assets.');

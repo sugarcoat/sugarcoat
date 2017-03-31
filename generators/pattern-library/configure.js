@@ -40,14 +40,17 @@ function init( options ) {
 
     // **** ASSETS (template) ****
 
-    if ( prefix.selector && !prefix.assets ) {
+    if ( prefix.selector !== defaults.settings.prefix.selector && prefix.selector !== null ) {
 
-        errors.push( new Error( '`Prefix.assets` are required in order to use `prefix.selector`. Please add `prefix.selector` to the settings object if you wish to add a prefixed selector.' ) );
-    }
+        if ( !prefix.assets ) {
 
-    if ( prefix.selector && _.isEmpty( !template.layout ) && _.isEmpty( !template.partials ) && _.isEmpty( template.assets ) ) {
+            errors.push( new Error( '`Prefix.assets` are required in order to use `prefix.selector`. Please add `prefix.selector` to the settings object if you wish to add a prefixed selector.' ) );
 
-        errors.push( new Error( 'Template options are required in order to use `prefix.selector`. Please add a template.layout, template.partials or template.assets to the settings object if you wish to add a prefixed selector.' ) );
+        }
+        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( template.assets ) ) {
+
+            errors.push( new Error( 'Template options are required in order to use `prefix.selector`. Please add a template.layout, template.partials or template.assets to the settings object if you wish to add a prefixed selector.' ) );
+        }
     }
 
     // Set Assets to an array
