@@ -4,7 +4,6 @@ var _ = require( 'lodash' );
 var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
-var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
@@ -12,11 +11,9 @@ var fsp = require( '../../lib/fs-promiser' );
 
 module.exports = function ( config ) {
 
-    Handlebars.registerHelper( hbsHelpers );
+    Handlebars.registerHelper( config.template.helpers );
 
-    return globPartials( config )
-    .then( readPartials )
-    .then( registerPartials )
+    return registerPartials( config )
     .then( config => {
 
         if ( config.settings.prefix.assets ) {
@@ -36,70 +33,45 @@ module.exports = function ( config ) {
 /*
     Tasks
 */
-
-function globPartials( config ) {
-
-    return globFiles( config.settings.template.partials )
-    .then( partials => {
-        config.settings.template.partials = _.flatten( partials );
-
-        return config;
-    }).catch( err => {
-
-        log.error( 'Glob Partials', err );
-    });
-}
-
-function readPartials( config ) {
-
-    var partials = config.settings.template.partials.map( fileObj => {
-
-        return fsp.readFile( fileObj.file )
-        .then( data => {
-
-            return fileObj.src = data;
-        });
-    });
-
-    return Promise.all( partials )
-    .then( () => {
-        return config;
-    });
-}
-
 function registerPartials( config ) {
 
-    config.settings.template.partials.forEach( partial => {
+    var promisePartials = [];
 
-        var isOverride = !!Handlebars.partials[ partial.name ]
-            , msgNormal = `partial registered: "${partial.name}"`
-            , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
-            , msg = isOverride ? msgOverride : msgNormal
-            ;
+    Object.keys( config.template.partials ).forEach( key => {
 
-        if ( isOverride ) Handlebars.unregisterPartial( partial.name );
+        promisePartials.push( fsp.readFile( config.template.partials[ key ].src )
+        .then( data => {
 
-        Handlebars.registerPartial( partial.name, partial.src );
+            Handlebars.registerPartial( key, data );
 
-        log.info( 'Render', msg );
+            log.info( 'Render', `partial registered: ${ key }` );
+        })
+        .catch( err => {
+            log.error( 'Render: Register Partials', err );
+
+            return err;
+        }));
     });
 
-    return config;
-}
+    return Promise.all( promisePartials )
+    .then( () => {
 
+        return config;
+    });
+}
 function renderLayout( config ) {
 
-    return fsp.readFile( config.settings.template.layout )
+    return fsp.readFile( config.template.layout )
     .then( data => {
 
-        return config.settings.template.layout = {
+        return config.template.layout = {
             src: data,
-            file: config.settings.template.layout
+            file: config.template.layout
         };
     })
     .then( () => {
 
-        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
+        var hbsCompiled = Handlebars.compile( config.template.layout.src, {
                 preventIndent: true
             })
             , file = path.join( config.settings.dest, 'index.html' )
@@ -146,7 +118,7 @@ function prefixAssets( config ) {
 
             return postcss()
             .use( prefixer({
-                prefix: config.settings.prefix.selector
+                prefix: config.template.selectorPrefix
             }))
             .process( data )
             .then( result => {
@@ -175,7 +147,7 @@ function copyAssets( config ) {
 
     var flattened = [];
 
-    var expand = config.settings.template.assets.map( asset => {
+    var expand = config.copy.map( asset => {
 
         return globber({
             src: asset.src,

@@ -29,7 +29,7 @@ function init( config ) {
     .then( render )
     .then( html => {
 
-        log.info( 'Finished!' );
+        log.info( 'Finished!', config );
 
         return output( html, config );
     })
