@@ -25,16 +25,19 @@ suite( 'Configure: Settings', () => {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out when a dest is not supplied.');
+
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array when we are missing a dest.' );
+
+            assert.lengthOf( data, 1, 'Error array should only have one object.' );
 
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
             });
-
 
             done();
         });
@@ -115,6 +118,8 @@ suite( 'Configure: Sections', () => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
+            assert.lengthOf( data, 1, 'Error array should only have one object.' );
+
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
@@ -142,6 +147,8 @@ suite( 'Configure: Sections', () => {
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
+
+            assert.lengthOf( data, 2, 'Error array should only have one object.' );
 
             data.forEach( ( errorObj, index ) => {
 
@@ -171,6 +178,8 @@ suite( 'Configure: Sections', () => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
+            assert.lengthOf( data, 1, 'Error array should only have one object.' );
+
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
@@ -199,6 +208,8 @@ suite( 'Configure: Sections', () => {
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
+
+            assert.lengthOf( data, 1, 'Error array should only have one object.' );
 
             data.forEach( ( errorObj, index ) => {
 
@@ -236,6 +247,8 @@ suite( 'Configure: Sections', () => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
+            assert.lengthOf( data, 2, 'Error array should only have one object.' );
+
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
@@ -268,6 +281,8 @@ suite( 'Configure: Sections', () => {
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array when missing a dest.' );
+
+            assert.lengthOf( data, 1, 'Error array should only have one object.' );
 
             data.forEach( ( errorObj, index ) => {
 
@@ -304,6 +319,8 @@ suite( 'Configure: Sections', () => {
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array when missing a dest.' );
+
+            assert.lengthOf( data, 2, 'Error array should only have one object.' );
 
             assert.notEqual( configMissingTwoFiles.sections[0].title, configMissingTwoFiles.sections[1].title, 'We have two different objects.' );
 
