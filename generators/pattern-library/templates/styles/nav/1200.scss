@@ -2,9 +2,9 @@
 .sugar-nav .sugar-masthead {
     width: 245px;
     float: right;
-
-    ul {
-        width: auto;
-        float: none;
-    }
+}
+.sugar-nav ul ul,
+.sugar-nav .sugar-masthead ul {
+    width: auto;
+    float: none;
 }

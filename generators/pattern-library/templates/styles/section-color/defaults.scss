@@ -11,12 +11,11 @@
     margin-bottom: -38px;
     padding-bottom: 10px;
     transition: 0.35s linear margin;
-
-    .sugar-btn-accordion {
-        top: -5px;
-        right: 0px;
-        position: absolute;
-    }
+}
+.sugar-color-commented .sugar-btn-accordion {
+    top: -5px;
+    right: 0px;
+    position: absolute;
 }
 .sugar-color-open.sugar-color-commented {
     margin-bottom: 0px;

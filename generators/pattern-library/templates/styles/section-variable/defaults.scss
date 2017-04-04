@@ -1,9 +1,8 @@
 .sugar-section-variable {
     width: 100%;
-
-    .sugar-table-container {
-        overflow-x: auto;
-    }
+}
+.sugar-section-variable .sugar-table-container {
+    overflow-x: auto;
 }
 .sugar-var-table {
     border-collapse: collapse;
@@ -13,35 +12,33 @@
     border-left: $border;
     border-right: $border;
     margin-bottom: 1rem;
-
-    thead {
-        border: $border;
-    }
-
-    th {
-        @include font-cap();
-        font-size: 11px;
-        color: #999;
-        padding: .5rem 1rem;
-        background-color: white;
-        text-align: left;
-    }
-    tr {
-        border-bottom: $border;
-        background-color: #f1f1f1;
-    }
-    td {
-        padding: 0 1rem;
-    }
-    pre {
-        padding: 0;
-        overflow-x: auto;
-        font-size: 16px;
-        color: #666;
-    }
-    p {
-        font-family: 'Helvetica';
-        margin: 0;
-        color: #999;
-    }
+}
+.sugar-var-table thead {
+    border: $border;
+}
+.sugar-var-table th {
+    @include font-cap();
+    font-size: 11px;
+    color: #999;
+    padding: .5rem 1rem;
+    background-color: white;
+    text-align: left;
+}
+.sugar-var-table tr {
+    border-bottom: $border;
+    background-color: #f1f1f1;
+}
+.sugar-var-table td {
+    padding: 0 1rem;
+}
+.sugar-var-table pre {
+    padding: 0;
+    overflow-x: auto;
+    font-size: 16px;
+    color: #666;
+}
+.sugar-var-table p {
+    font-family: 'Helvetica';
+    margin: 0;
+    color: #999;
 }

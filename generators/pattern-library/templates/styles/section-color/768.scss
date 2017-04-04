@@ -2,10 +2,9 @@
     padding: 0;
     margin: 0;
     transition: none;
-
-    .sugar-btn-accordion {
-        display: none;
-    }
+}
+.sugar-color-commented .sugar-btn-accordion {
+    display: none;
 }
 .sugar-color-open.sugar-color-commented {
     margin-bottom: 0px;

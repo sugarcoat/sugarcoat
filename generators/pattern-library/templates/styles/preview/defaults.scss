@@ -1,23 +1,21 @@
 .sugar-preview-block {
     width: 100%;
-
-    .sugar-example-text {
-        color: #999;
-        margin-bottom: 0.5rem; @include font-cap();
-        font-size: 11px;
-    }
+}
+.sugar-preview-block .sugar-example-text {
+    color: #999;
+    margin-bottom: 0.5rem;
+    @include font-cap();
+    font-size: 11px;
 }
 .sugar-preview {
     border: $border;
     margin-bottom: 1rem;
-
-    .sugar-example,
-    .sugar-example-code {
-        padding: 1.25rem 1.0rem;
-        overflow: hidden;
-    }
-
-    .sugar-pre {
-        padding: 1.5rem 1rem;
-    }
+}
+.sugar-preview .sugar-example,
+.sugar-preview .sugar-example-code {
+    padding: 1.25rem 1.0rem;
+    overflow: hidden;
+}
+.sugar-preview .sugar-pre {
+    padding: 1.5rem 1rem;
 }
