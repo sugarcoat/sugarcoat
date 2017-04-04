@@ -24,7 +24,7 @@ function init( config ) {
 
         return new Promise( ( resolve, reject ) => {
 
-            return reject( config.errors );
+            reject( config.errors );
         });
     }
 
