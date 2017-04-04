@@ -2,9 +2,9 @@ var path = require( 'path' );
 
 var parser = require( './parser' );
 var render = require( './render' );
-var log = require( '../../lib/logger' );
 var configure = require( './configure' );
 var globber = require( '../../lib/globber' );
+var log = require( '../../lib/logger' );
 var fsp = require( '../../lib/fs-promiser' );
 
 /**
@@ -16,22 +16,23 @@ function init( config ) {
 
     config = configure( config );
 
-    if (config.error) {
+    if ( Array.isArray( config ) ) {
 
-        log.error(config.error);
-
-        return Promise.reject();
+        return new Promise( function ( resolve, reject ) {
+            return reject( config );
+        });
     }
 
     return globFiles( config )
     .then( readSections )
     .then( parseSections )
     .then( render )
-    .then( html => {
+    .then( config => {
 
+        // console.log('html', html);
         log.info( 'Finished!' );
 
-        return output( html, config );
+        return config;
     })
     .catch( err => {
         log.error( err );
@@ -94,23 +95,4 @@ function parseSections( config ) {
     });
 
     return config;
-}
-
-function output( html, config ) {
-
-    var type = config.settings.format
-        , result = config
-        ;
-
-    if ( type === 'json' ) {
-
-        result = JSON.stringify( result );
-
-    }
-    else if ( type === 'html' ) {
-
-        result = html;
-    }
-
-    return result;
 }

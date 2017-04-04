@@ -1,11 +1,10 @@
 var path = require( 'path' );
-
 var _ = require( 'lodash' );
 var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
-var hbsHelpers = require( '../../lib/handlebars-helpers.js' );
 
+var hbsHelpers = require( '../../lib/handlebars-helpers' );
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
 var fsp = require( '../../lib/fs-promiser' );
@@ -27,8 +26,20 @@ module.exports = function ( config ) {
         else return config;
     })
     .then( copyAssets )
-    .then( renderLayout )
-    .catch( err => {
+    .then( config => {
+
+        if ( config.settings.dest !== null ) {
+
+            return renderLayout(config)
+            .then( () => {
+
+                return config;
+            });
+
+        }
+        else return config;
+    })
+    .catch( function ( err ) {
         return err;
     });
 };
@@ -36,6 +47,59 @@ module.exports = function ( config ) {
 /*
     Tasks
 */
+
+function copyAssets( config ) {
+
+    var flattened = []
+        , dest = config.settings.dest !== null ? config.settings.dest : config.settings.cwd
+        ;
+
+    var expand = config.settings.template.assets.map( function ( asset ) {
+
+        return globber({
+            src: asset.src,
+            options: asset.options
+        })
+        .then( function ( files ) {
+
+            asset.srcFiles = files;
+
+            return asset.srcFiles.map( assetPath => {
+
+                var result = {
+                    from: path.resolve( asset.options.cwd, assetPath ),
+                    to: path.resolve( dest, path.relative( asset.options.cwd, assetPath ) )
+                };
+
+                flattened.push( result );
+
+                return result;
+            });
+        });
+    });
+
+    return Promise.all( expand )
+    .then( () => {
+
+        return Promise.all( flattened.map( asset => {
+
+            return fsp.copy( asset.from, asset.to )
+            .then( assetPaths => {
+
+                return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
+            });
+        }));
+    })
+    .then( () => {
+
+        return config;
+    })
+    .catch( function ( err ) {
+        log.error( 'Copy Assets', err );
+
+        return err;
+    });
+}
 
 function globPartials( config ) {
 
@@ -87,40 +151,6 @@ function registerPartials( config ) {
     return config;
 }
 
-function renderLayout( config ) {
-
-    return fsp.readFile( config.settings.template.layout )
-    .then( data => {
-
-        return config.settings.template.layout = {
-            src: data,
-            file: config.settings.template.layout
-        };
-    })
-    .then( () => {
-
-        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
-                preventIndent: true
-            })
-            , file = path.join( config.settings.dest, 'index.html' )
-            , html = hbsCompiled( config )
-            ;
-
-        return fsp.writeFile( file, html )
-        .then( () => {
-
-            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
-
-            return html;
-        });
-    })
-    .catch( err => {
-        log.error( 'Render', err );
-
-        return err;
-    });
-}
-
 function globPrefixAssets( config ) {
 
     return globFiles( config.settings.prefix.assets )
@@ -164,59 +194,42 @@ function prefixAssets( config ) {
 
         return config;
     })
-    .catch( ( err ) => {
+    .catch( err => {
         log.error( 'Prefix Assets', err );
 
         return err;
     });
 }
 
-function copyAssets( config ) {
+function renderLayout( config ) {
 
-    var flattened = [];
+    return fsp.readFile( config.settings.template.layout )
+    .then( function ( data ) {
 
-    var expand = config.settings.template.assets.map( asset => {
+        return config.settings.template.layout = {
+            src: data,
+            file: config.settings.template.layout
+        };
+    })
+    .then( function () {
 
-        return globber({
-            src: asset.src,
-            options: asset.options
-        })
-        .then( files => {
+        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
+                preventIndent: true
+            })
+            , file = path.join( config.settings.dest, 'index.html' )
+            , html = hbsCompiled( config )
+            ;
 
-            asset.srcFiles = files;
+        return fsp.writeFile( file, html )
+        .then( () => {
 
-            return asset.srcFiles.map( assetPath => {
+            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
-                var result = {
-                    from: path.resolve( asset.options.cwd, assetPath ),
-                    to: path.resolve( config.settings.dest, path.relative( asset.options.cwd, assetPath ) )
-                };
-
-                flattened.push( result );
-
-                return result;
-            });
+            return html;
         });
-    });
-
-    return Promise.all( expand )
-    .then( () => {
-
-        return Promise.all( flattened.map( asset => {
-
-            return fsp.copy( asset.from, asset.to )
-            .then( assetPaths => {
-
-                return log.info( 'Render', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
-            });
-        }));
     })
-    .then( () => {
-
-        return config;
-    })
-    .catch( err => {
-        log.error( 'Copy Assets', err );
+    .catch( function ( err ) {
+        log.error( 'Render', err );
 
         return err;
     });
@@ -224,7 +237,8 @@ function copyAssets( config ) {
 
 /*
     Utilities
-*/
+ */
+
 function globFiles( files ) {
 
     var globArray = files.map( file => {
@@ -245,6 +259,10 @@ function globFiles( files ) {
 
                 return collection;
             }, []);
+        })
+        .catch( err => {
+
+            return err;
         });
     });
 
