@@ -3,6 +3,7 @@ var fs = require( 'fs-extra' );
 var path = require( 'path' );
 
 var sugarcoat = require( '../index' );
+var errors = require( '../generators/pattern-library/errors' );
 
 suite( 'Configure: Settings', () => {
 
@@ -37,6 +38,8 @@ suite( 'Configure: Settings', () => {
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+
+                assert.propertyVal( errorObj, 'message', errors.configDestMissing, 'Sugarcoat gave us the correct error.' );
             });
 
             done();
@@ -123,6 +126,8 @@ suite( 'Configure: Sections', () => {
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+
+                assert.propertyVal( errorObj, 'message', errors.configSectionTitleMissing, 'Sugarcoat gave us the correct error.' );
             });
 
             done();
@@ -143,7 +148,9 @@ suite( 'Configure: Sections', () => {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
+
             done();
+
         }, data => {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
@@ -154,6 +161,10 @@ suite( 'Configure: Sections', () => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
             });
+
+            assert.propertyVal( data[0], 'message', errors.configDestMissing, 'Sugarcoat gave us the correct error.' );
+
+            assert.propertyVal( data[1], 'message', errors.configSectionTitleMissing, 'Sugarcoat gave us the correct error.' );
 
             done();
         });
@@ -183,6 +194,9 @@ suite( 'Configure: Sections', () => {
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+
+                assert.propertyVal( errorObj, 'message', errors.configSectionArrayMissing, 'Sugarcoat gave us the correct error.' );
+
             });
 
             done();
@@ -214,6 +228,8 @@ suite( 'Configure: Sections', () => {
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+
+                assert.propertyVal( errorObj, 'message', errors.configSectionObjectMissing, 'Sugarcoat gave us the correct error.' );
             });
 
             done();
@@ -252,7 +268,10 @@ suite( 'Configure: Sections', () => {
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+
+                assert.propertyVal( errorObj, 'message', errors.configSectionTitleMissing, 'Sugarcoat gave us the correct error.' );
             });
+
 
             done();
         });
@@ -287,6 +306,9 @@ suite( 'Configure: Sections', () => {
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+
+                assert.propertyVal( errorObj, 'message', errors.configSectionFileMissing, 'Sugarcoat gave us the correct error.' );
+
             });
 
             done();
@@ -327,6 +349,9 @@ suite( 'Configure: Sections', () => {
             data.forEach( ( errorObj, index ) => {
 
                 assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
+
+                assert.propertyVal( errorObj, 'message', errors.configSectionFileMissing, 'Sugarcoat gave us the correct error.' );
+
             });
 
             done();
