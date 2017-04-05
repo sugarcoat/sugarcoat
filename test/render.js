@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require( 'chai' ).assert;
 var fs = require( 'fs-extra' );
 
@@ -8,7 +10,7 @@ var fsp = require( '../lib/fs-promiser' );
 // suite( 'Render: readPartials', function() {});
 // suite( 'Render: registerPartials', function() {});
 // suite( 'Render: renderLayout', function() {});
-suite( 'Render: File Prefixer', () => {
+suite( 'Render: File Prefixer', function () {
 
     test( 'By default, assets are prefixed as .sugar-example. Output file is prefixed with "prefixed-"',  done => {
 
