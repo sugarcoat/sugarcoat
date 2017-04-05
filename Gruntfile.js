@@ -13,48 +13,6 @@ module.exports = function ( grunt ) {
         buildRoot: '/'
     });
 
-    grunt.config( 'autoprefixer', {
-        options: {
-            browsers: [ 'last 2 versions', 'ie 10' ]
-        },
-        files: {
-            expand: true,
-            src: 'generators/pattern-library/templates/sugarcoat/css/**/*.css'
-        }
-    });
-
-    grunt.config( 'sass', {
-        dist: {
-            options: {
-                sourcemap: 'inline',
-                style: 'expanded',
-                lineNumbers: true,
-                precision: 5
-            },
-            files: [
-                {
-                    expand: true,
-                    cwd: 'generators/pattern-library/templates/styles',
-                    src: [
-                        '*.scss'
-                    ],
-                    dest: 'generators/pattern-library/templates/sugarcoat/css',
-                    ext: '.css'
-                }
-            ],
-            rename: function ( dest, src ) {
-
-                var path = require( 'path' )
-                    , splitDirs = src.split( '/' )
-                    ;
-
-                splitDirs[ splitDirs.indexOf( 'scss' ) ] = 'css';
-
-                return path.join( dest, splitDirs.join( '/' ) );
-            }
-        }
-    });
-
     grunt.config( 'eslint', {
         src: [
             'lib/*.js',
@@ -83,7 +41,7 @@ module.exports = function ( grunt ) {
                     expand: true,
                     cwd: 'generators/pattern-library/templates',
                     src: [
-                        'styles/**/*.scss'
+                        'styles/**/*.css'
                     ],
                     dest: 'generators/pattern-library/templates',
                     ext: 'styles/**/*.css'
@@ -94,12 +52,11 @@ module.exports = function ( grunt ) {
 
     grunt.config( 'postcss', {
         options: {
-            map: true,
             processors: [
                 postcssImport(),
                 postcssUtilities(),
                 postcssUrl(),
-                postcssCSSnext(),
+                postcssCSSnext({ browsers: [ 'last 2 versions', 'ie 10' ] }),
                 postcssPxtorem(),
                 cssnano()
             ]
@@ -111,16 +68,13 @@ module.exports = function ( grunt ) {
     });
 
     grunt.loadNpmTasks( 'grunt-postcss' );
-
-    grunt.loadNpmTasks( 'grunt-autoprefixer' );
-    grunt.loadNpmTasks( 'grunt-contrib-sass' );
     grunt.loadNpmTasks( 'grunt-eslint' );
     grunt.loadNpmTasks( 'grunt-stylelint' );
+
     /* Task aliases */
-    grunt.registerTask( 'sassdev', 'Compile Sass files', [
+    grunt.registerTask( 'cssdev', 'Compile CSS files', [
         'stylelint',
-        'sass',
-        'autoprefixer'
+        'postcss'
     ]);
 
     grunt.registerTask( 'lint', 'Lint all files', [
