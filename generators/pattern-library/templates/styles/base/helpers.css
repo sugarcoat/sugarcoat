@@ -37,17 +37,17 @@
 }
 .sugar-nav-open .sugar-btn-accordion:after {
     transform: translateY(5px);
-    background-color: $blue;
+    background-color: var(--blue);
 }
 .sugar-nav-open .sugar-btn-accordion:before {
     transform: translateY(-5px);
-    background-color: $blue;
+    background-color: var(--blue);
 }
 .sugar-color-open .sugar-accordion-small:after {
     transform: translateY(3px);
-    background-color: $blue;
+    background-color: var(--blue);
 }
 .sugar-color-open .sugar-accordion-small:before {
     transform: translateY(-3px);
-    background-color: $blue;
+    background-color: var(--blue);
 }

@@ -14,10 +14,10 @@
     margin-bottom: 1rem;
 }
 .sugar-var-table thead {
-    border: $border;
+    border: var(--border);
 }
 .sugar-var-table th {
-    @apply --font-cap();
+    @apply --font-cap;
     font-size: 11px;
     color: #999;
     padding: .5rem 1rem;

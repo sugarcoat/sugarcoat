@@ -94,7 +94,7 @@ module.exports = function ( grunt ) {
 
     grunt.config( 'postcss', {
         options: {
-            // map: true,
+            map: true,
             processors: [
                 postcssImport(),
                 postcssUtilities(),
@@ -105,9 +105,8 @@ module.exports = function ( grunt ) {
             ]
         },
         dist: {
-            expand: true,
-            src: 'generators/pattern-library/templates/styles/**/index.css',
-            dest: 'generators/pattern-library/templates/sugarcoat/css'
+            src: 'generators/pattern-library/templates/styles/sugarcoat.css',
+            dest: 'generators/pattern-library/templates/sugarcoat/css/sugarcoat.css'
         }
     });
 

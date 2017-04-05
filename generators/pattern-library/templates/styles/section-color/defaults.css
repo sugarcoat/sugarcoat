@@ -3,7 +3,7 @@
     font-family: 'Helvetica';
 }
 .sugar-color {
-    overflow: hidden; //  margin-bottom:-20px;
+    overflow: hidden;
     border-top: 1px solid #eee;
     position: relative;
 }
@@ -43,7 +43,7 @@
 }
 .sugar-color-val:before {
     content: 'VALUE';
-    @include font-cap;
+    @apply --font-cap;
     background: #eee;
     padding: 5px;
     font-size: 10px;

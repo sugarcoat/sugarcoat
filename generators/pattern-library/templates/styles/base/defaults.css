@@ -27,14 +27,14 @@ body {
 .sugar-main .sugar-h2 {
     font-family: 'Helvetica';
     font-size: 2.25rem; //36px font-weight: bold;
-    color: $blue;
+    color: var(--blue);
     margin-bottom: 0.8rem;
     margin-top: 0.8rem;
     clear: both;
 }
 .sugar-main .sugar-h2 a {
     text-decoration: none;
-    color: $blue;
+    color: var(--blue);
 }
 .sugar-main .sugar-h3 {
     font-family: 'Helvetica';
@@ -95,7 +95,7 @@ body {
 .sugar-type-container pre,
 .sugar-type-container .sugar-type-desc {
     width: 100%;
-    border-top: $border;
+    border-top: var(--border);
     position: relative;
     padding: 1.6rem 1rem .8rem 1rem;
 }
@@ -103,7 +103,8 @@ body {
 .sugar-type-container .sugar-type-desc:before {
     position: absolute;
     top: 5px;
-    left: 8px; @include font-cap();
+    left: 8px;
+    @apply --font-cap;
     font-size: 11px;
     color: #999;
 }

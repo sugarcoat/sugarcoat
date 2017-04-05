@@ -54,7 +54,7 @@
     margin-bottom: 0;
 }
 .sugar-nav-item.active {
-    color: $blue;
+    color: var(--blue);
 }
 .sugar-nav-subitem:before {
     content: '';
@@ -68,7 +68,7 @@
     transition: 0.5s ease-in background;
 }
 .sugar-nav-subitem.active:before {
-    background-color: $blue;
+    background-color: var(--blue);
 }
 .sugar-nav-item:not( .active ) + ul .active:before {
     background-color: transparent;

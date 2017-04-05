@@ -4,11 +4,11 @@
 .sugar-preview-block .sugar-example-text {
     color: #999;
     margin-bottom: 0.5rem;
-    @include font-cap();
+    @apply --font-cap;
     font-size: 11px;
 }
 .sugar-preview {
-    border: $border;
+    border: var(--border);
     margin-bottom: 1rem;
 }
 .sugar-preview .sugar-example,
