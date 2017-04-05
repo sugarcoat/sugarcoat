@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require( 'chai' ).assert;
 var fs = require( 'fs-extra' );
 var path = require( 'path' );
@@ -5,7 +7,7 @@ var path = require( 'path' );
 var sugarcoat = require( '../index' );
 var errors = require( '../generators/pattern-library/errors' );
 
-suite( 'Configure: Settings', () => {
+suite( 'Configure: Settings', function () {
 
     test( 'Destination is set to be required. Destination errored out when not supplied.', (done) => {
 
@@ -97,7 +99,7 @@ suite( 'Configure: Settings', () => {
     });
 });
 
-suite( 'Configure: Sections', () => {
+suite( 'Configure: Sections', function () {
 
     test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', done => {
 
