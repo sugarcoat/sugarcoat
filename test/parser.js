@@ -11,7 +11,7 @@ suite( 'Parser: parseComment', function () {
         , config
         ;
 
-    setup( () => {
+    setup( function () {
         config = {
             settings: {
                 dest: './documentation',
@@ -27,7 +27,7 @@ suite( 'Parser: parseComment', function () {
         parse = parser( config );
     });
 
-    test( 'HTML comments are consumed and context applied is accurate', () => {
+    test( 'HTML comments are consumed and context applied is accurate', function () {
 
         var path = config.sections[ 0 ].files;
 
@@ -47,13 +47,13 @@ suite( 'Parser: parseComment', function () {
     });
 });
 
-suite( 'Parser: parseVarCode', () => {
+suite( 'Parser: parseVarCode', function () {
 
     var parse
         , config
         ;
 
-    setup( () => {
+    setup( function () {
         config = {
             settings: {
                 dest: './documentation',
@@ -77,7 +77,7 @@ suite( 'Parser: parseVarCode', () => {
         parse = parser( config );
     });
 
-    test( 'the variable string "--var" is detected and parsed correctly', () => {
+    test( 'the variable string "--var" is detected and parsed correctly', function () {
 
         var path = config.sections[ 0 ].files;
 
@@ -128,7 +128,7 @@ suite( 'Parser: parseVarCode', () => {
         });
     });
 
-    test( 'the variable string "$" is detected and parsed correctly', () => {
+    test( 'the variable string "$" is detected and parsed correctly', function () {
 
         var path = config.sections[ 1 ].files;
 
@@ -169,7 +169,7 @@ suite( 'Parser: parseVarCode', () => {
         });
     });
 
-    test( 'the variable string "@" is detected and parsed correctly', () => {
+    test( 'the variable string "@" is detected and parsed correctly', function () {
 
         var path = config.sections[ 2 ].files;
 
