@@ -1,6 +1,6 @@
 {
   "name": "sugarcoat",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Making UI documentation a bit sweeter ✨",
   "dependencies": {
     "comment-serializer": "^0.2.3",
@@ -37,7 +37,7 @@
     "test": "./node_modules/mocha/bin/mocha --ui tdd"
   },
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 6.0.0"
   },
   "license": "MIT",
   "bin": {
