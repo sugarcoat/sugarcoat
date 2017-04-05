@@ -9,15 +9,15 @@
     border-spacing: 0;
     width: 100%;
     background: #f1f1f1;
-    border-left: $border;
-    border-right: $border;
+    border-left: var(--border);
+    border-right: var(--border);
     margin-bottom: 1rem;
 }
 .sugar-var-table thead {
     border: $border;
 }
 .sugar-var-table th {
-    @include font-cap();
+    @apply --font-cap();
     font-size: 11px;
     color: #999;
     padding: .5rem 1rem;
@@ -25,7 +25,7 @@
     text-align: left;
 }
 .sugar-var-table tr {
-    border-bottom: $border;
+    border-bottom: var(--border);
     background-color: #f1f1f1;
 }
 .sugar-var-table td {

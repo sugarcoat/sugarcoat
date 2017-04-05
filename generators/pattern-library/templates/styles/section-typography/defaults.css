@@ -2,7 +2,7 @@
     width: 100%;
 }
 .sugar-type-file .sugar-type-container {
-    border: $border;
+    border: var(--border);
     overflow: hidden;
     margin-bottom: 2rem;
 }
