@@ -2,7 +2,7 @@ module.exports = function ( grunt ) {
 
     const postcssImport = require( 'postcss-import' );
     const postcssUtilities = require( 'postcss-utilities' );
-    // const postcssCSSnext = require( 'postcss-cssnext' );
+    const postcssCSSnext = require( 'postcss-cssnext' );
     const postcssPxtorem = require( 'postcss-pxtorem' );
     const postcssUrl = require( 'postcss-url' );
     const cssnano = require( 'cssnano' );
@@ -99,7 +99,7 @@ module.exports = function ( grunt ) {
                 postcssImport(),
                 postcssUtilities(),
                 postcssUrl(),
-                // postcssCSSnext(),
+                postcssCSSnext(),
                 postcssPxtorem(),
                 cssnano()
             ]
