@@ -4,6 +4,9 @@
 /*
     TODO Can this be refactored to not require a Constructor?
 */
+
+'use strict';
+
 var log = require( '../../lib/logger' );
 var serializer = require( 'comment-serializer' );
 var mySerializer = serializer({
