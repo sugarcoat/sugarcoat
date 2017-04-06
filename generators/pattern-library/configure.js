@@ -4,7 +4,7 @@ var path = require( 'path' );
 
 var _ = require( 'lodash' );
 var log = require( '../../lib/logger' );
-var util = require( 'util' );
+var errors = require( './errors');
 
 /**
  * Default configuration values
@@ -34,7 +34,6 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
-        , errors = config.errors
         ;
 
     // Configure the logger
@@ -138,28 +137,26 @@ function init( options ) {
     }
     else {
 
-        errors.push( new Error( 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.' ) );
+        return new Error( errors.configDestMissing );
     }
 
     // **** SECTIONS ****
 
     if ( !config.sections ) {
 
-        errors.push( new Error( 'A section array of one or more objects is required. Please add a section object to the sections array.' ) );
+        return new Error( errors.configSectionArrayMissing );
 
     }
     else {
 
         if ( config.sections.length < 0 || !config.sections.length ) {
 
-            errors.push( new Error( 'Section objects are required in the sections array. Please add a section object to the section array.' ) );
+            return new Error( errors.configSectionObjectMissing );
 
         }
         else {
 
             config.sections.forEach( sectionObject => {
-
-                var loggedSection = util.inspect( sectionObject, { depth: 7, colors: true } );
 
                 if ( !sectionObject.mode ) {
 
@@ -173,13 +170,13 @@ function init( options ) {
 
                 if ( !sectionObject.title ) {
 
-                    errors.push( new Error( `Title is required. Please add a 'title' option to section object: \n${loggedSection}` ) );
+                    return new Error( errors.configSectionTitleMissing );
 
                 }
 
                 if ( !sectionObject.files ) {
 
-                    errors.push( new Error( `Files is required. Please add a 'files' option to section object: \n${loggedSection}` ) );
+                    return new Error( errors.configSectionFileMissing );
                 }
             });
         }
