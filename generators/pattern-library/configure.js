@@ -34,7 +34,6 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
-        , errorsArray = config.errors
         ;
 
     // Configure the logger
@@ -126,21 +125,21 @@ function init( options ) {
     }
     else {
 
-        errorsArray.push( new Error( errors.configDestMissing ) );
+        return new Error( errors.configDestMissing );
     }
 
     // **** SECTIONS ****
 
     if ( !config.sections ) {
 
-        errorsArray.push( new Error( errors.configSectionArrayMissing ) );
+        return new Error( errors.configSectionArrayMissing );
 
     }
     else {
 
         if ( config.sections.length < 0 || !config.sections.length ) {
 
-            errorsArray.push( new Error( errors.configSectionObjectMissing ) );
+            return new Error( errors.configSectionObjectMissing );
 
         }
         else {
@@ -159,13 +158,13 @@ function init( options ) {
 
                 if ( !sectionObject.title ) {
 
-                    errorsArray.push( new Error( errors.configSectionTitleMissing ) );
+                    return new Error( errors.configSectionTitleMissing );
 
                 }
 
                 if ( !sectionObject.files ) {
 
-                    errorsArray.push( new Error( errors.configSectionFileMissing ) );
+                    return new Error( errors.configSectionFileMissing );
                 }
             });
         }

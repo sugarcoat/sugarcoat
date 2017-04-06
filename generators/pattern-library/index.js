@@ -16,17 +16,11 @@ module.exports = init;
 
 function init( config ) {
 
-    // First, add errors array to config
-    config.errors = [];
-
     config = configure( config );
-
-    // If we have errors in the array, reject and handoff those errors to the user
-    if ( config.errors.length ) {
+    if ( config instanceof Error ) {
 
         return new Promise( ( resolve, reject ) => {
-
-            reject( config.errors );
+            return reject( config );
         });
     }
 
@@ -36,7 +30,6 @@ function init( config ) {
     .then( render )
     .then( config => {
 
-        // console.log('html', html);
         log.info( 'Finished!' );
 
         return config;
