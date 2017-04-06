@@ -36,12 +36,13 @@ function init( config ) {
     .then( render )
     .then( config => {
 
-        // console.log('html', html);
+        // TODO: find another way to display this to the user
         log.info( 'Finished!' );
 
         return config;
     })
     .catch( err => {
+        // TODO: find another way to deal with these errors
         log.error( err );
     });
 }

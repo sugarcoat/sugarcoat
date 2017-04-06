@@ -42,6 +42,8 @@ module.exports = function ( config ) {
         else return config;
     })
     .catch( function ( err ) {
+
+        // TODO: send these errors to the errors array?
         return err;
     });
 };
@@ -88,6 +90,7 @@ function copyAssets( config ) {
             return fsp.copy( asset.from, asset.to )
             .then( assetPaths => {
 
+                // TODO: find another way to display this info to the user, or do we really need to?
                 return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
             });
         }));
@@ -97,7 +100,10 @@ function copyAssets( config ) {
         return config;
     })
     .catch( function ( err ) {
-        log.error( 'Copy Assets', err );
+
+        // TODO: append these to the errors array
+        // log.error( 'Copy Assets', err );
+        config.errors.push( new Error( err ) );
 
         return err;
     });
@@ -112,7 +118,9 @@ function globPartials( config ) {
         return config;
     }).catch( err => {
 
-        log.error( 'Glob Partials', err );
+        // TODO: append these to the errors array
+        // log.error( 'Glob Partials', err );
+        config.errors.push( new Error( err ) );
     });
 }
 
@@ -147,6 +155,7 @@ function registerPartials( config ) {
 
         Handlebars.registerPartial( partial.name, partial.src );
 
+        // TODO: find another way to display info to the user, or do we need to?
         log.info( 'Render', msg );
     });
 
@@ -163,7 +172,9 @@ function globPrefixAssets( config ) {
     })
     .catch( err => {
 
-        log.error( 'Glob Prefix Assets', err );
+        // TODO: append to the errors array
+        // log.error( 'Glob Prefix Assets', err );
+        config.errors.push( new Error( err ) );
     });
 }
 
@@ -186,6 +197,8 @@ function prefixAssets( config ) {
                 return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css );
             })
             .then( result => {
+
+                // TODO: find another way to display info to the user, or do we need to?
                 log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
 
                 return result;
@@ -197,7 +210,10 @@ function prefixAssets( config ) {
         return config;
     })
     .catch( err => {
-        log.error( 'Prefix Assets', err );
+
+        // TODO: add error to the errors array
+        // log.error( 'Prefix Assets', err );
+        config.errors.push( new Error( err ) );
 
         return err;
     });
@@ -225,13 +241,17 @@ function renderLayout( config ) {
         return fsp.writeFile( file, html )
         .then( () => {
 
+            // TODO: find another way to display this info to the user, or do we need it?
             log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
             return html;
         });
     })
     .catch( function ( err ) {
-        log.error( 'Render', err );
+
+        // TODO: add errors to the errors array
+        // log.error( 'Render', err );
+        config.errors.push( new Error( err ) );
 
         return err;
     });

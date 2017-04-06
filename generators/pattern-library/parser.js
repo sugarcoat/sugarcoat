@@ -22,6 +22,7 @@ Parser.prototype = {
 
     parseComment: function ( currentFile, data, mode, templateType ) {
 
+        // TODO: find another way display this info to the user, or remove all together?
         log.info( 'Parse', currentFile );
 
         var serialized = mySerializer( data );
@@ -37,7 +38,9 @@ Parser.prototype = {
 
         if ( hasErrors ) {
 
+            // TODO: append these errors to errors array or find another way to display these errors
             log.error( hasErrors );
+            // config.errors.push( new Error( err ) );
         }
 
         for ( var i = 0; i < serialized.length; i++ ) {
