@@ -125,21 +125,21 @@ function init( options ) {
     }
     else {
 
-        return new Error( errors.configDestMissing );
+        return config = new Error( errors.configDestMissing );
     }
 
     // **** SECTIONS ****
 
     if ( !config.sections ) {
 
-        return new Error( errors.configSectionArrayMissing );
+        return config = new Error( errors.configSectionArrayMissing );
 
     }
     else {
 
         if ( config.sections.length < 0 || !config.sections.length ) {
 
-            return new Error( errors.configSectionObjectMissing );
+            return config = new Error( errors.configSectionObjectMissing );
 
         }
         else {
@@ -158,13 +158,12 @@ function init( options ) {
 
                 if ( !sectionObject.title ) {
 
-                    return new Error( errors.configSectionTitleMissing );
-
+                    return config = new Error( errors.configSectionTitleMissing );
                 }
 
                 if ( !sectionObject.files ) {
 
-                    return new Error( errors.configSectionFileMissing );
+                    return config = new Error( errors.configSectionFileMissing );
                 }
             });
         }
