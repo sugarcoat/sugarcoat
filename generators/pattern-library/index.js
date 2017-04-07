@@ -17,6 +17,7 @@ module.exports = init;
 function init( config ) {
 
     config = configure( config );
+
     if ( config instanceof Error ) {
 
         return new Promise( ( resolve, reject ) => {
