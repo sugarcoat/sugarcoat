@@ -106,15 +106,14 @@ suite( 'Configure: Settings', function () {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+
             done();
+
         }, data => {
 
-            assert.isArray( data, 'Sugarcoat returns an array when missing prefix.assets.');
+            assert.instanceOf( data, Error, 'The object was an Error Object.' );
 
-            data.forEach( ( errorObj, index ) => {
-
-                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
-            });
+            assert.propertyVal( data, 'message', errors.configPrefixAssetsMissing, 'Sugarcoat gave us the correct error.' );
 
             done();
         });
@@ -124,9 +123,12 @@ suite( 'Configure: Settings', function () {
 
         var configNoPrefixedAssets = {
             settings: {
-                dest: './test/documentation',
+                dest: './sugarcoat',
                 prefix: {
-                    selector: 'blah'
+                    selector: 'blah',
+                    assets: [
+                        './test/assert/*.css'
+                    ]
                 }
             },
             sections: [
@@ -145,17 +147,15 @@ suite( 'Configure: Settings', function () {
         sugarcoat( configNoPrefixedAssets )
         .then( data => {
 
-            assert.isArray( data, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+            assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+
             done();
 
         }, data => {
 
-            assert.isArray( data, 'Sugarcoat returns an array when missing prefix.assets.');
+            assert.instanceOf( data, Error, 'The object was an Error Object.' );
 
-            data.forEach( ( errorObj, index ) => {
-
-                assert.instanceOf( errorObj, Error, 'The object was an Error Object.' );
-            });
+            assert.propertyVal( data, 'message', errors.configTemplateOptionsMissing, 'Sugarcoat gave us the correct error.' );
 
             done();
         });
