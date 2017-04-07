@@ -34,13 +34,27 @@ function init( options ) {
         , settings = config.settings
         , template = settings.template
         , prefix = settings.prefix
-        , errorsArray = config.errors
         ;
 
     // Configure the logger
     log.config( config.settings.log );
 
     // **** ASSETS (template) ****
+
+    if ( prefix.selector !== defaults.settings.prefix.selector && prefix.selector !== null ) {
+
+        if ( !prefix.assets ) {
+
+            console.log(errors.configPrefixAssetsMissing);
+            return config = new Error( errors.configPrefixAssetsMissing );
+
+        }
+        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( template.assets ) ) {
+
+            console.log(errors.configTemplateOptionsMissing);
+            return config = new Error( errors.configTemplateOptionsMissing );
+        }
+    }
 
     // Set Assets to an array
     if ( _.isEmpty( template.assets ) ) {
@@ -81,7 +95,6 @@ function init( options ) {
             return normalizeDirectory( dirPath, process.cwd() );
         });
     }
-
 
     // **** LAYOUT ****
 
@@ -126,21 +139,21 @@ function init( options ) {
     }
     else {
 
-        errorsArray.push( new Error( errors.configDestMissing ) );
+        return config = new Error( errors.configDestMissing );
     }
 
     // **** SECTIONS ****
 
     if ( !config.sections ) {
 
-        errorsArray.push( new Error( errors.configSectionArrayMissing ) );
+        return config = new Error( errors.configSectionArrayMissing );
 
     }
     else {
 
         if ( config.sections.length < 0 || !config.sections.length ) {
 
-            errorsArray.push( new Error( errors.configSectionObjectMissing ) );
+            return config = new Error( errors.configSectionObjectMissing );
 
         }
         else {
@@ -159,13 +172,12 @@ function init( options ) {
 
                 if ( !sectionObject.title ) {
 
-                    errorsArray.push( new Error( errors.configSectionTitleMissing ) );
-
+                    return config = new Error( errors.configSectionTitleMissing );
                 }
 
                 if ( !sectionObject.files ) {
 
-                    errorsArray.push( new Error( errors.configSectionFileMissing ) );
+                    return config = new Error( errors.configSectionFileMissing );
                 }
             });
         }
