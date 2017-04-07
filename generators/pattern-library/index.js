@@ -6,7 +6,7 @@ var parser = require( './parser' );
 var render = require( './render' );
 var configure = require( './configure' );
 var globber = require( '../../lib/globber' );
-var log = require( '../../lib/logger' );
+// var log = require( '../../lib/logger' );
 var fsp = require( '../../lib/fs-promiser' );
 
 /**
@@ -32,13 +32,14 @@ function init( config ) {
     .then( config => {
 
         // TODO: find another way to display this to the user
-        log.info( 'Finished!' );
+        // log.info( 'Finished!' );
 
         return config;
     })
     .catch( err => {
         // TODO: find another way to deal with these errors
-        log.error( err );
+        // log.error( err );
+        return err;
     });
 }
 
