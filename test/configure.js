@@ -8,7 +8,7 @@ var sugarcoat = require( '../lib/index' );
 
 suite( 'Configure: Settings', function () {
 
-    test( 'Destination is set to be required. Destination errored out when not supplied.', ( done ) => {
+    test( 'Destination is set to be required. Destination errored out when not supplied.', function ( done ) {
 
         var configMissingDest = {
             sections: [
@@ -24,11 +24,11 @@ suite( 'Configure: Settings', function () {
         };
 
         sugarcoat( configMissingDest )
-        .then( data => {
+        .then( function ( data ) {
 
             assert.isArray( data, 'Sugarcoat should be erroring out when a dest is not supplied.');
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array when we are missing a dest.' );
             assert.propertyVal( data[0], 'key', 'settings.dest', 'We have dest in the error array');
@@ -37,7 +37,7 @@ suite( 'Configure: Settings', function () {
 
     });
 
-    test( 'Destination can be set to none. No index file is created.', ( done ) => {
+    test( 'Destination can be set to none. No index file is created.', function ( done ) {
 
         var configNoDest = {
             settings: {
@@ -57,7 +57,7 @@ suite( 'Configure: Settings', function () {
         };
 
         sugarcoat( configNoDest )
-        .then( data => {
+        .then( function ( data ) {
 
             var index = data.settings.dest !== null ? path.resolve( data.settings.cwd, `${data.settings.dest}/index.html` ) : `${data.settings.cwd}/index.html`;
 
@@ -89,7 +89,7 @@ suite( 'Configure: Settings', function () {
 
 suite( 'Configure: Sections', function () {
 
-    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', ( done ) => {
+    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', function ( done ) {
 
         var configMissingOnlyTitle = {
             settings: {
@@ -103,11 +103,11 @@ suite( 'Configure: Sections', function () {
         };
 
         sugarcoat( configMissingOnlyTitle )
-        .then( data => {
+        .then( function ( data ) {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
@@ -120,7 +120,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Sections.title is set to be required. Sections.title errored out when title and dest were not supplied.', ( done ) => {
+    test( 'Sections.title is set to be required. Sections.title errored out when title and dest were not supplied.', function ( done ) {
 
         var configMissingTitleDest = {
             sections: [
@@ -131,11 +131,11 @@ suite( 'Configure: Sections', function () {
         };
 
         sugarcoat( configMissingTitleDest )
-        .then( data => {
+        .then( function ( data ) {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
@@ -154,7 +154,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section array is set to be required. Section array errored out when not supplied.', ( done ) => {
+    test( 'Section array is set to be required. Section array errored out when not supplied.', function ( done ) {
 
         var configMissingTitleFiles = {
             settings: {
@@ -163,12 +163,12 @@ suite( 'Configure: Sections', function () {
         };
 
         sugarcoat( configMissingTitleFiles )
-        .then( data => {
+        .then( function ( data ) {
 
             console.log('failed success');
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
@@ -187,7 +187,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', ( done ) => {
+    test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', function ( done ) {
 
         var configMissingTitleFiles = {
             settings: {
@@ -197,12 +197,12 @@ suite( 'Configure: Sections', function () {
         };
 
         sugarcoat( configMissingTitleFiles )
-        .then( data => {
+        .then( function ( data ) {
 
             console.log('failed success');
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
@@ -221,7 +221,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section.title is set to be required. Section.title errored out multiple times when more than one section.title was not supplied.', ( done ) => {
+    test( 'Section.title is set to be required. Section.title errored out multiple times when more than one section.title was not supplied.', function ( done ) {
 
         var configMissingtwoTitles = {
             settings: {
@@ -238,11 +238,11 @@ suite( 'Configure: Sections', function () {
         };
 
         sugarcoat( configMissingtwoTitles )
-        .then( data => {
+        .then( function ( data ) {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array.' );
 
@@ -260,7 +260,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', ( done ) => {
+    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', function ( done ) {
 
         var configMissingOneFiles = {
             settings: {
@@ -274,11 +274,11 @@ suite( 'Configure: Sections', function () {
         };
 
         sugarcoat( configMissingOneFiles )
-        .then( data => {
+        .then( function ( data ) {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array when missing a dest.' );
             assert.propertyVal( data[0], 'key', 'sections.files', 'We have sections.files in the error array' );
@@ -286,7 +286,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for two or more section objects.', ( done ) => {
+    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for two or more section objects.', function ( done ) {
 
         var configMissingTwoFiles = {
             settings: {
@@ -303,11 +303,11 @@ suite( 'Configure: Sections', function () {
         };
 
         sugarcoat( configMissingTwoFiles )
-        .then( data => {
+        .then( function ( data ) {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
             done();
-        }, data => {
+        }, function ( data ) {
 
             assert.isArray( data, 'Sugarcoat returns an array when missing a dest.' );
 
