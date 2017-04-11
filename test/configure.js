@@ -8,7 +8,7 @@ var sugarcoat = require( '../lib/index' );
 
 suite( 'Configure: Settings', function () {
 
-    test( 'Destination is set to be required. Destination errored out when not supplied.', (done) => {
+    test( 'Destination is set to be required. Destination errored out when not supplied.', ( done ) => {
 
         var configMissingDest = {
             sections: [
@@ -37,7 +37,7 @@ suite( 'Configure: Settings', function () {
 
     });
 
-    test( 'Destination can be set to none. No index file is created.', done => {
+    test( 'Destination can be set to none. No index file is created.', ( done ) => {
 
         var configNoDest = {
             settings: {
@@ -89,7 +89,7 @@ suite( 'Configure: Settings', function () {
 
 suite( 'Configure: Sections', function () {
 
-    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', done => {
+    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', ( done ) => {
 
         var configMissingOnlyTitle = {
             settings: {
@@ -120,7 +120,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Sections.title is set to be required. Sections.title errored out when title and dest were not supplied.', done => {
+    test( 'Sections.title is set to be required. Sections.title errored out when title and dest were not supplied.', ( done ) => {
 
         var configMissingTitleDest = {
             sections: [
@@ -154,7 +154,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section array is set to be required. Section array errored out when not supplied.', done => {
+    test( 'Section array is set to be required. Section array errored out when not supplied.', ( done ) => {
 
         var configMissingTitleFiles = {
             settings: {
@@ -187,7 +187,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', done => {
+    test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', ( done ) => {
 
         var configMissingTitleFiles = {
             settings: {
@@ -221,7 +221,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section.title is set to be required. Section.title errored out multiple times when more than one section.title was not supplied.', done => {
+    test( 'Section.title is set to be required. Section.title errored out multiple times when more than one section.title was not supplied.', ( done ) => {
 
         var configMissingtwoTitles = {
             settings: {
@@ -260,7 +260,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', done => {
+    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', ( done ) => {
 
         var configMissingOneFiles = {
             settings: {
@@ -286,7 +286,7 @@ suite( 'Configure: Sections', function () {
         });
     });
 
-    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for two or more section objects.', done => {
+    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for two or more section objects.', ( done ) => {
 
         var configMissingTwoFiles = {
             settings: {
