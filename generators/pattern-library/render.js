@@ -7,7 +7,7 @@ var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 
 var hbsHelpers = require( '../../lib/handlebars-helpers' );
-var log = require( '../../lib/logger' );
+// var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
 var fsp = require( '../../lib/fs-promiser' );
 
@@ -41,17 +41,12 @@ module.exports = function ( config ) {
         }
         else return config;
     })
-    .catch( function ( err ) {
-
-        // TODO: send these errors to the errors array?
-        return err;
-    });
+    .catch( err => err );
 };
 
 /*
     Tasks
 */
-
 function copyAssets( config ) {
 
     var flattened = []
@@ -91,7 +86,7 @@ function copyAssets( config ) {
             .then( assetPaths => {
 
                 // TODO: find another way to display this info to the user, or do we really need to?
-                return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
+                // return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
             });
         }));
     })
@@ -99,14 +94,7 @@ function copyAssets( config ) {
 
         return config;
     })
-    .catch( function ( err ) {
-
-        // TODO: append these to the errors array
-        // log.error( 'Copy Assets', err );
-        config.errors.push( new Error( err ) );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 function globPartials( config ) {
@@ -116,12 +104,7 @@ function globPartials( config ) {
         config.settings.template.partials = _.flatten( partials );
 
         return config;
-    }).catch( err => {
-
-        // TODO: append these to the errors array
-        // log.error( 'Glob Partials', err );
-        config.errors.push( new Error( err ) );
-    });
+    }).catch( err => err );
 }
 
 function readPartials( config ) {
@@ -146,9 +129,9 @@ function registerPartials( config ) {
     config.settings.template.partials.forEach( partial => {
 
         var isOverride = !!Handlebars.partials[ partial.name ]
-            , msgNormal = `partial registered: "${partial.name}"`
-            , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
-            , msg = isOverride ? msgOverride : msgNormal
+            // , msgNormal = `partial registered: "${partial.name}"`
+            // , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
+            // , msg = isOverride ? msgOverride : msgNormal
             ;
 
         if ( isOverride ) Handlebars.unregisterPartial( partial.name );
@@ -156,7 +139,7 @@ function registerPartials( config ) {
         Handlebars.registerPartial( partial.name, partial.src );
 
         // TODO: find another way to display info to the user, or do we need to?
-        log.info( 'Render', msg );
+        // log.info( 'Render', msg );
     });
 
     return config;
@@ -170,12 +153,7 @@ function globPrefixAssets( config ) {
 
         return config;
     })
-    .catch( err => {
-
-        // TODO: append to the errors array
-        // log.error( 'Glob Prefix Assets', err );
-        config.errors.push( new Error( err ) );
-    });
+    .catch( err => err );
 }
 
 function prefixAssets( config ) {
@@ -199,7 +177,7 @@ function prefixAssets( config ) {
             .then( result => {
 
                 // TODO: find another way to display info to the user, or do we need to?
-                log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+                // log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
 
                 return result;
             });
@@ -209,14 +187,7 @@ function prefixAssets( config ) {
 
         return config;
     })
-    .catch( err => {
-
-        // TODO: add error to the errors array
-        // log.error( 'Prefix Assets', err );
-        config.errors.push( new Error( err ) );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 function renderLayout( config ) {
@@ -242,19 +213,12 @@ function renderLayout( config ) {
         .then( () => {
 
             // TODO: find another way to display this info to the user, or do we need it?
-            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
+            // log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
             return html;
         });
     })
-    .catch( function ( err ) {
-
-        // TODO: add errors to the errors array
-        // log.error( 'Render', err );
-        config.errors.push( new Error( err ) );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 /*
@@ -282,10 +246,7 @@ function globFiles( files ) {
                 return collection;
             }, []);
         })
-        .catch( err => {
-
-            return err;
-        });
+        .catch( err => err );
     });
 
     return Promise.all( globArray );

@@ -7,7 +7,7 @@
 
 'use strict';
 
-var log = require( '../../lib/logger' );
+// var log = require( '../../lib/logger' );
 var serializer = require( 'comment-serializer' );
 var mySerializer = serializer({
     parsers: serializer.parsers()
@@ -15,7 +15,7 @@ var mySerializer = serializer({
 
 function Parser( config ) {
 
-    log.config( config.settings.log );
+    // log.config( config.settings.log );
 }
 
 Parser.prototype = {
@@ -23,7 +23,7 @@ Parser.prototype = {
     parseComment: function ( currentFile, data, mode, templateType ) {
 
         // TODO: find another way display this info to the user, or remove all together?
-        log.info( 'Parse', currentFile );
+        // log.info( 'Parse', currentFile );
 
         var serialized = mySerializer( data );
 
@@ -38,32 +38,47 @@ Parser.prototype = {
 
         if ( hasErrors ) {
 
+            // console.log('are we here?');
+
             // TODO: append these errors to errors array or find another way to display these errors
-            log.error( hasErrors );
-            // config.errors.push( new Error( err ) );
+            // log.error( hasErrors );
+
+            var serErrors = serialized.map( comment => {
+
+                return comment.tags.find( tag => {
+
+                    return tag.error;
+                });
+            });
+
+            // console.log('serErrors', serErrors[0].error);
+
+            return serErrors[0].error;
         }
+        else {
+            for ( var i = 0; i < serialized.length; i++ ) {
 
-        for ( var i = 0; i < serialized.length; i++ ) {
+                if ( mode === 'variable' ) {
 
-            if ( mode === 'variable' ) {
+                    serialized[ i ].serializedCode = this.parseVarCode( serialized[ i ].context, currentFile );
+                }
 
-                serialized[ i ].serializedCode = this.parseVarCode( serialized[ i ].context, currentFile );
+                var context = serialized[ i ].context;
+
+                // check if context is html. it will have an ending comment block in it
+                var match = /-->\n*/.exec( context );
+
+                if ( match ) {
+
+                    var html = context.substring( 4 );
+
+                    serialized[ i ].context = html;
+                }
             }
 
-            var context = serialized[ i ].context;
-
-            // check if context is html. it will have an ending comment block in it
-            var match = /-->\n*/.exec( context );
-
-            if ( match ) {
-
-                var html = context.substring( 4 );
-
-                serialized[ i ].context = html;
-            }
+            // console.log();
+            return serialized;
         }
-
-        return serialized;
     },
 
     parseVarCode: function ( code, path ) {

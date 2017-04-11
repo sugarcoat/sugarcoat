@@ -36,11 +36,7 @@ function init( config ) {
 
         return config;
     })
-    .catch( err => {
-        // TODO: find another way to deal with these errors
-        // log.error( err );
-        return err;
-    });
+    .catch( err => Promise.reject( err ) );
 }
 
 function globFiles( config ) {
@@ -88,15 +84,26 @@ function readSections( config ) {
 
 function parseSections( config ) {
 
-    var parse = parser( config );
+    var error
+        , parse = parser( config );
 
-    config.sections.forEach( section => {
+
+    var isError = config.sections.some( section => {
 
         section.files.map( ( file, index ) => {
 
             section.files[ index ].data = parse.parseComment( file.path, file.src, section.mode, section.template );
+
+            if ( section.files[ index ].data instanceof Error ) {
+
+                return error = section.files[index].data;
+            }
+
         });
+
+        return error instanceof Error;
     });
 
-    return config;
+    if ( isError ) return Promise.reject( error );
+    else return config;
 }
