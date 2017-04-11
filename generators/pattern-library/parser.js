@@ -38,12 +38,7 @@ Parser.prototype = {
 
         if ( hasErrors ) {
 
-            // console.log('are we here?');
-
-            // TODO: append these errors to errors array or find another way to display these errors
-            // log.error( hasErrors );
-
-            var serErrors = serialized.map( comment => {
+            var serializedErrors = serialized.map( comment => {
 
                 return comment.tags.find( tag => {
 
@@ -51,9 +46,7 @@ Parser.prototype = {
                 });
             });
 
-            // console.log('serErrors', serErrors[0].error);
-
-            return serErrors[0].error;
+            return serializedErrors[0].error;
         }
         else {
             for ( var i = 0; i < serialized.length; i++ ) {
@@ -76,7 +69,6 @@ Parser.prototype = {
                 }
             }
 
-            // console.log();
             return serialized;
         }
     },
