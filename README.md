@@ -13,6 +13,7 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 ![Screenshot Variables](screenshots/variables.png)
 
 ![Screenshot Components](screenshots/components.png)
+See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
 
 
 # Index #
@@ -28,8 +29,6 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
     - [`sections` Array](#sections-array)
     - [Standardized File Format](#standardized-file-format)
   - [Code Comment Syntax](#code-comment-syntax)
-  - [Example Site](#example-site)
-  - [Roadmap](#roadmap)
 
 
 ---
