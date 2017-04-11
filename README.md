@@ -8,11 +8,11 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 **Note**: This is still a [work in-progress](#v100). Please file an issue if you encounter any issues or think a feature should be added.
 
-![Screenshot Colors](generators/pattern-library/design/colors.png)
+![Screenshot Colors](screenshots/colors.png)
 
-![Screenshot Variables](generators/pattern-library/design/variables.png)
+![Screenshot Variables](screenshots/variables.png)
 
-![Screenshot Components](generators/pattern-library/design/components.png)
+![Screenshot Components](screenshots/components.png)
 
 
 # Index #

@@ -3,7 +3,7 @@
 var assert = require( 'chai' ).assert;
 var fs = require( 'fs' );
 
-var parser = require( '../lib/js/parser' );
+var parser = require( '../lib/parser' );
 
 suite( 'Parser: parseComment', function () {
 

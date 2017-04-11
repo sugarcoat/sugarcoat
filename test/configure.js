@@ -4,7 +4,7 @@ var assert = require( 'chai' ).assert;
 var fs = require( 'fs-extra' );
 var path = require( 'path' );
 
-var sugarcoat = require( '../index' );
+var sugarcoat = require( '../lib/index' );
 
 suite( 'Configure: Settings', function () {
 
