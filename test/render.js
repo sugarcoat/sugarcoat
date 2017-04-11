@@ -4,7 +4,7 @@ var assert = require( 'chai' ).assert;
 var fs = require( 'fs-extra' );
 
 var sugarcoat = require( '../index' );
-var fsp = require( '../lib/fs-promiser' );
+var fsp = require( '../lib/js/fs-promiser' );
 
 // suite( 'Render: globPartials', function() { test( '', function() {});});
 // suite( 'Render: readPartials', function() {});

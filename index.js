@@ -1,2 +1,2 @@
 // Export sugarcoat
-module.exports = require( './generators/pattern-library' );
+module.exports = require( './lib/js/index' );
