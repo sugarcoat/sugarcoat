@@ -14,9 +14,8 @@ var cwdTemplates = path.join( __dirname, 'templates' );
 var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
 
 defaults.settings = {};
-defaults.settings.cwd = process.cwd();
-defaults.settings.dest = null;
-defaults.settings.format = null;
+defaults.cwd = process.cwd();
+defaults.dest = null;
 
 defaults.display = {};
 defaults.display.graphic = null;
@@ -36,8 +35,8 @@ function init( options ) {
     var addDefaultAssets = false
         , defaultsCopy = _.cloneDeep( defaults )
         , config = _.merge( defaultsCopy, options )
-        , settings = config.settings
-        , template = settings.template
+        , template = config.settings.template
+        , include = config.include
         , prefix = settings.prefix
         , error = []
         ;
@@ -118,20 +117,20 @@ function init( options ) {
 
     // **** SETTINGS ****
 
-    if ( settings.dest && settings.dest === 'none' ) {
+    if ( config.dest && config.dest === 'none' ) {
 
-        settings.dest = null;
+        config.dest = null;
 
     }
-    else if ( settings.dest ) {
+    else if ( config.dest ) {
 
-        settings.dest = path.resolve( settings.cwd, settings.dest );
+        config.dest = path.resolve( process.cwd(), config.dest );
 
     }
     else {
 
         error.push({
-            key: 'settings.dest',
+            key: 'config.dest',
             msg: 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
         });
     }
