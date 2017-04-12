@@ -1,10 +1,12 @@
-var path = require( 'path' );
+'use strict';
 
+var path = require( 'path' );
 var _ = require( 'lodash' );
 var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 
+var hbsHelpers = require( '../../lib/handlebars-helpers' );
 var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
 var fsp = require( '../../lib/fs-promiser' );
@@ -24,8 +26,20 @@ module.exports = function ( config ) {
         else return config;
     })
     .then( copyAssets )
-    .then( renderLayout )
-    .catch( err => {
+    .then( config => {
+
+        if ( config.settings.dest !== null ) {
+
+            return renderLayout(config)
+            .then( () => {
+
+                return config;
+            });
+
+        }
+        else return config;
+    })
+    .catch( function ( err ) {
         return err;
     });
 };
@@ -136,7 +150,7 @@ function prefixAssets( config ) {
 
         return config;
     })
-    .catch( ( err ) => {
+    .catch( err => {
         log.error( 'Prefix Assets', err );
 
         return err;
@@ -196,7 +210,8 @@ function copyAssets( config ) {
 
 /*
     Utilities
-*/
+ */
+
 function globFiles( files ) {
 
     var globArray = files.map( file => {
@@ -217,6 +232,10 @@ function globFiles( files ) {
 
                 return collection;
             }, []);
+        })
+        .catch( err => {
+
+            return err;
         });
     });
 
