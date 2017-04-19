@@ -10,8 +10,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    
-    .sugar-masthead {
-        display: block;
-    }
+}
+.sugar-nav .sugar-masthead {
+    display: block;
 }
