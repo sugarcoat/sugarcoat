@@ -13,10 +13,8 @@ var defaults = {};
 var defaultAssets = 'sugarcoat/**/*';
 var defaultAssetStr = 'sugarcoat';
 var cwdTemplates = path.join( __dirname, 'templates' );
-var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
 var defaultPartialsDir = path.join( cwdTemplates, 'partials' );
 
-defaults.settings = {};
 defaults.cwd = process.cwd();
 defaults.dest = null;
 
@@ -49,12 +47,11 @@ function init( options ) {
         , config = _.merge( defaultsCopy, options )
         , include = config.include
 		, template = config.template
-        , prefix = settings.prefix
         , error = []
         ;
 
     // Configure the logger
-    log.config( config.settings.log );
+    log.config( config.log );
 
     // **** ASSETS (template) ****
 
@@ -89,12 +86,17 @@ function init( options ) {
         config.copy.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
     }
 
-    // **** ASSETS (prefix) ****
+    // **** ASSETS ****
     if ( !_.isEmpty( include.css ) ) {
         include.css = include.css.map( dirPath => {
 
             return normalizeDirectory( dirPath, process.cwd() );
         });
+    }
+
+    if ( !_.isEmpty( config.display.graphic ) ) {
+
+        config.display.graphic = path.resolve( process.cwd(), config.display.graphic );
     }
 
 
@@ -195,6 +197,7 @@ function init( options ) {
         return error;
 
     }
+    console.log( config );
 
     return config;
 }
