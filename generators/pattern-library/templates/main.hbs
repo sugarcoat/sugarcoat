@@ -9,25 +9,27 @@
 <body>
 
   <div class="sugar-page-wrapper">
-    <nav class="sugar-nav">
 
-      {{> masthead }}
-
-      {{> nav this.sections }}
-
-    </nav>
+    {{> nav }}
 
     <a class="sugar-btn-accordion sugar-nav-toggle">Toggle</a>
 
     <div class="sugar-main">
 
-      {{> masthead this.settings }}
+      <div class="sugar-masthead">
+        {{#if settings.graphic }}
+        	<img src="{{ settings.graphic }}" />
+        {{/if}}
+        {{#if settings.title }}
+        	<h1>{{ settings.title }}</h1>
+        {{/if}}
+      </div>
 
-      {{~#each this.sections as |section|}}
+      {{#each sections as |section|}}
 
         {{> (lookup . 'template') }}
 
-      {{~/each}}
+      {{/each}}
 
       {{> footer}}
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
@@ -12,6 +14,7 @@ var defaultAssets = 'sugarcoat/**/*';
 var defaultAssetStr = 'sugarcoat';
 var cwdTemplates = path.join( __dirname, 'templates' );
 var defaultPartials = `${path.join( cwdTemplates, 'partials' )}/**/*`;
+var defaultPartialsDir = path.join( cwdTemplates, 'partials' );
 
 defaults.settings = {};
 defaults.cwd = process.cwd();
@@ -22,21 +25,30 @@ defaults.display.graphic = null;
 defaults.display.headingText = null;
 defaults.display.title = 'Pattern Library';
 
-defaults.settings.template = {};
-defaults.settings.template.cwd = process.cwd();
-defaults.settings.template.layout = path.join( cwdTemplates, 'main.hbs' );
+defaults.template = {};
+defaults.template.layout = path.join( cwdTemplates, 'main.hbs' );
+defaults.template.selectorPrefix = '.sugar-example';
+defaults.template.helpers = require( '../../lib/handlebars-helpers.js' );
+defaults.template.partials = {
+    'block-title': `${defaultPartialsDir}/block-title.hbs`,
+    'footer': `${defaultPartialsDir}/footer.hbs`,
+    'head': `${defaultPartialsDir}/head.hbs`,
+    'nav': `${defaultPartialsDir}/nav.hbs`,
+    'section-color': `${defaultPartialsDir}/section-color.hbs`,
+    'section-default': `${defaultPartialsDir}/section-default.hbs`,
+    'section-typography': `${defaultPartialsDir}/section-typography.hbs`,
+    'section-variable': `${defaultPartialsDir}/section-variable.hbs`
+};
 
 defaults.include = {};
-defaults.template = {};
-defaults.template.prefixSelector = '.sugar-example';
 
 function init( options ) {
 
     var addDefaultAssets = false
         , defaultsCopy = _.cloneDeep( defaults )
         , config = _.merge( defaultsCopy, options )
-        , template = config.settings.template
         , include = config.include
+		, template = config.template
         , prefix = settings.prefix
         , error = []
         ;
@@ -47,34 +59,34 @@ function init( options ) {
     // **** ASSETS (template) ****
 
     // Set Assets to an array
-    if ( _.isEmpty( template.assets ) ) {
+    if ( _.isEmpty( config.copy ) ) {
 
-        template.assets = [ defaultAssets ];
+        config.copy = [ defaultAssets ];
     }
 
     // Set Assets to an array
-    if ( !_.isArray( template.assets ) ) {
+    if ( !_.isArray( config.copy ) ) {
 
-        template.assets = [ template.assets ];
+        config.copy = [ config.copy ];
     }
 
     // Add in the default assets
-    if ( _.includes( template.assets, defaultAssetStr ) ) {
+    if ( _.includes( config.copy, defaultAssetStr ) ) {
 
         addDefaultAssets = true;
 
         // Get the sugarcoat string out of the array
-        _.pull( template.assets, defaultAssetStr );
+        _.pull( config.copy, defaultAssetStr );
     }
 
     // Convert remaining array pieces into a file object
-    template.assets = template.assets.map( dirPath => {
-        return normalizeDirectory( dirPath, template.cwd );
+    config.copy = config.copy.map( dirPath => {
+        return normalizeDirectory( dirPath, process.cwd() );
     });
 
     // Add in the default assets
     if ( addDefaultAssets ) {
-        template.assets.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
+        config.copy.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
     }
 
     // **** ASSETS (prefix) ****
@@ -87,33 +99,15 @@ function init( options ) {
 
 
     // **** LAYOUT ****
-
     // Resolve all paths
-    template.layout = path.resolve( template.cwd, template.layout );
+    config.template.layout = path.resolve( process.cwd(), config.template.layout );
 
 
     // **** PARTIALS ****
+    Object.keys( config.template.partials ).forEach( ( key, index ) => {
 
-    template.partials = template.partials || [];
-
-    // If partials is empty or falsy, then set our defaults
-    if ( _.isArray( template.partials ) ) {
-
-        // normalize the contents of the array
-        template.partials = template.partials.map( dirPath => {
-
-            return normalizeDirectory( dirPath, template.cwd );
-        });
-    }
-    else {
-
-        // use new function on it
-        template.partials = [ normalizeDirectory( template.partials, template.cwd ) ];
-    }
-
-    // then add defaults on
-    template.partials.unshift( normalizeDirectory( defaultPartials, template.cwd ) );
-
+        config.template.partials[ key ] = normalizeDirectory( config.template.partials[ key ], process.cwd() );
+    });
 
     // **** SETTINGS ****
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require( 'path' );
 var _ = require( 'lodash' );
 var postcss = require( 'postcss' );
@@ -11,11 +13,9 @@ var fsp = require( '../../lib/fs-promiser' );
 
 module.exports = function ( config ) {
 
-    Handlebars.registerHelper( hbsHelpers );
+    Handlebars.registerHelper( config.template.helpers );
 
-    return globPartials( config )
-    .then( readPartials )
-    .then( registerPartials )
+    return registerPartials( config )
     .then( config => {
 
         if ( config.include.css ) {
@@ -47,108 +47,64 @@ module.exports = function ( config ) {
 /*
     Tasks
 */
+function registerPartials( config ) {
 
-function copyAssets( config ) {
+    var promisePartials = [];
 
-    var flattened = []
-        , dest = config.settings.dest !== null ? config.settings.dest : config.settings.cwd
-        ;
+    Object.keys( config.template.partials ).forEach( key => {
 
-    var expand = config.settings.template.assets.map( function ( asset ) {
+        promisePartials.push( fsp.readFile( config.template.partials[ key ].src )
+        .then( data => {
 
-        return globber({
-            src: asset.src,
-            options: asset.options
+            Handlebars.registerPartial( key, data );
+
+            log.info( 'Render', `partial registered: ${ key }` );
         })
-        .then( function ( files ) {
+        .catch( err => {
+            log.error( 'Render: Register Partials', err );
 
-            asset.srcFiles = files;
-
-            return asset.srcFiles.map( assetPath => {
-
-                var result = {
-                    from: path.resolve( asset.options.cwd, assetPath ),
-                    to: path.resolve( dest, path.relative( asset.options.cwd, assetPath ) )
-                };
-
-                flattened.push( result );
-
-                return result;
-            });
-        });
+            return err;
+        }));
     });
 
-    return Promise.all( expand )
-    .then( () => {
-
-        return Promise.all( flattened.map( asset => {
-
-            return fsp.copy( asset.from, asset.to )
-            .then( assetPaths => {
-
-                return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
-            });
-        }));
-    })
+    return Promise.all( promisePartials )
     .then( () => {
 
         return config;
+    });
+}
+function renderLayout( config ) {
+
+    return fsp.readFile( config.template.layout )
+    .then( data => {
+
+        return config.template.layout = {
+            src: data,
+            file: config.template.layout
+        };
     })
-    .catch( function ( err ) {
-        log.error( 'Copy Assets', err );
+    .then( () => {
+
+        var hbsCompiled = Handlebars.compile( config.template.layout.src, {
+                preventIndent: true
+            })
+            , file = path.join( config.settings.dest, 'index.html' )
+            , html = hbsCompiled( config )
+            ;
+
+        return fsp.writeFile( file, html )
+        .then( () => {
+
+            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
+
+            return html;
+        });
+    })
+    .catch( err => {
+        log.error( 'Render', err );
 
         return err;
     });
-}
-
-function globPartials( config ) {
-
-    return globFiles( config.settings.template.partials )
-    .then( partials => {
-        config.settings.template.partials = _.flatten( partials );
-
-        return config;
-    }).catch( err => {
-
-        log.error( 'Glob Partials', err );
-    });
-}
-
-function readPartials( config ) {
-
-    var partials = config.settings.template.partials.map( fileObj => {
-
-        return fsp.readFile( fileObj.file )
-        .then( data => {
-
-            return fileObj.src = data;
-        });
-    });
-
-    return Promise.all( partials )
-    .then( () => {
-        return config;
-    });
-}
-
-function registerPartials( config ) {
-
-    config.settings.template.partials.forEach( partial => {
-
-        var isOverride = !!Handlebars.partials[ partial.name ]
-            , msgNormal = `partial registered: "${partial.name}"`
-            , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
-            , msg = isOverride ? msgOverride : msgNormal
-            ;
-
-        if ( isOverride ) Handlebars.unregisterPartial( partial.name );
-
-        Handlebars.registerPartial( partial.name, partial.src );
-
-        log.info( 'Render', msg );
-    });
-
-    return config;
 }
 
 function globPrefixAssets( config ) {
@@ -176,7 +132,7 @@ function prefixAssets( config ) {
 
             return postcss()
             .use( prefixer({
-                prefix: config.template.prefixSelector
+                prefix: config.template.selectorPrefix
             }))
             .process( data )
             .then( result => {
@@ -201,35 +157,52 @@ function prefixAssets( config ) {
     });
 }
 
-function renderLayout( config ) {
+function copyAssets( config ) {
 
-    return fsp.readFile( config.settings.template.layout )
-    .then( function ( data ) {
+    var flattened = [];
 
-        return config.settings.template.layout = {
-            src: data,
-            file: config.settings.template.layout
-        };
-    })
-    .then( function () {
+    var expand = config.copy.map( asset => {
 
-        var hbsCompiled = Handlebars.compile( config.settings.template.layout.src, {
-                preventIndent: true
-            })
-            , file = path.join( config.settings.dest, 'index.html' )
-            , html = hbsCompiled( config )
-            ;
+        return globber({
+            src: asset.src,
+            options: asset.options
+        })
+        .then( files => {
 
-        return fsp.writeFile( file, html )
-        .then( () => {
+            asset.srcFiles = files;
 
-            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
+            return asset.srcFiles.map( assetPath => {
 
-            return html;
+                var result = {
+                    from: path.resolve( asset.options.cwd, assetPath ),
+                    to: path.resolve( config.settings.dest, path.relative( asset.options.cwd, assetPath ) )
+                };
+
+                flattened.push( result );
+
+                return result;
+            });
         });
+    });
+
+    return Promise.all( expand )
+    .then( () => {
+
+        return Promise.all( flattened.map( asset => {
+
+            return fsp.copy( asset.from, asset.to )
+            .then( assetPaths => {
+
+                return log.info( 'Render', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
+            });
+        }));
     })
-    .catch( function ( err ) {
-        log.error( 'Render', err );
+    .then( () => {
+
+        return config;
+    })
+    .catch( err => {
+        log.error( 'Copy Assets', err );
 
         return err;
     });

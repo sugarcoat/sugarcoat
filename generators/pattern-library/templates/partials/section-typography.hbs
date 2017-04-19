@@ -8,48 +8,31 @@
 <section id="{{toID title}}" class="sugar-section sugar-section-type">
   <div class="sugar-section-wrapper">
     <h2 class="sugar-h2"><a href="#{{toID title}}">{{ title }}</a></h2>
-
-    {{~#each files as |file| }}
-
+    {{#each files}}
       <div class="sugar-component">
-        <div id="{{ toID file.path @index }}">
-
-          {{~#each file.data as |data| }}
-
-            {{~> block-title data=data}}
-
+        <div id="{{ toID path @index }}">
+          {{#each data}}
+            {{> block-title data=this}}
             <div class="sugar-type-file">
-
-              {{~#each data.serializedCode as |serialized| }}
-
+              {{#each serializedCode}}
                 <div class="sugar-type-container">
                   <div class="sugar-type-example">
-                    <p class="sugar-p" style="font-family: {{ serialized.value }}">The quick brown fox jumps over the lazy dog.</p>
+                    <p class="sugar-p" style="font-family: {{ value }}">The quick brown fox jumps over the lazy dog.</p>
                   </div>
-                  <pre class="sugar-var sugar-pre">{{ serialized.variable }}</pre>
-                  <pre class="sugar-val sugar-pre">{{ serialized.value }}</pre>
-
-                  {{~#if serialized.comment }}
-
-                    <p class="sugar-type-desc sugar-p">{{ serialized.comment }}</p>
-
-                  {{~/if }}
-
+                  <pre class="sugar-var sugar-pre">{{ variable }}</pre>
+                  <pre class="sugar-val sugar-pre">{{ value }}</pre>
+                  {{#if comment }}
+                    <p class="sugar-type-desc sugar-p">{{ comment }}</p>
+                  {{/if }}
                 </div>
-
-              {{~/each}}
-
+              {{/each}}
             </div>
-
-          {{~/each}}
-
+          {{/each}}
         </div>
 
-        {{> file-path file=file}}
+        <p class="sugar-file sugar-p">File: <span class="sugar-path">{{ path }}</span></p>
 
       </div>
-
-    {{~/each }}
-
+    {{/each }}
   </div>
 </section>

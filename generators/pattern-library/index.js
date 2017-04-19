@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require( 'path' );
 
 var parser = require( './parser' );
@@ -29,8 +31,12 @@ function init( config ) {
     .then( render )
     .then( config => {
 
+<<<<<<< HEAD
+        log.info( 'Finished!', config );
+=======
         // console.log('html', html);
         log.info( 'Finished!' );
+>>>>>>> 97c37653dae15b8f052d570ac8734f0ebb3d3385
 
         return config;
     })
