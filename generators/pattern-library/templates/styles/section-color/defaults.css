@@ -3,7 +3,7 @@
     font-family: 'Helvetica';
 }
 .sugar-color {
-    overflow: hidden; //  margin-bottom:-20px;
+    overflow: hidden;
     border-top: 1px solid #eee;
     position: relative;
 }
@@ -11,12 +11,11 @@
     margin-bottom: -38px;
     padding-bottom: 10px;
     transition: 0.35s linear margin;
-
-    .sugar-btn-accordion {
-        top: -5px;
-        right: 0px;
-        position: absolute;
-    }
+}
+.sugar-color-commented .sugar-btn-accordion {
+    top: -5px;
+    right: 0px;
+    position: absolute;
 }
 .sugar-color-open.sugar-color-commented {
     margin-bottom: 0px;
@@ -44,7 +43,7 @@
 }
 .sugar-color-val:before {
     content: 'VALUE';
-    @include font-cap;
+    @apply --font-cap;
     background: #eee;
     padding: 5px;
     font-size: 10px;

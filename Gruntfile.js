@@ -1,51 +1,16 @@
 module.exports = function ( grunt ) {
 
+    const postcssImport = require( 'postcss-import' );
+    const postcssUtilities = require( 'postcss-utilities' );
+    const postcssCSSnext = require( 'postcss-cssnext' );
+    const postcssPxtorem = require( 'postcss-pxtorem' );
+    const postcssUrl = require( 'postcss-url' );
+    const cssnano = require( 'cssnano' );
+
     /* Configure */
     grunt.initConfig({
         pkg: grunt.file.readJSON( 'package.json' ),
         buildRoot: '/'
-    });
-
-    grunt.config( 'autoprefixer', {
-        options: {
-            browsers: [ 'last 2 versions', 'ie 10' ]
-        },
-        files: {
-            expand: true,
-            src: 'generators/pattern-library/templates/sugarcoat/css/**/*.css'
-        }
-    });
-
-    grunt.config( 'sass', {
-        dist: {
-            options: {
-                sourcemap: 'inline',
-                style: 'expanded',
-                lineNumbers: true,
-                precision: 5
-            },
-            files: [
-                {
-                    expand: true,
-                    cwd: 'generators/pattern-library/templates/styles',
-                    src: [
-                        '*.scss'
-                    ],
-                    dest: 'generators/pattern-library/templates/sugarcoat/css',
-                    ext: '.css'
-                }
-            ],
-            rename: function ( dest, src ) {
-
-                var path = require( 'path' )
-                    , splitDirs = src.split( '/' )
-                    ;
-
-                splitDirs[ splitDirs.indexOf( 'scss' ) ] = 'css';
-
-                return path.join( dest, splitDirs.join( '/' ) );
-            }
-        }
     });
 
     grunt.config( 'eslint', {
@@ -76,7 +41,7 @@ module.exports = function ( grunt ) {
                     expand: true,
                     cwd: 'generators/pattern-library/templates',
                     src: [
-                        'styles/**/*.scss'
+                        'styles/**/*.css'
                     ],
                     dest: 'generators/pattern-library/templates',
                     ext: 'styles/**/*.css'
@@ -85,16 +50,31 @@ module.exports = function ( grunt ) {
         }
     });
 
+    grunt.config( 'postcss', {
+        options: {
+            processors: [
+                postcssImport(),
+                postcssUtilities(),
+                postcssUrl(),
+                postcssCSSnext({ browsers: [ 'last 2 versions', 'ie 10' ] }),
+                postcssPxtorem(),
+                cssnano()
+            ]
+        },
+        dist: {
+            src: 'generators/pattern-library/templates/styles/sugarcoat.css',
+            dest: 'generators/pattern-library/templates/sugarcoat/css/sugarcoat.css'
+        }
+    });
 
-    grunt.loadNpmTasks( 'grunt-autoprefixer' );
-    grunt.loadNpmTasks( 'grunt-contrib-sass' );
+    grunt.loadNpmTasks( 'grunt-postcss' );
     grunt.loadNpmTasks( 'grunt-eslint' );
     grunt.loadNpmTasks( 'grunt-stylelint' );
+
     /* Task aliases */
-    grunt.registerTask( 'sassdev', 'Compile Sass files', [
+    grunt.registerTask( 'cssdev', 'Compile CSS files', [
         'stylelint',
-        'sass',
-        'autoprefixer'
+        'postcss'
     ]);
 
     grunt.registerTask( 'lint', 'Lint all files', [

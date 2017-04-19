@@ -1,0 +1,32 @@
+.sugar-tag-details {
+    width: 100%;
+}
+.sugar-tag-details dt {
+    font-family: 'Helvetica';
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    text-transform: capitalize;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+.sugar-tag-details code {
+    font-weight: normal;
+    background-color: #eee;
+    padding: 5px;
+    text-transform: none;
+    border-radius: 3px;
+    letter-spacing: 0;
+    color: #666;
+    font-size: 14px;
+}
+.sugar-tag-details dd {
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+.sugar-tag-details .sugar-tag-description {
+    font-family: 'Helvetica';
+    font-size: 1rem; //16px
+    color: #666;
+    word-break: break-all;
+}
