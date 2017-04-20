@@ -1,0 +1,28 @@
+/**
+ * @title Button
+ * @modifier .cta primary coloring
+ * @state hover transition animation on hover
+ *
+ * @example <a class="btn" href="#">a.btn</a>
+ *
+ * @example <button class="btn cta">button.btn.cta</button>
+ *
+ */
+a.btn,
+.btn,
+button {
+    font-family: var(--font-body);
+    text-decoration: none;
+    border: 1px solid var(--accent-grey);
+    border-radius: 3px;
+    padding: var(--pad);
+    cursor: pointer;
+    color: var(--accent-grey);
+    font-size: 16px;
+
+    &:focus,
+    &:active,
+    &:hover {
+        color: var(--brand-grey);
+    }
+}
