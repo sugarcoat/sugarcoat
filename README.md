@@ -106,22 +106,14 @@ sugarcoat( config ).then( function( data ) {
 
 This object holds general configuration values.
 
-### `cwd` ###
-
-  - Required: No
-  - Type: `String`
-  - Default: `process.cwd()`
-
-Path to which `dest` is relative.
-
 ### `dest` ###
 
   - Required: Yes
   - Type: `String`
   - Default: `null`
-  - Relative: `settings.cwd`
+  - Relative: `process.cwd()`
 
-Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist. If given the option 'none', Sugarcoat will not output a rendered pattern library. 
+Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist. If given the option 'none', Sugarcoat will not output a rendered pattern library.
 
 ### `graphic` ###
 

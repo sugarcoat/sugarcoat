@@ -95,7 +95,7 @@ function renderLayout( config ) {
         return fsp.writeFile( file, html )
         .then( () => {
 
-            log.info( 'Render', `layout rendered "${path.relative( config.cwd, file )}"` );
+            log.info( 'Render', `layout rendered "${path.relative( process.cwd(), file )}"` );
 
             return html;
         });
@@ -140,7 +140,7 @@ function prefixAssets( config ) {
                 return fsp.writeFile( path.join( config.dest, file.prefixed ), result.css );
             })
             .then( result => {
-                log.info( 'Render', `asset prefixed: ${path.relative( config.cwd, path.join( config.dest, file.prefixed ) )}`);
+                log.info( 'Render', `asset prefixed: ${path.relative( process.cwd(), path.join( config.dest, file.prefixed ) )}`);
 
                 return result;
             });

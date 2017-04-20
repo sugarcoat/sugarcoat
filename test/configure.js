@@ -57,7 +57,7 @@ suite( 'Configure: Settings', function () {
         sugarcoat( configNoDest )
         .then( data => {
 
-            var index = data.dest !== null ? path.resolve( data.cwd, `${data.dest}/index.html` ) : `${data.cwd}/index.html`;
+            var index = data.dest !== null ? path.resolve( process.cwd(), `${data.dest}/index.html` ) : `${process.cwd()}/index.html`;
 
             fs.access( index, fs.constants.F_OK, ( err ) => {
                 var exists;
