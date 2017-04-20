@@ -4,7 +4,7 @@ var path = require( 'path' );
 
 var _ = require( 'lodash' );
 var log = require( '../../lib/logger' );
-var util = require( 'util' );
+var errors = require( './errors');
 
 /**
  * Default configuration values
@@ -47,13 +47,25 @@ function init( options ) {
         , config = _.merge( defaultsCopy, options )
         , include = config.include
 		, template = config.template
-        , error = []
         ;
 
     // Configure the logger
     log.config( config.log );
 
     // **** ASSETS (template) ****
+
+    if ( prefix.selector !== defaults.settings.prefix.selector && prefix.selector !== null ) {
+
+        if ( !prefix.assets ) {
+
+            return config = new Error( errors.configPrefixAssetsMissing );
+
+        }
+        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( template.assets ) ) {
+
+            return config = new Error( errors.configTemplateOptionsMissing );
+        }
+    }
 
     // Set Assets to an array
     if ( _.isEmpty( config.copy ) ) {
@@ -125,77 +137,48 @@ function init( options ) {
     }
     else {
 
-        error.push({
-            key: 'config.dest',
-            msg: 'Destination is required. Please add the `dest` option to your settings object as a path to your destination or `none`.'
-        });
+        return config = new Error( errors.configDestMissing );
     }
 
     // **** SECTIONS ****
 
     if ( !config.sections ) {
 
-        error.push({
-            key: 'section',
-            msg: 'A section array of one or more objects is required. Please add a section object to the sections array.'
-        });
+        return config = new Error( errors.configSectionArrayMissing );
 
     }
     else {
 
         if ( config.sections.length < 0 || !config.sections.length ) {
 
-            error.push({
-                key: 'section',
-                msg: 'Section objects are required in the sections array. Please add a section object to the section array.'
-            });
+            return config = new Error( errors.configSectionObjectMissing );
 
         }
         else {
 
             config.sections.forEach( sectionObject => {
 
-                var loggedSection = util.inspect( sectionObject, { depth: 7, colors: true } );
-
                 if ( !sectionObject.mode ) {
+
                     sectionObject.mode = undefined;
                 }
 
                 if ( !sectionObject.template ) {
+
                     sectionObject.template = `section-${ sectionObject.mode || 'default' }`;
                 }
 
                 if ( !sectionObject.title ) {
 
-                    error.push({
-                        key: 'sections.title',
-                        msg: `Title is required. Please add a 'title' option to section object: \n${loggedSection}`
-                    });
+                    return config = new Error( errors.configSectionTitleMissing );
                 }
 
                 if ( !sectionObject.files ) {
 
-                    error.push({
-                        key: 'sections.files',
-                        msg: `Files is required. Please add a 'files' option to section object: \n${loggedSection}`
-                    });
+                    return config = new Error( errors.configSectionFileMissing );
                 }
             });
         }
-    }
-
-    if ( error.length ) {
-
-        for ( var errObj in error ) {
-
-            var key = error[ errObj ].key;
-            var msg = error[ errObj ].msg;
-
-            log.error( `Configure: ${key}`, msg );
-        }
-
-        return error;
-
     }
 
     return config;

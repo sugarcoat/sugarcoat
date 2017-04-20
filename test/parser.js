@@ -4,17 +4,15 @@ var assert = require( 'chai' ).assert;
 var fs = require( 'fs' );
 
 var parser = require( '../generators/pattern-library/parser' );
+var sugarcoat = require( '../index' );
 
 suite( 'Parser: parseComment', function () {
 
-    var parse
-        , config
-        ;
+    test( 'HTML comments are consumed and context applied is accurate', function () {
 
-    setup( function () {
-        config = {
-            dest: './documentation',
-            display: {
+        var configParseHTMLComment = {
+            settings: {
+                dest: './documentation',
                 title: 'Pattern Library'
             },
             sections: [
@@ -24,18 +22,15 @@ suite( 'Parser: parseComment', function () {
                 }
             ]
         };
-        parse = parser( config );
-    });
+        var parse = parser( configParseHTMLComment );
 
-    test( 'HTML comments are consumed and context applied is accurate', function () {
-
-        var path = config.sections[ 0 ].files;
+        var path = configParseHTMLComment.sections[ 0 ].files;
 
         var testPromise = new Promise( ( resolve, reject ) => {
 
             fs.readFile( path, 'utf-8', ( err, data ) => {
                 if ( err ) return false;
-                var value = parse.parseComment( path, data, config.sections[ 0 ].mode, config.sections[ 0 ].template );
+                var value = parse.parseComment( path, data, configParseHTMLComment.sections[ 0 ].mode, configParseHTMLComment.sections[ 0 ].template );
 
                 return resolve( value );
             });
@@ -43,6 +38,36 @@ suite( 'Parser: parseComment', function () {
 
         return testPromise.then( result => {
             assert.equal( result[ 0 ].context, '<p class="component">\n\tI\'m a component\n\t<!-- an inline comment -->\n</p>', 'following html comment block ignored from context');
+        });
+    });
+
+    test( 'An error is returned from Comment Serializer when there was an issue parsing comments and Sugarcoat returns an rejected promise.', done => {
+
+        var configParserError = {
+            settings: {
+                dest: './documentation',
+                title: 'Pattern Library'
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseComment.css'
+                }
+            ]
+        };
+
+        sugarcoat( configParserError )
+        .then( data => {
+
+            assert.instanceOf( data, Error, 'Sugarcoat should return an error and reject the promise.' );
+
+            done();
+
+        }, data => {
+
+            assert.instanceOf( data, Error, 'The object returned was an Error object.');
+
+            done();
         });
     });
 });

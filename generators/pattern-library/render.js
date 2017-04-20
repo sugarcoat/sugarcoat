@@ -7,7 +7,7 @@ var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 
 var hbsHelpers = require( '../../lib/handlebars-helpers' );
-var log = require( '../../lib/logger' );
+// var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
 var fsp = require( '../../lib/fs-promiser' );
 
@@ -39,9 +39,7 @@ module.exports = function ( config ) {
         }
         else return config;
     })
-    .catch( function ( err ) {
-        return err;
-    });
+    .catch( err => err );
 };
 
 /*
@@ -60,11 +58,7 @@ function registerPartials( config ) {
 
             log.info( 'Render', `partial registered: ${ key }` );
         })
-        .catch( err => {
-            log.error( 'Render: Register Partials', err );
-
-            return err;
-        }));
+        .catch( err => err ));
     });
 
     return Promise.all( promisePartials )
@@ -100,11 +94,7 @@ function renderLayout( config ) {
             return html;
         });
     })
-    .catch( err => {
-        log.error( 'Render', err );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 function globPrefixAssets( config ) {
@@ -115,10 +105,7 @@ function globPrefixAssets( config ) {
 
         return config;
     })
-    .catch( err => {
-
-        log.error( 'Glob Prefix Assets', err );
-    });
+    .catch( err => err );
 }
 
 function prefixAssets( config ) {
@@ -140,7 +127,9 @@ function prefixAssets( config ) {
                 return fsp.writeFile( path.join( config.dest, file.prefixed ), result.css );
             })
             .then( result => {
-                log.info( 'Render', `asset prefixed: ${path.relative( process.cwd(), path.join( config.dest, file.prefixed ) )}`);
+
+                // TODO: find another way to display info to the user, or do we need to?
+                // log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
 
                 return result;
             });
@@ -150,11 +139,7 @@ function prefixAssets( config ) {
 
         return config;
     })
-    .catch( err => {
-        log.error( 'Prefix Assets', err );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 function copyAssets( config ) {
@@ -197,15 +182,7 @@ function copyAssets( config ) {
             });
         }));
     })
-    .then( () => {
-
-        return config;
-    })
-    .catch( err => {
-        log.error( 'Copy Assets', err );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 /*
@@ -233,10 +210,7 @@ function globFiles( files ) {
                 return collection;
             }, []);
         })
-        .catch( err => {
-
-            return err;
-        });
+        .catch( err => err );
     });
 
     return Promise.all( globArray );
