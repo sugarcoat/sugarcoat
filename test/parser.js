@@ -13,8 +13,8 @@ suite( 'Parser: parseComment', function () {
 
     setup( function () {
         config = {
-            settings: {
-                dest: './documentation',
+            dest: './documentation',
+            display: {
                 title: 'Pattern Library'
             },
             sections: [
@@ -55,8 +55,8 @@ suite( 'Parser: parseVarCode', function () {
 
     setup( function () {
         config = {
-            settings: {
-                dest: './documentation',
+            dest: './documentation',
+            display: {
                 title: 'Pattern Library'
             },
             sections: [

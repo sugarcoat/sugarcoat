@@ -15,13 +15,11 @@ suite( 'Render: File Prefixer', function () {
     test( 'By default, assets are prefixed as .sugar-example. Output file is prefixed with "prefixed-"',  done => {
 
         var config = {
-            settings: {
-                dest: './test/sugarcoat',
-                prefix: {
-                    assets: [
-                        './test/assert/prefixAssets.css'
-                    ]
-                }
+            dest: './test/sugarcoat',
+            include: {
+                css: [
+                    './test/assert/prefixAssets.css'
+                ]
             },
             sections: [
                 {
@@ -56,14 +54,14 @@ suite( 'Render: File Prefixer', function () {
     test( 'Prefixed output should use the selector designated in the config: `prefix.selector`', done => {
 
         var config = {
-            settings: {
-                dest: './test/sugarcoat',
-                prefix: {
-                    assets: [
-                        './test/assert/prefixAssets.css'
-                    ],
-                    selector: '.designated-prefix'
-                }
+            dest: './test/sugarcoat',
+            template: {
+                selectorPrefix: '.designated-prefix'
+            },
+            include: {
+                css: [
+                    './test/assert/prefixAssets.css'
+                ]
             },
             sections: [
                 {

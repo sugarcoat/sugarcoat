@@ -15,7 +15,7 @@ var mySerializer = serializer({
 
 function Parser( config ) {
 
-    log.config( config.settings.log );
+    log.config( config.log );
 }
 
 Parser.prototype = {

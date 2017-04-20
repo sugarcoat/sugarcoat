@@ -197,7 +197,6 @@ function init( options ) {
         return error;
 
     }
-    console.log( config );
 
     return config;
 }

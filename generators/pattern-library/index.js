@@ -79,6 +79,7 @@ function readSections( config ) {
 
     return Promise.all( promiseArr )
     .then( () => {
+
         return config;
     });
 }

@@ -28,7 +28,7 @@ module.exports = function ( config ) {
     .then( copyAssets )
     .then( config => {
 
-        if ( config.settings.dest !== null ) {
+        if ( config.dest !== null ) {
 
             return renderLayout(config)
             .then( () => {
@@ -88,14 +88,14 @@ function renderLayout( config ) {
         var hbsCompiled = Handlebars.compile( config.template.layout.src, {
                 preventIndent: true
             })
-            , file = path.join( config.settings.dest, 'index.html' )
+            , file = path.join( config.dest, 'index.html' )
             , html = hbsCompiled( config )
             ;
 
         return fsp.writeFile( file, html )
         .then( () => {
 
-            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
+            log.info( 'Render', `layout rendered "${path.relative( config.cwd, file )}"` );
 
             return html;
         });
@@ -137,10 +137,10 @@ function prefixAssets( config ) {
             .process( data )
             .then( result => {
 
-                return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css );
+                return fsp.writeFile( path.join( config.dest, file.prefixed ), result.css );
             })
             .then( result => {
-                log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+                log.info( 'Render', `asset prefixed: ${path.relative( config.cwd, path.join( config.dest, file.prefixed ) )}`);
 
                 return result;
             });
@@ -175,7 +175,7 @@ function copyAssets( config ) {
 
                 var result = {
                     from: path.resolve( asset.options.cwd, assetPath ),
-                    to: path.resolve( config.settings.dest, path.relative( asset.options.cwd, assetPath ) )
+                    to: path.resolve( config.dest, path.relative( asset.options.cwd, assetPath ) )
                 };
 
                 flattened.push( result );
@@ -193,7 +193,7 @@ function copyAssets( config ) {
             return fsp.copy( asset.from, asset.to )
             .then( assetPaths => {
 
-                return log.info( 'Render', `asset copied: ${ path.relative( config.settings.dest, assetPaths[ 1 ] )}`);
+                return log.info( 'Render', `asset copied: ${ path.relative( config.dest, assetPaths[ 1 ] )}`);
             });
         }));
     })
