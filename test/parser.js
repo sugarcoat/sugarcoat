@@ -11,8 +11,8 @@ suite( 'Parser: parseComment', function () {
     test( 'HTML comments are consumed and context applied is accurate', function () {
 
         var configParseHTMLComment = {
-            settings: {
-                dest: './documentation',
+            dest: './documentation',
+            display: {
                 title: 'Pattern Library'
             },
             sections: [
@@ -44,8 +44,8 @@ suite( 'Parser: parseComment', function () {
     test( 'An error is returned from Comment Serializer when there was an issue parsing comments and Sugarcoat returns an rejected promise.', done => {
 
         var configParserError = {
-            settings: {
-                dest: './documentation',
+            dest: './documentation',
+            display: {
                 title: 'Pattern Library'
             },
             sections: [
@@ -81,9 +81,6 @@ suite( 'Parser: parseVarCode', function () {
     setup( function () {
         config = {
             dest: './documentation',
-            display: {
-                title: 'Pattern Library'
-            },
             sections: [
                 {
                     title: 'CSS File',

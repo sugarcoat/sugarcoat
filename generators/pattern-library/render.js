@@ -6,7 +6,6 @@ var postcss = require( 'postcss' );
 var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 
-var hbsHelpers = require( '../../lib/handlebars-helpers' );
 // var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
 var fsp = require( '../../lib/fs-promiser' );
@@ -28,9 +27,10 @@ module.exports = function ( config ) {
     .then( copyAssets )
     .then( config => {
 
+
         if ( config.dest !== null ) {
 
-            return renderLayout(config)
+            return renderLayout( config )
             .then( () => {
 
                 return config;
@@ -56,7 +56,7 @@ function registerPartials( config ) {
 
             Handlebars.registerPartial( key, data );
 
-            log.info( 'Render', `partial registered: ${ key }` );
+            // log.info( 'Render', `partial registered: ${ key }` );
         })
         .catch( err => err ));
     });
@@ -89,7 +89,7 @@ function renderLayout( config ) {
         return fsp.writeFile( file, html )
         .then( () => {
 
-            log.info( 'Render', `layout rendered "${path.relative( process.cwd(), file )}"` );
+            // log.info( 'Render', `layout rendered "${path.relative( process.cwd(), file )}"` );
 
             return html;
         });
@@ -175,13 +175,11 @@ function copyAssets( config ) {
 
         return Promise.all( flattened.map( asset => {
 
-            return fsp.copy( asset.from, asset.to )
-            .then( assetPaths => {
-
-                return log.info( 'Render', `asset copied: ${ path.relative( config.dest, assetPaths[ 1 ] )}`);
-            });
+            return fsp.copy( asset.from, asset.to );
+            // .then( assetPaths => config );
         }));
     })
+    .then( () => config )
     .catch( err => err );
 }
 

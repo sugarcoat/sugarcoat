@@ -46,7 +46,7 @@ function init( options ) {
         , defaultsCopy = _.cloneDeep( defaults )
         , config = _.merge( defaultsCopy, options )
         , include = config.include
-		, template = config.template
+        , template = config.template
         ;
 
     // Configure the logger
@@ -54,14 +54,14 @@ function init( options ) {
 
     // **** ASSETS (template) ****
 
-    if ( prefix.selector !== defaults.settings.prefix.selector && prefix.selector !== null ) {
+    if ( template.selectorPrefix !== defaults.template.selectorPrefix && template.selectorPrefix !== null ) {
 
-        if ( !prefix.assets ) {
+        if ( !include.css ) {
 
             return config = new Error( errors.configPrefixAssetsMissing );
 
         }
-        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( template.assets ) ) {
+        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( config.copy ) ) {
 
             return config = new Error( errors.configTemplateOptionsMissing );
         }
@@ -106,21 +106,15 @@ function init( options ) {
         });
     }
 
-    if ( !_.isEmpty( config.display.graphic ) ) {
-
-        config.display.graphic = path.resolve( process.cwd(), config.display.graphic );
-    }
-
-
     // **** LAYOUT ****
     // Resolve all paths
-    config.template.layout = path.resolve( process.cwd(), config.template.layout );
+    template.layout = path.resolve( process.cwd(), template.layout );
 
 
     // **** PARTIALS ****
-    Object.keys( config.template.partials ).forEach( ( key, index ) => {
+    Object.keys( template.partials ).forEach( ( key, index ) => {
 
-        config.template.partials[ key ] = normalizeDirectory( config.template.partials[ key ], process.cwd() );
+        template.partials[ key ] = normalizeDirectory( template.partials[ key ], process.cwd() );
     });
 
     // **** SETTINGS ****

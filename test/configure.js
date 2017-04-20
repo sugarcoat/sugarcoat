@@ -44,9 +44,7 @@ suite( 'Configure: Settings', function () {
     test( 'Destination can be set to none. No index file is created.', done => {
 
         var configNoDest = {
-            settings: {
-                dest: 'none'
-            },
+            dest: 'none',
             sections: [
                 {
                     title: 'CSS File',
@@ -63,7 +61,7 @@ suite( 'Configure: Settings', function () {
         sugarcoat( configNoDest )
         .then( data => {
 
-            var index = data.settings.dest !== null ? path.resolve( data.settings.cwd, `${data.settings.dest}/index.html` ) : `${data.settings.cwd}/index.html`;
+            var index = data.dest !== null ? path.resolve( process.cwd(), `${data.dest}/index.html` ) : `${process.cwd()}/index.html`;
 
             fs.access( index, fs.constants.F_OK, ( err ) => {
                 var exists;
@@ -83,11 +81,9 @@ suite( 'Configure: Settings', function () {
     test( 'In order to use prefix.selector, prefix.assets must be supplied.', done => {
 
         var configNoPrefixedAssets = {
-            settings: {
-                dest: './test/documentation',
-                prefix: {
-                    selector: 'blah'
-                }
+            dest: './test/documentation',
+            template: {
+                selectorPrefix: 'blah'
             },
             sections: [
                 {
@@ -122,14 +118,14 @@ suite( 'Configure: Settings', function () {
     test( 'In order to use prefix.selector, template options must be supplied.', done => {
 
         var configNoPrefixedAssets = {
-            settings: {
-                dest: './sugarcoat',
-                prefix: {
-                    selector: 'blah',
-                    assets: [
-                        './test/assert/*.css'
-                    ]
-                }
+            dest: './sugarcoat',
+            template: {
+                selectorPrefix: 'blah'
+            },
+            include: {
+                css: [
+                    './test/assert/*.css'
+                ]
             },
             sections: [
                 {
@@ -178,9 +174,7 @@ suite( 'Configure: Sections', function () {
     test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', done => {
 
         var configMissingOnlyTitle = {
-            settings: {
-                dest: './test/documentation'
-            },
+            dest: './test/documentation',
             sections: [
                 {
                     files: './test/assert/parseVarCode.css'
@@ -208,9 +202,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section array is set to be required. Section array errored out when not supplied.', done => {
 
         var configMissingTitleFiles = {
-            settings: {
-                dest: './test/documentation'
-            }
+            dest: './test/documentation'
         };
 
         sugarcoat( configMissingTitleFiles )
@@ -233,9 +225,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', done => {
 
         var configMissingTitleFiles = {
-            settings: {
-                dest: './test/documentation'
-            },
+            dest: './test/documentation',
             sections: []
         };
 
@@ -259,9 +249,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', done => {
 
         var configMissingOneFiles = {
-            settings: {
-                dest: './test/documentation'
-            },
+            dest: './test/documentation',
             sections: [
                 {
                     title: 'CSS File'
