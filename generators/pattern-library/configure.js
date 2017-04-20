@@ -52,20 +52,22 @@ function init( options ) {
     // Configure the logger
     log.config( config.log );
 
-    // **** ASSETS (template) ****
+    if ( config.dest && config.dest === 'none' ) {
 
-    if ( template.selectorPrefix !== defaults.template.selectorPrefix && template.selectorPrefix !== null ) {
+        config.dest = null;
 
-        if ( !include.css ) {
-
-            return config = new Error( errors.configPrefixAssetsMissing );
-
-        }
-        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( config.copy ) ) {
-
-            return config = new Error( errors.configTemplateOptionsMissing );
-        }
     }
+    else if ( config.dest ) {
+
+        config.dest = path.resolve( process.cwd(), config.dest );
+
+    }
+    else {
+
+        return config = new Error( errors.configDestMissing );
+    }
+
+    // **** COPY ****
 
     // Set Assets to an array
     if ( _.isEmpty( config.copy ) ) {
@@ -98,7 +100,8 @@ function init( options ) {
         config.copy.push( normalizeDirectory( path.resolve( cwdTemplates, defaultAssets ), cwdTemplates ) );
     }
 
-    // **** ASSETS ****
+    // **** INCLUDE ****
+
     if ( !_.isEmpty( include.css ) ) {
         include.css = include.css.map( dirPath => {
 
@@ -106,32 +109,36 @@ function init( options ) {
         });
     }
 
-    // **** LAYOUT ****
+    // **** TEMPLATE ****
+
+    // If custom selector is used, there must be style sheets provided, copied assets, layouts, or partials
+    if ( template.selectorPrefix !== defaults.template.selectorPrefix && template.selectorPrefix !== null ) {
+
+        if ( !include.css ) {
+
+            return config = new Error( errors.configPrefixAssetsMissing );
+
+        }
+        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( config.copy ) ) {
+
+            return config = new Error( errors.configTemplateOptionsMissing );
+        }
+    }
+
     // Resolve all paths
     template.layout = path.resolve( process.cwd(), template.layout );
 
 
-    // **** PARTIALS ****
+    // **** partials ****
     Object.keys( template.partials ).forEach( ( key, index ) => {
 
         template.partials[ key ] = normalizeDirectory( template.partials[ key ], process.cwd() );
     });
 
-    // **** SETTINGS ****
+    // Helpers can be provided only when partials or layout are provided
+    if ( !_.isEmpty( template.helpers ) && _.isEmpty( template.partials ) && _.isEmpty( template.layout ) ) {
 
-    if ( config.dest && config.dest === 'none' ) {
-
-        config.dest = null;
-
-    }
-    else if ( config.dest ) {
-
-        config.dest = path.resolve( process.cwd(), config.dest );
-
-    }
-    else {
-
-        return config = new Error( errors.configDestMissing );
+        return config = new Error( errors.configTemplateHelpers );
     }
 
     // **** SECTIONS ****
