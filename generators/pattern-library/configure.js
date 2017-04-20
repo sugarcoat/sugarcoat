@@ -45,13 +45,11 @@ function init( options ) {
 
         if ( !prefix.assets ) {
 
-            console.log(errors.configPrefixAssetsMissing);
             return config = new Error( errors.configPrefixAssetsMissing );
 
         }
         else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( template.assets ) ) {
 
-            console.log(errors.configTemplateOptionsMissing);
             return config = new Error( errors.configTemplateOptionsMissing );
         }
     }

@@ -7,7 +7,7 @@ var prefixer = require( 'postcss-prefix-selector' );
 var Handlebars = require( 'handlebars' );
 
 var hbsHelpers = require( '../../lib/handlebars-helpers' );
-var log = require( '../../lib/logger' );
+// var log = require( '../../lib/logger' );
 var globber = require( '../../lib/globber' );
 var fsp = require( '../../lib/fs-promiser' );
 
@@ -41,15 +41,12 @@ module.exports = function ( config ) {
         }
         else return config;
     })
-    .catch( function ( err ) {
-        return err;
-    });
+    .catch( err => err );
 };
 
 /*
     Tasks
 */
-
 function copyAssets( config ) {
 
     var flattened = []
@@ -88,7 +85,8 @@ function copyAssets( config ) {
             return fsp.copy( asset.from, asset.to )
             .then( assetPaths => {
 
-                return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
+                // TODO: find another way to display this info to the user, or do we really need to?
+                // return log.info( 'Render', `asset copied: ${ path.relative( dest, assetPaths[ 1 ] )}`);
             });
         }));
     })
@@ -96,11 +94,7 @@ function copyAssets( config ) {
 
         return config;
     })
-    .catch( function ( err ) {
-        log.error( 'Copy Assets', err );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 function globPartials( config ) {
@@ -110,10 +104,7 @@ function globPartials( config ) {
         config.settings.template.partials = _.flatten( partials );
 
         return config;
-    }).catch( err => {
-
-        log.error( 'Glob Partials', err );
-    });
+    }).catch( err => err );
 }
 
 function readPartials( config ) {
@@ -138,16 +129,17 @@ function registerPartials( config ) {
     config.settings.template.partials.forEach( partial => {
 
         var isOverride = !!Handlebars.partials[ partial.name ]
-            , msgNormal = `partial registered: "${partial.name}"`
-            , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
-            , msg = isOverride ? msgOverride : msgNormal
+            // , msgNormal = `partial registered: "${partial.name}"`
+            // , msgOverride = `partial registered: "${partial.name}" partial has been overridden`
+            // , msg = isOverride ? msgOverride : msgNormal
             ;
 
         if ( isOverride ) Handlebars.unregisterPartial( partial.name );
 
         Handlebars.registerPartial( partial.name, partial.src );
 
-        log.info( 'Render', msg );
+        // TODO: find another way to display info to the user, or do we need to?
+        // log.info( 'Render', msg );
     });
 
     return config;
@@ -161,10 +153,7 @@ function globPrefixAssets( config ) {
 
         return config;
     })
-    .catch( err => {
-
-        log.error( 'Glob Prefix Assets', err );
-    });
+    .catch( err => err );
 }
 
 function prefixAssets( config ) {
@@ -186,7 +175,9 @@ function prefixAssets( config ) {
                 return fsp.writeFile( path.join( config.settings.dest, file.prefixed ), result.css );
             })
             .then( result => {
-                log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
+
+                // TODO: find another way to display info to the user, or do we need to?
+                // log.info( 'Render', `asset prefixed: ${path.relative( config.settings.cwd, path.join( config.settings.dest, file.prefixed ) )}`);
 
                 return result;
             });
@@ -196,11 +187,7 @@ function prefixAssets( config ) {
 
         return config;
     })
-    .catch( err => {
-        log.error( 'Prefix Assets', err );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 function renderLayout( config ) {
@@ -225,16 +212,13 @@ function renderLayout( config ) {
         return fsp.writeFile( file, html )
         .then( () => {
 
-            log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
+            // TODO: find another way to display this info to the user, or do we need it?
+            // log.info( 'Render', `layout rendered "${path.relative( config.settings.cwd, file )}"` );
 
             return html;
         });
     })
-    .catch( function ( err ) {
-        log.error( 'Render', err );
-
-        return err;
-    });
+    .catch( err => err );
 }
 
 /*
@@ -262,10 +246,7 @@ function globFiles( files ) {
                 return collection;
             }, []);
         })
-        .catch( err => {
-
-            return err;
-        });
+        .catch( err => err );
     });
 
     return Promise.all( globArray );
