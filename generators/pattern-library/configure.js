@@ -41,6 +41,21 @@ function init( options ) {
 
     // **** ASSETS (template) ****
 
+    if ( prefix.selector !== defaults.settings.prefix.selector && prefix.selector !== null ) {
+
+        if ( !prefix.assets ) {
+
+            console.log(errors.configPrefixAssetsMissing);
+            return config = new Error( errors.configPrefixAssetsMissing );
+
+        }
+        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( template.assets ) ) {
+
+            console.log(errors.configTemplateOptionsMissing);
+            return config = new Error( errors.configTemplateOptionsMissing );
+        }
+    }
+
     // Set Assets to an array
     if ( _.isEmpty( template.assets ) ) {
 
@@ -80,7 +95,6 @@ function init( options ) {
             return normalizeDirectory( dirPath, process.cwd() );
         });
     }
-
 
     // **** LAYOUT ****
 

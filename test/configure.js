@@ -9,7 +9,7 @@ var errors = require( '../generators/pattern-library/errors' );
 
 suite( 'Configure: Settings', function () {
 
-    test( 'Destination is set to be required. Destination errored out when not supplied.', (done) => {
+    test( 'Destination is set to be required. Destination errored out when not supplied.', done => {
 
         var configMissingDest = {
             sections: [
@@ -39,7 +39,6 @@ suite( 'Configure: Settings', function () {
 
             done();
         });
-
     });
 
     test( 'Destination can be set to none. No index file is created.', done => {
@@ -75,8 +74,90 @@ suite( 'Configure: Settings', function () {
                 else exists = false;
 
                 assert.isFalse( exists, 'Sugarcoat did not create a index.html file.' );
+
                 done();
             });
+        });
+    });
+
+    test( 'In order to use prefix.selector, prefix.assets must be supplied.', done => {
+
+        var configNoPrefixedAssets = {
+            settings: {
+                dest: './test/documentation',
+                prefix: {
+                    selector: 'blah'
+                }
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+
+                }
+            ]
+        };
+
+        sugarcoat( configNoPrefixedAssets )
+        .then( data => {
+
+            assert.isArray( data, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+
+            done();
+
+        }, data => {
+
+            assert.instanceOf( data, Error, 'The object was an Error Object.' );
+
+            assert.propertyVal( data, 'message', errors.configPrefixAssetsMissing, 'Sugarcoat gave us the correct error.' );
+
+            done();
+        });
+    });
+
+    test( 'In order to use prefix.selector, template options must be supplied.', done => {
+
+        var configNoPrefixedAssets = {
+            settings: {
+                dest: './sugarcoat',
+                prefix: {
+                    selector: 'blah',
+                    assets: [
+                        './test/assert/*.css'
+                    ]
+                }
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+
+                }
+            ]
+        };
+
+        sugarcoat( configNoPrefixedAssets )
+        .then( data => {
+
+            assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+
+            done();
+
+        }, data => {
+
+            assert.instanceOf( data, Error, 'The object was an Error Object.' );
+
+            assert.propertyVal( data, 'message', errors.configTemplateOptionsMissing, 'Sugarcoat gave us the correct error.' );
+
+            done();
         });
     });
 
