@@ -67,12 +67,12 @@ function init( options ) {
     }
 
     // Add in the default assets
-    if ( _.includes( template.assets, defaultAssetStr ) ) {
+    if ( _.includes( config.copy, defaultAssetStr ) ) {
 
         addDefaultAssets = true;
 
         // Get the sugarcoat string out of the array
-        _.pull( template.assets, defaultAssetStr );
+        _.pull( config.copy, defaultAssetStr );
     }
 
     // Convert remaining array pieces into a file object
