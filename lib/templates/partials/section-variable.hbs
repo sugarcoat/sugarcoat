@@ -9,15 +9,11 @@
   <div class="sugar-section-wrapper">
     <h2 class="sugar-h2"><a href="#{{toID title}}">{{ title }}</a></h2>
 
-    {{~#each files as |file| }}
-
-      <div class="sugar-component" id="{{toID file.path @index}}">
-
-        {{~#each file.data as |data| }}
-
-          {{> block-title data=data}}
-
-        {{~/each}}
+    {{#each files}}
+      <div class="sugar-component" id="{{toID path @index}}">
+        {{#each data}}
+          {{> block-title data=this}}
+        {{/each}}
 
         <div class="sugar-table-container">
             <table class="sugar-var-table">
@@ -27,32 +23,25 @@
                 <th>Comment</th>
               </thead>
 
-              {{~#each file.data as |data| }}
-
-                {{~#each data.serializedCode as |serialized| }}
-
+              {{#each data}}
+                {{#each serializedCode}}
                   <tr>
-                    <td><pre>{{ serialized.variable }}</pre></td>
-                    <td><pre>{{ serialized.value }}</pre></td>
+                    <td><pre>{{ variable }}</pre></td>
+                    <td><pre>{{ value }}</pre></td>
                     <td>
-                      {{#if serialized.comment }}
-                        <p>{{ serialized.comment }}</p>
+                      {{#if comment }}
+                        <p>{{ comment }}</p>
                       {{/if}}
                     </td>
                   </tr>
-
-                {{~/each}}
-
-              {{~/each}}
-
+                {{/each}}
+              {{/each}}
             </table>
           </div>
 
-        {{> file-path file=file}}
+        <p class="sugar-file sugar-p">File: <span class="sugar-path">{{ path }}</span></p>
 
       </div>
-
-    {{~/each}}
-
+    {{/each}}
   </div>
 </section>

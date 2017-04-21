@@ -8,12 +8,13 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 **Note**: This is still a [work in-progress](#v100). Please file an issue if you encounter any issues or think a feature should be added.
 
+See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
+
 ![Screenshot Colors](screenshots/colors.png)
 
 ![Screenshot Variables](screenshots/variables.png)
 
 ![Screenshot Components](screenshots/components.png)
-See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
 
 
 # Index #
@@ -24,11 +25,10 @@ See our [example project](https://github.com/sugarcoat/sugarcoat-example-project
     - [Module](#module)
     - [CLI](#cli)
   - [Configuration](#configuration)
-    - [`settings` Object](#settings-object)
-    - [Advanced `settings` Example](#advanced-settings-example)
     - [`sections` Array](#sections-array)
     - [Standardized File Format](#standardized-file-format)
   - [Code Comment Syntax](#code-comment-syntax)
+  - [Example Project](https://github.com/sugarcoat/sugarcoat-example-project)
 
 
 ---
@@ -88,9 +88,7 @@ sugarcoat( config ).then( data => {
 
 ```js
 {
-  settings: {
-    dest: 'path/to/dest'
-  },
+  dest: 'path/to/dest',
   sections: [
     {
       title: 'Base',
@@ -107,28 +105,48 @@ sugarcoat( config ).then( data => {
 }
 ```
 
-## `settings` Object ##
-
-This object holds general configuration values.
-
-### `cwd` ###
-
-  - Required: No
-  - Type: `String`
-  - Default: `process.cwd()`
-
-Path to which `dest` is relative.
-
-### `dest` ###
+## `dest` ##
 
   - Required: Yes
   - Type: `String`
   - Default: `null`
-  - Relative: `settings.cwd`
+  - Relative: `process.cwd()`
 
-Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist. If given the option 'none', Sugarcoat will not output a rendered pattern library. 
+Directory to which Sugarcoat will output the results. This path is relative to `cwd`. Sugarcoat will create any directories that do not already exist. If given the option 'none', Sugarcoat will not output a rendered pattern library.
 
-### `graphic` ###
+## `copy` ##
+
+  - Required: No
+  - Type: [Standardized File Format](#standardized-file-format)
+  - Default: `null`
+
+Static asset file(s) to copy to `dest`. If you would like to use Sugarcoat's default pattern library assets, as well as your own, just include `sugarcoat` in the asset array.
+
+## `include` Object ##
+
+CSS and JavaScript to insert into default template. All CSS Rules are prefixed to prevent style bleed.
+
+### `include.css` ###
+
+  - Required: No
+  - Type: [Standardized File Format](#standardized-file-format)
+  - Default: `null`
+
+CSS file(s) you wish Sugarcoat to prefix with `template.selectorPrefix`. The newly prefixed stylesheets will be placed in your document in the order you declare them.
+
+### `include.js` ###
+
+  - Required: No
+  - Type: [Standardized File Format](#standardized-file-format)
+  - Default: `null`
+
+JS Files you wish Sugarcoat to include in the script tag at the footer of your pattern library.
+
+## `display` Object ##
+
+Used to set display values in your template
+
+### `display.graphic` ###
 
   - Required: No
   - Type: `String`
@@ -136,30 +154,84 @@ Directory to which Sugarcoat will output the results. This path is relative to `
 
 Path to the image to be rendered in the heading of your pattern library.
 
-### `log` ###
-
-  - Required: No
-  - Type: `Object`
-
-Configure Sugarcoat's logging properties. See [npm/npmlog](https://github.com/npm/npmlog#loglevel) for more info.
-
-### `prefix.assets` ###
-
-  - Required: No
-  - Type: [Standardized File Format](#standardized-file-format)
-  - Default: `null`
-  - Relative: [`settings.cwd`](#cwd)
-
-CSS file(s) you wish Sugarcoat to prefix with `prefix.selector`. The newly prefixed stylesheets will be placed in your document in the order you declare them.
-
-### `title` ###
+### `display.title` ###
 
   - Required: No
   - Type: `String`
-  - Default: 'Pattern Library'
+  - Default: `Pattern Library`
 
-The value displayed as the heading of your pattern library.
+String to be used in the `<title>` tag
 
+
+### `display.headingText` ###
+
+  - Required: No
+  - Type: `String`
+  - Default: `null`
+
+String to be used in the `<h1>` tag
+
+
+## `template` Object ##
+
+For advanced configurations and custom templatization.
+
+### `template.partials` ###
+
+  - Required: No
+  - Type: `Object`
+  - Default: See example below
+
+Replace default partials and register custom partials by providing a path.
+
+**Example:**
+
+```js
+partials: {
+    'head': 'my-custom-partials/head.hbs', // Replaces head partial with your path provided
+    'nav': '', // Uses Sugarcoat default partial
+    'footer': '',
+    'section-color': '',
+    'section-typography': '',
+    'section-variable': '',
+    'section-default': '',
+    'my-custom-partial': 'my-custom-partials/custom.hbs' // Declares custom partial with your path provided
+}
+```
+
+### `template.helpers` ###
+
+  - Required: No
+  - Type: `Object` containing `Functions`
+  - Default: `require( 'sugarcoat/lib/handlebars-helpers.js' )`
+
+Register custom helpers. Requires a value in `template.layout` and/or `template.partials`
+
+**Example:**
+
+```js
+helpers: {
+    someHelper: fn() {}
+},
+// or
+helpers: require( 'my-big-file-full-of-helpers' ),
+```
+
+### `template.layout` ###
+
+  - Required: No
+  - Type: `String`
+  - Default: `main.hbs` (provided by Sugarcoat)
+
+Path to the Handlebars layout that will define the layout of the site.
+
+### `template.selectorPrefix` ###
+
+  - Required: No
+  - Type: `String` (CSS selector)
+  - Default: `.sugar-example`
+
+Define the selector to be used to prefix all assets in `copy`. Requires a value in `include.css` and either a value in `template.layout` or `template.partials`.
 
 ## `sections` Array ##
 
@@ -284,7 +356,7 @@ files: {
 # Code Comment Syntax #
 
 ```css
-/**
+/**g\t
  * @title Tooltip
  * @example
  *  <div class="tooltip">

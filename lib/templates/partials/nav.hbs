@@ -5,42 +5,36 @@
  *
  */
 -->
+<nav class="sugar-nav">
+  <div class="sugar-masthead">
+    {{#if display.graphic }}
+    	<img src="{{ display.graphic }}" />
+    {{/if}}
+    {{#if display.headingText}}
+    	<h1>{{ display.headingText }}</h1>
+    {{/if}}
+  </div>
 
-<ul id="sugar-nav">
-
-  {{~#each this as |section| }}
-
-    <li>
-      <a class="sugar-nav-item" href="#{{toID section.title}}">{{ section.title }}</a>
-      <ul>
-
-        {{~#each section.files as |file| }}
-
-          {{~#each file.data as |data| }}
-
-          <li>
-            <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
-
-            {{~#each data.tags as |tagObj| }}
-
-              {{~#isEqual tagObj.tag 'title' }}
-
-                {{ tagObj.value }}
-
-              {{~/isEqual}}
-
-            {{~/each}}
-
-            </a>
-          </li>
-
-          {{~/each}}
-
-        {{~/each}}
-
-      </ul>
-    </li>
-
-  {{~/each}}
-
-</ul>
+  <ul id="sugar-nav">
+    {{#each sections as |section| }}
+      <li>
+        <a class="sugar-nav-item" href="#{{toID title}}">{{ title }}</a>
+        <ul>
+          {{#each files as |file| }}
+            {{#each data}}
+              <li>
+                <a class="sugar-nav-subitem" href="#{{toID file.path @index }}">
+                {{#each tags}}
+                  {{#isEqual tag 'title' }}
+                    {{ value }}
+                  {{/isEqual}}
+                {{/each}}
+                </a>
+              </li>
+            {{/each}}
+          {{/each}}
+        </ul>
+      </li>
+    {{/each}}
+  </ul>
+</nav>

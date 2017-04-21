@@ -37,12 +37,10 @@ suite( 'Configure: Settings', function () {
         });
     });
 
-    test( 'When destination is set to none, no index file is created.', () => {
+    test( 'Destination can be set to none. No index file is created.', () => {
 
         var configNoDest = {
-            settings: {
-                dest: 'none'
-            },
+            dest: 'none',
             sections: [
                 {
                     title: 'CSS File',
@@ -59,7 +57,7 @@ suite( 'Configure: Settings', function () {
         sugarcoat( configNoDest )
         .then( data => {
 
-            var index = data.settings.dest !== null ? path.resolve( data.settings.cwd, `${data.settings.dest}/index.html` ) : `${data.settings.cwd}/index.html`;
+            var index = data.dest !== null ? path.resolve( process.cwd(), `${data.dest}/index.html` ) : `${process.cwd()}/index.html`;
 
             // Note: In Node v4, fs.constants.F_OK was fs.F_OK.
             // fs.constants.F_OK - file is visible to the calling process, which is useful for determining if a file exists.
@@ -78,11 +76,9 @@ suite( 'Configure: Settings', function () {
     test( 'In order to use prefix.selector, prefix.assets must be supplied.', () => {
 
         var configNoPrefixedAssets = {
-            settings: {
-                dest: './test/sugarcoat',
-                prefix: {
-                    selector: 'blah'
-                }
+            dest: './test/sugarcoat',
+            template: {
+                selectorPrefix: 'blah'
             },
             sections: [
                 {
@@ -113,14 +109,14 @@ suite( 'Configure: Settings', function () {
     test( 'In order to use prefix.selector, template options must be supplied.', () => {
 
         var configNoPrefixedAssets = {
-            settings: {
-                dest: './test/sugarcoat',
-                prefix: {
-                    selector: 'blah',
-                    assets: [
-                        './test/assert/*.css'
-                    ]
-                }
+            dest: './test/sugarcoat',
+            template: {
+                selectorPrefix: 'blah'
+            },
+            include: {
+                css: [
+                    './test/assert/*.css'
+                ]
             },
             sections: [
                 {
@@ -139,8 +135,6 @@ suite( 'Configure: Settings', function () {
         .then( data => {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
-
-
 
         }, data => {
 
@@ -168,9 +162,7 @@ suite( 'Configure: Sections', function () {
     test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', () => {
 
         var configMissingOnlyTitle = {
-            settings: {
-                dest: './test/sugarcoat'
-            },
+            dest: './test/sugarcoat',
             sections: [
                 {
                     files: './test/assert/parseVarCode.css'
@@ -194,9 +186,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section array is set to be required. Section array errored out when not supplied.', () => {
 
         var configMissingTitleFiles = {
-            settings: {
-                dest: './test/sugarcoat'
-            }
+            dest: './test/sugarcoat'
         };
 
         sugarcoat( configMissingTitleFiles )
@@ -215,9 +205,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', () => {
 
         var configMissingTitleFiles = {
-            settings: {
-                dest: './test/sugarcoat'
-            },
+            dest: './test/sugarcoat',
             sections: []
         };
 
@@ -237,9 +225,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', () => {
 
         var configMissingOneFiles = {
-            settings: {
-                dest: './test/sugarcoat'
-            },
+            dest: './test/sugarcoat',
             sections: [
                 {
                     title: 'CSS File'
