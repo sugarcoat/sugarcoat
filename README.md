@@ -13,6 +13,8 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 ![Screenshot Variables](screenshots/variables.png)
 
 ![Screenshot Components](screenshots/components.png)
+
+
 See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
 
 
@@ -24,11 +26,10 @@ See our [example project](https://github.com/sugarcoat/sugarcoat-example-project
     - [Module](#module)
     - [CLI](#cli)
   - [Configuration](#configuration)
-    - [`settings` Object](#settings-object)
-    - [Advanced `settings` Example](#advanced-settings-example)
     - [`sections` Array](#sections-array)
     - [Standardized File Format](#standardized-file-format)
   - [Code Comment Syntax](#code-comment-syntax)
+  - [Example Project](https://github.com/sugarcoat/sugarcoat-example-project)
 
 
 ---
@@ -158,7 +159,7 @@ Path to the image to be rendered in the heading of your pattern library.
 
   - Required: No
   - Type: `String`
-  - Default: `null`
+  - Default: `Pattern Library`
 
 String to be used in the `<title>` tag
 
@@ -176,11 +177,11 @@ String to be used in the `<h1>` tag
 
 For advanced configurations and custom templatization.
 
-### `template.partials` Object ###
+### `template.partials` ###
 
   - Required: No
-  - Type: `String`
-  - Default: Provided by Sugarcoat, see example
+  - Type: `Object`
+  - Default: See example below
 
 Replace default partials and register custom partials by providing a path.
 
@@ -199,7 +200,7 @@ partials: {
 }
 ```
 
-### `template.helpers` Object ###
+### `template.helpers` ###
 
   - Required: No
   - Type: `Object` containing `Functions`
