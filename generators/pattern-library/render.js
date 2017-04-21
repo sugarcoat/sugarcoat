@@ -34,6 +34,7 @@ module.exports = function ( config ) {
 
                 config.include.js = config.include.js.map( asset => {
                     asset.relative = path.relative( config.dest, asset.file );
+
                     return asset;
                 });
 
