@@ -3,7 +3,7 @@
 var path = require( 'path' );
 
 var _ = require( 'lodash' );
-var log = require( '../../lib/logger' );
+// var log = require( '../../lib/logger' );
 var errors = require( './errors');
 
 /**
@@ -37,7 +37,7 @@ function init( options ) {
         ;
 
     // Configure the logger
-    log.config( config.settings.log );
+    // log.config( config.settings.log );
 
     // **** ASSETS (template) ****
 
