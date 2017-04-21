@@ -24,6 +24,25 @@ module.exports = function ( config ) {
         }
         else return config;
     })
+    .then( config => {
+
+        if ( config.include.js ) {
+            return  globFiles( config.include.js )
+            .then( assets => {
+
+                config.include.js = _.flatten( assets );
+
+                config.include.js = config.include.js.map( asset => {
+                    asset.relative = path.relative( config.dest, asset.file );
+                    return asset;
+                });
+
+                return config;
+            });
+        }
+        else return config;
+    })
+
     .then( copyAssets )
     .then( config => {
 

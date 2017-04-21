@@ -109,6 +109,13 @@ function init( options ) {
         });
     }
 
+    if ( !_.isEmpty( include.js ) ) {
+        include.js = include.js.map( dirPath => {
+
+            return normalizeDirectory( dirPath, process.cwd() );
+        });
+    }
+
     // **** TEMPLATE ****
 
     // If custom selector is used, there must be style sheets provided, layouts, or partials
