@@ -136,8 +136,6 @@ suite( 'Configure: Settings', function () {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
 
-
-
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
