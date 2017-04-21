@@ -5,7 +5,7 @@ var errors = {
     configSectionTitleMissing: 'Title is required. Please add a `title` option to section object',
     configSectionFileMissing: 'Files is required. Please add a `files` option to section object',
     configPrefixAssetsMissing: '`Prefix.assets` are required in order to use `prefix.selector`. Please add `prefix.selector` to the settings object if you wish to add a prefixed selector.',
-    configTemplateOptionsMissing: 'Template options are required in order to use `prefix.selector`. Please add a template.layout, template.partials or template.assets to the settings object if you wish to add a prefixed selector.',
+    configTemplateOptionsMissing: 'Template options are required in order to use `prefix.selector`. Please add a template.layout, template.partials to the settings object if you wish to add a prefixed selector.',
     configTemplateHelpers: 'If helpers are provided, layout and/or partials must be provided'
 };
 module.exports = errors;

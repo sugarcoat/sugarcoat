@@ -111,7 +111,7 @@ function init( options ) {
 
     // **** TEMPLATE ****
 
-    // If custom selector is used, there must be style sheets provided, copied assets, layouts, or partials
+    // If custom selector is used, there must be style sheets provided, layouts, or partials
     if ( template.selectorPrefix !== defaults.template.selectorPrefix && template.selectorPrefix !== null ) {
 
         if ( !include.css ) {
@@ -119,7 +119,7 @@ function init( options ) {
             return config = new Error( errors.configPrefixAssetsMissing );
 
         }
-        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) && _.isEmpty( config.copy ) ) {
+        else if ( _.isEmpty( template.layout ) && _.isEmpty( template.partials ) ) {
 
             return config = new Error( errors.configTemplateOptionsMissing );
         }
