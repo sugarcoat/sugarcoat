@@ -1,0 +1,46 @@
+<!--
+/**
+ *
+ * @title Partial for Preview of component
+ *
+ */
+-->
+<div class="sugar-preview-block">
+
+  {{~#isEqual file.ext 'html'}}
+
+    <p class="sugar-example-text sugar-p">Example</p>
+    <div class="sugar-preview">
+      <div class="sugar-example">
+
+{{{ this.context }}}
+
+      </div>
+
+      <pre class="sugar-pre">{{ this.context }}</pre>
+
+    </div>
+
+  {{~/isEqual}}
+
+  {{~#each this.tags as |tagObj| }}
+
+    {{~#isEqual tagObj.tag 'example'}}
+
+      <p class="sugar-example-text sugar-p">Example</p>
+      <div class="sugar-preview">
+        <div class="sugar-example">
+
+          {{{ tagObj.value }}}
+
+        </div>
+
+        <pre class="sugar-pre">{{ tagObj.value }}</pre>
+
+      </div>
+
+    {{~/isEqual}}
+
+  {{~/each}}
+
+</div>

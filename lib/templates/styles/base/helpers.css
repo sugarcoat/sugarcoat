@@ -1,0 +1,53 @@
+@import 'variables.css';
+@import 'custom-properties.css';
+.sugar-btn-accordion {
+    font-size: 0;
+    width: 40px;
+    cursor: pointer;
+    transition: 0.35s linear transform;
+}
+.sugar-btn-accordion:before,
+.sugar-btn-accordion:after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 1px;
+    left: 7px;
+    background-color: black;
+    transition: 0.35s linear all;
+}
+.sugar-btn-accordion:after {
+    top: 20px;
+}
+.sugar-btn-accordion:before {
+    top: 30px;
+}
+.sugar-accordion-small {
+    height: 30px;
+}
+.sugar-accordion-small:before,
+.sugar-accordion-small:after {
+    width: 18px;
+}
+.sugar-accordion-small:after {
+    top: 22px;
+}
+.sugar-accordion-small:before {
+    top: 28px;
+}
+.sugar-nav-open .sugar-btn-accordion:after {
+    transform: translateY(5px);
+    background-color: var(--blue);
+}
+.sugar-nav-open .sugar-btn-accordion:before {
+    transform: translateY(-5px);
+    background-color: var(--blue);
+}
+.sugar-color-open .sugar-accordion-small:after {
+    transform: translateY(3px);
+    background-color: var(--blue);
+}
+.sugar-color-open .sugar-accordion-small:before {
+    transform: translateY(-3px);
+    background-color: var(--blue);
+}

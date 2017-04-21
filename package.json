@@ -39,18 +39,15 @@
     "node": ">= 6.0.0"
   },
   "license": "MIT",
-  "bin": {
-    "sugarcoat": "generators/pattern-library/bin/index.js"
-  },
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SapientNitroLA/sugarcoat.git"
+    "url": "https://github.com/sugarcoat/sugarcoat.git"
   },
   "bugs": {
-    "url": "https://github.com/SapientNitroLA/sugarcoat/issues"
+    "url": "https://github.com/sugarcoat/sugarcoat/issues"
   },
-  "homepage": "https://github.com/SapientNitroLA/sugarcoat",
+  "homepage": "https://github.com/sugarcoat/sugarcoat",
   "contributors": [
     {
       "name": "Ali Groening",
