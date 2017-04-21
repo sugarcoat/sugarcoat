@@ -1,5 +1,2 @@
 @import 'defaults.css';
-
-@media( min-width: 768px ) {
-    @import '768.css';
-}
+@import '768.css' ( min-width: 768px );

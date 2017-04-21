@@ -26,7 +26,7 @@
 }
 .sugar-tag-details .sugar-tag-description {
     font-family: 'Helvetica';
-    font-size: 1rem; //16px
+    font-size: 16px;
     color: #666;
     word-break: break-all;
 }
