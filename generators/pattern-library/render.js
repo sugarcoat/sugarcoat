@@ -41,7 +41,7 @@ module.exports = function ( config ) {
         }
         else return config;
     })
-    .catch( err => err );
+    .catch( err => Promise.reject( err ) );
 };
 
 /*
@@ -93,8 +93,7 @@ function copyAssets( config ) {
     .then( () => {
 
         return config;
-    })
-    .catch( err => err );
+    });
 }
 
 function globPartials( config ) {
@@ -104,7 +103,7 @@ function globPartials( config ) {
         config.settings.template.partials = _.flatten( partials );
 
         return config;
-    }).catch( err => err );
+    });
 }
 
 function readPartials( config ) {
@@ -152,8 +151,7 @@ function globPrefixAssets( config ) {
         config.settings.prefix.assets = _.flatten( assets );
 
         return config;
-    })
-    .catch( err => err );
+    });
 }
 
 function prefixAssets( config ) {
@@ -186,8 +184,7 @@ function prefixAssets( config ) {
     .then( () => {
 
         return config;
-    })
-    .catch( err => err );
+    });
 }
 
 function renderLayout( config ) {
@@ -217,8 +214,7 @@ function renderLayout( config ) {
 
             return html;
         });
-    })
-    .catch( err => err );
+    });
 }
 
 /*
@@ -245,8 +241,7 @@ function globFiles( files ) {
 
                 return collection;
             }, []);
-        })
-        .catch( err => err );
+        });
     });
 
     return Promise.all( globArray );
