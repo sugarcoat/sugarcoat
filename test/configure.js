@@ -37,7 +37,7 @@ suite( 'Configure: Settings', function () {
         });
     });
 
-    test( 'Destination can be set to none. No index file is created.', done => {
+    test( 'Destination can be set to none. No index file is created.', () => {
 
         var configNoDest = {
             dest: 'none',
@@ -76,7 +76,7 @@ suite( 'Configure: Settings', function () {
     test( 'In order to use prefix.selector, prefix.assets must be supplied.', () => {
 
         var configNoPrefixedAssets = {
-            dest: './test/documentation',
+            dest: './test/sugarcoat',
             template: {
                 selectorPrefix: 'blah'
             },
@@ -109,7 +109,7 @@ suite( 'Configure: Settings', function () {
     test( 'In order to use prefix.selector, template options must be supplied.', () => {
 
         var configNoPrefixedAssets = {
-            dest: './sugarcoat',
+            dest: './test/sugarcoat',
             template: {
                 selectorPrefix: 'blah'
             },
@@ -164,7 +164,7 @@ suite( 'Configure: Sections', function () {
     test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', () => {
 
         var configMissingOnlyTitle = {
-            dest: './test/documentation',
+            dest: './test/sugarcoat',
             sections: [
                 {
                     files: './test/assert/parseVarCode.css'
@@ -188,7 +188,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section array is set to be required. Section array errored out when not supplied.', () => {
 
         var configMissingTitleFiles = {
-            dest: './test/documentation'
+            dest: './test/sugarcoat'
         };
 
         sugarcoat( configMissingTitleFiles )
@@ -207,7 +207,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', () => {
 
         var configMissingTitleFiles = {
-            dest: './test/documentation',
+            dest: './test/sugarcoat',
             sections: []
         };
 
@@ -227,7 +227,7 @@ suite( 'Configure: Sections', function () {
     test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', () => {
 
         var configMissingOneFiles = {
-            dest: './test/documentation',
+            dest: './test/sugarcoat',
             sections: [
                 {
                     title: 'CSS File'

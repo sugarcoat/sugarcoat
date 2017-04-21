@@ -7,4 +7,3 @@ node_modules
 *.sublime-workspace
 .sass-cache
 test/sugarcoat
-sugarcoat/sugarcoat/**
