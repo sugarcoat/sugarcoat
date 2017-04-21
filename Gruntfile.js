@@ -16,11 +16,8 @@ module.exports = function ( grunt ) {
     grunt.config( 'eslint', {
         src: [
             'lib/*.js',
-            'generators/*.js',
-            'generators/pattern-library/**/*.js',
             'grunt/*.js',
             'Gruntfile.js',
-            '!generators/pattern-library/examples/**/*.js',
             'test/*.js'
         ]
     });
@@ -39,11 +36,11 @@ module.exports = function ( grunt ) {
             files: [
                 {
                     expand: true,
-                    cwd: 'generators/pattern-library/templates',
+                    cwd: 'lib/templates',
                     src: [
                         'styles/**/*.css'
                     ],
-                    dest: 'generators/pattern-library/templates',
+                    dest: 'lib/templates',
                     ext: 'styles/**/*.css'
                 }
             ]
