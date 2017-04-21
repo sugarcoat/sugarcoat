@@ -58,7 +58,7 @@ module.exports = function ( grunt ) {
                 postcssUrl(),
                 postcssCSSnext({ browsers: [ 'last 2 versions', 'ie 10' ] }),
                 postcssPxtorem(),
-                cssnano()
+                cssnano({ discardComments: { removeAll: true }, autoprefixer: false })
             ]
         },
         dist: {
