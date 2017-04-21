@@ -1,0 +1,47 @@
+<!--
+/**
+ *
+ * @title Partial for Variables component
+ *
+ */
+-->
+<section id="{{toID title}}" class="sugar-section sugar-section-variable">
+  <div class="sugar-section-wrapper">
+    <h2 class="sugar-h2"><a href="#{{toID title}}">{{ title }}</a></h2>
+
+    {{#each files}}
+      <div class="sugar-component" id="{{toID path @index}}">
+        {{#each data}}
+          {{> block-title data=this}}
+        {{/each}}
+
+        <div class="sugar-table-container">
+            <table class="sugar-var-table">
+              <thead>
+                <th>Variable</th>
+                <th>Value</th>
+                <th>Comment</th>
+              </thead>
+
+              {{#each data}}
+                {{#each serializedCode}}
+                  <tr>
+                    <td><pre>{{ variable }}</pre></td>
+                    <td><pre>{{ value }}</pre></td>
+                    <td>
+                      {{#if comment }}
+                        <p>{{ comment }}</p>
+                      {{/if}}
+                    </td>
+                  </tr>
+                {{/each}}
+              {{/each}}
+            </table>
+          </div>
+
+        <p class="sugar-file sugar-p">File: <span class="sugar-path">{{ path }}</span></p>
+
+      </div>
+    {{/each}}
+  </div>
+</section>

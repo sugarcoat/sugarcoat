@@ -8,11 +8,12 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 **Note**: This is still a [work in-progress](#v100). Please file an issue if you encounter any issues or think a feature should be added.
 
-![Screenshot Colors](generators/pattern-library/design/colors.png)
+![Screenshot Colors](screenshots/colors.png)
 
-![Screenshot Variables](generators/pattern-library/design/variables.png)
+![Screenshot Variables](screenshots/variables.png)
 
-![Screenshot Components](generators/pattern-library/design/components.png)
+![Screenshot Components](screenshots/components.png)
+See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
 
 
 # Index #
@@ -28,8 +29,6 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
     - [`sections` Array](#sections-array)
     - [Standardized File Format](#standardized-file-format)
   - [Code Comment Syntax](#code-comment-syntax)
-  - [Example Site](#example-site)
-  - [Roadmap](#roadmap)
 
 
 ---
@@ -63,13 +62,13 @@ npm install --save sugarcoat
 # Usage #
 
 
-The Sugarcoat module takes a `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data. If there are any errors within Sugarcoat, it will reject the promise, passing in an array of `Error` objects. The user can then handle those errors as needed.
+The Sugarcoat module takes a `config` object and returns a `Promise`. By default, the `resolve` callback provided to the `.then` method receives the expanded `config` object with the parsed sections data. If there are any errors within Sugarcoat, it will reject the promise, passing back the first error as an `Error` object. The user can then handle the error as needed. (It is easiest if a `.catch` is added to end of the sugarcoat promise which will catch any errors.)
 
 
 ```js
 const sugarcoat = require( 'sugarcoat' );
 
-sugarcoat( config ).catch( errorArray => {
+sugarcoat( config ).catch( errorObj => {
   // handle errors here
 });
 
@@ -77,7 +76,7 @@ sugarcoat( config ).catch( errorArray => {
 
 sugarcoat( config ).then( data => {
     console.log( data );
-}).catch( errorArray => {
+}).catch( errorObj => {
   // handle errors here
 });
 ```

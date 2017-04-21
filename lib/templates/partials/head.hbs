@@ -1,0 +1,6 @@
+<link rel="stylesheet" type="text/css" href="sugarcoat/css/sugarcoat.css">
+{{#if include.css}}
+{{#each include.css}}
+  <link rel="stylesheet" type="text/css" href="{{ prefixed }}">
+{{/each}}
+{{/if}}

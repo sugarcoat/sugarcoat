@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html lang="en" class="no-js ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>{{ display.title }}</title>
+  {{> head}}
+</head>
+<body>
+
+  <div class="sugar-page-wrapper">
+
+    {{> nav }}
+
+    <a class="sugar-btn-accordion sugar-nav-toggle">Toggle</a>
+
+    <div class="sugar-main">
+
+      <div class="sugar-masthead">
+        {{#if display.graphic }}
+        	<img src="{{ display.graphic }}" />
+        {{/if}}
+        {{#if display.headingText }}
+        	<h1>{{ display.headingText }}</h1>
+        {{/if}}
+      </div>
+
+      {{#each sections as |section|}}
+
+        {{> (lookup . 'template') }}
+
+      {{/each}}
+
+      {{> footer}}
+
+    </div>
+  </div>
+
+<script src="sugarcoat/js/sugar-nav.js"></script>
+
+</body>
+</html>

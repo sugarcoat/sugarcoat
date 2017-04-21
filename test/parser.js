@@ -3,8 +3,8 @@
 var assert = require( 'chai' ).assert;
 var fs = require( 'fs' );
 
-var parser = require( '../generators/pattern-library/parser' );
-var sugarcoat = require( '../index' );
+var parser = require( '../lib/parser' );
+var sugarcoat = require( '../lib/index' );
 
 suite( 'Parser: parseComment', function () {
 
