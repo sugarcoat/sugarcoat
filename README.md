@@ -8,14 +8,13 @@ Sugarcoat was created to enable developers to produce rich UI documentation easi
 
 **Note**: This is still a [work in-progress](#v100). Please file an issue if you encounter any issues or think a feature should be added.
 
+See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
+
 ![Screenshot Colors](screenshots/colors.png)
 
 ![Screenshot Variables](screenshots/variables.png)
 
 ![Screenshot Components](screenshots/components.png)
-
-
-See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
 
 
 # Index #
@@ -357,7 +356,7 @@ files: {
 # Code Comment Syntax #
 
 ```css
-/**
+/**g\t
  * @title Tooltip
  * @example
  *  <div class="tooltip">
