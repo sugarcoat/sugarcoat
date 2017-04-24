@@ -1,6 +1,6 @@
 # Sugarcoat #
 
-[![NPM version](https://badge.fury.io/js/%40xtwest%2Fsugarcoat.svg)](https://www.npmjs.com/package/@xtwest/sugarcoat) [![Travis CI Status](https://api.travis-ci.org/sugarcoat/sugarcoat.svg?branch=master)](https://travis-ci.org/sugarcoat/sugarcoat) [![Dependency Status](https://david-dm.org/sugarcoat/sugarcoat.svg)](https://david-dm.org/sugarcoat/sugarcoat)
+[![NPM version](https://badge.fury.io/js/sugarcoat.svg)](https://www.npmjs.com/package/sugarcoat) [![Travis CI Status](https://api.travis-ci.org/sugarcoat/sugarcoat.svg?branch=master)](https://travis-ci.org/sugarcoat/sugarcoat) [![Dependency Status](https://david-dm.org/sugarcoat/sugarcoat.svg)](https://david-dm.org/sugarcoat/sugarcoat)
 
 Making UI documentation a bit sweeter ✨
 
