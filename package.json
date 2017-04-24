@@ -1,6 +1,6 @@
 {
   "name": "sugarcoat",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Making UI documentation a bit sweeter ✨",
   "dependencies": {
     "comment-serializer": "^0.2.3",
