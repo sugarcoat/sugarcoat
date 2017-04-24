@@ -1,9 +1,5 @@
 .DS_Store
-notes
-example/**/pattern-library
 node_modules
 .tm_properties
 *.sublime-project
 *.sublime-workspace
-.sass-cache
-test/sugarcoat

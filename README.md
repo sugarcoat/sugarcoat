@@ -1,12 +1,12 @@
 # Sugarcoat #
 
-[![NPM version](https://badge.fury.io/js/sugarcoat.svg)](https://www.npmjs.com/package/sugarcoat) [![Dependency Status](https://david-dm.org/sapientnitrola/sugarcoat.svg)](https://david-dm.org/sapientnitrola/sugarcoat)
+[![NPM version](https://badge.fury.io/js/%40xtwest%2Fsugarcoat.svg)](https://www.npmjs.com/package/@xtwest/sugarcoat) [![Travis CI Status](https://api.travis-ci.org/sugarcoat/sugarcoat.svg?branch=master)](https://travis-ci.org/sugarcoat/sugarcoat) [![Dependency Status](https://david-dm.org/sugarcoat/sugarcoat.svg)](https://david-dm.org/sugarcoat/sugarcoat)
 
 Making UI documentation a bit sweeter ✨
 
-Sugarcoat was created to enable developers to produce rich UI documentation easily and with minimal up-keep. Sugarcoat works by parsing project files for documentation comments (similar to JavaDoc, JSDoc, etc.) and generates a responsive HTML site or JSON that is organized and easy to read. Sugarcoat allows developers and designers access to up-to-date previews of UI elements, page components, project specific colors and typography, all in one place.
+Sugarcoat was created to enable developers to produce rich UI documentation easily and with minimal up-keep. Sugarcoat works by parsing project files for documentation comments (similar syntax to JavaDoc, JSDoc, etc.) and generates a responsive HTML page (or raw JSON) that is organized and easy to read. Sugarcoat allows developers and designers access to up-to-date previews of UI elements, page components, project specific colors and typography, all in one place.
 
-**Note**: This is still a [work in-progress](#v100). Please file an issue if you encounter any issues or think a feature should be added.
+**Note**: This is still a [work in-progress](https://github.com/sugarcoat/sugarcoat/milestone/1). Please file an issue if you encounter any issues or think a feature should be added.
 
 See our [example project](https://github.com/sugarcoat/sugarcoat-example-project) to get a better view of Sugarcoat up and running.
 
@@ -276,12 +276,12 @@ The default partial name used to display parsed comments is `section-default`. I
 
 **Relationship Table**
 
-| `mode`     | Default `template` | Alternate `template` | Description       |
-|------------|--------------------|----------------------|-------------------|
-| undefined  | 'section-default'  |                      | Parse comment block only |
-| 'variable' | 'section-variable' |                      | Parse file content for variables and renders a simple table. Inline comments are treated as the variable's description. Groups of variables can be divided in a file by a comment block. |
-| 'variable' |                    | 'section-color'      | Same as 'section-variable', except variables are rendered as swatches |
-| 'variable' |                    | 'section-typography' | Same as 'section-variable', except font-family styles are applied to sample text |
+| `mode`     | Default `template` | Alternate `template` | Description                                                                                                                                                                              |  
+| ---------- | ------------------ | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |  
+| undefined  | 'section-default'  |                      | Parse comment block only                                                                                                                                                                 |  
+| 'variable' | 'section-variable' |                      | Parse file content for variables and renders a simple table. Inline comments are treated as the variable's description. Groups of variables can be divided in a file by a comment block. |  
+| 'variable' |                    | 'section-color'      | Same as 'section-variable', except variables are rendered as swatches                                                                                                                    |  
+| 'variable' |                    | 'section-typography' | Same as 'section-variable', except font-family styles are applied to sample text                                                                                                         |  
 
 
 **Examples**
@@ -356,7 +356,7 @@ files: {
 # Code Comment Syntax #
 
 ```css
-/**g\t
+/**
  * @title Tooltip
  * @example
  *  <div class="tooltip">
