@@ -7,7 +7,7 @@ var path = require( 'path' );
 var sugarcoat = require( '../lib/index' );
 var errors = require( '../lib/errors' );
 
-suite( 'Configure: Settings', function () {
+suite( 'Configure: Dest', function () {
 
     test( 'Destination is set to be required. Destination errored out when not supplied.', () => {
 
@@ -72,6 +72,19 @@ suite( 'Configure: Settings', function () {
             });
         });
     });
+
+    teardown( done => {
+
+        fs.remove( './test/sugarcoat', err => {
+
+            if ( err ) return console.error( err );
+
+            done();
+        });
+    });
+});
+
+suite( 'Configure: Prefix.Selector', function () {
 
     test( 'In order to use prefix.selector, prefix.assets must be supplied.', () => {
 
