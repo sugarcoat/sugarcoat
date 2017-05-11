@@ -84,7 +84,67 @@ suite( 'Configure: Dest', function () {
     });
 });
 
-suite( 'Configure: Prefix.Selector', function () {
+
+suite( 'Configure: Display', function () {
+
+    // if no title is given default title is used
+    test( 'Display.Title is given default title when none is provided.', () => {
+
+        var configMissingTitle = {
+            dest: './test/sugarcoat',
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        sugarcoat( configMissingTitle )
+        .then( data => {
+
+            // this is what we want
+            // make sure title in html file is the default
+        });
+    });
+
+    // graphic is null if not provided
+
+    // heading text is null if not provided
+});
+
+suite( 'Configure: Copy', function () {
+
+    // copy assets are added to the SC folder
+
+    // if no assets provided, default assets are added
+
+    // if sc is present, sc assets are included as well as provided assets
+});
+
+suite( 'Configure: Include', function () {
+
+    // css files are added to template
+
+    // js files are added to template
+
+    // css files are prefixed by default if no prefix is provided
+
+    // css files are prefixed by prefix provided
+
+});
+
+// suite( 'Configure: Log', function () {});
+
+suite( 'Configure: Template', function () {
+
+    // new partial is used when one is overridden
+
+    // new partial is registered and used if provided
+
+    // helper is registered
+
+    // layout is registered and being used.
 
     test( 'In order to use prefix.selector, prefix.assets must be supplied.', () => {
 
@@ -101,7 +161,6 @@ suite( 'Configure: Prefix.Selector', function () {
                 {
                     title: 'CSS File 2',
                     files: './test/assert/parseVarCode.css'
-
                 }
             ]
         };
@@ -139,7 +198,6 @@ suite( 'Configure: Prefix.Selector', function () {
                 {
                     title: 'CSS File 2',
                     files: './test/assert/parseVarCode.css'
-
                 }
             ]
         };
@@ -154,8 +212,6 @@ suite( 'Configure: Prefix.Selector', function () {
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
 
             assert.propertyVal( data, 'message', errors.configTemplateOptionsMissing, 'Sugarcoat gave us the correct error.' );
-
-
         });
     });
 
