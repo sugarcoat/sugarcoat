@@ -164,8 +164,7 @@ suite( 'Configure: Display', function () {
         });
     });
 
-    // graphic is null if not provided
-    test.only( 'When Display.graphic is used an image tag is added to the HTML file ', ( done ) => {
+    test( 'When Display.graphic is used an image tag is added to the HTML file ', ( done ) => {
 
         var configGivenImg = {
             dest: './test/sugarcoat',
@@ -204,6 +203,44 @@ suite( 'Configure: Display', function () {
     });
 
     // heading text is null if not provided
+    test( 'When Display.headingText is used an H1 tag is added to the HTML file ', ( done ) => {
+
+        var testHeadingText = 'Test Heading Text';
+        var configGivenHeadingText = {
+            dest: './test/sugarcoat',
+            display: {
+                headingText: `${testHeadingText}`
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        sugarcoat( configGivenHeadingText )
+        .then( function ( data ) {
+
+            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+
+                var exp = /<div class="sugar-masthead">(\s*.*\s*)<h1>(.*)<\/h1>/;
+                var h1 = exp.exec( fileData.toString() )[2];
+
+                assert.equal( h1, testHeadingText, 'The heading text given is outputted to the HTML page.');
+            });
+
+            done();
+
+        }).catch( error => {
+
+            assert.isNotObject( error, 'error is not an obj' );
+        });
+    });
 
     teardown( done => {
 
