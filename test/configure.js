@@ -35,6 +35,7 @@ suite( 'Configure: Dest', function () {
 
             assert.propertyVal( data, 'message', errors.configDestMissing, 'Sugarcoat gave us the correct error.' );
         });
+
     });
 
     test( 'Destination can be set to none. No index file is created.', () => {
@@ -87,8 +88,7 @@ suite( 'Configure: Dest', function () {
 
 suite( 'Configure: Display', function () {
 
-    // if no title is given default title is used
-    test( 'Display.Title is given default title when none is provided.', () => {
+    test( 'Display.Title is given default title when none is provided.', ( done ) => {
 
         var configMissingTitle = {
             dest: './test/sugarcoat',
@@ -96,21 +96,124 @@ suite( 'Configure: Display', function () {
                 {
                     title: 'CSS File',
                     files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
                 }
             ]
         };
 
         sugarcoat( configMissingTitle )
-        .then( data => {
+        .then( function ( data ) {
 
-            // this is what we want
-            // make sure title in html file is the default
+            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+
+                var exp = /<title>(.*)<\/title>/;
+                var title = exp.exec( fileData.toString() )[1];
+
+                assert.equal( title, 'Pattern Library', 'The default title was used.');
+            });
+
+            done();
+
+        }).catch( error => {
+
+            assert.isNotObject( error, 'error is not an obj' );
+        });
+    });
+
+    test( 'Display.Title uses user title when provided.', ( done ) => {
+
+        var testTitle = 'Test that title out!';
+        var configGivenTitle = {
+            dest: './test/sugarcoat',
+            display: {
+                title: `${testTitle}`
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        sugarcoat( configGivenTitle )
+        .then( function ( data ) {
+
+            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+
+                var exp = /<title>(.*)<\/title>/;
+                var title = exp.exec( fileData.toString() );
+
+                console.log(title);
+
+                assert.equal( title[1], testTitle, 'The default title was used.');
+            });
+
+            done();
+
+        }).catch( error => {
+
+            assert.isNotObject( error, 'error is not an obj' );
         });
     });
 
     // graphic is null if not provided
+    test.only( 'When Display.graphic is used an image tag is added to the HTML file ', ( done ) => {
+
+        var configGivenImg = {
+            dest: './test/sugarcoat',
+            display: {
+                graphic: './test/assert/displayGraphic.png'
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        sugarcoat( configGivenImg )
+        .then( function ( data ) {
+
+            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+
+                var exp = /<div class="sugar-masthead">(\s*|.*)<img src=".*" \/>/;
+                var img = fileData.toString().search( exp );
+
+                assert.notEqual( img, '-1', 'There is an image added to the head of the HTML page.');
+            });
+
+            done();
+
+        }).catch( error => {
+
+            assert.isNotObject( error, 'error is not an obj' );
+        });
+    });
 
     // heading text is null if not provided
+
+    teardown( done => {
+
+        fs.remove( './test/sugarcoat', err => {
+
+            if ( err ) return console.error( err );
+
+            done();
+        });
+    });
 });
 
 suite( 'Configure: Copy', function () {
