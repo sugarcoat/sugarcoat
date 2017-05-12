@@ -151,8 +151,6 @@ suite( 'Configure: Display', function () {
                 var exp = /<title>(.*)<\/title>/;
                 var title = exp.exec( fileData.toString() );
 
-                console.log(title);
-
                 assert.equal( title[1], testTitle, 'The default title was used.');
             });
 
