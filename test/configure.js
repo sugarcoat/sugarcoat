@@ -6,6 +6,7 @@ var path = require( 'path' );
 
 var sugarcoat = require( '../lib/index' );
 var errors = require( '../lib/errors' );
+var configure = require( '../lib/configure' );
 
 suite( 'Configure: Dest', function () {
 
@@ -251,16 +252,12 @@ suite( 'Configure: Display', function () {
 
 suite( 'Configure: Copy', function () {
 
-    // copy assets are added to the SC folder
-    // WIP - look to see where we should be testing this (maybe elsewhere?)
-    test( 'Any files in Copy are added to the sugarcoat folder.', done => {
+    // if no assets provided, default assets are added
+    // run configure on a config and see what we get
+    test.only( 'If no assets are provided to copy, default sugarcoat assets are added.', () => {
 
-        var configGivenHeadingText = {
+        var configNoCopy = {
             dest: './test/sugarcoat',
-            copy: [
-                'sugarcoat',
-                './test/assert/copy.png'
-            ],
             sections: [
                 {
                     title: 'CSS File',
@@ -273,26 +270,12 @@ suite( 'Configure: Copy', function () {
             ]
         };
 
-        sugarcoat( configGivenHeadingText )
-        .then( function ( data ) {
+        var processedConfig = configure( configNoCopy );
 
-            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+        // compare copy file path with sugarcoat default file path?
 
-                var exp = /<div class="sugar-masthead">(\s*.*\s*)<h1>(.*)<\/h1>/;
-                var h1 = exp.exec( fileData.toString() )[2];
-
-                assert.equal( h1, testHeadingText, 'The heading text given is outputted to the HTML page.');
-            });
-
-            done();
-
-        }).catch( error => {
-
-            assert.isNotObject( error, 'error is not an obj' );
-        });
+        console.log( processedConfig);
     });
-
-    // if no assets provided, default assets are added
 
     // if sc is present, sc assets are included as well as provided assets
 
