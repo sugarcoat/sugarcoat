@@ -252,9 +252,7 @@ suite( 'Configure: Display', function () {
 
 suite( 'Configure: Copy', function () {
 
-    // if no assets provided, default assets are added
-    // run configure on a config and see what we get
-    test.only( 'If no assets are provided to copy, default sugarcoat assets are added.', () => {
+    test( 'If no assets are provided to copy, default sugarcoat assets are added.', () => {
 
         var configNoCopy = {
             dest: './test/sugarcoat',
@@ -272,21 +270,56 @@ suite( 'Configure: Copy', function () {
 
         var processedConfig = configure( configNoCopy );
 
-        // compare copy file path with sugarcoat default file path?
+        var regex = /(sugarcoat\/\*\*\/\*)/;
 
-        console.log( processedConfig);
+        var copySrcPath = processedConfig.copy[0].src.search( regex );
+
+        assert.notEqual( copySrcPath, -1, 'Sugarcoat default file path was included in copy after configure.' );
     });
 
-    // if sc is present, sc assets are included as well as provided assets
+    test( 'If sugarcoat is present as well as other copy assets, sugarcoat is included as well.', () => {
 
-    teardown( done => {
+        var configOtherAssets = {
+            dest: './test/sugarcoat',
+            copy: [
+                'sugarcoat',
+                'test/assert/displayGraphic.png'
+            ],
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
 
-        fs.remove( './test/sugarcoat', err => {
+        var processedConfig = configure( configOtherAssets );
 
-            if ( err ) return console.error( err );
+        var regex = /(sugarcoat\/\*\*\/\*)/;
 
-            done();
+        var copySrcPath = processedConfig.copy;
+
+        var scIncluded = false;
+
+        copySrcPath.forEach( ( copyObj ) => {
+
+            var copyObjSrc = copyObj.src.search( regex );
+
+            if ( copyObjSrc !== -1 ) {
+
+                assert.notEqual( copyObjSrc, -1, 'We have the SC assets included.' );
+                scIncluded = true;
+            }
         });
+
+        if ( scIncluded === false ) {
+
+            assert.isTrue( scIncluded, 'Sugarcoat file path was not included in the copy array.');
+        }
     });
 });
 
