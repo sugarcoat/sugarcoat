@@ -2,6 +2,7 @@
 
 var assert = require( 'chai' ).assert;
 var fs = require( 'fs-extra' );
+var path = require( 'path' );
 
 var sugarcoat = require( '../lib/index' );
 var fsp = require( '../lib/fs-promiser' );
@@ -29,7 +30,6 @@ suite( 'Render: File Prefixer', function () {
                 {
                     title: 'CSS File 2',
                     files: './test/assert/parseVarCode.css'
-
                 }
             ]
         };
@@ -98,46 +98,53 @@ suite( 'Render: File Prefixer', function () {
     });
 });
 
-// suite( 'Render: Copy', function() {
+suite( 'Render: Copy', function () {
 
-    // copy assets are added to the SC folder
-    // WIP - look to see where we should be testing this (maybe elsewhere?)
-    // test( 'Any files in Copy are added to the sugarcoat folder.', done => {
+    test( 'Any files in Copy are added to the sugarcoat folder.', done => {
 
-    //     var configGivenHeadingText = {
-    //         dest: './test/sugarcoat',
-    //         copy: [
-    //             'sugarcoat',
-    //             './test/assert/copy.png'
-    //         ],
-    //         sections: [
-    //             {
-    //                 title: 'CSS File',
-    //                 files: './test/assert/parseVarCode.css'
-    //             },
-    //             {
-    //                 title: 'CSS File 2',
-    //                 files: './test/assert/parseVarCode.css'
-    //             }
-    //         ]
-    //     };
+        var configCopyAssets = {
+            dest: './tester/sugarcoat',
+            copy: [
+                './test/assert/displayGraphic.png'
+            ],
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
 
-    //     sugarcoat( configGivenHeadingText )
-    //     .then( function ( data ) {
+        sugarcoat( configCopyAssets )
+        .then( data => {
 
-    //         fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+            var filePath = path.resolve( data.dest, path.relative( data.copy[0].options.cwd, data.copy[0].src ) );
 
-    //             var exp = /<div class="sugar-masthead">(\s*.*\s*)<h1>(.*)<\/h1>/;
-    //             var h1 = exp.exec( fileData.toString() )[2];
+            fs.access( filePath, 0, err => {
 
-    //             assert.equal( h1, testHeadingText, 'The heading text given is outputted to the HTML page.');
-    //         });
+                var exists;
 
-    //         done();
+                if ( !err ) exists = true;
+                else exists = false;
 
-    //     }).catch( error => {
+                assert.isTrue( exists, 'Sugarcoat added the file.' );
 
-    //         assert.isNotObject( error, 'error is not an obj' );
-    //     });
-    // });
-// });
+                done();
+            });
+        });
+    });
+
+    teardown( done => {
+
+        fs.remove( './tester/sugarcoat', err => {
+
+            if ( err ) return console.error( err );
+
+            done();
+        });
+    });
+});

@@ -323,18 +323,6 @@ suite( 'Configure: Copy', function () {
     });
 });
 
-suite( 'Configure: Include', function () {
-
-    // css files are added to template
-
-    // js files are added to template
-
-    // css files are prefixed by default if no prefix is provided
-
-    // css files are prefixed by prefix provided
-
-});
-
 // suite( 'Configure: Log', function () {});
 
 suite( 'Configure: Template', function () {
