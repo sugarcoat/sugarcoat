@@ -323,17 +323,7 @@ suite( 'Configure: Copy', function () {
     });
 });
 
-// suite( 'Configure: Log', function () {});
-
 suite( 'Configure: Template', function () {
-
-    // new partial is used when one is overridden
-
-    // new partial is registered and used if provided
-
-    // helper is registered
-
-    // layout is registered and being used.
 
     test( 'In order to use prefix.selector, prefix.assets must be supplied.', () => {
 
