@@ -268,11 +268,10 @@ suite( 'Configure: Copy', function () {
             ]
         };
 
-        var processedConfig = configure( configNoCopy );
-
-        var regex = /(sugarcoat\/\*\*\/\*)/;
-
-        var copySrcPath = processedConfig.copy[0].src.search( regex );
+        var processedConfig = configure( configNoCopy )
+            , regex = /(sugarcoat\/\*\*\/\*)/
+            , copySrcPath = processedConfig.copy[0].src.search( regex )
+            ;
 
         assert.notEqual( copySrcPath, -1, 'Sugarcoat default file path was included in copy after configure.' );
     });
@@ -297,13 +296,11 @@ suite( 'Configure: Copy', function () {
             ]
         };
 
-        var processedConfig = configure( configOtherAssets );
-
-        var regex = /(sugarcoat\/\*\*\/\*)/;
-
-        var copySrcPath = processedConfig.copy;
-
-        var scIncluded = false;
+        var processedConfig = configure( configOtherAssets )
+            , regex = /(sugarcoat\/\*\*\/\*)/
+            , copySrcPath = processedConfig.copy
+            , scIncluded = false
+            ;
 
         copySrcPath.forEach( ( copyObj ) => {
 
