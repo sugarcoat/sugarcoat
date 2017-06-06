@@ -139,7 +139,7 @@ suite( 'Render: Copy', function () {
 
     teardown( done => {
 
-        fs.remove( './tester/sugarcoat', err => {
+        fs.remove( './tester', err => {
 
             if ( err ) return console.error( err );
 

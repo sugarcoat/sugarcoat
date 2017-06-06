@@ -123,7 +123,7 @@ suite( 'Configure: Display', function () {
         });
     });
 
-    test( 'Display.Title uses user title when provided.', ( done ) => {
+    test( 'Display.Title uses provided title when provided.', ( done ) => {
 
         var testTitle = 'Test that title out!';
         var configGivenTitle = {
