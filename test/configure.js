@@ -314,13 +314,13 @@ suite( 'Configure: Template', function () {
         });
     });
 
-    test.only( 'In order to use template.helpers, template options must be supplied.', () => {
+    test( 'In order to use template.helpers, template options must be supplied.', () => {
 
         var configNoPartialsOrLayout = {
             dest: './test/sugarcoat',
             template: {
                 helpers: {
-                    someHelper: fn() {}
+                    someHelper: function () {}
                 }
             },
             sections: [
@@ -331,6 +331,48 @@ suite( 'Configure: Template', function () {
             ]
         };
 
+        var configNoTemplatePartials = {
+            dest: './test/sugarcoat',
+            template: {
+                layout: './test/assert/configLayout.hbs',
+                helpers: {
+                    someHelper: function () {}
+                }
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        var configNoTemplateLayout = {
+            dest: './test/sugarcoat',
+            template: {
+                partials: {
+                    'head': '',
+                    'nav': '',
+                    'footer': '',
+                    'section-color': '',
+                    'section-typography': '',
+                    'section-variable': '',
+                    'section-default': '',
+                    'custom-partial': './test/assert/configPartial.hbs'
+                },
+                helpers: {
+                    someHelper: function () {}
+                }
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        // Test if we error out when both partials and layout is not supplied
         sugarcoat( configNoPartialsOrLayout )
         .then( data => {
 
@@ -338,11 +380,20 @@ suite( 'Configure: Template', function () {
 
         }).catch( error => {
 
-            assert.instanceOf( data, Error, 'The object was an Error Object.' );
+            assert.instanceOf( error, Error, 'The object was an Error Object.' );
 
-            assert.propertyVal( data, 'message', errors.configTemplateHelpers, 'Sugarcoat gave us the correct error.' );
+            assert.propertyVal( error, 'message', errors.configTemplateHelpers, 'Sugarcoat gave us the correct error.' );
         });
 
+        // Test if the helper is added when layout is provided
+        var processedConfigNoPartial = configure( configNoTemplatePartials );
+
+        assert.isFunction( processedConfigNoPartial.template.helpers.someHelper, 'Sugarcoat included our new handlebars helper.' );
+
+        // Test if the helper is added when partials is provided
+        var processedConfigNoLayout = configure( configNoTemplateLayout );
+
+        assert.isFunction( processedConfigNoLayout.template.helpers.someHelper, 'Sugarcoat included our new handlebars helper.' );
     });
 
     teardown( done => {
