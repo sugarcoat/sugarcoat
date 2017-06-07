@@ -162,83 +162,6 @@ suite( 'Configure: Display', function () {
         });
     });
 
-    test( 'When Display.graphic is used an image tag is added to the HTML file ', ( done ) => {
-
-        var configGivenImg = {
-            dest: './test/sugarcoat',
-            display: {
-                graphic: './test/assert/displayGraphic.png'
-            },
-            sections: [
-                {
-                    title: 'CSS File',
-                    files: './test/assert/parseVarCode.css'
-                },
-                {
-                    title: 'CSS File 2',
-                    files: './test/assert/parseVarCode.css'
-                }
-            ]
-        };
-
-        sugarcoat( configGivenImg )
-        .then( function ( data ) {
-
-            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
-
-                var exp = /<div class="sugar-masthead">(\s*|.*)<img src=".*" \/>/;
-                var img = fileData.toString().search( exp );
-
-                assert.notEqual( img, '-1', 'There is an image added to the head of the HTML page.');
-            });
-
-            done();
-
-        }).catch( error => {
-
-            assert.isNotObject( error, 'error is not an obj' );
-        });
-    });
-
-    test( 'When Display.headingText is used an H1 tag is added to the HTML file ', ( done ) => {
-
-        var testHeadingText = 'Test Heading Text';
-        var configGivenHeadingText = {
-            dest: './test/sugarcoat',
-            display: {
-                headingText: `${testHeadingText}`
-            },
-            sections: [
-                {
-                    title: 'CSS File',
-                    files: './test/assert/parseVarCode.css'
-                },
-                {
-                    title: 'CSS File 2',
-                    files: './test/assert/parseVarCode.css'
-                }
-            ]
-        };
-
-        sugarcoat( configGivenHeadingText )
-        .then( function ( data ) {
-
-            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
-
-                var exp = /<div class="sugar-masthead">(\s*.*\s*)<h1>(.*)<\/h1>/;
-                var h1 = exp.exec( fileData.toString() )[2];
-
-                assert.equal( h1, testHeadingText, 'The heading text given is outputted to the HTML page.');
-            });
-
-            done();
-
-        }).catch( error => {
-
-            assert.isNotObject( error, 'error is not an obj' );
-        });
-    });
-
     teardown( done => {
 
         fs.remove( './test/sugarcoat', err => {
@@ -391,6 +314,11 @@ suite( 'Configure: Template', function () {
         });
     });
 
+    test( 'In order to use template.helpers, template options must be supplied.', () => {
+
+
+    });
+
     teardown( done => {
 
         fs.remove( './test/sugarcoat', err => {
@@ -403,30 +331,6 @@ suite( 'Configure: Template', function () {
 });
 
 suite( 'Configure: Sections', function () {
-
-    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', () => {
-
-        var configMissingOnlyTitle = {
-            dest: './test/sugarcoat',
-            sections: [
-                {
-                    files: './test/assert/parseVarCode.css'
-                }
-            ]
-        };
-
-        sugarcoat( configMissingOnlyTitle )
-        .then( data => {
-
-            assert.instanceOf( data, Error, 'Sugarcoat should be erroring out.' );
-
-        }, data => {
-
-            assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
-            assert.propertyVal( data, 'message', errors.configSectionTitleMissing, 'Sugarcoat gave us the correct error.' );
-        });
-    });
 
     test( 'Section array is set to be required. Section array errored out when not supplied.', () => {
 
@@ -467,6 +371,30 @@ suite( 'Configure: Sections', function () {
         });
     });
 
+    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', () => {
+
+        var configMissingOnlyTitle = {
+            dest: './test/sugarcoat',
+            sections: [
+                {
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        sugarcoat( configMissingOnlyTitle )
+        .then( data => {
+
+            assert.instanceOf( data, Error, 'Sugarcoat should be erroring out.' );
+
+        }, data => {
+
+            assert.instanceOf( data, Error, 'The object was an Error Object.' );
+
+            assert.propertyVal( data, 'message', errors.configSectionTitleMissing, 'Sugarcoat gave us the correct error.' );
+        });
+    });
+
     test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', () => {
 
         var configMissingOneFiles = {
@@ -489,6 +417,42 @@ suite( 'Configure: Sections', function () {
 
             assert.propertyVal( data, 'message', errors.configSectionFileMissing, 'Sugarcoat gave us the correct error.' );
         });
+    });
+
+    test( 'If section.mode or section.template is not provided, sugarcoat used the default partial.', () => {
+
+        var configDefaultPartial = {
+            dest: './test/sugarcoat',
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        var processedConfig = configure( configDefaultPartial );
+
+        assert.equal( processedConfig.sections[0].template, 'section-default', 'Section object with no mode or template uses the default partial.' );
+    });
+
+    test.only( 'If section.mode is defined but section.template is not, sugarcoat used the correct partial.', () => {
+
+        var configVarPartial = {
+            dest: './test/sugarcoat',
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css',
+                    mode: 'variable'
+                }
+            ]
+        };
+
+        var processedConfig = configure( configVarPartial );
+
+        assert.equal( processedConfig.sections[0].template, 'section-variable', 'Section object with no template uses the variable partial.' );
+
     });
 
     teardown( done => {
