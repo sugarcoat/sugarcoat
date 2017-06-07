@@ -36,7 +36,6 @@ suite( 'Configure: Dest', function () {
 
             assert.propertyVal( data, 'message', errors.configDestMissing, 'Sugarcoat gave us the correct error.' );
         });
-
     });
 
     test( 'Destination can be set to none. No index file is created.', () => {
@@ -72,6 +71,8 @@ suite( 'Configure: Dest', function () {
 
                 assert.isFalse( exists, 'Sugarcoat did not create a index.html file.' );
             });
+        }).catch( error => {
+            console.log('is something else happenin here?');
         });
     });
 
@@ -88,7 +89,7 @@ suite( 'Configure: Dest', function () {
 
 suite( 'Configure: Display', function () {
 
-    test( 'Display.Title is given default title when none is provided.', ( done ) => {
+    test( 'Display.Title is given default title when none is provided.', () => {
 
         var configMissingTitle = {
             dest: './test/sugarcoat',
@@ -115,15 +116,13 @@ suite( 'Configure: Display', function () {
                 assert.equal( title, 'Pattern Library', 'The default title was used.');
             });
 
-            done();
-
         }).catch( error => {
 
             assert.isNotObject( error, 'error is not an obj' );
         });
     });
 
-    test( 'Display.Title uses provided title when provided.', ( done ) => {
+    test( 'Display.Title uses provided title when provided.', () => {
 
         var testTitle = 'Test that title out!';
         var configGivenTitle = {
@@ -153,8 +152,6 @@ suite( 'Configure: Display', function () {
 
                 assert.equal( title[1], testTitle, 'The default title was used.');
             });
-
-            done();
 
         }).catch( error => {
 
@@ -378,11 +375,11 @@ suite( 'Configure: Template', function () {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when template partials or layout are not supplied.' );
 
-        }).catch( error => {
+        }, data => {
 
-            assert.instanceOf( error, Error, 'The object was an Error Object.' );
+            assert.instanceOf( data, Error, 'The object was an Error Object.' );
 
-            assert.propertyVal( error, 'message', errors.configTemplateHelpers, 'Sugarcoat gave us the correct error.' );
+            assert.propertyVal( data, 'message', errors.configTemplateHelpers, 'Sugarcoat gave us the correct error.' );
         });
 
         // Test if the helper is added when layout is provided
