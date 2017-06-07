@@ -314,8 +314,34 @@ suite( 'Configure: Template', function () {
         });
     });
 
-    test( 'In order to use template.helpers, template options must be supplied.', () => {
+    test.only( 'In order to use template.helpers, template options must be supplied.', () => {
 
+        var configNoPartialsOrLayout = {
+            dest: './test/sugarcoat',
+            template: {
+                helpers: {
+                    someHelper: fn() {}
+                }
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        sugarcoat( configNoPartialsOrLayout )
+        .then( data => {
+
+            assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when template partials or layout are not supplied.' );
+
+        }).catch( error => {
+
+            assert.instanceOf( data, Error, 'The object was an Error Object.' );
+
+            assert.propertyVal( data, 'message', errors.configTemplateHelpers, 'Sugarcoat gave us the correct error.' );
+        });
 
     });
 
@@ -436,7 +462,7 @@ suite( 'Configure: Sections', function () {
         assert.equal( processedConfig.sections[0].template, 'section-default', 'Section object with no mode or template uses the default partial.' );
     });
 
-    test.only( 'If section.mode is defined but section.template is not, sugarcoat used the correct partial.', () => {
+    test( 'If section.mode is defined but section.template is not, sugarcoat used the correct partial.', () => {
 
         var configVarPartial = {
             dest: './test/sugarcoat',
@@ -452,7 +478,6 @@ suite( 'Configure: Sections', function () {
         var processedConfig = configure( configVarPartial );
 
         assert.equal( processedConfig.sections[0].template, 'section-variable', 'Section object with no template uses the variable partial.' );
-
     });
 
     teardown( done => {
