@@ -97,7 +97,7 @@ suite( 'Render: File Prefixer', function () {
     });
 });
 
-suite( 'Render: Copy', function () {
+suite( 'Render: Copy Assets', function () {
 
     test( 'Any files in Copy are added to the sugarcoat folder.', done => {
 
@@ -147,3 +147,7 @@ suite( 'Render: Copy', function () {
         });
     });
 });
+
+// test out if a rendered custom patial worked correctly
+//
+// same for custom layou

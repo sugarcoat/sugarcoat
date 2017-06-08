@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require( 'chai' ).assert;
-var fs = require( 'fs' );
+var fs = require( 'fs-extra' );
 
 var parser = require( '../lib/parser' );
 var sugarcoat = require( '../lib/index' );
@@ -11,7 +11,7 @@ suite( 'Parser: parseComment', function () {
     test( 'HTML comments are consumed and context applied is accurate', function () {
 
         var configParseHTMLComment = {
-            dest: './documentation',
+            dest: './test/sugarcoat',
             display: {
                 title: 'Pattern Library'
             },
@@ -41,10 +41,10 @@ suite( 'Parser: parseComment', function () {
         });
     });
 
-    test( 'An error is returned from Comment Serializer when there was an issue parsing comments and Sugarcoat returns an rejected promise.', done => {
+    test( 'Sugarcoat returned an error from Comment Serializer when there was an issue parsing comments.', () => {
 
         var configParserError = {
-            dest: './documentation',
+            dest: './test/sugarcoat',
             display: {
                 title: 'Pattern Library'
             },
@@ -61,11 +61,17 @@ suite( 'Parser: parseComment', function () {
 
             assert.instanceOf( data, Error, 'Sugarcoat should return an error and reject the promise.' );
 
-            done();
-
         }, data => {
 
             assert.instanceOf( data, Error, 'The object returned was an Error object.');
+        });
+    });
+
+    teardown( done => {
+
+        fs.remove( './test/sugarcoat', err => {
+
+            if ( err ) return console.error( err );
 
             done();
         });
@@ -232,3 +238,5 @@ suite( 'Parser: parseVarCode', function () {
         });
     });
 });
+
+//
