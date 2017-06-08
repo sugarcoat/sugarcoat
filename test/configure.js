@@ -71,8 +71,6 @@ suite( 'Configure: Dest', function () {
 
                 assert.isFalse( exists, 'Sugarcoat did not create a index.html file.' );
             });
-        }).catch( error => {
-            console.log('is something else happenin here?');
         });
     });
 
@@ -89,7 +87,7 @@ suite( 'Configure: Dest', function () {
 
 suite( 'Configure: Display', function () {
 
-    test( 'Display.Title is given default title when none is provided.', () => {
+    test( 'Display.Title is given default title when none is provided.', done => {
 
         var configMissingTitle = {
             dest: './test/sugarcoat',
@@ -112,13 +110,13 @@ suite( 'Configure: Display', function () {
 
                 var exp = /<title>(.*)<\/title>/;
                 var title = exp.exec( fileData.toString() )[1];
-
                 assert.equal( title, 'Pattern Library', 'The default title was used.');
+                done();
             });
 
         }).catch( error => {
 
-            assert.isNotObject( error, 'error is not an obj' );
+            assert.isNotObject( error, 'Error is not an object.' );
         });
     });
 
@@ -219,24 +217,24 @@ suite( 'Configure: Copy', function () {
         var processedConfig = configure( configOtherAssets )
             , regex = /(sugarcoat\/\*\*\/\*)/
             , copySrcPath = processedConfig.copy
-            , scIncluded = false
             ;
 
-        copySrcPath.forEach( ( copyObj ) => {
-
-            var copyObjSrc = copyObj.src.search( regex );
-
-            if ( copyObjSrc !== -1 ) {
-
-                assert.notEqual( copyObjSrc, -1, 'We have the SC assets included.' );
-                scIncluded = true;
+        var expected = {
+            src: `${ processedConfig.cwd }/lib/templates/sugarcoat/**/*`,
+            options: {
+                nodir: true,
+                cwd: `${ processedConfig.cwd }/lib/templates`
             }
+        };
+
+        var found = copySrcPath.find( obj => {
+            var search = obj.src.search( regex );
+
+            if ( search !== -1 ) return true;
+            else return false;
         });
 
-        if ( scIncluded === false ) {
-
-            assert.isTrue( scIncluded, 'Sugarcoat file path was not included in the copy array.');
-        }
+        assert.deepEqual( found, expected, 'We found the SC assets included in the copy array.');
     });
 });
 
