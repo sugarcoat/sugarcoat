@@ -3,15 +3,35 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"><!--<![endif]-->
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>{{ display.title }}</title>
   {{> head}}
 </head>
 <body>
-  <p>HERRROW</p>
+
   <div class="sugar-page-wrapper">
+  <!-- Test custom Layout -->
+
+    {{> nav }}
+
+    <a class="sugar-btn-accordion sugar-nav-toggle">Toggle</a>
 
     <div class="sugar-main">
 
-      {{> section-custom}}
+      <div class="sugar-masthead">
+        {{#if display.graphic }}
+          <img src="{{ display.graphic }}" />
+        {{/if}}
+        {{#if display.headingText }}
+          <h1>{{ display.headingText }}</h1>
+        {{/if}}
+      </div>
+
+      {{#each sections as |section|}}
+
+        {{> (lookup . 'template') }}
+
+      {{/each}}
+
       {{> footer}}
 
     </div>

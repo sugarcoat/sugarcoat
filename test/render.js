@@ -154,9 +154,9 @@ suite( 'Render: Copy Assets', function () {
 
 suite( 'Render: Custom Layout and Partials', function () {
 
-    test( 'Custom Partials output is exactly as it should be.', (done)  => {
+    test( 'Custom Partials output is exactly as it should be.', ( done )  => {
 
-        var config = {
+        var configCustomPartial = {
             dest: './test/sugarcoat',
             template: {
                 partials: {
@@ -175,7 +175,7 @@ suite( 'Render: Custom Layout and Partials', function () {
             ]
         };
 
-        sugarcoat( config )
+        sugarcoat( configCustomPartial )
         .then( function ( data ) {
 
             fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
@@ -196,10 +196,46 @@ suite( 'Render: Custom Layout and Partials', function () {
         });
     });
 
-    // test( 'Custom Layout output is exactly as it should be.', function () {
+    test( 'Custom Layout output is exactly as it should be.', function ( done ) {
 
-    //     // replicate above but test the whole output
-    // });
+        var configCustomLayout = {
+            dest: './test/sugarcoat',
+            template: {
+                layout: './test/assert/renderCustomLayout.hbs'
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
+                }
+            ]
+        };
+
+        sugarcoat( configCustomLayout )
+        .then( function ( data ) {
+
+            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+
+                if ( error ) assert.fail( error );
+                else {
+
+                    var exp = /(<!-- Test custom Layout -->)/;
+                    var layout = exp.exec( fileData.toString() )[1];
+                    assert.equal( layout, '<!-- Test custom Layout -->', 'The custom layout was used.');
+                    done();
+                }
+            });
+
+        }).catch( error => {
+
+            assert.notTypeOf( error, 'Error', 'Error is not an Error object.' );
+        });
+
+    });
 
     teardown( done => {
 
