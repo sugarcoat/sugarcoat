@@ -150,4 +150,60 @@ suite( 'Render: Copy Assets', function () {
 
 // test out if a rendered custom patial worked correctly
 //
-// same for custom layou
+// same for custom layout
+
+suite( 'Render: Custom Layout and Partials', function () {
+
+    test( 'Custom Partials output is exactly as it should be.', () => {
+
+        // create test partial
+        // create test data file
+        // run sc, read file and compare section to expected output
+
+        var configCustomPartial = {
+            dest: './test/sugarcoat',
+            template: {
+                layout: './test/assert/rednerCustomLayout.hbs',
+                partials: {
+                    'head': '',
+                    'nav': '',
+                    'footer': '',
+                    'section-color': '',
+                    'section-typography': '',
+                    'section-variable': '',
+                    'section-default': '',
+                    'custom-partial': '.test/assert/renderCustomPartial.hbs'
+                }
+            },
+            sections: [
+                {
+                    title: 'test',
+                    files: './test/assert/renderPartial.html'
+                }
+            ]
+        };
+
+        // var partialExpected = '';
+
+        sugarcoat( configCustomPartial )
+        .then( data => {
+            console.log(data);
+            // fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+
+                // console.log( fileData );
+                // var exp = /<section class="sugar-section">(\s|\S)*<\/section>/;
+                // var partialSection = exp.exec( fileData.toString() );
+                // console.log(partialSection);
+                // assert.equal( title, 'Pattern Library'
+                // done();
+            // });
+        }, data => {
+            done();
+        });
+    });
+
+    // test( 'Custom Layout output is exactly as it should be.', function () {
+
+    //     // replicate above but test the whole output
+    // });
+});
