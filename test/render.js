@@ -203,7 +203,7 @@ suite( 'Render: Custom Layout and Partials', function () {
 
     teardown( done => {
 
-        fs.remove( './tester', err => {
+        fs.remove( './test/sugarcoat', err => {
 
             if ( err ) return console.error( err );
 
