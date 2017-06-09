@@ -154,51 +154,45 @@ suite( 'Render: Copy Assets', function () {
 
 suite( 'Render: Custom Layout and Partials', function () {
 
-    test( 'Custom Partials output is exactly as it should be.', () => {
+    test( 'Custom Partials output is exactly as it should be.', (done)  => {
 
-        // create test partial
-        // create test data file
-        // run sc, read file and compare section to expected output
-
-        var configCustomPartial = {
+        var config = {
             dest: './test/sugarcoat',
             template: {
-                layout: './test/assert/rednerCustomLayout.hbs',
                 partials: {
-                    'head': '',
-                    'nav': '',
-                    'footer': '',
-                    'section-color': '',
-                    'section-typography': '',
-                    'section-variable': '',
-                    'section-default': '',
-                    'custom-partial': '.test/assert/renderCustomPartial.hbs'
+                    'head': './test/assert/renderCustomPartial.hbs'
                 }
             },
             sections: [
                 {
-                    title: 'test',
-                    files: './test/assert/renderPartial.html'
+                    title: 'CSS File',
+                    files: './test/assert/parseVarCode.css'
+                },
+                {
+                    title: 'CSS File 2',
+                    files: './test/assert/parseVarCode.css'
                 }
             ]
         };
 
-        // var partialExpected = '';
+        sugarcoat( config )
+        .then( function ( data ) {
 
-        sugarcoat( configCustomPartial )
-        .then( data => {
-            console.log(data);
-            // fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+            fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
 
-                // console.log( fileData );
-                // var exp = /<section class="sugar-section">(\s|\S)*<\/section>/;
-                // var partialSection = exp.exec( fileData.toString() );
-                // console.log(partialSection);
-                // assert.equal( title, 'Pattern Library'
-                // done();
-            // });
-        }, data => {
-            done();
+                if ( error ) assert.fail( error );
+                else {
+
+                    var exp = /(<!-- Test custom partial -->)/;
+                    var partial = exp.exec( fileData.toString() )[1];
+                    assert.equal( partial, '<!-- Test custom partial -->', 'The custom partial was used.');
+                    done();
+                }
+            });
+
+        }).catch( error => {
+
+            assert.notTypeOf( error, 'Error', 'Error is not an Error object.' );
         });
     });
 
@@ -206,4 +200,14 @@ suite( 'Render: Custom Layout and Partials', function () {
 
     //     // replicate above but test the whole output
     // });
+
+    teardown( done => {
+
+        fs.remove( './tester', err => {
+
+            if ( err ) return console.error( err );
+
+            done();
+        });
+    });
 });

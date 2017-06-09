@@ -108,15 +108,19 @@ suite( 'Configure: Display', function () {
 
             fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
 
-                var exp = /<title>(.*)<\/title>/;
-                var title = exp.exec( fileData.toString() )[1];
-                assert.equal( title, 'Pattern Library', 'The default title was used.');
-                done();
+                if ( error ) assert.fail( error );
+                else {
+
+                    var exp = /<title>(.*)<\/title>/;
+                    var title = exp.exec( fileData.toString() )[1];
+                    assert.equal( title, 'Pattern Library', 'The default title was used.');
+                    done();
+                }
             });
 
         }).catch( error => {
 
-            assert.isNotObject( error, 'Error is not an object.' );
+            assert.notTypeOf( error, 'Error', 'Error is not an Error object.' );
         });
     });
 
