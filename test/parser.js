@@ -238,5 +238,3 @@ suite( 'Parser: parseVarCode', function () {
         });
     });
 });
-
-//

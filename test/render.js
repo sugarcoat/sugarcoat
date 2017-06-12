@@ -148,10 +148,6 @@ suite( 'Render: Copy Assets', function () {
     });
 });
 
-// test out if a rendered custom patial worked correctly
-//
-// same for custom layout
-
 suite( 'Render: Custom Layout and Partials', function () {
 
     test( 'Custom Partials output is exactly as it should be.', ( done )  => {
