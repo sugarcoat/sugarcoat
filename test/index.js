@@ -8,14 +8,20 @@ suite( 'Glob files', function () {
     // test globfile function in index file
     // test if sections file path (that includes multiple files) globs the files properly
 
-    test.only( 'Sugarcoat globs our file paths correctly.', function () {
+    test.only( 'Sugarcoat globs our file paths correctly.', function (done) {
 
         var globFilesConfig = {
             dest: './test/sugarcoat',
             sections: [
                 {
                     title: 'CSS Files',
-                    files: './test/assert/*.css'
+                    files: [
+                        // '!./test/assert/prefixAssets-assert.css',
+                        '!./test/assert/parseComment.css',
+                        './test/assert/*.css'
+                        // '!./test/assert/configPartial.hbs',
+                        // './test/assert/*.hbs'
+                    ]
                 }
             ]
         };
@@ -26,10 +32,13 @@ suite( 'Glob files', function () {
             var fileData = data.sections[ 0 ];
 
             console.log(fileData);
+            done();
 
         }, data => {
 
-            assert.isNotObject( data, 'error is not an obj' );
+            // assert.isString( data, 'error is not an obj' );
+            console.log('HERRRO', data);
+            done();
         });
     });
 });
