@@ -7,9 +7,6 @@ var path = require( 'path' );
 var sugarcoat = require( '../lib/index' );
 var fsp = require( '../lib/fs-promiser' );
 
-// suite( 'Render: renderLayout', function() {});
-    // test that the rendered html file is as it should be?
-
 suite( 'Render: File Prefixer', function () {
 
     test( 'By default, assets are prefixed as .sugar-example. Output file is prefixed with "prefixed-"',  done => {
