@@ -147,7 +147,7 @@ suite( 'Render: Copy Assets', function () {
 
 suite( 'Render: Custom Layout and Partials', function () {
 
-    test( 'Custom Partials output is exactly as it should be.', ( done )  => {
+    test( 'Custom Partials output is exactly as it should be.', done  => {
 
         var configCustomPartial = {
             dest: './test/sugarcoat',
@@ -186,10 +186,11 @@ suite( 'Render: Custom Layout and Partials', function () {
         }).catch( error => {
 
             assert.notTypeOf( error, 'Error', 'Error is not an Error object.' );
+            done();
         });
     });
 
-    test( 'Custom Layout output is exactly as it should be.', function ( done ) {
+    test( 'Custom Layout output is exactly as it should be.', done => {
 
         var configCustomLayout = {
             dest: './test/sugarcoat',

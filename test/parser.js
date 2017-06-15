@@ -41,7 +41,7 @@ suite( 'Parser: parseComment', function () {
         });
     });
 
-    test( 'Sugarcoat returned an error from Comment Serializer when there was an issue parsing comments.', () => {
+    test( 'Sugarcoat returned an error from Comment Serializer when there was an issue parsing comments.', done => {
 
         var configParserError = {
             dest: './test/sugarcoat',
@@ -60,10 +60,12 @@ suite( 'Parser: parseComment', function () {
         .then( data => {
 
             assert.instanceOf( data, Error, 'Sugarcoat should return an error and reject the promise.' );
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object returned was an Error object.');
+            done();
         });
     });
 

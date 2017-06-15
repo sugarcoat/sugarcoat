@@ -167,10 +167,6 @@ suite( 'Configure: Display', function () {
         }, data => {
             assert.isNotObject( data, 'error is not an obj' );
             done();
-        }).catch( error => {
-
-            assert.isNotObject( error, 'error is not an obj' );
-            done();
         });
     });
 
@@ -257,7 +253,7 @@ suite( 'Configure: Copy', function () {
 
 suite( 'Configure: Template', function () {
 
-    test( 'In order to use prefix.selector, prefix.assets must be supplied.', () => {
+    test( 'In order to use prefix.selector, prefix.assets must be supplied.', done => {
 
         var configNoPrefixedAssets = {
             dest: './test/sugarcoat',
@@ -280,16 +276,17 @@ suite( 'Configure: Template', function () {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configPrefixAssetsMissing, 'Sugarcoat gave us the correct error.' );
+            done();
         });
     });
 
-    test( 'In order to use prefix.selector, template options must be supplied.', () => {
+    test( 'In order to use prefix.selector, template options must be supplied.', done => {
 
         var configNoPrefixedAssets = {
             dest: './test/sugarcoat',
@@ -317,16 +314,17 @@ suite( 'Configure: Template', function () {
         .then( data => {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when prefix.assets is not supplied.');
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configTemplateOptionsMissing, 'Sugarcoat gave us the correct error.' );
+            done();
         });
     });
 
-    test( 'In order to use template.helpers, template options must be supplied.', () => {
+    test( 'In order to use template.helpers, template options must be supplied.', done => {
 
         var configNoPartialsOrLayout = {
             dest: './test/sugarcoat',
@@ -393,7 +391,6 @@ suite( 'Configure: Template', function () {
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configTemplateHelpers, 'Sugarcoat gave us the correct error.' );
         });
 
@@ -406,6 +403,7 @@ suite( 'Configure: Template', function () {
         var processedConfigNoLayout = configure( configNoTemplateLayout );
 
         assert.isFunction( processedConfigNoLayout.template.helpers.someHelper, 'Sugarcoat included our new handlebars helper.' );
+        done();
     });
 
     teardown( done => {
@@ -422,7 +420,7 @@ suite( 'Configure: Template', function () {
 
 suite( 'Configure: Sections', function () {
 
-    test( 'Section array is set to be required. Section array errored out when not supplied.', () => {
+    test( 'Section array is set to be required. Section array errored out when not supplied.', done => {
 
         var configMissingTitleFiles = {
             dest: './test/sugarcoat'
@@ -432,16 +430,17 @@ suite( 'Configure: Sections', function () {
         .then( data => {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out.' );
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configSectionArrayMissing, 'Sugarcoat gave us the correct error.' );
+            done();
         });
     });
 
-    test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', () => {
+    test( 'Section objects are set to be required. Section array errored out when section object(s) were not supplied.', done => {
 
         var configMissingTitleFiles = {
             dest: './test/sugarcoat',
@@ -452,16 +451,17 @@ suite( 'Configure: Sections', function () {
         .then( data => {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out.' );
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configSectionObjectMissing, 'Sugarcoat gave us the correct error.' );
+            done();
         });
     });
 
-    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', () => {
+    test( 'Sections.title is set to be required. Sections.title errored out when sections.title is the only required option that was not supplied.', done => {
 
         var configMissingOnlyTitle = {
             dest: './test/sugarcoat',
@@ -476,16 +476,17 @@ suite( 'Configure: Sections', function () {
         .then( data => {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out.' );
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configSectionTitleMissing, 'Sugarcoat gave us the correct error.' );
+            done();
         });
     });
 
-    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', () => {
+    test( 'Section.files is set to be required. Section.files errored out when it was not supplied for one section object.', done => {
 
         var configMissingOneFiles = {
             dest: './test/sugarcoat',
@@ -500,12 +501,13 @@ suite( 'Configure: Sections', function () {
         .then( data => {
 
             assert.isArray( data, 'Sugarcoat should be erroring out.' );
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configSectionFileMissing, 'Sugarcoat gave us the correct error.' );
+            done();
         });
     });
 
