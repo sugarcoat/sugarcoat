@@ -108,7 +108,12 @@ suite( 'Configure: Display', function () {
 
             fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
 
-                if ( error ) assert.fail( error );
+                if ( error ) {
+
+                    assert.fail( error );
+                    done();
+
+                }
                 else {
 
                     var exp = /<title>(.*)<\/title>/;
@@ -121,6 +126,7 @@ suite( 'Configure: Display', function () {
         }).catch( error => {
 
             assert.notTypeOf( error, 'Error', 'Error is not an Error object.' );
+            done();
         });
     });
 
