@@ -404,6 +404,7 @@ suite( 'Configure: Template', function () {
             done();
         });
     });
+
 });
 
 suite( 'Configure: Sections', function () {

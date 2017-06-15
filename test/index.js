@@ -1,14 +1,13 @@
 'use strict';
 
 var assert = require( 'chai' ).assert;
+var fs = require( 'fs-extra' );
 
 var sugarcoat = require( '../lib/index' );
 
 suite( 'Glob files', function () {
-    // test globfile function in index file
-    // test if sections file path (that includes multiple files) globs the files properly
 
-    test.only( 'Sugarcoat globs our file paths correctly.', function (done) {
+    test( 'Sugarcoat globs our file paths correctly.', function () {
 
         var globFilesConfig = {
             dest: './test/sugarcoat',
@@ -16,11 +15,8 @@ suite( 'Glob files', function () {
                 {
                     title: 'CSS Files',
                     files: [
-                        // '!./test/assert/prefixAssets-assert.css',
-                        '!./test/assert/parseComment.css',
-                        './test/assert/*.css'
-                        // '!./test/assert/configPartial.hbs',
-                        // './test/assert/*.hbs'
+                        './test/assert/*.css',
+                        '!./test/assert/parseComment.css'
                     ]
                 }
             ]
@@ -29,15 +25,23 @@ suite( 'Glob files', function () {
         sugarcoat( globFilesConfig )
         .then( data => {
 
-            var fileData = data.sections[ 0 ];
+            var fileData = data.sections[ 0 ].files;
 
-            console.log(fileData);
-            done();
+            assert.lengthOf( fileData, 5, 'There are 5 files that glob found.' );
+            assert.propertyVal( fileData[ 3 ], 'path', './test/assert/prefixAssets.css', 'The fourth item in the array is the correct file.' );
 
         }, data => {
 
-            // assert.isString( data, 'error is not an obj' );
-            console.log('HERRRO', data);
+            assert.isString( data, 'error is not a string' );
+        });
+    });
+
+    teardown( done => {
+
+        fs.remove( './test/sugarcoat', err => {
+
+            if ( err ) return console.error( err );
+
             done();
         });
     });
@@ -75,6 +79,16 @@ suite( 'Read Sections', function () {
         }, data => {
 
             assert.isNotObject( data, 'error is not an obj' );
+        });
+    });
+
+    teardown( done => {
+
+        fs.remove( './test/sugarcoat', err => {
+
+            if ( err ) return console.error( err );
+
+            done();
         });
     });
 });
