@@ -5,7 +5,7 @@ var fs = require( 'fs-extra' );
 
 var sugarcoat = require( '../lib/index' );
 
-suite( 'Glob files', function () {
+suite( 'Index: Glob files', function () {
 
     test( 'Sugarcoat globs our file paths correctly.', function () {
 
@@ -47,7 +47,7 @@ suite( 'Glob files', function () {
     });
 });
 
-suite( 'Read Sections', function () {
+suite( 'Index: Read Sections', function () {
 
     test( 'Sugarcoat is converting our section file string into an object with the correct data.', function () {
 

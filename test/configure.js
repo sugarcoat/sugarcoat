@@ -10,7 +10,7 @@ var configure = require( '../lib/configure' );
 
 suite( 'Configure: Dest', function () {
 
-    test( 'Destination is set to be required. Destination errored out when not supplied.', () => {
+    test( 'Destination is set to be required. Destination errored out when not supplied.', done => {
 
         var configMissingDest = {
             sections: [
@@ -29,16 +29,17 @@ suite( 'Configure: Dest', function () {
         .then( data => {
 
             assert.instanceOf( data, Error, 'Sugarcoat should be erroring out when a dest is not supplied.');
+            done();
 
         }, data => {
 
             assert.instanceOf( data, Error, 'The object was an Error Object.' );
-
             assert.propertyVal( data, 'message', errors.configDestMissing, 'Sugarcoat gave us the correct error.' );
+            done();
         });
     });
 
-    test( 'Destination can be set to none. No index file is created.', () => {
+    test( 'Destination can be set to none. No index file is created.', done => {
 
         var configNoDest = {
             dest: 'none',
@@ -70,6 +71,7 @@ suite( 'Configure: Dest', function () {
                 else exists = false;
 
                 assert.isFalse( exists, 'Sugarcoat did not create a index.html file.' );
+                done();
             });
         });
     });
@@ -130,7 +132,7 @@ suite( 'Configure: Display', function () {
         });
     });
 
-    test( 'Display.Title uses provided title when provided.', () => {
+    test( 'Display.Title uses provided title when provided.', done => {
 
         var testTitle = 'Test that title out!';
         var configGivenTitle = {
@@ -159,11 +161,16 @@ suite( 'Configure: Display', function () {
                 var title = exp.exec( fileData.toString() );
 
                 assert.equal( title[1], testTitle, 'The default title was used.');
+                done();
             });
 
+        }, data => {
+            assert.isNotObject( data, 'error is not an obj' );
+            done();
         }).catch( error => {
 
             assert.isNotObject( error, 'error is not an obj' );
+            done();
         });
     });
 
