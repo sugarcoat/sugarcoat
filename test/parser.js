@@ -19,73 +19,86 @@ suite( 'Parser: parseComment', function () {
                 console.log('ruh roh');
             }
         });
-        // var configParseHTMLComment = {
-        //     dest: './test/sugarcoat',
-        //     display: {
-        //         title: 'Pattern Library'
-        //     },
-        //     sections: [
-        //         {
-        //             title: 'HTML File',
-        //             files: './test/assert/parseComment.html'
-        //         }
-        //     ]
-        // };
-        // var parse = parser( configParseHTMLComment );
+        var configParseHTMLComment = {
+            dest: './test/sugarcoat',
+            display: {
+                title: 'Pattern Library'
+            },
+            sections: [
+                {
+                    title: 'HTML File',
+                    files: './test/assert/parseComment.html'
+                }
+            ]
+        };
+        var parse = parser( configParseHTMLComment );
 
-        // var path = configParseHTMLComment.sections[ 0 ].files;
+        var path = configParseHTMLComment.sections[ 0 ].files;
 
-        // var testPromise = new Promise( ( resolve, reject ) => {
+        var testPromise = new Promise( ( resolve, reject ) => {
 
-        //     fs.readFile( path, 'utf-8', ( err, data ) => {
-        //         if ( err ) return false;
-        //         var value = parse.parseComment( path, data, configParseHTMLComment.sections[ 0 ].mode, configParseHTMLComment.sections[ 0 ].template );
+            fs.readFile( path, 'utf-8', ( err, data ) => {
+                if ( err ) return false;
+                var value = parse.parseComment( path, data, configParseHTMLComment.sections[ 0 ].mode, configParseHTMLComment.sections[ 0 ].template );
 
-        //         return resolve( value );
-        //     });
-        // });
+                return resolve( value );
+            });
+        });
 
-        // return testPromise.then( result => {
-        //     assert.equal( result[ 0 ].context, '<p class="component">\n\tI\'m a component\n\t<!-- an inline comment -->\n</p>', 'following html comment block ignored from context');
-        // });
+        return testPromise.then( result => {
+            assert.equal( result[ 0 ].context, '<p class="component">\n\tI\'m a component\n\t<!-- an inline comment -->\n</p>', 'following html comment block ignored from context');
+        });
     });
 
-    // test( 'Sugarcoat returned an error from Comment Serializer when there was an issue parsing comments.', done => {
+    teardown( done => {
 
-    //     fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+        fs.remove( './test/sugarcoat', err => {
 
-    //         if ( error ) {
-    //             console.log( 'we good');
-    //         }
-    //         else {
-    //             console.log('ruh roh');
-    //         }
-    //     });
-    //     var configParserError = {
-    //         dest: './test/sugarcoat',
-    //         display: {
-    //             title: 'Pattern Library'
-    //         },
-    //         sections: [
-    //             {
-    //                 title: 'CSS File',
-    //                 files: './test/assert/parseComment.css'
-    //             }
-    //         ]
-    //     };
+            if ( err ) return console.error( err );
 
-    //     sugarcoat( configParserError )
-    //     .then( data => {
+            done();
+        });
+    });
+});
 
-    //         assert.instanceOf( data, Error, 'Sugarcoat should return an error and reject the promise.' );
-    //         done();
+suite( 'Parser: comment parser second', function () {
 
-    //     }, data => {
+    test( 'Sugarcoat returned an error from Comment Serializer when there was an issue parsing comments.', done => {
 
-    //         assert.instanceOf( data, Error, 'The object returned was an Error object.');
-    //         done();
-    //     });
-    // });
+        fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
+
+            if ( error ) {
+                console.log( 'we good');
+            }
+            else {
+                console.log('CS ruh roh');
+            }
+        });
+        var configParserError = {
+            dest: './test/sugarcoat',
+            display: {
+                title: 'Pattern Library'
+            },
+            sections: [
+                {
+                    title: 'CSS File',
+                    files: './test/assert/parseComment.css'
+                }
+            ]
+        };
+
+        sugarcoat( configParserError )
+        .then( data => {
+
+            assert.instanceOf( data, Error, 'Sugarcoat should return an error and reject the promise.' );
+            done();
+
+        }, data => {
+
+            assert.instanceOf( data, Error, 'The object returned was an Error object.');
+            done();
+        });
+    });
 
     teardown( done => {
 
