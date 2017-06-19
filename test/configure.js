@@ -150,7 +150,7 @@ suite( 'Configure: Display', function () {
         };
 
         sugarcoat( configGivenTitle )
-        .then( function ( data ) {
+        .then( data => {
 
             fs.readFile( './test/sugarcoat/index.html', 'utf8', ( error, fileData ) => {
 
